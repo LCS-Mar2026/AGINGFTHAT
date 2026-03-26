@@ -1,0 +1,1955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGING? F***THAT! — Reverse Your Age & Extend Your Healthspan | Lee C. Stonehouse</title>
+<meta name="description" content="The no-BS guide to reversing your biological age. 10 proven tenets from Lee C. Stonehouse — ex-martial artist, healthspan expert, author. Available on Amazon.">
+<meta name="keywords" content="aging, healthspan, longevity, reverse aging, biological age, TRT, intermittent fasting, Mediterranean diet, Lee Stonehouse">
+<meta property="og:title" content="AGING? F***THAT! — Lee C. Stonehouse">
+<meta property="og:description" content="10 Steps to Reverse Your Age & Extend Your Healthspan. The book that will change your second half.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Figtree:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black: #080808;
+  --off-black: #0f0f0f;
+  --card: #141414;
+  --card2: #1a1a1a;
+  --border: #222222;
+  --border2: #2d2d2d;
+  --neon: #d4f000;
+  --neon-dim: rgba(212,240,0,0.08);
+  --neon-glow: rgba(212,240,0,0.25);
+  --orange: #ff4d00;
+  --teal: #00dfc8;
+  --white: #f2efe8;
+  --white2: #c8c4bc;
+  --muted: #5a5a5a;
+  --muted2: #3a3a3a;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Figtree', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ─── NOISE TEXTURE ─── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── NAVIGATION ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 64px;
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: all 0.3s;
+}
+
+nav.scrolled {
+  background: rgba(8,8,8,0.97);
+  border-bottom-color: var(--border);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: var(--white);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-logo span {
+  color: var(--neon);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--neon);
+  color: var(--black) !important;
+  padding: 9px 18px;
+  border-radius: 2px;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  transition: all 0.2s !important;
+}
+
+.nav-cta:hover {
+  background: #fff !important;
+  color: var(--black) !important;
+}
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.nav-hamburger span {
+  width: 22px; height: 1.5px;
+  background: var(--white);
+  display: block;
+  transition: all 0.3s;
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #080808 0%, #0d0d0d 40%, #111 100%);
+}
+
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212,240,0,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,240,0,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(80px); }
+}
+
+.hero-accent {
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 800px; height: 800px;
+  background: radial-gradient(circle, rgba(212,240,0,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-accent2 {
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,223,200,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 60px;
+  align-items: flex-end;
+}
+
+.hero-left {}
+
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.2s forwards;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--neon);
+  display: block;
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 11vw, 150px);
+  line-height: 0.88;
+  color: var(--white);
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.3s forwards;
+}
+
+.hero-title .line2 {
+  color: var(--neon);
+  display: block;
+  -webkit-text-stroke: 0;
+}
+
+.hero-title .line3 {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(242,239,232,0.25);
+}
+
+.hero-tagline {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: var(--white2);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 520px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.45s forwards;
+}
+
+.hero-tagline strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.55s forwards;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--neon);
+  color: var(--black);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.25s;
+  border: 2px solid var(--neon);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--black);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary:hover { color: var(--neon); }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-primary svg { position: relative; z-index: 1; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--white);
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 1px solid var(--border2);
+}
+
+.btn-ghost:hover {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.hero-right {
+  opacity: 0;
+  animation: fadeIn 1s ease 0.6s forwards;
+  flex-shrink: 0;
+}
+
+.hero-book-cover {
+  width: 200px;
+  aspect-ratio: 5/8;
+  background: linear-gradient(160deg, #1a1a1a 0%, #111 100%);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  text-align: center;
+  position: relative;
+  box-shadow: -8px 8px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+  transform: perspective(800px) rotateY(-8deg) rotateX(2deg);
+  transition: transform 0.5s ease;
+}
+
+.hero-book-cover:hover {
+  transform: perspective(800px) rotateY(-2deg) rotateX(0deg);
+}
+
+.book-cover-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 12px;
+}
+
+.book-cover-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.book-cover-sub {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  color: var(--neon);
+  margin-bottom: 16px;
+}
+
+.book-cover-divider {
+  width: 40px; height: 1px;
+  background: var(--border2);
+  margin: 0 auto 16px;
+}
+
+.book-cover-author {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+}
+
+.book-cover-badge {
+  position: absolute;
+  top: -10px; right: -10px;
+  background: var(--orange);
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 6px 10px;
+  border-radius: 2px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.2s forwards;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--neon), transparent);
+  animation: scrollPulse 2s ease infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.scroll-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─── SOCIAL PROOF BAR ─── */
+.proof-bar {
+  background: var(--neon);
+  padding: 14px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.proof-ticker {
+  display: flex;
+  gap: 0;
+  animation: ticker 30s linear infinite;
+  white-space: nowrap;
+}
+
+.proof-ticker-inner {
+  display: flex;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.proof-item {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.15em;
+  color: var(--black);
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.proof-dot {
+  width: 4px; height: 4px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ─── SECTIONS SHARED ─── */
+.section {
+  padding: 100px 40px;
+  position: relative;
+}
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 24px; height: 1px;
+  background: var(--neon);
+  display: block;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 6vw, 80px);
+  line-height: 0.92;
+  margin-bottom: 20px;
+}
+
+.section-desc {
+  font-size: 16px;
+  color: var(--white2);
+  line-height: 1.75;
+  font-weight: 300;
+  max-width: 560px;
+}
+
+/* ─── BOOK SECTION ─── */
+.book-section {
+  background: var(--off-black);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.book-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.book-mock {
+  width: 260px;
+  aspect-ratio: 5/8;
+  background: linear-gradient(160deg, #1e1e1e 0%, #141414 100%);
+  border: 1px solid var(--border2);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  box-shadow:
+    -12px 12px 60px rgba(0,0,0,0.7),
+    12px -4px 20px rgba(0,0,0,0.3),
+    0 0 0 1px rgba(255,255,255,0.04),
+    inset 2px 0 0 rgba(255,255,255,0.06);
+  transform: perspective(1000px) rotateY(-10deg) rotateX(3deg);
+  transition: transform 0.5s ease;
+}
+
+.book-mock:hover {
+  transform: perspective(1000px) rotateY(-3deg) rotateX(1deg);
+}
+
+.book-top {}
+.book-mock-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 20px;
+}
+
+.book-mock-line {
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border2), transparent);
+  margin: 16px 0;
+}
+
+.book-mock-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px;
+  line-height: 0.9;
+  color: var(--white);
+}
+
+.book-mock-fthat {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--neon);
+  letter-spacing: 2px;
+}
+
+.book-mock-subtitle {
+  font-size: 9px;
+  color: var(--white2);
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+  margin-top: 12px;
+}
+
+.book-mock-divider {
+  width: 32px; height: 1px;
+  background: var(--border2);
+  margin: 0 auto;
+}
+
+.book-mock-bottom {
+  text-align: center;
+}
+
+.book-mock-author {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+}
+
+.book-shadow {
+  position: absolute;
+  bottom: -20px;
+  width: 200px;
+  height: 30px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.6) 0%, transparent 70%);
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(8px);
+}
+
+.book-glow {
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(ellipse, rgba(212,240,0,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.book-info {}
+
+.book-info-meta {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.book-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.book-meta-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--neon);
+  line-height: 1;
+}
+
+.book-meta-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.book-info-desc {
+  font-size: 16px;
+  color: var(--white2);
+  line-height: 1.8;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.book-info-desc strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.book-price-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.book-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  color: var(--white);
+  line-height: 1;
+}
+
+.book-price-note {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  letter-spacing: 0.1em;
+}
+
+.book-platforms {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.platform-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  color: var(--muted);
+}
+
+/* ─── ABOUT / BACKSTORY ─── */
+.about-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-photo-wrap {
+  position: relative;
+}
+
+.about-photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  background: linear-gradient(160deg, #1a1a1a 0%, #101010 100%);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.about-photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.about-photo-icon {
+  font-size: 48px;
+  opacity: 0.3;
+}
+
+.about-photo-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.4;
+  text-align: center;
+}
+
+/* Replace the placeholder with your photo */
+.about-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.about-photo-label {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(8,8,8,0.9);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 2px;
+  backdrop-filter: blur(8px);
+}
+
+.about-photo-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  color: var(--white);
+  line-height: 1;
+}
+
+.about-photo-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-top: 3px;
+}
+
+.about-corner {
+  position: absolute;
+  top: -12px; right: -12px;
+  background: var(--neon);
+  color: var(--black);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  padding: 8px 12px;
+  border-radius: 2px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.about-text {}
+
+.about-lead {
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.about-body {
+  font-size: 15px;
+  color: var(--white2);
+  line-height: 1.85;
+  font-weight: 300;
+}
+
+.about-body p + p { margin-top: 16px; }
+
+.about-body strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 36px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+
+.about-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--neon);
+  line-height: 1;
+}
+
+.about-stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ─── TENETS SECTION ─── */
+.tenets-section {
+  background: var(--off-black);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.tenets-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: end;
+  margin-bottom: 60px;
+}
+
+.tenets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.tenet-card {
+  background: var(--card);
+  padding: 28px 24px;
+  transition: background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.tenet-card:hover { background: var(--card2); }
+
+.tenet-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 2px; height: 0;
+  background: var(--neon);
+  transition: height 0.3s ease;
+}
+
+.tenet-card:hover::after { height: 100%; }
+
+.tenet-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--border2);
+  margin-bottom: 8px;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.tenet-card:hover .tenet-num { color: rgba(212,240,0,0.15); }
+
+.tenet-icon {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.tenet-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--white);
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.tenet-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials-section {}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.testimonial-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 24px;
+  transition: border-color 0.2s;
+}
+
+.testimonial-card:hover { border-color: var(--border2); }
+
+.testimonial-stars {
+  color: var(--neon);
+  font-size: 14px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.testimonial-text {
+  font-size: 14px;
+  color: var(--white2);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 36px; height: 36px;
+  background: var(--card2);
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.testimonial-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.testimonial-detail {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  margin-top: 2px;
+  letter-spacing: 0.05em;
+}
+
+/* ─── RETREATS SECTION ─── */
+.retreats-section {
+  background: var(--off-black);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.retreats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 48px;
+}
+
+.retreat-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.retreat-card:hover {
+  border-color: var(--border2);
+  transform: translateY(-3px);
+}
+
+.retreat-icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.retreat-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.retreat-name span { color: var(--neon); }
+
+.retreat-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.retreat-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.retreat-features li {
+  font-size: 12px;
+  color: var(--white2);
+  padding-left: 18px;
+  position: relative;
+  line-height: 1.4;
+}
+
+.retreat-features li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--neon);
+  font-size: 11px;
+}
+
+.retreats-text {}
+
+/* ─── EMAIL CAPTURE ─── */
+.capture-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.capture-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,240,0,0.05) 0%, transparent 60%);
+}
+
+.capture-inner {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.capture-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(44px, 6vw, 76px);
+  line-height: 0.9;
+  margin-bottom: 16px;
+}
+
+.capture-title span { color: var(--neon); }
+
+.capture-desc {
+  font-size: 16px;
+  color: var(--white2);
+  line-height: 1.7;
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+
+.capture-form {
+  display: flex;
+  gap: 12px;
+  max-width: 480px;
+  margin: 0 auto 16px;
+}
+
+.capture-input {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--border2);
+  border-radius: 2px;
+  padding: 14px 18px;
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
+  color: var(--white);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.capture-input::placeholder { color: var(--muted); }
+.capture-input:focus { border-color: var(--neon); }
+
+.capture-submit {
+  background: var(--neon);
+  color: var(--black);
+  border: none;
+  border-radius: 2px;
+  padding: 14px 24px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.capture-submit:hover { background: #fff; }
+
+.capture-note {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--off-black);
+  border-top: 1px solid var(--border);
+  padding: 60px 40px 40px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.footer-brand-block {}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.footer-logo span { color: var(--neon); }
+
+.footer-tagline {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  width: 36px; height: 36px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.2s;
+  color: var(--muted);
+}
+
+.social-link:hover {
+  border-color: var(--neon);
+  color: var(--neon);
+  background: var(--neon-dim);
+}
+
+.footer-col {}
+
+.footer-col-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--neon);
+  margin-bottom: 16px;
+}
+
+.footer-col-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col-links a {
+  font-size: 13px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-col-links a:hover { color: var(--white); }
+
+.footer-bottom {
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-copyright {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.footer-legal {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-legal a {
+  font-family: 'Space Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-legal a:hover { color: var(--white); }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── MOBILE NAV PANEL ─── */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: rgba(8,8,8,0.98);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  transform: translateY(-100%);
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.mobile-nav.open { transform: translateY(0); }
+
+.mobile-nav a {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  color: var(--white);
+  text-decoration: none;
+  transition: color 0.2s;
+  letter-spacing: 2px;
+}
+
+.mobile-nav a:hover { color: var(--neon); }
+
+.mobile-nav-close {
+  position: absolute;
+  top: 24px; right: 40px;
+  font-size: 28px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.mobile-nav-close:hover { color: var(--white); }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .hero { padding: 80px 24px 60px; }
+  .hero-content { grid-template-columns: 1fr; gap: 40px; }
+  .hero-right { display: none; }
+
+  .section { padding: 60px 24px; }
+
+  .book-grid,
+  .about-grid,
+  .retreats-grid,
+  .tenets-header { grid-template-columns: 1fr; gap: 40px; }
+
+  .book-visual { order: -1; }
+  .about-photo-wrap { order: -1; }
+
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+  footer { padding: 40px 24px; }
+}
+
+@media (max-width: 600px) {
+  .capture-form { flex-direction: column; }
+  .footer-top { grid-template-columns: 1fr; }
+  .hero-title { font-size: clamp(60px, 15vw, 90px); }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <span class="mobile-nav-close" onclick="closeMobileNav()">✕</span>
+  <a href="#book" onclick="closeMobileNav()">The Book</a>
+  <a href="#about" onclick="closeMobileNav()">About Lee</a>
+  <a href="#tenets" onclick="closeMobileNav()">10 Tenets</a>
+  <a href="#retreats" onclick="closeMobileNav()">Retreats</a>
+  <a href="#waitlist" onclick="closeMobileNav()">Get The Book</a>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">AGING <span>F***THAT!</span></a>
+  <ul class="nav-links">
+    <li><a href="#book">The Book</a></li>
+    <li><a href="#about">About Lee</a></li>
+    <li><a href="#tenets">10 Tenets</a></li>
+    <li><a href="#retreats">Retreats</a></li>
+    <li><a href="#waitlist" class="nav-cta">Get The Book →</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="openMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-accent2"></div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Healthspan Extension · Lee C. Stonehouse</div>
+      <h1 class="hero-title">
+        AGING?<br>
+        <span class="line2">F***</span>
+        <span class="line3">THAT!</span>
+      </h1>
+      <p class="hero-tagline">
+        <strong>10 proven steps to reverse your biological age and extend your healthspan.</strong><br>
+        The no-BS guide for anyone who refuses to accept that getting older means getting worse.
+      </p>
+      <div class="hero-actions">
+        <a href="https://www.amazon.co.uk" target="_blank" class="btn-primary">
+          <span>Get It On Amazon</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+        <a href="#about" class="btn-ghost">My Story</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-book-cover">
+        <div class="book-cover-badge">NEW<br>RELEASE</div>
+        <div class="book-cover-tag">Lee C. Stonehouse</div>
+        <div class="book-cover-title">AGING?</div>
+        <div class="book-cover-sub">F***THAT!</div>
+        <div class="book-cover-divider"></div>
+        <div class="book-cover-author">10 Steps to Reverse<br>Your Age & Extend<br>Your Healthspan</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <div class="scroll-line"></div>
+    <div class="scroll-text">Scroll</div>
+  </div>
+</section>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-ticker">
+    <div class="proof-ticker-inner">
+      <div class="proof-item">REVERSE YOUR BIOLOGICAL AGE<div class="proof-dot"></div></div>
+      <div class="proof-item">10 PROVEN HEALTHSPAN TENETS<div class="proof-dot"></div></div>
+      <div class="proof-item">SCIENCE-BACKED · NO FLUFF<div class="proof-dot"></div></div>
+      <div class="proof-item">WRITTEN BY SOMEONE WHO DID IT<div class="proof-dot"></div></div>
+      <div class="proof-item">AVAILABLE ON AMAZON NOW<div class="proof-dot"></div></div>
+      <div class="proof-item">NUTRITION · EXERCISE · SLEEP · HORMONES<div class="proof-dot"></div></div>
+      <div class="proof-item">TRANSFORM YOUR SECOND HALF<div class="proof-dot"></div></div>
+    </div>
+    <div class="proof-ticker-inner" aria-hidden="true">
+      <div class="proof-item">REVERSE YOUR BIOLOGICAL AGE<div class="proof-dot"></div></div>
+      <div class="proof-item">10 PROVEN HEALTHSPAN TENETS<div class="proof-dot"></div></div>
+      <div class="proof-item">SCIENCE-BACKED · NO FLUFF<div class="proof-dot"></div></div>
+      <div class="proof-item">WRITTEN BY SOMEONE WHO DID IT<div class="proof-dot"></div></div>
+      <div class="proof-item">AVAILABLE ON AMAZON NOW<div class="proof-dot"></div></div>
+      <div class="proof-item">NUTRITION · EXERCISE · SLEEP · HORMONES<div class="proof-dot"></div></div>
+      <div class="proof-item">TRANSFORM YOUR SECOND HALF<div class="proof-dot"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- BOOK SECTION -->
+<section class="section book-section" id="book">
+  <div class="section-inner">
+    <div class="book-grid">
+      <div class="book-visual">
+        <div class="book-glow"></div>
+        <div class="book-mock">
+          <div class="book-top">
+            <div class="book-mock-tag">Lee C. Stonehouse</div>
+            <div class="book-mock-line"></div>
+            <div class="book-mock-title">AGING?</div>
+            <div class="book-mock-fthat">F***THAT!</div>
+            <div class="book-mock-subtitle">10 Steps to Reverse Your Age<br>& Extend Your Healthspan</div>
+          </div>
+          <div class="book-mock-divider"></div>
+          <div class="book-mock-bottom">
+            <div class="book-mock-author">Healthspan Extension Guide</div>
+          </div>
+        </div>
+        <div class="book-shadow"></div>
+      </div>
+
+      <div class="book-info reveal">
+        <div class="eyebrow">The Book</div>
+        <h2 class="section-title">THE GUIDE YOUR 50s<br>DESERVED SOONER</h2>
+
+        <div class="book-info-meta">
+          <div class="book-meta-item">
+            <div class="book-meta-val">10</div>
+            <div class="book-meta-label">Core Tenets</div>
+          </div>
+          <div class="book-meta-item">
+            <div class="book-meta-val">25+</div>
+            <div class="book-meta-label">Years Researched</div>
+          </div>
+          <div class="book-meta-item">
+            <div class="book-meta-val">0</div>
+            <div class="book-meta-label">Medications Needed</div>
+          </div>
+        </div>
+
+        <p class="book-info-desc">
+          This book was written by <strong>someone who actually did it.</strong> Spent decades carrying 25–40lbs of excess weight, suffering from a debilitating back injury, bad diet, and inconsistent fitness. Then, in his 50s, <strong>Lee reversed it all.</strong><br><br>
+          No supplements sponsorship. No gym-bro nonsense. Just 10 proven tenets — covering nutrition, exercise, sleep, hormones, stress, mindset and more — that will help you feel <strong>20 years younger starting this year.</strong>
+        </p>
+
+        <div class="book-price-row">
+          <div class="book-price">£9.99</div>
+          <div class="book-price-note">Kindle Ebook<br>Print edition coming soon</div>
+        </div>
+
+        <a href="https://www.amazon.co.uk" target="_blank" class="btn-primary">
+          <span>Buy On Amazon Now</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+        </a>
+
+        <div class="book-platforms">
+          <span class="platform-tag">📱 Kindle</span>
+          <span class="platform-tag">📖 Paperback (soon)</span>
+          <span class="platform-tag">🇬🇧 UK & International</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="section about-section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+
+      <div class="about-photo-wrap reveal">
+        <div class="about-photo">
+          <!--
+            REPLACE WITH YOUR PHOTO:
+            <img src="lee-stonehouse.jpg" alt="Lee C. Stonehouse">
+          -->
+          <div class="about-photo-placeholder">
+            <div class="about-photo-icon">📸</div>
+            <div class="about-photo-hint">Replace with<br>lee-stonehouse.jpg</div>
+          </div>
+        </div>
+        <div class="about-photo-label">
+          <div class="about-photo-name">Lee C. Stonehouse</div>
+          <div class="about-photo-title">Author · Speaker · Healthspan Expert</div>
+        </div>
+        <div class="about-corner">AGE ~59<br>NO MEDS</div>
+      </div>
+
+      <div class="about-text reveal reveal-delay-2">
+        <div class="eyebrow">About Lee</div>
+        <h2 class="section-title">THE MAN WHO<br>PROVED IT</h2>
+
+        <p class="about-lead">
+          "I spent decades getting it wrong. Now I've spent years getting it right — and I wrote the book so you don't have to waste as much time as I did."
+        </p>
+
+        <div class="about-body">
+          <p>Lee is a UK-based health, wellness and longevity expert, author and speaker. A former martial artist who suffered a serious back injury in his mid-30s, he spent years carrying <strong>25–40lbs of excess weight</strong>, eating badly, drinking too much, and cycling in and out of fitness regimes that never stuck.</p>
+          <p>Then, in his 50s, something shifted. He reversed it all. No miracle pills. No fad diet. Just <strong>a systematic approach to the 10 things that actually move the needle</strong> on how you age — mentally and physically.</p>
+          <p>Now on TRT since March 2021, exercising daily, following a Modified Mediterranean/Paleo diet, and fasting 18:6, Lee is living proof that your biological clock isn't fixed. He's built the <strong>F***THAT! community</strong> around this truth — and his three children are all health and fitness models, so it clearly runs in the family.</p>
+        </div>
+
+        <div class="about-stats">
+          <div>
+            <div class="about-stat-num">18:6</div>
+            <div class="about-stat-label">Daily Fasting Protocol</div>
+          </div>
+          <div>
+            <div class="about-stat-num">365</div>
+            <div class="about-stat-label">Days/Year Training</div>
+          </div>
+          <div>
+            <div class="about-stat-num">0</div>
+            <div class="about-stat-label">Prescription Meds</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TENETS SECTION -->
+<section class="section tenets-section" id="tenets">
+  <div class="section-inner">
+    <div class="tenets-header">
+      <div class="reveal">
+        <div class="eyebrow">The System</div>
+        <h2 class="section-title">10 TENETS OF<br>HEALTHSPAN<br>EXTENSION</h2>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p class="section-desc">These aren't tips. They're a comprehensive, integrated system — built from decades of research, personal experience, and ruthless trial and error. Master all ten and you'll feel like a different person.</p>
+      </div>
+    </div>
+
+    <div class="tenets-grid reveal">
+      <div class="tenet-card">
+        <div class="tenet-num">01</div>
+        <div class="tenet-icon">🧠</div>
+        <div class="tenet-name">Attitude & Positive Mental Approach</div>
+        <div class="tenet-desc">The mindset foundation everything else is built on. How you think about aging determines how you age.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">02</div>
+        <div class="tenet-icon">🥗</div>
+        <div class="tenet-name">Nutrition</div>
+        <div class="tenet-desc">Mediterranean/Paleo hybrid. Calorie deficit. Low GI. Intermittent fasting 18:6. No dogma — just what works.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">03</div>
+        <div class="tenet-icon">💪</div>
+        <div class="tenet-name">Exercise</div>
+        <div class="tenet-desc">Daily 1-hour minimum. HiiT, calisthenics, yoga. Movement is non-negotiable at any age — especially yours.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">04</div>
+        <div class="tenet-icon">😴</div>
+        <div class="tenet-name">Sleep</div>
+        <div class="tenet-desc">8–9 hours. 528Hz sleep frequencies. Sleep is where your body does its best anti-aging work.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">05</div>
+        <div class="tenet-icon">🧘</div>
+        <div class="tenet-name">Stress Control</div>
+        <div class="tenet-desc">Chronic stress accelerates biological aging faster than almost anything else. Here's how to beat it.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">06</div>
+        <div class="tenet-icon">⚗️</div>
+        <div class="tenet-name">Genetics & Hormones</div>
+        <div class="tenet-desc">TRT/HRT — understanding what your body actually needs and how to optimise it. The conversation nobody's having.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">07</div>
+        <div class="tenet-icon">💊</div>
+        <div class="tenet-name">Self Care</div>
+        <div class="tenet-desc">The daily habits that compound: cold exposure, skin health, dental health, gut health. Small things, massive impact.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">08</div>
+        <div class="tenet-icon">❤️</div>
+        <div class="tenet-name">Love & Community</div>
+        <div class="tenet-desc">Human connection is a biological necessity. Loneliness kills faster than smoking. Build your tribe.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">09</div>
+        <div class="tenet-icon">🎯</div>
+        <div class="tenet-name">Alignment & Consistency</div>
+        <div class="tenet-desc">The 10 Tenets only work as a system. How to stay aligned when life — and your brain — tries to derail you.</div>
+      </div>
+      <div class="tenet-card">
+        <div class="tenet-num">10</div>
+        <div class="tenet-icon">✨</div>
+        <div class="tenet-name">Cosmetic Presentation</div>
+        <div class="tenet-desc">Looking your best isn't vanity — it's fuel. How you present yourself directly impacts how you feel and perform.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-section" id="testimonials">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="eyebrow">Early Reviews</div>
+      <h2 class="section-title">WHAT PEOPLE<br>ARE SAYING</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"I've read every biohacking book going. This is the first one written by someone who's actually been through the struggle — not a 30-year-old with perfect genetics. Lee gets it. The section on hormones alone is worth the price."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👤</div>
+          <div>
+            <div class="testimonial-name">Mark T.</div>
+            <div class="testimonial-detail">Verified Amazon Buyer · Age 54</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Down 14lbs in 8 weeks following the nutrition tenets. Finally understand why everything I tried before didn't stick. The intermittent fasting protocol is a game changer — and Lee explains the science without making your head spin."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👤</div>
+          <div>
+            <div class="testimonial-name">David R.</div>
+            <div class="testimonial-detail">Verified Amazon Buyer · Age 61</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-3">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"My husband and I read this together. He's 57 and I'm 52. We've both overhauled our sleep, our diet, and we've started the yoga routine. Six weeks in and we're not the same people. This book is the truth."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">👤</div>
+          <div>
+            <div class="testimonial-name">Susan & Pete H.</div>
+            <div class="testimonial-detail">Verified Amazon Buyers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 40px;" class="reveal">
+      <a href="https://www.amazon.co.uk" target="_blank" class="btn-primary">
+        <span>Read All Reviews On Amazon</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RETREATS SECTION -->
+<section class="section retreats-section" id="retreats">
+  <div class="section-inner">
+    <div class="reveal">
+      <div class="eyebrow">Live Experiences</div>
+      <h2 class="section-title">HEALTHSPAN<br>EXTENSION RETREATS</h2>
+      <p class="section-desc" style="margin-bottom: 0;">The book is the blueprint. The retreats are where you actually live it — surrounded by people who refuse to accept the default version of aging.</p>
+    </div>
+
+    <div class="retreats-grid">
+      <div class="retreat-card reveal reveal-delay-1">
+        <div class="retreat-icon">🏃‍♂️</div>
+        <div class="retreat-name">FUN & <span>SPORTS</span> RETREAT</div>
+        <p class="retreat-desc">An immersive weekend applying all 10 Tenets in a real-world, high-energy environment. Movement, nutrition, mindset — all baked in.</p>
+        <ul class="retreat-features">
+          <li>Daily HiiT & functional fitness sessions</li>
+          <li>Mediterranean nutrition workshops</li>
+          <li>Sleep & recovery optimisation</li>
+          <li>Cold exposure & breathwork</li>
+          <li>Community dinners & mindset sessions</li>
+        </ul>
+      </div>
+
+      <div class="retreat-card reveal reveal-delay-2">
+        <div class="retreat-icon">🧘‍♂️</div>
+        <div class="retreat-name">DEEP <span>TRANSFORMATION</span> RETREAT</div>
+        <p class="retreat-desc">A longer-format, deeper-dive retreat for those serious about a full health overhaul. Hormones, genetics, full-body protocols.</p>
+        <ul class="retreat-features">
+          <li>Hormone & TRT/HRT education sessions</li>
+          <li>1:1 health audit with Lee</li>
+          <li>Personalised nutrition protocols</li>
+          <li>Longevity biomarker benchmarking</li>
+          <li>12-week follow-up accountability plan</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 40px;" class="reveal">
+      <a href="#waitlist" class="btn-primary">
+        <span>Join Retreat Waitlist</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- EMAIL CAPTURE -->
+<section class="section capture-section" id="waitlist">
+  <div class="capture-bg"></div>
+  <div class="capture-inner reveal">
+    <div class="eyebrow" style="justify-content:center;">Join The Movement</div>
+    <h2 class="capture-title">READY TO SAY<br><span>F***THAT!</span></h2>
+    <p class="capture-desc">Get first access to new content, retreat announcements, and the latest from Lee — direct to your inbox. No spam. Just real talk about living longer and better.</p>
+
+    <div class="capture-form">
+      <input type="email" class="capture-input" placeholder="your@email.com" id="emailInput">
+      <button class="capture-submit" onclick="submitEmail()">JOIN →</button>
+    </div>
+    <div class="capture-note">No spam. Unsubscribe anytime. Join 1,000+ members of the F***THAT! community.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand-block">
+        <div class="footer-logo">AGING <span>F***THAT!</span></div>
+        <div class="footer-tagline">Lee C. Stonehouse · Healthspan Extension</div>
+        <div class="footer-social">
+          <a href="#" class="social-link" title="Instagram">📸</a>
+          <a href="#" class="social-link" title="TikTok">🎵</a>
+          <a href="#" class="social-link" title="YouTube">▶️</a>
+          <a href="#" class="social-link" title="LinkedIn">💼</a>
+          <a href="#" class="social-link" title="Twitter/X">🐦</a>
+          <a href="#" class="social-link" title="Podcast">🎙️</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">The Book</div>
+        <ul class="footer-col-links">
+          <li><a href="#book">About The Book</a></li>
+          <li><a href="#tenets">The 10 Tenets</a></li>
+          <li><a href="https://www.amazon.co.uk" target="_blank">Buy On Amazon</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Community</div>
+        <ul class="footer-col-links">
+          <li><a href="#about">About Lee</a></li>
+          <li><a href="#retreats">Retreats</a></li>
+          <li><a href="#">Podcast</a></li>
+          <li><a href="#">YouTube</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-col-links">
+          <li><a href="#">Podcast Bookings</a></li>
+          <li><a href="#">Speaking Enquiries</a></li>
+          <li><a href="#">Press & Media</a></li>
+          <li><a href="#">General Contact</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-copyright">© 2026 Lee C. Stonehouse · AGING? F***THAT! · All Rights Reserved</div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV SCROLL
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// MOBILE NAV
+function openMobileNav() {
+  document.getElementById('mobileNav').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// EMAIL SUBMIT
+function submitEmail() {
+  const input = document.getElementById('emailInput');
+  const val = input.value.trim();
+  if (!val || !val.includes('@')) {
+    input.style.borderColor = 'var(--orange)';
+    setTimeout(() => input.style.borderColor = '', 2000);
+    return;
+  }
+  // Replace with your actual email signup endpoint (Mailchimp, ConvertKit, etc.)
+  input.value = '';
+  const btn = document.querySelector('.capture-submit');
+  btn.textContent = 'JOINED ✓';
+  btn.style.background = 'var(--teal)';
+  setTimeout(() => {
+    btn.textContent = 'JOIN →';
+    btn.style.background = '';
+  }, 3000);
+}
+
+// SMOOTH SCROLL FOR NAV LINKS
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const top = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
