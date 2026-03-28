@@ -899,7 +899,34 @@
     background: var(--card);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    text-align: center;
+  }
+
+  .capture-inner-wrap {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .capture-image {
+    flex-shrink: 0;
+  }
+
+  .capture-image img {
+    width: 280px;
+    height: 380px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border: 1px solid rgba(232,255,0,0.2);
+    box-shadow: 8px 8px 0 rgba(232,255,0,0.08);
+  }
+
+  @media (max-width: 900px) {
+    .capture-inner-wrap { grid-template-columns: 1fr; }
+    .capture-image { display: none; }
   }
 
   .capture-inner {
@@ -1106,7 +1133,7 @@
     </div>
 
     <div class="journey-photo">
-      <img src="Disland23.jpg" alt="Lee age 23 — still training" loading="lazy" style="object-position: center 10%;">
+      <img src="Disland_23.jpg" alt="Lee age 23 — still training" loading="lazy" style="object-position: center 10%;">
       <div class="journey-label">
         <div class="journey-label-tag">Age 23</div>
         <div class="journey-label-text">Still In It — But The Slide Begins</div>
@@ -1122,7 +1149,7 @@
     </div>
 
     <div class="journey-photo">
-      <img src="Before39.jpg" alt="Lee age 39 — the comfort trap" loading="lazy" style="object-position: center top;">
+      <img src="Before39c.jpg" alt="Lee age 39 — the comfort trap" loading="lazy" style="object-position: center top;">
       <div class="journey-label">
         <div class="journey-label-tag">Age 39</div>
         <div class="journey-label-text">The Comfort Trap — Decades Of Drift</div>
@@ -1238,7 +1265,7 @@
     <div class="tenets-header">
       <!-- AFTER PHOTO — AfterAnD2025 replaces the daughters photo -->
       <div class="tenets-photo">
-        <img src="AfterAnD2025.jpeg" alt="Aging F***That — What's Possible" style="object-position: center 10%;">
+        <img src="Studios1.jpg" alt="Aging F***That — What's Possible" style="object-position: center 10%;">
         <div class="tenets-photo-caption">AGING? F***THAT! · What's Possible · 2025</div>
       </div>
 
@@ -1387,13 +1414,18 @@
 
 <!-- ======================== EMAIL CAPTURE ======================== -->
 <section class="capture-section">
-  <div class="capture-inner">
-    <div class="section-eyebrow" style="margin-bottom:12px;">Join The Movement</div>
-    <h2 class="capture-title">READY TO SAY<br><span>F***THAT!</span></h2>
-    <p class="capture-sub">Get the book launch price, early access to retreats, and weekly healthspan insights from Lee.</p>
-    <div class="capture-form">
-      <input type="email" class="capture-input" placeholder="your@email.com">
-      <button class="capture-btn">Get Access</button>
+  <div class="capture-inner-wrap">
+    <div class="capture-inner">
+      <div class="section-eyebrow" style="margin-bottom:12px;">Join The Movement</div>
+      <h2 class="capture-title">READY TO SAY<br><span>F***THAT!</span></h2>
+      <p class="capture-sub">Get the book launch price, early access to retreats, and weekly healthspan insights from Lee.</p>
+      <div class="capture-form">
+        <input type="email" class="capture-input" placeholder="your@email.com">
+        <button class="capture-btn">Get Access</button>
+      </div>
+    </div>
+    <div class="capture-image">
+      <img src="FingerPoint.webp" alt="Lee Stonehouse — Join The Movement">
     </div>
   </div>
 </section>
