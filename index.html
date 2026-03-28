@@ -17,8 +17,8 @@
     --orange: #ff5c00;
     --teal: #00e5c8;
     --white: #f0ede6;
-    --muted: #666;
-    --muted2: #444;
+    --muted: #b06fff;
+    --muted2: #666;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -73,10 +73,10 @@
 
   .nav-links a {
     font-family: 'Space Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--muted);
+    color: var(--teal);
     text-decoration: none;
     transition: color 0.2s;
   }
@@ -129,18 +129,34 @@
     margin: 0 auto;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 60px;
+    grid-template-columns: 1fr auto auto;
+    gap: 48px;
     align-items: center;
+  }
+
+  .hero-headshot {
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.25s forwards;
+    position: relative;
+  }
+
+  .hero-headshot img {
+    width: 260px;
+    height: 380px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    border: 1px solid rgba(232,255,0,0.2);
+    box-shadow: 8px 8px 0 rgba(232,255,0,0.08), 0 0 40px rgba(0,0,0,0.6);
   }
 
   .hero-left {}
 
   .hero-eyebrow {
     font-family: 'Space Mono', monospace;
-    font-size: 11px;
+    font-size: 13px;
     letter-spacing: 0.25em;
-    color: var(--neon);
+    color: var(--orange);
     text-transform: uppercase;
     margin-bottom: 20px;
     opacity: 0;
@@ -174,8 +190,8 @@
   }
 
   .hero-desc {
-    font-size: 16px;
-    color: var(--muted);
+    font-size: 18px;
+    color: var(--teal);
     max-width: 480px;
     line-height: 1.75;
     font-weight: 300;
@@ -366,9 +382,9 @@
 
   .section-eyebrow {
     font-family: 'Space Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.25em;
-    color: var(--neon);
+    color: var(--orange);
     text-transform: uppercase;
     margin-bottom: 12px;
   }
@@ -384,8 +400,8 @@
   .section-title .accent { color: var(--neon); }
 
   .section-desc {
-    font-size: 15px;
-    color: var(--muted);
+    font-size: 17px;
+    color: var(--teal);
     max-width: 540px;
     line-height: 1.75;
     margin-bottom: 56px;
@@ -535,7 +551,7 @@
 
   .numbers-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 32px;
   }
 
@@ -614,8 +630,8 @@
   .proof-quote .neon { color: var(--neon); }
 
   .proof-body {
-    font-size: 15px;
-    color: var(--muted);
+    font-size: 17px;
+    color: var(--teal);
     line-height: 1.8;
     margin-bottom: 28px;
     font-weight: 300;
@@ -735,8 +751,8 @@
   }
 
   .tenet-desc {
-    font-size: 11px;
-    color: var(--muted);
+    font-size: 13px;
+    color: var(--teal);
     line-height: 1.5;
   }
 
@@ -790,8 +806,8 @@
 
   .science-source {
     font-family: 'Space Mono', monospace;
-    font-size: 9px;
-    color: var(--muted2);
+    font-size: 11px;
+    color: var(--orange);
     letter-spacing: 0.05em;
   }
 
@@ -872,8 +888,8 @@
   }
 
   .retreat-desc {
-    font-size: 13px;
-    color: var(--muted);
+    font-size: 15px;
+    color: var(--teal);
     line-height: 1.6;
   }
 
@@ -1028,14 +1044,19 @@
       </h1>
       <div class="hero-subtitle">10 Steps to Reverse Your Age &amp; Extend Your Healthspan</div>
       <p class="hero-desc">
-        I was <strong>nearly 20 stone, barely moving, and heading nowhere good.</strong>
-        I reversed it completely in my 50s. This is the system that did it —
-        science-backed, brutally honest, and built for the rest of us.
+        I was <strong>210 pounds, active but eating &amp; drinking whatever I wanted to. Heading nowhere good.</strong>
+        I reversed it completely in my 50s. I'm 30 pounds lighter at sub 10% body fat with a VO²Max over 50.
+        This is the system that did it — science-backed, brutally honest, and built for anyone to reverse aging.
       </p>
       <div class="hero-buttons">
         <a href="#book" class="btn-primary">Get The Book — £9.99</a>
         <a href="#journey" class="btn-secondary">See The Proof</a>
       </div>
+    </div>
+
+    <!-- HEADSHOT -->
+    <div class="hero-headshot">
+      <img src="62Hols.jpg" alt="Lee Stonehouse age 62" loading="lazy">
     </div>
 
     <!-- BOOK MOCKUP — moved left, close to heading -->
@@ -1085,7 +1106,7 @@
     </div>
 
     <div class="journey-photo">
-      <img src="Before_23.jpeg" alt="Lee age 23 — still training" loading="lazy" style="object-position: center 10%;">
+      <img src="Disland_23.jpg" alt="Lee age 23 — still training" loading="lazy" style="object-position: center 10%;">
       <div class="journey-label">
         <div class="journey-label-tag">Age 23</div>
         <div class="journey-label-text">Still In It — But The Slide Begins</div>
@@ -1101,7 +1122,7 @@
     </div>
 
     <div class="journey-photo">
-      <img src="Before_39b.png" alt="Lee age 39 — the comfort trap" loading="lazy" style="object-position: center top;">
+      <img src="Before39c.jpg" alt="Lee age 39 — the comfort trap" loading="lazy" style="object-position: center top;">
       <div class="journey-label">
         <div class="journey-label-tag">Age 39</div>
         <div class="journey-label-text">The Comfort Trap — Decades Of Drift</div>
@@ -1112,7 +1133,7 @@
 
   <!-- AFTER — FULL WIDTH BANNER -->
   <div class="after-banner" style="margin-top: 2px;">
-    <img src="AfterAnD2025.jpeg" alt="Lee Stonehouse 2025 — after the reversal" loading="lazy" style="object-position: center 15%;">
+    <img src="62KitchSpeech.jpg" alt="Lee Stonehouse 2025 — after the reversal" loading="lazy" style="object-position: center 15%;">
     <div class="after-overlay">
       <div class="after-text">
         <div class="after-tag">The After · 2025</div>
@@ -1131,7 +1152,7 @@
     <div class="numbers-label">NUMBERS<br>DON'T<br>LIE</div>
     <div class="numbers-grid">
       <div class="number-item">
-        <div class="number-val">-5ST</div>
+        <div class="number-val">2ST</div>
         <div class="number-desc">Total weight<br>reversed</div>
       </div>
       <div class="number-item">
@@ -1141,6 +1162,10 @@
       <div class="number-item">
         <div class="number-val">18:6</div>
         <div class="number-desc">Intermittent<br>fasting window</div>
+      </div>
+      <div class="number-item">
+        <div class="number-val">20YRS</div>
+        <div class="number-desc">Of aging<br>reversed</div>
       </div>
       <div class="number-item">
         <div class="number-val">10</div>
@@ -1153,7 +1178,7 @@
 <!-- ======================== THE MAN WHO PROVED IT WORKS ======================== -->
 <section class="proof-section" id="about">
   <div class="proof-photo">
-    <img src="Wisdom_61.jpeg" alt="Lee Stonehouse age 62 — The Man Who Proved It Works" loading="lazy" style="object-position: center 10%; filter: none;">
+    <img src="Snakes62.jpg" alt="Lee Stonehouse age 62 — The Man Who Proved It Works" loading="lazy" style="object-position: center 10%; filter: none;">
   </div>
   <div class="proof-content">
     <div class="section-eyebrow">The Man Who Proved It Works</div>
