@@ -510,7 +510,13 @@
     background: var(--card);
   }
 
-  .journey-photo img {
+  .journey-photo.landscape {
+    aspect-ratio: 4/3;
+  }
+
+  .after-card.landscape {
+    aspect-ratio: 4/3;
+  }
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1470,7 +1476,7 @@
       </div>
     </div>
 
-    <div class="journey-photo">
+    <div class="journey-photo landscape">
       <img src="Family_Beforeat50.jpg" alt="Lee age 35 — the drift" loading="lazy" style="object-position: center top;">
       <div class="journey-label">
         <div class="journey-label-tag">Age 35</div>
@@ -1514,7 +1520,7 @@
       </div>
     </div>
 
-    <div class="after-card">
+    <div class="after-card landscape">
       <img src="Family_Afterat63.jpg" alt="Lee Stonehouse gym mirror" loading="lazy">
       <div class="after-card-label">
         <div class="after-card-tag">The Proof · 2025</div>
