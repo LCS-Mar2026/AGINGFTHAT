@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,800;1,300&display=swap" rel="stylesheet">
 <style>
 :root{
-  --neon:#39FF14;--neon2:#00FF88;--teal:#00E5FF;
-  --magenta:#FF00FF;--orange:#FF6600;--purple:#BF5FFF;--blue:#3A9EFF;
-  --yellow:#FFD700;--gold:#C8A84B;--bg:#050505;--card:#0d0d0d;--border:#1a1a1a;
-  --text:#e8e8e8;--muted:#777;
+  --neon:#3E1C01;--neon2:#6B4226;--teal:#5A8CAF;
+  --magenta:#3E1C01;--orange:#9C6B3F;--purple:#6B7F99;--blue:#7FA8C9;
+  --yellow:#C9A875;--gold:#B08D3F;--bg:#FFFFFF;--card:#F4F8FB;--border:#DCE8F1;
+  --text:#3E1C01;--muted:#8A7666;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -21,28 +21,25 @@ body{background:var(--bg);color:var(--text);font-family:'Exo 2',sans-serif;font-
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--neon);border-radius:2px;}
 
-/* TICKER */
-.ticker-wrap{background:#000;border-bottom:1px solid #111;overflow:hidden;white-space:nowrap;height:33px;display:flex;align-items:center;}
+.ticker-wrap{background:#3E1C01;border-bottom:1px solid #111;overflow:hidden;white-space:nowrap;height:33px;display:flex;align-items:center;}
 .ticker-track{display:inline-flex;animation:tickerScroll 38s linear infinite;}
-.ticker-track span{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;padding:0 3rem;background:linear-gradient(90deg,var(--neon),var(--teal),var(--neon2),var(--teal),var(--neon));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:300% 100%;animation:gradShift 5s linear infinite;}
+.ticker-track span{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;padding:0 3rem;background:linear-gradient(90deg,#B8D4E9,#E8D9BE,#B8D4E9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:300% 100%;animation:gradShift 5s linear infinite;}
 @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes gradShift{0%{background-position:0%}100%{background-position:300%}}
 
-/* NAV */
-nav{position:sticky;top:0;z-index:200;background:rgba(5,5,5,0.96);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;backdrop-filter:blur(12px);}
+nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,0.96);border-bottom:1px solid var(--border);padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;backdrop-filter:blur(12px);}
 .nav-logo{font-family:'Rajdhani',sans-serif;font-size:1.15rem;font-weight:700;color:var(--neon);letter-spacing:2px;text-decoration:none;flex-shrink:0;}
 .nav-links{display:flex;gap:1.4rem;align-items:center;flex-wrap:nowrap;}
 .nav-links a{text-decoration:none;font-size:0.72rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:opacity 0.2s;white-space:nowrap;}
 .nav-links a:hover{opacity:0.65;}
 @media(max-width:900px){.nav-links{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}.nav-links::-webkit-scrollbar{display:none;}nav{padding:0 1rem;}}
 
-/* HERO */
-.hero-wrap{background:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(57,255,20,0.1) 0%,transparent 65%),radial-gradient(ellipse 40% 40% at 90% 80%,rgba(0,229,255,0.06) 0%,transparent 60%),var(--bg);border-bottom:1px solid var(--border);}
+.hero-wrap{background:radial-gradient(ellipse 80% 50% at 50% -5%,rgba(62,28,1,0.1) 0%,transparent 65%),radial-gradient(ellipse 40% 40% at 90% 80%,rgba(90,140,175,0.06) 0%,transparent 60%),var(--bg);border-bottom:1px solid var(--border);}
 .hero{max-width:1100px;margin:0 auto;padding:4rem 2rem 3.5rem;}
 .hero-eyebrow{font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:5px;color:var(--orange);text-transform:uppercase;margin-bottom:1rem;opacity:0;animation:fadeUp 0.8s 0.1s forwards;}
 .hero-title{font-family:'Rajdhani',sans-serif;font-size:clamp(3rem,8vw,6rem);font-weight:700;line-height:0.92;letter-spacing:-1px;margin-bottom:1rem;opacity:0;animation:fadeUp 0.8s 0.25s forwards;}
 .hero-title .l1{display:block;color:var(--text);}
-.hero-title .l2{display:block;color:var(--neon);text-shadow:0 0 40px rgba(57,255,20,0.3);}
+.hero-title .l2{display:block;color:var(--neon);text-shadow:0 0 40px rgba(62,28,1,0.3);}
 .hero-sub-label{font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:3px;color:var(--purple);text-transform:uppercase;margin-bottom:1.25rem;opacity:0;animation:fadeUp 0.8s 0.35s forwards;}
 .hero-desc{max-width:640px;font-size:0.95rem;font-weight:300;color:var(--muted);line-height:1.75;margin-bottom:2rem;opacity:0;animation:fadeUp 0.8s 0.45s forwards;}
 .hero-desc strong{color:var(--text);font-weight:600;}
@@ -52,56 +49,50 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,5,0.96);border-bottom:
 .stat-l{font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:3px;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* MAIN */
 .main{max-width:1100px;margin:0 auto;padding:0 2rem 6rem;}
 
-/* SECTION HEADER */
 .section-header{display:flex;align-items:center;gap:1rem;margin:3.5rem 0 1.5rem;padding-bottom:0.75rem;border-bottom:1px solid var(--border);}
 .s-num{font-family:'Share Tech Mono',monospace;font-size:0.68rem;color:var(--orange);letter-spacing:3px;}
 .s-title{font-family:'Rajdhani',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:1px;color:var(--text);}
 .s-badge{margin-left:auto;font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border:1px solid;flex-shrink:0;}
 .badge-active{color:var(--teal);border-color:var(--teal);}
-.badge-daily{color:var(--neon);border-color:rgba(57,255,20,0.5);}
+.badge-daily{color:var(--neon);border-color:rgba(62,28,1,0.5);}
 .badge-cyclical{color:var(--purple);border-color:var(--purple);}
 
-/* RECON GRID */
 .recon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px;}
 @media(max-width:680px){.recon-grid{grid-template-columns:1fr;}}
 .recon-card{background:var(--card);border:1px solid var(--border);border-top:2px solid var(--orange);padding:16px;}
 .recon-name{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;color:var(--neon);margin-bottom:12px;letter-spacing:1px;line-height:1.1;}
-.recon-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.recon-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(220,232,241,0.8);}
 .recon-row:last-child{border-bottom:none;}
 .recon-key{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
 .recon-val{font-family:'Share Tech Mono',monospace;font-size:0.72rem;color:var(--teal);font-weight:700;}
 
-/* DRAW BOX */
-.draw-box{background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.15);border-left:3px solid var(--teal);padding:16px 22px;margin-bottom:18px;display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center;}
+.draw-box{background:rgba(90,140,175,0.04);border:1px solid rgba(90,140,175,0.15);border-left:3px solid var(--teal);padding:16px 22px;margin-bottom:18px;display:flex;gap:2.5rem;flex-wrap:wrap;align-items:center;}
 .draw-label{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:3px;}
 .draw-val{font-family:'Rajdhani',sans-serif;font-size:1.8rem;font-weight:700;color:var(--teal);line-height:1;}
 .draw-unit{font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:var(--muted);}
-.draw-note{font-size:0.82rem;color:rgba(0,229,255,0.6);max-width:400px;line-height:1.6;}
+.draw-note{font-size:0.82rem;color:rgba(90,140,175,0.6);max-width:400px;line-height:1.6;}
 
-/* TABLE */
 .proto-table{width:100%;border-collapse:collapse;margin-bottom:10px;}
-.proto-table thead tr{background:rgba(255,102,0,0.06);border-bottom:1px solid var(--orange);}
+.proto-table thead tr{background:rgba(156,107,63,0.06);border-bottom:1px solid var(--orange);}
 .proto-table thead th{font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--orange);padding:11px 13px;text-align:left;font-weight:400;}
 .proto-table tbody tr{border-bottom:1px solid var(--border);transition:background 0.15s;}
-.proto-table tbody tr:hover{background:rgba(255,255,255,0.02);}
+.proto-table tbody tr:hover{background:rgba(220,232,241,0.4);}
 .proto-table td{padding:13px;font-size:0.85rem;color:var(--text);vertical-align:top;}
 .cname{font-family:'Rajdhani',sans-serif;font-size:1.05rem;font-weight:700;color:var(--neon);display:block;margin-bottom:2px;letter-spacing:0.5px;line-height:1;}
 .csub{font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
 .dose-val{font-family:'Share Tech Mono',monospace;font-size:0.82rem;color:var(--teal);font-weight:700;}
 .tag{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:2px 7px;margin-top:4px;}
-.tag-timing{background:rgba(0,229,255,0.1);color:var(--teal);border:1px solid rgba(0,229,255,0.2);}
+.tag-timing{background:rgba(90,140,175,0.1);color:var(--teal);border:1px solid rgba(90,140,175,0.2);}
 .note-text{font-size:0.78rem;color:var(--muted);font-style:italic;margin-top:5px;line-height:1.5;}
 
-/* SKIN PHASE BAR */
 .skin-phase-bar{display:flex;margin:18px 0;border:1px solid var(--border);overflow:hidden;}
 .spb-item{flex:1;padding:14px 16px;border-right:1px solid var(--border);}
 .spb-item:last-child{border-right:none;}
-.spb-item:nth-child(1){background:rgba(255,102,0,0.06);}
-.spb-item:nth-child(2){background:rgba(200,168,75,0.04);}
-.spb-item:nth-child(3){background:rgba(0,229,255,0.04);}
+.spb-item:nth-child(1){background:rgba(156,107,63,0.06);}
+.spb-item:nth-child(2){background:rgba(176,141,63,0.04);}
+.spb-item:nth-child(3){background:rgba(90,140,175,0.04);}
 .spb-month{font-family:'Rajdhani',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:1px;margin-bottom:2px;}
 .spb-item:nth-child(1) .spb-month{color:var(--orange);}
 .spb-item:nth-child(2) .spb-month{color:var(--gold);}
@@ -111,10 +102,9 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,5,0.96);border-bottom:
 .spb-item:nth-child(2) .spb-phase{color:var(--gold);}
 .spb-item:nth-child(3) .spb-phase{color:var(--teal);}
 .spb-detail{font-size:0.8rem;color:var(--muted);line-height:1.5;margin-top:3px;}
-.now-tag{font-family:'Share Tech Mono',monospace;font-size:0.62rem;background:var(--orange);color:#000;padding:2px 6px;letter-spacing:1px;display:inline-block;margin-left:6px;font-weight:700;vertical-align:middle;}
+.now-tag{font-family:'Share Tech Mono',monospace;font-size:0.62rem;background:var(--orange);color:#FFFFFF;padding:2px 6px;letter-spacing:1px;display:inline-block;margin-left:6px;font-weight:700;vertical-align:middle;}
 @media(max-width:600px){.skin-phase-bar{flex-direction:column;}.spb-item{border-right:none;border-bottom:1px solid var(--border);}}
 
-/* GOAL CARDS */
 .goal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.25rem;margin:1.25rem 0;}
 .goal-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.4rem;position:relative;overflow:hidden;transition:border-color 0.2s,transform 0.2s;}
 .goal-card:hover{transform:translateY(-2px);}
@@ -122,45 +112,40 @@ nav{position:sticky;top:0;z-index:200;background:rgba(5,5,5,0.96);border-bottom:
 .goal-card.g1::before{background:var(--gold);}
 .goal-card.g2::before{background:var(--neon);}
 .goal-card.g3::before{background:var(--teal);}
-.goal-card:hover.g1{border-color:rgba(200,168,75,0.3);}
-.goal-card:hover.g2{border-color:rgba(57,255,20,0.2);}
-.goal-card:hover.g3{border-color:rgba(0,229,255,0.2);}
+.goal-card:hover.g1{border-color:rgba(176,141,63,0.3);}
+.goal-card:hover.g2{border-color:rgba(62,28,1,0.2);}
+.goal-card:hover.g3{border-color:rgba(90,140,175,0.2);}
 .goal-num{font-family:'Rajdhani',sans-serif;font-size:5rem;font-weight:700;opacity:0.05;position:absolute;top:4px;right:12px;line-height:1;color:var(--text);}
 .goal-title{font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;line-height:1.1;}
 .goal-card.g1 .goal-title{color:var(--gold);}
 .goal-card.g2 .goal-title{color:var(--neon);}
 .goal-card.g3 .goal-title{color:var(--teal);}
-.goal-item{font-size:0.85rem;color:var(--muted);padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
+.goal-item{font-size:0.85rem;color:var(--muted);padding:5px 0;border-bottom:1px solid rgba(220,232,241,0.8);display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
 .goal-item:last-child{border-bottom:none;}
 .goal-dot{color:var(--orange);font-size:0.9rem;line-height:1.3;flex-shrink:0;}
 .goal-item strong{color:var(--text);font-weight:600;}
 
-/* TWO COL */
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin:1.25rem 0;}
 @media(max-width:560px){.two-col{grid-template-columns:1fr;}}
 .panel-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1.5rem;}
 .panel-title{font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;margin-bottom:1rem;font-weight:700;}
 .panel-box.risk .panel-title{color:var(--orange);}
 .panel-box.success .panel-title{color:var(--teal);}
-.panel-item{font-size:0.85rem;color:var(--muted);padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:8px;align-items:flex-start;line-height:1.5;}
+.panel-item{font-size:0.85rem;color:var(--muted);padding:6px 0;border-bottom:1px solid rgba(220,232,241,0.8);display:flex;gap:8px;align-items:flex-start;line-height:1.5;}
 .panel-item:last-child{border-bottom:none;}
 .ri{color:var(--orange);flex-shrink:0;}
 .si{color:var(--teal);flex-shrink:0;}
 
-/* REVIEW BANNER */
-.review-banner{background:rgba(57,255,20,0.04);border:1px solid rgba(57,255,20,0.2);border-left:3px solid var(--neon);border-radius:0 6px 6px 0;padding:1.4rem 1.75rem;margin-top:2rem;}
+.review-banner{background:rgba(62,28,1,0.04);border:1px solid rgba(62,28,1,0.2);border-left:3px solid var(--neon);border-radius:0 6px 6px 0;padding:1.4rem 1.75rem;margin-top:2rem;}
 .review-banner-title{font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:3px;text-transform:uppercase;color:var(--neon);margin-bottom:0.5rem;font-weight:700;}
 .review-banner-body{font-size:0.9rem;color:var(--muted);line-height:1.75;}
 .review-banner-body strong{color:var(--text);font-weight:600;}
 
-/* FOOTNOTE */
 .footnote{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--border);font-family:'Share Tech Mono',monospace;font-size:0.68rem;color:#444;line-height:1.9;letter-spacing:0.5px;}
 .footnote strong{color:var(--muted);}
 
-/* DIVIDER */
 .divider{border:none;border-top:1px solid var(--border);max-width:1100px;margin:0 auto;}
 
-/* FOOTER */
 footer{padding:3rem 2rem;border-top:1px solid var(--border);text-align:center;font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:1px;color:var(--muted);}
 footer a{color:var(--neon);text-decoration:none;}
 .footer-logo{font-family:'Rajdhani',sans-serif;font-size:1.2rem;font-weight:700;color:var(--neon);letter-spacing:2px;margin-bottom:0.5rem;}
@@ -169,13 +154,12 @@ footer a{color:var(--neon);text-decoration:none;}
 </style>
 <style>
 .wa-cta-wrap{text-align:center;padding:14px 20px;}
-.wa-cta{display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0a0e1a;font-weight:800;font-size:14px;letter-spacing:.05em;border-radius:30px;text-decoration:none;font-family:'Rajdhani',sans-serif;transition:opacity 0.2s;}
+.wa-cta{display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#3E1C01,#6B4226);color:#FFFFFF;font-weight:800;font-size:14px;letter-spacing:.05em;border-radius:30px;text-decoration:none;font-family:'Rajdhani',sans-serif;transition:opacity 0.2s;}
 .wa-cta:hover{opacity:0.85;}
 </style>
 </head>
 <body>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker-track">
     <span>ELITE PROTOCOL · APRIL 2026 &nbsp;·&nbsp; INJECTABLE PEPTIDES · ORAL SUPPLEMENTS · DERMATOLOGY &nbsp;·&nbsp; CJC-1295 · IPAMORELIN · GLOW STACK · MT2 &nbsp;·&nbsp; SKIN REJUVENATION · GH RELEASE · JOINT REPAIR &nbsp;·&nbsp; REVIEW WINDOW: JUNE / JULY 2026 &nbsp;·&nbsp; #AGINGFTHAT &nbsp;·&nbsp;</span>
@@ -183,7 +167,6 @@ footer a{color:var(--neon);text-decoration:none;}
   </div>
 </div>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" href="index.html">AGING?F***THAT!</a>
   <div class="nav-links">
@@ -203,7 +186,6 @@ footer a{color:var(--neon);text-decoration:none;}
 <div class="wa-cta-wrap"><a href="https://wa.me/447935903549" target="_blank" rel="noopener" class="wa-cta">Apply for the 1-Year Program →</a></div>
 
 
-<!-- HERO -->
 <div class="hero-wrap">
 <div class="hero">
   <div class="hero-eyebrow">// Lee C. Stonehouse · Elite Program · April 2026</div>
@@ -229,7 +211,6 @@ footer a{color:var(--neon);text-decoration:none;}
 <hr class="divider">
 <div class="main">
 
-  <!-- 01 INJECTABLES -->
   <div class="section-header">
     <span class="s-num">// 01</span>
     <span class="s-title">Injectable Peptides</span>
@@ -296,7 +277,6 @@ footer a{color:var(--neon);text-decoration:none;}
     </tbody>
   </table>
 
-  <!-- 02 ORAL SUPPLEMENTS -->
   <div class="section-header">
     <span class="s-num">// 02</span>
     <span class="s-title">Oral Supplements</span>
@@ -315,7 +295,6 @@ footer a{color:var(--neon);text-decoration:none;}
     </tbody>
   </table>
 
-  <!-- 03 DERMATOLOGY -->
   <div class="section-header">
     <span class="s-num">// 03</span>
     <span class="s-title">Dermatology Protocol</span>
@@ -367,7 +346,6 @@ footer a{color:var(--neon);text-decoration:none;}
     </tbody>
   </table>
 
-  <!-- 04 GOAL MAPPING -->
   <div class="section-header">
     <span class="s-num">// 04</span>
     <span class="s-title">Goal Mapping</span>
@@ -400,7 +378,6 @@ footer a{color:var(--neon);text-decoration:none;}
     </div>
   </div>
 
-  <!-- 05 RISK & SUCCESS -->
   <div class="section-header">
     <span class="s-num">// 05</span>
     <span class="s-title">Risk Control &amp; Success Metrics</span>
@@ -438,7 +415,7 @@ footer a{color:var(--neon);text-decoration:none;}
     Peptide purity confirmed via CoA (99.82% Glow Stack). MT2 flagged to dermatologist — do not apply near active AK treatment areas.
   </div>
 
-</div><!-- /main -->
+</div>
 
 <footer>
   <div class="footer-logo">AGING?F***THAT!</div>

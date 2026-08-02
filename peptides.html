@@ -8,25 +8,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --neon: #39FF14;
-    --neon2: #00FF88;
-    --teal: #00E5FF;
-    --magenta: #FF00FF;
-    --orange: #FF6600;
-    --purple: #BF5FFF;
-    --bg: #050505;
-    --card: #0d0d0d;
-    --border: #1a1a1a;
-    --text: #e8e8e8;
-    --muted: #888;
+    --neon: #3E1C01;
+    --neon2: #6B4226;
+    --teal: #5A8CAF;
+    --magenta: #3E1C01;
+    --orange: #9C6B3F;
+    --purple: #6B7F99;
+    --bg: #FFFFFF;
+    --card: #F4F8FB;
+    --border: #DCE8F1;
+    --text: #3E1C01;
+    --muted: #8A7666;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--text); font-family:'Exo 2', sans-serif; font-size:16px; line-height:1.6; }
 
-  /* NAV */
   nav {
     position:sticky; top:0; z-index:100;
-    background:rgba(5,5,5,0.95); border-bottom:1px solid var(--border);
+    background:rgba(255,255,255,0.95); border-bottom:1px solid var(--border);
     padding:0 2rem; display:flex; align-items:center; justify-content:space-between;
     height:56px; backdrop-filter:blur(10px);
   }
@@ -40,11 +39,10 @@
     nav{padding:0 1rem;}
   }
 
-  /* HERO */
   .hero {
     padding:5rem 2rem 3rem;
     text-align:center;
-    background: radial-gradient(ellipse at 50% 0%, rgba(57,255,20,0.08) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 50% 0%, rgba(62,28,1,0.08) 0%, transparent 60%);
     border-bottom:1px solid var(--border);
   }
   .hero-tag { font-family:'Share Tech Mono', monospace; color:var(--neon); font-size:0.75rem; letter-spacing:4px; text-transform:uppercase; margin-bottom:1rem; }
@@ -52,12 +50,11 @@
   .hero h1 span { color:var(--neon); }
   .hero-sub { max-width:680px; margin:0 auto 2rem; color:var(--muted); font-size:1.05rem; font-weight:300; }
   .disclaimer-banner {
-    display:inline-block; background:rgba(255,102,0,0.1); border:1px solid var(--orange);
+    display:inline-block; background:rgba(156,107,63,0.1); border:1px solid var(--orange);
     color:var(--orange); font-size:0.78rem; font-family:'Share Tech Mono', monospace;
     padding:0.5rem 1.5rem; border-radius:4px; letter-spacing:1px; margin-bottom:2rem;
   }
 
-  /* SECTION */
   .section { padding:4rem 2rem; max-width:1100px; margin:0 auto; }
   .section-title {
     font-family:'Rajdhani', sans-serif; font-size:1.8rem; font-weight:700;
@@ -65,7 +62,6 @@
     border-left:4px solid var(--neon); padding-left:1rem; margin-bottom:2rem;
   }
 
-  /* INTRO BLOCK */
   .intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin-bottom:3rem; }
   @media(max-width:700px){ .intro-grid { grid-template-columns:1fr; } }
   .intro-card {
@@ -75,7 +71,6 @@
   .intro-card h3 { font-family:'Rajdhani', sans-serif; font-size:1.1rem; color:var(--teal); margin-bottom:0.75rem; letter-spacing:1px; }
   .intro-card p { color:var(--muted); font-size:0.9rem; line-height:1.7; }
 
-  /* PEPTIDE CARDS */
   .peptides-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:1.5rem; }
   .peptide-card {
     background:var(--card); border:1px solid var(--border); border-radius:10px;
@@ -100,25 +95,23 @@
     padding:0.2rem 0.6rem; border-radius:3px; border:1px solid;
   }
   .peptide-metrics { display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; }
-  .metric { background:rgba(255,255,255,0.03); border-radius:4px; padding:0.5rem 0.75rem; }
+  .metric { background:rgba(220,232,241,0.6); border-radius:4px; padding:0.5rem 0.75rem; }
   .metric-label { font-size:0.65rem; font-family:'Share Tech Mono', monospace; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
   .metric-value { font-size:0.85rem; font-weight:600; color:var(--text); margin-top:2px; }
 
-  /* PROTOCOL TABLE */
   .protocol-table { width:100%; border-collapse:collapse; margin-top:1rem; }
   .protocol-table th {
-    background:rgba(57,255,20,0.05); color:var(--neon); font-family:'Share Tech Mono', monospace;
+    background:rgba(62,28,1,0.05); color:var(--neon); font-family:'Share Tech Mono', monospace;
     font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; padding:0.75rem 1rem;
     text-align:left; border-bottom:1px solid var(--border);
   }
-  .protocol-table td { padding:0.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.04); font-size:0.88rem; color:var(--muted); }
-  .protocol-table tr:hover td { background:rgba(255,255,255,0.02); color:var(--text); }
+  .protocol-table td { padding:0.75rem 1rem; border-bottom:1px solid rgba(220,232,241,0.8); font-size:0.88rem; color:var(--muted); }
+  .protocol-table tr:hover td { background:rgba(220,232,241,0.4); color:var(--text); }
   .pill {
     display:inline-block; font-size:0.68rem; font-family:'Share Tech Mono', monospace;
     padding:0.15rem 0.5rem; border-radius:3px; font-weight:600; letter-spacing:0.5px;
   }
 
-  /* SAFETY SECTION */
   .safety-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:1rem; }
   .safety-card {
     background:var(--card); border-radius:8px; padding:1.25rem;
@@ -127,20 +120,18 @@
   .safety-card h4 { font-family:'Rajdhani', sans-serif; font-size:1rem; font-weight:700; margin-bottom:0.5rem; }
   .safety-card p { font-size:0.85rem; color:var(--muted); line-height:1.6; }
 
-  /* STACK SECTION */
   .stack-row {
     display:flex; align-items:center; gap:1rem; padding:1rem;
     background:var(--card); border-radius:8px; border:1px solid var(--border); margin-bottom:0.75rem;
   }
   .stack-num {
-    width:32px; height:32px; border-radius:50%; background:rgba(57,255,20,0.1);
+    width:32px; height:32px; border-radius:50%; background:rgba(62,28,1,0.1);
     border:1px solid var(--neon); color:var(--neon); font-family:'Share Tech Mono', monospace;
     font-size:0.8rem; display:flex; align-items:center; justify-content:center; flex-shrink:0;
   }
   .stack-info h4 { font-family:'Rajdhani', sans-serif; font-size:0.95rem; font-weight:700; margin-bottom:2px; }
   .stack-info p { font-size:0.82rem; color:var(--muted); }
 
-  /* FOOTER */
   footer {
     text-align:center; padding:3rem 2rem; border-top:1px solid var(--border);
     font-size:0.8rem; color:var(--muted); font-family:'Share Tech Mono', monospace;
@@ -151,7 +142,7 @@
 </style>
 <style>
 .wa-cta-wrap{text-align:center;padding:14px 20px;}
-.wa-cta{display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#f59e0b,#d97706);color:#0a0e1a;font-weight:800;font-size:14px;letter-spacing:.05em;border-radius:30px;text-decoration:none;font-family:'Rajdhani',sans-serif;transition:opacity 0.2s;}
+.wa-cta{display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#3E1C01,#6B4226);color:#FFFFFF;font-weight:800;font-size:14px;letter-spacing:.05em;border-radius:30px;text-decoration:none;font-family:'Rajdhani',sans-serif;transition:opacity 0.2s;}
 .wa-cta:hover{opacity:0.85;}
 </style>
 </head>
@@ -205,10 +196,9 @@
   <div class="section-title">Core Peptides — The Longevity Stack</div>
   <div class="peptides-grid">
 
-    <!-- BPC-157 -->
     <div class="peptide-card">
       <div class="peptide-header">
-        <div class="peptide-badge" style="background:rgba(57,255,20,0.1); color:var(--neon);">🔧</div>
+        <div class="peptide-badge" style="background:rgba(62,28,1,0.1); color:var(--neon);">🔧</div>
         <div>
           <div class="peptide-name">BPC-157</div>
           <div class="peptide-class" style="color:var(--neon);">Body Protective Compound</div>
@@ -217,10 +207,10 @@
       <div class="peptide-body">
         <p class="peptide-desc">One of the most researched repair peptides. Derived from a protein found in gastric juice, BPC-157 accelerates healing of tendons, ligaments, muscles, and gut tissue. Exceptional for sports injury recovery and joint health — and uniquely, it works systemically even when injected away from the injury site.</p>
         <div class="peptide-tags">
-          <span class="tag" style="color:var(--neon); border-color:rgba(57,255,20,0.3);">REPAIR</span>
-          <span class="tag" style="color:var(--teal); border-color:rgba(0,229,255,0.3);">GUT HEALTH</span>
-          <span class="tag" style="color:var(--neon2); border-color:rgba(0,255,136,0.3);">TENDON</span>
-          <span class="tag" style="color:var(--neon); border-color:rgba(57,255,20,0.3);">SYSTEMIC</span>
+          <span class="tag" style="color:var(--neon); border-color:rgba(62,28,1,0.3);">REPAIR</span>
+          <span class="tag" style="color:var(--teal); border-color:rgba(90,140,175,0.3);">GUT HEALTH</span>
+          <span class="tag" style="color:var(--neon2); border-color:rgba(107,66,38,0.3);">TENDON</span>
+          <span class="tag" style="color:var(--neon); border-color:rgba(62,28,1,0.3);">SYSTEMIC</span>
         </div>
         <div class="peptide-metrics">
           <div class="metric"><div class="metric-label">Typical Dose</div><div class="metric-value">250–500mcg</div></div>
@@ -231,10 +221,9 @@
       </div>
     </div>
 
-    <!-- TB-500 -->
     <div class="peptide-card">
       <div class="peptide-header">
-        <div class="peptide-badge" style="background:rgba(0,229,255,0.1); color:var(--teal);">⚡</div>
+        <div class="peptide-badge" style="background:rgba(90,140,175,0.1); color:var(--teal);">⚡</div>
         <div>
           <div class="peptide-name">TB-500 / Thymosin Beta-4</div>
           <div class="peptide-class" style="color:var(--teal);">Regenerative Peptide</div>
@@ -243,9 +232,9 @@
       <div class="peptide-body">
         <p class="peptide-desc">TB-500 is a synthetic fragment of Thymosin Beta-4, found in virtually every cell in the body. Exceptional for accelerating healing, reducing inflammation, and promoting muscle fibre flexibility. Widely used by elite athletes. Systemically powerful — promotes angiogenesis (new blood vessel growth) and stem cell migration to injury sites.</p>
         <div class="peptide-tags">
-          <span class="tag" style="color:var(--teal); border-color:rgba(0,229,255,0.3);">HEALING</span>
-          <span class="tag" style="color:var(--neon); border-color:rgba(57,255,20,0.3);">ANTI-INFLAMMATORY</span>
-          <span class="tag" style="color:var(--purple); border-color:rgba(191,95,255,0.3);">ANGIOGENESIS</span>
+          <span class="tag" style="color:var(--teal); border-color:rgba(90,140,175,0.3);">HEALING</span>
+          <span class="tag" style="color:var(--neon); border-color:rgba(62,28,1,0.3);">ANTI-INFLAMMATORY</span>
+          <span class="tag" style="color:var(--purple); border-color:rgba(107,127,153,0.3);">ANGIOGENESIS</span>
         </div>
         <div class="peptide-metrics">
           <div class="metric"><div class="metric-label">Typical Dose</div><div class="metric-value">2–2.5mg</div></div>
@@ -256,10 +245,9 @@
       </div>
     </div>
 
-    <!-- Ipamorelin / CJC-1295 -->
     <div class="peptide-card">
       <div class="peptide-header">
-        <div class="peptide-badge" style="background:rgba(191,95,255,0.1); color:var(--purple);">📈</div>
+        <div class="peptide-badge" style="background:rgba(107,127,153,0.1); color:var(--purple);">📈</div>
         <div>
           <div class="peptide-name">Ipamorelin + CJC-1295</div>
           <div class="peptide-class" style="color:var(--purple);">GH Secretagogue Stack</div>
@@ -268,9 +256,9 @@
       <div class="peptide-body">
         <p class="peptide-desc">The most popular growth hormone optimisation stack. Ipamorelin mimics ghrelin to stimulate GH release; CJC-1295 (DAC) extends the GH pulse. Together they restore the youthful pulsatile GH pattern lost with age — improving body composition, sleep quality, recovery, skin quality, and bone density without suppressing natural production.</p>
         <div class="peptide-tags">
-          <span class="tag" style="color:var(--purple); border-color:rgba(191,95,255,0.3);">GH OPTIMISATION</span>
-          <span class="tag" style="color:var(--neon); border-color:rgba(57,255,20,0.3);">BODY COMP</span>
-          <span class="tag" style="color:var(--teal); border-color:rgba(0,229,255,0.3);">SLEEP</span>
+          <span class="tag" style="color:var(--purple); border-color:rgba(107,127,153,0.3);">GH OPTIMISATION</span>
+          <span class="tag" style="color:var(--neon); border-color:rgba(62,28,1,0.3);">BODY COMP</span>
+          <span class="tag" style="color:var(--teal); border-color:rgba(90,140,175,0.3);">SLEEP</span>
         </div>
         <div class="peptide-metrics">
           <div class="metric"><div class="metric-label">Ipamorelin</div><div class="metric-value">200–300mcg</div></div>
@@ -281,10 +269,9 @@
       </div>
     </div>
 
-    <!-- Epithalon -->
     <div class="peptide-card">
       <div class="peptide-header">
-        <div class="peptide-badge" style="background:rgba(0,255,136,0.1); color:var(--neon2);">🧬</div>
+        <div class="peptide-badge" style="background:rgba(107,66,38,0.1); color:var(--neon2);">🧬</div>
         <div>
           <div class="peptide-name">Epithalon</div>
           <div class="peptide-class" style="color:var(--neon2);">Telomere Peptide</div>
@@ -293,9 +280,9 @@
       <div class="peptide-body">
         <p class="peptide-desc">Perhaps the most compelling longevity peptide. Epithalon (Epithalamin) activates telomerase — the enzyme that extends telomeres, the biological clock at the end of chromosomes. Developed by the St Petersburg Institute of Bioregulation, it has 40+ years of Russian research behind it. Also restores pineal function and melatonin production.</p>
         <div class="peptide-tags">
-          <span class="tag" style="color:var(--neon2); border-color:rgba(0,255,136,0.3);">TELOMERES</span>
-          <span class="tag" style="color:var(--teal); border-color:rgba(0,229,255,0.3);">LONGEVITY</span>
-          <span class="tag" style="color:var(--purple); border-color:rgba(191,95,255,0.3);">PINEAL</span>
+          <span class="tag" style="color:var(--neon2); border-color:rgba(107,66,38,0.3);">TELOMERES</span>
+          <span class="tag" style="color:var(--teal); border-color:rgba(90,140,175,0.3);">LONGEVITY</span>
+          <span class="tag" style="color:var(--purple); border-color:rgba(107,127,153,0.3);">PINEAL</span>
         </div>
         <div class="peptide-metrics">
           <div class="metric"><div class="metric-label">Typical Dose</div><div class="metric-value">5–10mg</div></div>
@@ -306,10 +293,9 @@
       </div>
     </div>
 
-    <!-- Selank -->
     <div class="peptide-card">
       <div class="peptide-header">
-        <div class="peptide-badge" style="background:rgba(255,102,0,0.1); color:var(--orange);">🧠</div>
+        <div class="peptide-badge" style="background:rgba(156,107,63,0.1); color:var(--orange);">🧠</div>
         <div>
           <div class="peptide-name">Selank</div>
           <div class="peptide-class" style="color:var(--orange);">Anxiolytic / Nootropic</div>
@@ -318,9 +304,9 @@
       <div class="peptide-body">
         <p class="peptide-desc">A synthetic analogue of Tuftsin — a naturally occurring immune-regulatory peptide. Selank modulates GABA and serotonin systems, producing anxiolytic effects without sedation or dependency. Also enhances BDNF (brain-derived neurotrophic factor), improving focus, memory consolidation, and stress resilience. Russian-developed, licensed medicine.</p>
         <div class="peptide-tags">
-          <span class="tag" style="color:var(--orange); border-color:rgba(255,102,0,0.3);">ANXIETY</span>
-          <span class="tag" style="color:var(--teal); border-color:rgba(0,229,255,0.3);">COGNITIVE</span>
-          <span class="tag" style="color:var(--neon); border-color:rgba(57,255,20,0.3);">BDNF</span>
+          <span class="tag" style="color:var(--orange); border-color:rgba(156,107,63,0.3);">ANXIETY</span>
+          <span class="tag" style="color:var(--teal); border-color:rgba(90,140,175,0.3);">COGNITIVE</span>
+          <span class="tag" style="color:var(--neon); border-color:rgba(62,28,1,0.3);">BDNF</span>
         </div>
         <div class="peptide-metrics">
           <div class="metric"><div class="metric-label">Typical Dose</div><div class="metric-value">250–500mcg</div></div>
@@ -331,10 +317,9 @@
       </div>
     </div>
 
-    <!-- GHK-Cu -->
     <div class="peptide-card">
       <div class="peptide-header">
-        <div class="peptide-badge" style="background:rgba(255,0,255,0.1); color:var(--magenta);">✨</div>
+        <div class="peptide-badge" style="background:rgba(62,28,1,0.1); color:var(--magenta);">✨</div>
         <div>
           <div class="peptide-name">GHK-Cu</div>
           <div class="peptide-class" style="color:var(--magenta);">Copper Peptide / Skin & Repair</div>
@@ -343,9 +328,9 @@
       <div class="peptide-body">
         <p class="peptide-desc">Glycine-Histidine-Lysine bound to copper — a naturally occurring plasma peptide that declines dramatically with age (from 200ng/mL at 20 to 80ng/mL at 60). Activates over 4,000 genes, promotes collagen and elastin synthesis, has powerful antioxidant and anti-inflammatory effects, and reverses many gene expression patterns associated with ageing.</p>
         <div class="peptide-tags">
-          <span class="tag" style="color:var(--magenta); border-color:rgba(255,0,255,0.3);">SKIN</span>
-          <span class="tag" style="color:var(--neon); border-color:rgba(57,255,20,0.3);">COLLAGEN</span>
-          <span class="tag" style="color:var(--teal); border-color:rgba(0,229,255,0.3);">GENE EXPRESSION</span>
+          <span class="tag" style="color:var(--magenta); border-color:rgba(62,28,1,0.3);">SKIN</span>
+          <span class="tag" style="color:var(--neon); border-color:rgba(62,28,1,0.3);">COLLAGEN</span>
+          <span class="tag" style="color:var(--teal); border-color:rgba(90,140,175,0.3);">GENE EXPRESSION</span>
         </div>
         <div class="peptide-metrics">
           <div class="metric"><div class="metric-label">Typical Dose</div><div class="metric-value">1–3mg</div></div>
@@ -356,10 +341,9 @@
       </div>
     </div>
 
-    <!-- MOTS-c -->
     <div class="peptide-card">
       <div class="peptide-header">
-        <div class="peptide-badge" style="background:rgba(0,229,255,0.1); color:var(--teal);">⚙️</div>
+        <div class="peptide-badge" style="background:rgba(90,140,175,0.1); color:var(--teal);">⚙️</div>
         <div>
           <div class="peptide-name">MOTS-c</div>
           <div class="peptide-class" style="color:var(--teal);">Mitochondrial Peptide</div>
@@ -368,9 +352,9 @@
       <div class="peptide-body">
         <p class="peptide-desc">Encoded by mitochondrial DNA, MOTS-c is a metabolic regulator that mimics the effects of exercise at the cellular level. It activates AMPK, improves insulin sensitivity, reduces adiposity, and enhances mitochondrial biogenesis. Levels decline with age. One of the most exciting emerging longevity compounds — sometimes called the "exercise peptide."</p>
         <div class="peptide-tags">
-          <span class="tag" style="color:var(--teal); border-color:rgba(0,229,255,0.3);">MITOCHONDRIA</span>
-          <span class="tag" style="color:var(--neon); border-color:rgba(57,255,20,0.3);">METABOLIC</span>
-          <span class="tag" style="color:var(--purple); border-color:rgba(191,95,255,0.3);">AMPK</span>
+          <span class="tag" style="color:var(--teal); border-color:rgba(90,140,175,0.3);">MITOCHONDRIA</span>
+          <span class="tag" style="color:var(--neon); border-color:rgba(62,28,1,0.3);">METABOLIC</span>
+          <span class="tag" style="color:var(--purple); border-color:rgba(107,127,153,0.3);">AMPK</span>
         </div>
         <div class="peptide-metrics">
           <div class="metric"><div class="metric-label">Typical Dose</div><div class="metric-value">5–10mg</div></div>
@@ -381,10 +365,9 @@
       </div>
     </div>
 
-    <!-- Semax -->
     <div class="peptide-card">
       <div class="peptide-header">
-        <div class="peptide-badge" style="background:rgba(191,95,255,0.1); color:var(--purple);">💡</div>
+        <div class="peptide-badge" style="background:rgba(107,127,153,0.1); color:var(--purple);">💡</div>
         <div>
           <div class="peptide-name">Semax</div>
           <div class="peptide-class" style="color:var(--purple);">Cognitive / Neuroprotective</div>
@@ -393,9 +376,9 @@
       <div class="peptide-body">
         <p class="peptide-desc">An ACTH analogue developed in Russia and used as a licensed nootropic. Semax increases BDNF and NGF (nerve growth factor), enhances dopamine and serotonin activity, and provides potent neuroprotective effects. Clinically used for stroke recovery and cognitive decline. Off-label: sharply focused mental performance, reduced mental fatigue, mood elevation.</p>
         <div class="peptide-tags">
-          <span class="tag" style="color:var(--purple); border-color:rgba(191,95,255,0.3);">COGNITIVE</span>
-          <span class="tag" style="color:var(--teal); border-color:rgba(0,229,255,0.3);">NEUROPROTECTIVE</span>
-          <span class="tag" style="color:var(--neon); border-color:rgba(57,255,20,0.3);">BDNF/NGF</span>
+          <span class="tag" style="color:var(--purple); border-color:rgba(107,127,153,0.3);">COGNITIVE</span>
+          <span class="tag" style="color:var(--teal); border-color:rgba(90,140,175,0.3);">NEUROPROTECTIVE</span>
+          <span class="tag" style="color:var(--neon); border-color:rgba(62,28,1,0.3);">BDNF/NGF</span>
         </div>
         <div class="peptide-metrics">
           <div class="metric"><div class="metric-label">Typical Dose</div><div class="metric-value">200–600mcg</div></div>
@@ -431,7 +414,7 @@
         <td>250–500mcg</td>
         <td>1–2x daily</td>
         <td>SubQ / Oral</td>
-        <td><span class="pill" style="background:rgba(57,255,20,0.1); color:var(--neon);">Strong</span></td>
+        <td><span class="pill" style="background:rgba(62,28,1,0.1); color:var(--neon);">Strong</span></td>
       </tr>
       <tr>
         <td><strong style="color:var(--teal)">TB-500</strong></td>
@@ -439,7 +422,7 @@
         <td>2–2.5mg</td>
         <td>2x weekly</td>
         <td>SubQ</td>
-        <td><span class="pill" style="background:rgba(0,229,255,0.1); color:var(--teal);">Strong</span></td>
+        <td><span class="pill" style="background:rgba(90,140,175,0.1); color:var(--teal);">Strong</span></td>
       </tr>
       <tr>
         <td><strong style="color:var(--purple)">Ipamorelin/CJC</strong></td>
@@ -447,7 +430,7 @@
         <td>200–300mcg / 1–2mg</td>
         <td>Pre-sleep</td>
         <td>SubQ</td>
-        <td><span class="pill" style="background:rgba(191,95,255,0.1); color:var(--purple);">Strong</span></td>
+        <td><span class="pill" style="background:rgba(107,127,153,0.1); color:var(--purple);">Strong</span></td>
       </tr>
       <tr>
         <td><strong style="color:var(--neon2)">Epithalon</strong></td>
@@ -455,7 +438,7 @@
         <td>5–10mg</td>
         <td>Daily x 10–20d</td>
         <td>SubQ</td>
-        <td><span class="pill" style="background:rgba(0,255,136,0.1); color:var(--neon2);">Moderate</span></td>
+        <td><span class="pill" style="background:rgba(107,66,38,0.1); color:var(--neon2);">Moderate</span></td>
       </tr>
       <tr>
         <td><strong style="color:var(--orange)">Selank</strong></td>
@@ -463,7 +446,7 @@
         <td>250–500mcg</td>
         <td>As needed</td>
         <td>Nasal</td>
-        <td><span class="pill" style="background:rgba(255,102,0,0.1); color:var(--orange);">Moderate</span></td>
+        <td><span class="pill" style="background:rgba(156,107,63,0.1); color:var(--orange);">Moderate</span></td>
       </tr>
       <tr>
         <td><strong style="color:var(--magenta)">GHK-Cu</strong></td>
@@ -471,7 +454,7 @@
         <td>1–3mg</td>
         <td>Daily</td>
         <td>SubQ / Topical</td>
-        <td><span class="pill" style="background:rgba(255,0,255,0.1); color:var(--magenta);">Strong</span></td>
+        <td><span class="pill" style="background:rgba(62,28,1,0.1); color:var(--magenta);">Strong</span></td>
       </tr>
       <tr>
         <td><strong style="color:var(--teal)">MOTS-c</strong></td>
@@ -479,7 +462,7 @@
         <td>5–10mg</td>
         <td>3–5x/week</td>
         <td>SubQ</td>
-        <td><span class="pill" style="background:rgba(0,229,255,0.1); color:var(--teal);">Emerging</span></td>
+        <td><span class="pill" style="background:rgba(90,140,175,0.1); color:var(--teal);">Emerging</span></td>
       </tr>
       <tr>
         <td><strong style="color:var(--purple)">Semax</strong></td>
@@ -487,7 +470,7 @@
         <td>200–600mcg</td>
         <td>1–2x daily</td>
         <td>Nasal</td>
-        <td><span class="pill" style="background:rgba(191,95,255,0.1); color:var(--purple);">Moderate</span></td>
+        <td><span class="pill" style="background:rgba(107,127,153,0.1); color:var(--purple);">Moderate</span></td>
       </tr>
     </tbody>
   </table>
