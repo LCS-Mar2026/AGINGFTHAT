@@ -537,7 +537,7 @@
   function checkPw() {
     const val = document.getElementById('pw-input').value;
     if (val === PW_HASH_TARGET) {
-      sessionStorage.setItem('smplan_unlocked', '1');
+      sessionStorage.setItem('agingfthat_unlocked', '1');
       document.getElementById('pw-gate').style.display = 'none';
       document.getElementById('pw-content').style.display = 'block';
     } else {
@@ -547,7 +547,7 @@
   document.getElementById('pw-input').addEventListener('keydown', function(e){
     if (e.key === 'Enter') checkPw();
   });
-  if (sessionStorage.getItem('smplan_unlocked') === '1') {
+  if (sessionStorage.getItem('agingfthat_unlocked') === '1') {
     document.getElementById('pw-gate').style.display = 'none';
     document.getElementById('pw-content').style.display = 'block';
   }
