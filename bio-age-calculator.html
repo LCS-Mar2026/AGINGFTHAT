@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biological Age Calculator, AGING?F***THAT!</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brown: #3D1C02;
+    --eggshell: #A9CDEA;
+    --navy: #14213D;
+    --neon: var(--brown);
+    --neon2: var(--brown);
+    --teal: var(--eggshell);
+    --magenta: var(--brown);
+    --orange: var(--navy);
+    --purple: var(--navy);
+    --red: #7A4A2E;
+    --yellow: var(--brown);
+    --bg: #FFFFFF;
+    --card: #FFFFFF;
+    --card2: #EEF5FA;
+    --border: #DCE8F1;
+    --text: var(--brown);
+    --muted: #8A7666;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Exo 2', sans-serif; font-size:16px; line-height:1.6; }
+
+  nav {
+    position:sticky; top:0; z-index:100;
+    background:rgba(255,255,255,0.95); border-bottom:1px solid var(--border);
+    padding:0 2rem; display:flex; align-items:center; justify-content:space-between;
+    height:56px; backdrop-filter:blur(10px);
+  }
+  .nav-logo { font-family:'Rajdhani', sans-serif; font-size:1.2rem; font-weight:700; color:var(--neon); letter-spacing:2px; text-decoration:none; }
+  .nav-links { display:flex; gap:1.5rem; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:0.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; transition:color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--neon); }
+  @media(max-width:900px){
+    .nav-links{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
+    .nav-links::-webkit-scrollbar{display:none;}
+    nav{padding:0 1rem;}
+  }
+
+  .hero {
+    padding:4rem 2rem 2.5rem;
+    text-align:center;
+    background: radial-gradient(ellipse at 50% 0%, rgba(61,28,2,0.07) 0%, transparent 65%);
+    border-bottom:1px solid var(--border);
+  }
+  .hero-tag { font-family:'Share Tech Mono', monospace; color:var(--neon); font-size:0.75rem; letter-spacing:4px; margin-bottom:0.75rem; }
+  .hero h1 { font-family:'Rajdhani', sans-serif; font-size:clamp(2rem, 5vw, 3.5rem); font-weight:700; line-height:1.1; margin-bottom:1rem; }
+  .hero h1 span { color:var(--neon); }
+  .hero-sub { max-width:620px; margin:0 auto; color:var(--muted); font-size:0.95rem; }
+
+  .calc-wrapper { max-width:1000px; margin:3rem auto; padding:0 1.5rem; }
+
+  .intro-bar {
+    background:rgba(61,28,2,0.05); border:1px solid rgba(61,28,2,0.2);
+    border-radius:8px; padding:1rem 1.5rem; margin-bottom:2rem;
+    display:flex; gap:1rem; align-items:flex-start;
+  }
+  .intro-bar-icon { font-size:1.4rem; flex-shrink:0; margin-top:2px; }
+  .intro-bar p { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+  .intro-bar strong { color:var(--neon); }
+
+  #result-bar {
+    background:var(--card2); border:2px solid var(--neon);
+    border-radius:12px; padding:2rem; margin-bottom:2rem;
+    text-align:center; display:none;
+  }
+  #result-bar.show { display:block; }
+  .result-label { font-family:'Share Tech Mono', monospace; font-size:0.75rem; letter-spacing:3px; color:var(--muted); text-transform:uppercase; }
+  .result-age { font-family:'Rajdhani', sans-serif; font-size:5rem; font-weight:700; line-height:1; margin:0.25rem 0; }
+  .result-delta { font-family:'Rajdhani', sans-serif; font-size:1.5rem; font-weight:600; }
+  .result-summary { font-size:0.9rem; color:var(--muted); margin-top:0.5rem; max-width:500px; margin-left:auto; margin-right:auto; }
+  .gauge-bar { height:8px; background:var(--border); border-radius:4px; margin:1.5rem auto; max-width:400px; overflow:hidden; }
+  .gauge-fill { height:100%; border-radius:4px; transition:width 1s ease; }
+
+  /* Compare to Lee section */
+  #lee-compare {
+    background:var(--card2); border:2px solid var(--eggshell);
+    border-radius:12px; padding:2rem; margin-bottom:2.5rem; display:none;
+  }
+  #lee-compare.show { display:block; }
+  .lee-compare-title { font-family:'Rajdhani', sans-serif; font-size:1.3rem; font-weight:700; color:var(--neon); letter-spacing:1px; text-transform:uppercase; margin-bottom:1.25rem; text-align:center; }
+  .lee-vs-row {
+    display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1rem;
+    background:#fff; border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; margin-bottom:0.75rem;
+  }
+  .lee-vs-row:last-child { margin-bottom:0; }
+  .lee-vs-you, .lee-vs-lee { text-align:center; }
+  .lee-vs-label { font-size:0.7rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
+  .lee-vs-val { font-family:'Rajdhani', sans-serif; font-size:1.8rem; font-weight:700; }
+  .lee-vs-mid { font-size:0.75rem; color:var(--muted); text-align:center; font-family:'Share Tech Mono', monospace; }
+  .lee-vs-fieldname { font-size:0.8rem; color:var(--text); font-weight:600; text-align:center; grid-column:1/-1; margin-bottom:0.5rem; }
+  .lee-headline {
+    text-align:center; padding:1.25rem; margin-bottom:1.5rem;
+    background:#fff; border:1px solid var(--border); border-radius:8px;
+  }
+  .lee-headline-text { font-size:1.05rem; color:var(--text); line-height:1.6; }
+  .lee-headline-text strong { color:var(--neon); }
+
+  .cat-section { margin-bottom:2rem; }
+  .cat-header {
+    display:flex; align-items:center; gap:0.75rem;
+    padding:0.75rem 1rem; background:var(--card2); border-radius:8px 8px 0 0;
+    border:1px solid var(--border); border-bottom:none;
+    cursor:pointer; user-select:none;
+  }
+  .cat-header:hover { background:#E4EEF6; }
+  .cat-icon { font-size:1.2rem; }
+  .cat-title { font-family:'Rajdhani', sans-serif; font-size:1rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+  .cat-score { margin-left:auto; font-family:'Share Tech Mono', monospace; font-size:0.8rem; }
+  .cat-toggle { font-size:0.8rem; color:var(--muted); margin-left:0.5rem; }
+  .cat-body {
+    border:1px solid var(--border); border-top:none; border-radius:0 0 8px 8px;
+    overflow:hidden;
+  }
+
+  .field-row {
+    display:grid; grid-template-columns:1fr auto 180px auto;
+    gap:0.75rem; align-items:center;
+    padding:0.6rem 1rem; border-bottom:1px solid rgba(220,232,241,0.6);
+    transition:background 0.15s;
+  }
+  .field-row:last-child { border-bottom:none; }
+  .field-row:hover { background:rgba(220,232,241,0.4); }
+  @media(max-width:600px){
+    .field-row { grid-template-columns:1fr 80px; }
+    .field-unit, .field-score { display:none; }
+  }
+  .field-label { font-size:0.88rem; color:var(--text); }
+  .field-ref { font-size:0.72rem; color:var(--muted); font-family:'Share Tech Mono', monospace; margin-top:1px; }
+  .field-lee-ref { font-size:0.7rem; color:var(--neon); font-family:'Share Tech Mono', monospace; margin-top:1px; }
+  .field-unit { font-size:0.75rem; color:var(--muted); font-family:'Share Tech Mono', monospace; text-align:center; }
+  .field-input {
+    background:rgba(220,232,241,0.6); border:1px solid var(--border);
+    border-radius:5px; color:var(--text); font-family:'Share Tech Mono', monospace;
+    font-size:0.88rem; padding:0.4rem 0.65rem; width:100%; text-align:right;
+    transition:border-color 0.2s;
+    -moz-appearance:textfield;
+  }
+  .field-input::-webkit-inner-spin-button { display:none; }
+  .field-input:focus { outline:none; border-color:var(--neon); }
+  .field-input.good { border-color:rgba(61,28,2,0.5); }
+  .field-input.warn { border-color:rgba(20,33,61,0.5); }
+  .field-input.bad  { border-color:rgba(122,74,46,0.5); }
+  .field-score { font-family:'Share Tech Mono', monospace; font-size:0.75rem; text-align:center; min-width:50px; }
+
+  .calc-btn-wrap { text-align:center; margin:2rem 0; }
+  .calc-btn {
+    background:var(--neon); color:#FFFFFF; font-family:'Rajdhani', sans-serif;
+    font-size:1.1rem; font-weight:700; letter-spacing:3px; text-transform:uppercase;
+    border:none; padding:1rem 3rem; border-radius:6px; cursor:pointer;
+    transition:transform 0.15s, box-shadow 0.15s;
+  }
+  .calc-btn:hover { transform:translateY(-2px); box-shadow:0 0 20px rgba(61,28,2,0.4); }
+  .reset-btn {
+    background:transparent; color:var(--muted); border:1px solid var(--border);
+    font-family:'Rajdhani', sans-serif; font-size:0.9rem; font-weight:600;
+    letter-spacing:2px; text-transform:uppercase; padding:0.6rem 1.5rem;
+    border-radius:6px; cursor:pointer; margin-left:1rem; transition:color 0.2s, border-color 0.2s;
+  }
+  .reset-btn:hover { color:var(--text); border-color:var(--muted); }
+
+  #breakdown { margin-top:2rem; display:none; }
+  #breakdown.show { display:block; }
+  .breakdown-title { font-family:'Rajdhani', sans-serif; font-size:1.1rem; color:var(--neon); letter-spacing:2px; text-transform:uppercase; margin-bottom:1rem; }
+  .breakdown-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:0.75rem; }
+  .breakdown-card {
+    background:var(--card2); border:1px solid var(--border); border-radius:8px;
+    padding:1rem; text-align:center;
+  }
+  .breakdown-cat { font-size:0.72rem; font-family:'Share Tech Mono', monospace; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin-bottom:0.25rem; }
+  .breakdown-val { font-family:'Rajdhani', sans-serif; font-size:1.8rem; font-weight:700; }
+  .breakdown-sub { font-size:0.72rem; color:var(--muted); margin-top:0.1rem; }
+
+  #advice-section { margin-top:2rem; display:none; }
+  #advice-section.show { display:block; }
+  .advice-title { font-family:'Rajdhani', sans-serif; font-size:1.1rem; color:var(--neon); letter-spacing:2px; text-transform:uppercase; margin-bottom:1rem; border-left:3px solid var(--neon); padding-left:0.75rem; }
+  .advice-list { list-style:none; }
+  .advice-list li {
+    display:flex; gap:0.75rem; align-items:flex-start;
+    padding:0.6rem 0; border-bottom:1px solid rgba(220,232,241,0.8); font-size:0.88rem;
+  }
+  .advice-list li:last-child { border-bottom:none; }
+  .advice-marker { font-size:1rem; flex-shrink:0; margin-top:1px; }
+
+  footer {
+    text-align:center; padding:3rem 2rem; border-top:1px solid var(--border);
+    font-size:0.8rem; color:var(--muted); font-family:'Share Tech Mono', monospace; margin-top:4rem;
+  }
+  footer a { color:var(--neon); text-decoration:none; }
+
+  .field-info-btn { display:inline-block; width:14px; height:14px; line-height:14px; text-align:center; border-radius:50%; background:var(--eggshell); color:var(--neon); font-size:10px; font-weight:700; cursor:pointer; margin-left:6px; vertical-align:middle; user-select:none; }
+  .field-blurb { display:none; grid-column:1/-1; background:var(--card2); border-top:1px dashed var(--border); padding:0.6rem 1rem; font-size:0.8rem; color:var(--muted); line-height:1.6; }
+  .field-blurb.show { display:block; }
+</style>
+<style>
+.wa-cta-wrap{text-align:center;padding:14px 20px;}
+.wa-cta{display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#3D1C02,#3D1C02);color:#A9CDEA;font-weight:800;font-size:14px;letter-spacing:.05em;border-radius:30px;text-decoration:none;font-family:'Rajdhani',sans-serif;transition:opacity 0.2s;}
+.wa-cta:hover{opacity:0.85;}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">AGING?F***THAT!</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="biomarkers.html">Lee's Data</a>
+    <a href="peptides.html">Peptides</a>
+    <a href="bio-age-calculator.html" class="active">Bio-Age Calculator</a>
+    <a href="elite-protocol.html" style="color:#C8A84B">My Personal Skin &amp; Supplement Protocol</a>
+    <a href="marbella-coaching.html" style="color:#C8A84B">Marbella</a>
+  </div>
+</nav>
+<div class="wa-cta-wrap"><a href="https://wa.me/447935903549" target="_blank" rel="noopener" class="wa-cta">Enquire for 1-Year Program Here &rarr;</a></div>
+
+
+<div class="hero">
+  <div class="hero-tag">// Biological Age Assessment Tool</div>
+  <h1>Your Real <span>Biological Age</span></h1>
+  <p class="hero-sub">Enter your latest biomarker results. The calculator analyses each against optimal ranges, computes your estimated biological age, and shows you exactly how you compare to Lee's own verified numbers.</p>
+</div>
+
+<div class="calc-wrapper">
+
+  <div class="intro-bar">
+    <div class="intro-bar-icon">&#8505;&#65039;</div>
+    <p><strong>How it works:</strong> Each biomarker is scored against peer-reviewed optimal ranges. Scores are weighted by their predictive significance for biological ageing. You don't need all values, the calculator adjusts for missing data. More complete data means a more accurate result. Wherever Lee has a verified number for the same marker, you'll see exactly how you compare. <strong>This is not a medical diagnosis.</strong></p>
+  </div>
+
+  <div id="result-bar">
+    <div class="result-label">Estimated Biological Age</div>
+    <div class="result-age" id="result-age-val">,</div>
+    <div class="result-delta" id="result-delta-val"></div>
+    <div class="gauge-bar"><div class="gauge-fill" id="gauge-fill"></div></div>
+    <div class="result-summary" id="result-summary"></div>
+  </div>
+
+  <div id="lee-compare">
+    <div class="lee-compare-title">How You Compare to Lee</div>
+    <div class="lee-headline">
+      <div class="lee-headline-text" id="lee-headline-text"></div>
+    </div>
+    <div id="lee-field-compares"></div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('metabolic')">
+      <div class="cat-icon">&#9879;&#65039;</div>
+      <div class="cat-title" style="color:var(--neon)">Metabolic &amp; Glucose</div>
+      <div class="cat-score" id="score-metabolic" style="color:var(--neon)">,</div>
+      <div class="cat-toggle" id="toggle-metabolic">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-metabolic">
+      <div class="field-row">
+        <div><div class="field-label">Fasting Glucose <span class="field-info-btn" onclick="toggleBlurb('f_glucose')">i</span></div><div class="field-ref">Optimal: 4.0 to 5.0 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="f_glucose" type="number" step="0.1" placeholder="e.g. 4.8" oninput="scoreField(this,'f_glucose')">
+        <div class="field-score" id="s_f_glucose">,</div>
+      </div>
+<div class="field-blurb" id="blurb_f_glucose">Measures blood sugar after an overnight fast. High readings signal poor glucose control and rising diabetes risk, often years before diagnosis. Low readings (below range) can indicate poor meal timing or overtraining without adequate fuel.</div>
+      <div class="field-row">
+        <div><div class="field-label">HbA1c <span class="field-info-btn" onclick="toggleBlurb('hba1c')">i</span></div><div class="field-ref">Optimal: &lt;5.4% (&lt;36 mmol/mol)</div></div>
+        <div class="field-unit">%</div>
+        <input class="field-input" id="hba1c" type="number" step="0.1" placeholder="e.g. 5.1" oninput="scoreField(this,'hba1c')">
+        <div class="field-score" id="s_hba1c">,</div>
+      </div>
+<div class="field-blurb" id="blurb_hba1c">A 3-month average of blood sugar control, the single best marker for metabolic ageing. High HbA1c accelerates ageing across nearly every organ system via glycation damage. Low is rarely a concern outside of anaemia distorting the result.</div>
+      <div class="field-row">
+        <div><div class="field-label">Fasting Insulin <span class="field-info-btn" onclick="toggleBlurb('insulin')">i</span></div><div class="field-ref">Optimal: &lt;8 mIU/L</div></div>
+        <div class="field-unit">mIU/L</div>
+        <input class="field-input" id="insulin" type="number" step="0.1" placeholder="e.g. 5.0" oninput="scoreField(this,'insulin')">
+        <div class="field-score" id="s_insulin">,</div>
+      </div>
+<div class="field-blurb" id="blurb_insulin">Fasting insulin reveals problems years before glucose does. High insulin means your body is working overtime to manage sugar, an early warning of insulin resistance. Low insulin alongside normal glucose is the sign of a metabolically efficient body.</div>
+      <div class="field-row">
+        <div><div class="field-label">HOMA-IR <span class="field-info-btn" onclick="toggleBlurb('homair')">i</span></div><div class="field-ref">Optimal: &lt;1.0 (insulin resistance proxy)</div></div>
+        <div class="field-unit">ratio</div>
+        <input class="field-input" id="homair" type="number" step="0.1" placeholder="e.g. 0.8" oninput="scoreField(this,'homair')">
+        <div class="field-score" id="s_homair">,</div>
+      </div>
+<div class="field-blurb" id="blurb_homair">A calculated ratio of glucose and insulin, this is the earliest reliable insulin resistance marker available. High HOMA-IR predicts future diabetes, fatty liver, and cardiovascular disease. Low is the goal, it means your cells respond efficiently to insulin.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('cardio')">
+      <div class="cat-icon">&#10084;&#65039;</div>
+      <div class="cat-title" style="color:var(--magenta)">Cardiovascular</div>
+      <div class="cat-score" id="score-cardio" style="color:var(--magenta)">,</div>
+      <div class="cat-toggle" id="toggle-cardio">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-cardio">
+      <div class="field-row">
+        <div><div class="field-label">Total Cholesterol <span class="field-info-btn" onclick="toggleBlurb('cholesterol')">i</span></div><div class="field-ref">Optimal: &lt;5.0 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="cholesterol" type="number" step="0.1" placeholder="e.g. 4.5" oninput="scoreField(this,'cholesterol')">
+        <div class="field-score" id="s_cholesterol">,</div>
+      </div>
+<div class="field-blurb" id="blurb_cholesterol">Total cholesterol alone is a blunt tool, but extremes matter. Very high levels warrant closer inspection of LDL and particle count. Very low levels can affect hormone production, since cholesterol is the raw material for testosterone and other hormones.</div>
+      <div class="field-row">
+        <div><div class="field-label">LDL Cholesterol <span class="field-info-btn" onclick="toggleBlurb('ldl')">i</span></div><div class="field-ref">Optimal: &lt;2.5 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="ldl" type="number" step="0.1" placeholder="e.g. 2.0" oninput="scoreField(this,'ldl')">
+        <div class="field-score" id="s_ldl">,</div>
+      </div>
+<div class="field-blurb" id="blurb_ldl">Often called bad cholesterol, LDL carries fat through the bloodstream and, at high levels, drives arterial plaque formation. High LDL is a major cardiovascular risk factor. Low LDL is generally protective, though extremely low levels rarely cause issues.</div>
+      <div class="field-row">
+        <div><div class="field-label">HDL Cholesterol <span class="field-info-btn" onclick="toggleBlurb('hdl')">i</span></div><div class="field-ref">Optimal: &gt;1.5 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="hdl" type="number" step="0.1" placeholder="e.g. 1.8" oninput="scoreField(this,'hdl')">
+        <div class="field-score" id="s_hdl">,</div>
+      </div>
+<div class="field-blurb" id="blurb_hdl">Good cholesterol, HDL clears excess cholesterol from arteries and transports it back to the liver. High HDL is protective and associated with longevity. Low HDL is an independent cardiovascular risk factor, even if other markers look fine.</div>
+      <div class="field-row">
+        <div><div class="field-label">Triglycerides <span class="field-info-btn" onclick="toggleBlurb('trig')">i</span></div><div class="field-ref">Optimal: &lt;1.0 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="trig" type="number" step="0.1" placeholder="e.g. 0.8" oninput="scoreField(this,'trig')">
+        <div class="field-score" id="s_trig">,</div>
+      </div>
+<div class="field-blurb" id="blurb_trig">Triglycerides are stored fat circulating in the blood, heavily influenced by sugar and alcohol intake. High triglycerides signal poor metabolic health and raise heart disease risk. Low is favourable and reflects good dietary control.</div>
+      <div class="field-row">
+        <div><div class="field-label">hsCRP (High-Sensitivity) <span class="field-info-btn" onclick="toggleBlurb('hscrp')">i</span></div><div class="field-ref">Optimal: &lt;0.5 mg/L</div></div>
+        <div class="field-unit">mg/L</div>
+        <input class="field-input" id="hscrp" type="number" step="0.1" placeholder="e.g. 0.4" oninput="scoreField(this,'hscrp')">
+        <div class="field-score" id="s_hscrp">,</div>
+      </div>
+<div class="field-blurb" id="blurb_hscrp">A sensitive marker of systemic inflammation, the single biggest driver of accelerated ageing. High hsCRP is linked to heart disease, cognitive decline, and nearly every age-related condition. Low is the target, it means your body isn't fighting chronic low-grade inflammation.</div>
+      <div class="field-row">
+        <div><div class="field-label">Systolic Blood Pressure <span class="field-info-btn" onclick="toggleBlurb('sysbp')">i</span></div><div class="field-ref">Optimal: 100 to 120 mmHg</div></div>
+        <div class="field-unit">mmHg</div>
+        <input class="field-input" id="sysbp" type="number" step="1" placeholder="e.g. 115" oninput="scoreField(this,'sysbp')">
+        <div class="field-score" id="s_sysbp">,</div>
+      </div>
+<div class="field-blurb" id="blurb_sysbp">The pressure in your arteries when your heart beats. High blood pressure silently damages blood vessels, the heart, kidneys, and brain over years. Low blood pressure is usually fine unless it causes dizziness or fatigue.</div>
+      <div class="field-row">
+        <div><div class="field-label">Resting Heart Rate <span class="field-info-btn" onclick="toggleBlurb('rhr')">i</span></div><div class="field-ref">Optimal: &lt;55 bpm</div><div class="field-lee-ref">Lee: 47 bpm</div></div>
+        <div class="field-unit">bpm</div>
+        <input class="field-input" id="rhr" type="number" step="1" placeholder="e.g. 52" oninput="scoreField(this,'rhr')">
+        <div class="field-score" id="s_rhr">,</div>
+      </div>
+<div class="field-blurb" id="blurb_rhr">Your heart rate at complete rest, a strong proxy for cardiovascular fitness. High resting heart rate suggests poor conditioning or stress. Low resting heart rate (within reason) reflects a strong, efficient heart, elite athletes often sit in the 40s.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('hormonal')">
+      <div class="cat-icon">&#9889;</div>
+      <div class="cat-title" style="color:var(--purple)">Hormonal</div>
+      <div class="cat-score" id="score-hormonal" style="color:var(--purple)">,</div>
+      <div class="cat-toggle" id="toggle-hormonal">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-hormonal">
+      <div class="field-row">
+        <div><div class="field-label">Total Testosterone <span class="field-info-btn" onclick="toggleBlurb('testost')">i</span></div><div class="field-ref">Optimal male: 20 to 35 nmol/L</div><div class="field-lee-ref">Lee: 29 nmol/L</div></div>
+        <div class="field-unit">nmol/L</div>
+        <input class="field-input" id="testost" type="number" step="0.1" placeholder="e.g. 22.0" oninput="scoreField(this,'testost')">
+        <div class="field-score" id="s_testost">,</div>
+      </div>
+<div class="field-blurb" id="blurb_testost">The primary male hormone, driving muscle mass, bone density, mood, libido, and motivation. Low testosterone accelerates muscle loss, fat gain, and cognitive decline with age. High levels (within physiological range) support vitality, but should always be medically supervised.</div>
+      <div class="field-row">
+        <div><div class="field-label">Free Testosterone <span class="field-info-btn" onclick="toggleBlurb('freetestost')">i</span></div><div class="field-ref">Optimal male: &gt;0.3 nmol/L</div></div>
+        <div class="field-unit">nmol/L</div>
+        <input class="field-input" id="freetestost" type="number" step="0.01" placeholder="e.g. 0.45" oninput="scoreField(this,'freetestost')">
+        <div class="field-score" id="s_freetestost">,</div>
+      </div>
+<div class="field-blurb" id="blurb_freetestost">The active, usable portion of your total testosterone, not bound to proteins. This matters more than total testosterone for how you actually feel. Low free testosterone can cause fatigue and low libido even when total testosterone looks normal.</div>
+      <div class="field-row">
+        <div><div class="field-label">IGF-1 (Growth Hormone proxy) <span class="field-info-btn" onclick="toggleBlurb('igf1')">i</span></div><div class="field-ref">Optimal: 150 to 280 ng/mL</div></div>
+        <div class="field-unit">ng/mL</div>
+        <input class="field-input" id="igf1" type="number" step="1" placeholder="e.g. 200" oninput="scoreField(this,'igf1')">
+        <div class="field-score" id="s_igf1">,</div>
+      </div>
+<div class="field-blurb" id="blurb_igf1">A proxy for growth hormone activity, driving tissue repair, muscle maintenance, and recovery. Low IGF-1 is linked to reduced muscle mass and slower recovery with age. Very high levels need medical review, since IGF-1 has complex effects on cancer risk.</div>
+      <div class="field-row">
+        <div><div class="field-label">DHEA-S <span class="field-info-btn" onclick="toggleBlurb('dheas')">i</span></div><div class="field-ref">Optimal 60+: &gt;150 &micro;g/dL</div></div>
+        <div class="field-unit">&micro;g/dL</div>
+        <input class="field-input" id="dheas" type="number" step="1" placeholder="e.g. 180" oninput="scoreField(this,'dheas')">
+        <div class="field-score" id="s_dheas">,</div>
+      </div>
+<div class="field-blurb" id="blurb_dheas">A precursor hormone your body uses to produce testosterone and other hormones, and a marker of adrenal reserve. Low DHEA-S is common with age and linked to reduced vitality and stress resilience. High is generally favourable in older adults.</div>
+      <div class="field-row">
+        <div><div class="field-label">Cortisol (morning) <span class="field-info-btn" onclick="toggleBlurb('cortisol')">i</span></div><div class="field-ref">Optimal: 300 to 500 nmol/L</div></div>
+        <div class="field-unit">nmol/L</div>
+        <input class="field-input" id="cortisol" type="number" step="1" placeholder="e.g. 380" oninput="scoreField(this,'cortisol')">
+        <div class="field-score" id="s_cortisol">,</div>
+      </div>
+<div class="field-blurb" id="blurb_cortisol">Your primary stress hormone, essential in the right amount, damaging in excess. High morning cortisol, especially if chronic, breaks down muscle and worsens insulin resistance. Low cortisol can cause fatigue and poor stress tolerance.</div>
+      <div class="field-row">
+        <div><div class="field-label">TSH (Thyroid) <span class="field-info-btn" onclick="toggleBlurb('tsh')">i</span></div><div class="field-ref">Optimal: 1.0 to 2.0 mIU/L</div></div>
+        <div class="field-unit">mIU/L</div>
+        <input class="field-input" id="tsh" type="number" step="0.1" placeholder="e.g. 1.5" oninput="scoreField(this,'tsh')">
+        <div class="field-score" id="s_tsh">,</div>
+      </div>
+<div class="field-blurb" id="blurb_tsh">Thyroid stimulating hormone, the control signal for your metabolism. High TSH suggests an underactive thyroid, associated with fatigue, weight gain, and slowed metabolism. Low TSH suggests an overactive thyroid, which carries its own risks.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('bodcomp')">
+      <div class="cat-icon">&#128170;</div>
+      <div class="cat-title" style="color:var(--teal)">Body Composition</div>
+      <div class="cat-score" id="score-bodcomp" style="color:var(--teal)">,</div>
+      <div class="cat-toggle" id="toggle-bodcomp">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-bodcomp">
+      <div class="field-row">
+        <div><div class="field-label">Body Fat Percentage (DEXA) <span class="field-info-btn" onclick="toggleBlurb('bodyfat')">i</span></div><div class="field-ref">Optimal 60+: &lt;20% male / &lt;28% female</div><div class="field-lee-ref">Lee: 9.6%</div></div>
+        <div class="field-unit">%</div>
+        <input class="field-input" id="bodyfat" type="number" step="0.1" placeholder="e.g. 16.0" oninput="scoreField(this,'bodyfat')">
+        <div class="field-score" id="s_bodyfat">,</div>
+      </div>
+<div class="field-blurb" id="blurb_bodyfat">The percentage of your body that is fat tissue, measured accurately only by DEXA. High body fat, particularly visceral fat, drives inflammation and metabolic disease. Low body fat within a healthy range is protective, but extremely low levels can affect hormone production.</div>
+      <div class="field-row">
+        <div><div class="field-label">Lean Muscle Mass (DEXA) <span class="field-info-btn" onclick="toggleBlurb('leanmass')">i</span></div><div class="field-ref">Optimal: preserve / increase vs. age norm</div><div class="field-lee-ref">Lee: 75 kg</div></div>
+        <div class="field-unit">kg</div>
+        <input class="field-input" id="leanmass" type="number" step="0.1" placeholder="e.g. 62.0" oninput="scoreField(this,'leanmass')">
+        <div class="field-score" id="s_leanmass">,</div>
+      </div>
+<div class="field-blurb" id="blurb_leanmass">Muscle, organs, and bone, everything that isn't fat. This is your metabolic engine and your best defence against frailty in later life. Low or declining lean mass predicts loss of independence with age. High and stable lean mass is one of the strongest longevity markers there is.</div>
+      <div class="field-row">
+        <div><div class="field-label">Visceral Fat Area <span class="field-info-btn" onclick="toggleBlurb('visceral')">i</span></div><div class="field-ref">Optimal: &lt;100 cm&sup2; (DEXA)</div><div class="field-lee-ref">Lee: 54.6 cm&sup2;</div></div>
+        <div class="field-unit">cm&sup2;</div>
+        <input class="field-input" id="visceral" type="number" step="0.1" placeholder="e.g. 60.0" oninput="scoreField(this,'visceral')">
+        <div class="field-score" id="s_visceral">,</div>
+      </div>
+<div class="field-blurb" id="blurb_visceral">Fat stored around your internal organs, far more dangerous than fat under the skin. High visceral fat is strongly linked to heart disease, diabetes, and inflammation, even in people who look lean. Low visceral fat is one of the best things you can optimise for healthspan.</div>
+      <div class="field-row">
+        <div><div class="field-label">BMI <span class="field-info-btn" onclick="toggleBlurb('bmi')">i</span></div><div class="field-ref">Optimal longevity: 22 to 25</div></div>
+        <div class="field-unit">kg/m&sup2;</div>
+        <input class="field-input" id="bmi" type="number" step="0.1" placeholder="e.g. 23.5" oninput="scoreField(this,'bmi')">
+        <div class="field-score" id="s_bmi">,</div>
+      </div>
+<div class="field-blurb" id="blurb_bmi">A simple weight-to-height ratio, useful as a rough screen but blind to muscle versus fat. High BMI in a muscular person can be misleading, always read alongside body fat %. Low BMI in older adults can indicate insufficient muscle mass, which is a genuine risk factor.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('fitness')">
+      <div class="cat-icon">&#127939;</div>
+      <div class="cat-title" style="color:var(--orange)">Functional Fitness</div>
+      <div class="cat-score" id="score-fitness" style="color:var(--orange)">,</div>
+      <div class="cat-toggle" id="toggle-fitness">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-fitness">
+      <div class="field-row">
+        <div><div class="field-label">VO&#8322; Max <span class="field-info-btn" onclick="toggleBlurb('vo2max')">i</span></div><div class="field-ref">Excellent 60+: &gt;40 mL/kg/min</div><div class="field-lee-ref">Lee: 50 mL/kg/min</div></div>
+        <div class="field-unit">mL/kg/min</div>
+        <input class="field-input" id="vo2max" type="number" step="0.1" placeholder="e.g. 45.0" oninput="scoreField(this,'vo2max')">
+        <div class="field-score" id="s_vo2max">,</div>
+      </div>
+<div class="field-blurb" id="blurb_vo2max">The maximum amount of oxygen your body can use during exercise, widely regarded as the single strongest predictor of longevity of any biomarker. High VO2 Max means your heart, lungs, and muscles work together efficiently. Low VO2 Max is one of the most modifiable risk factors for early death.</div>
+      <div class="field-row">
+        <div><div class="field-label">Grip Strength (dominant hand) <span class="field-info-btn" onclick="toggleBlurb('grip')">i</span></div><div class="field-ref">Optimal male 60+: &gt;40 kg</div></div>
+        <div class="field-unit">kg</div>
+        <input class="field-input" id="grip" type="number" step="0.5" placeholder="e.g. 45.0" oninput="scoreField(this,'grip')">
+        <div class="field-score" id="s_grip">,</div>
+      </div>
+<div class="field-blurb" id="blurb_grip">A simple squeeze test that predicts overall strength, frailty risk, and even mortality in older adults. High grip strength correlates with better outcomes across nearly every health measure. Low grip strength is an early, often-missed warning sign of declining functional capacity.</div>
+      <div class="field-row">
+        <div><div class="field-label">HRV (Heart Rate Variability) <span class="field-info-btn" onclick="toggleBlurb('hrv')">i</span></div><div class="field-ref">Optimal 60+: &gt;40 ms (RMSSD)</div></div>
+        <div class="field-unit">ms</div>
+        <input class="field-input" id="hrv" type="number" step="1" placeholder="e.g. 55" oninput="scoreField(this,'hrv')">
+        <div class="field-score" id="s_hrv">,</div>
+      </div>
+<div class="field-blurb" id="blurb_hrv">Heart rate variability, the tiny variations between heartbeats, reflects how well your nervous system recovers from stress. High HRV indicates good recovery capacity and resilience. Low HRV suggests accumulated stress, poor sleep, or overtraining.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('cellular')">
+      <div class="cat-icon">&#129516;</div>
+      <div class="cat-title" style="color:var(--neon2)">Inflammation &amp; Cellular</div>
+      <div class="cat-score" id="score-cellular" style="color:var(--neon2)">,</div>
+      <div class="cat-toggle" id="toggle-cellular">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-cellular">
+      <div class="field-row">
+        <div><div class="field-label">Ferritin <span class="field-info-btn" onclick="toggleBlurb('ferritin')">i</span></div><div class="field-ref">Optimal: 50 to 200 ng/mL</div></div>
+        <div class="field-unit">ng/mL</div>
+        <input class="field-input" id="ferritin" type="number" step="1" placeholder="e.g. 100" oninput="scoreField(this,'ferritin')">
+        <div class="field-score" id="s_ferritin">,</div>
+      </div>
+<div class="field-blurb" id="blurb_ferritin">Your iron storage marker. High ferritin can indicate inflammation or iron overload, both worth investigating. Low ferritin means depleted iron stores, causing fatigue and poor exercise capacity, common and easily corrected.</div>
+      <div class="field-row">
+        <div><div class="field-label">Vitamin D (25-OH) <span class="field-info-btn" onclick="toggleBlurb('vitd')">i</span></div><div class="field-ref">Optimal: 100 to 150 nmol/L</div></div>
+        <div class="field-unit">nmol/L</div>
+        <input class="field-input" id="vitd" type="number" step="1" placeholder="e.g. 120" oninput="scoreField(this,'vitd')">
+        <div class="field-score" id="s_vitd">,</div>
+      </div>
+<div class="field-blurb" id="blurb_vitd">A hormone more than a vitamin, involved in immune function, bone health, mood, and hundreds of genetic pathways. Low vitamin D is extremely common, especially in the UK, and linked to almost every chronic disease. High levels within range are protective and easily achieved through supplementation.</div>
+      <div class="field-row">
+        <div><div class="field-label">Homocysteine <span class="field-info-btn" onclick="toggleBlurb('homocys')">i</span></div><div class="field-ref">Optimal: &lt;7 &micro;mol/L</div></div>
+        <div class="field-unit">&micro;mol/L</div>
+        <input class="field-input" id="homocys" type="number" step="0.1" placeholder="e.g. 6.0" oninput="scoreField(this,'homocys')">
+        <div class="field-score" id="s_homocys">,</div>
+      </div>
+<div class="field-blurb" id="blurb_homocys">An amino acid byproduct that, at high levels, damages blood vessels and is linked to heart disease and cognitive decline. Low homocysteine is protective and usually reflects good B-vitamin status.</div>
+      <div class="field-row">
+        <div><div class="field-label">Omega-3 Index <span class="field-info-btn" onclick="toggleBlurb('omega3')">i</span></div><div class="field-ref">Optimal: &gt;8%</div></div>
+        <div class="field-unit">%</div>
+        <input class="field-input" id="omega3" type="number" step="0.1" placeholder="e.g. 9.0" oninput="scoreField(this,'omega3')">
+        <div class="field-score" id="s_omega3">,</div>
+      </div>
+<div class="field-blurb" id="blurb_omega3">The percentage of omega-3 fats in your red blood cell membranes, a strong marker of anti-inflammatory status. High omega-3 index is linked to better heart and brain health and even increased lifespan. Low levels are common in typical Western diets and easily corrected with fish oil.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div style="background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:1rem 1.25rem; display:flex; align-items:center; gap:1rem;">
+      <div style="font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; letter-spacing:1px; color:var(--muted); text-transform:uppercase;">Your Chronological Age</div>
+      <input class="field-input" id="chron_age" type="number" step="1" min="30" max="99" placeholder="e.g. 63" style="width:100px; margin-left:auto;">
+      <div style="font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--muted);">years</div>
+    </div>
+  </div>
+
+  <div class="calc-btn-wrap">
+    <button class="calc-btn" onclick="calculate()">CALCULATE MY BIO-AGE</button>
+    <button class="reset-btn" onclick="resetAll()">Reset</button>
+  </div>
+
+  <div id="breakdown"><div class="breakdown-title">Category Breakdown</div><div class="breakdown-grid" id="breakdown-grid"></div></div>
+  <div id="advice-section"><div class="advice-title">Priority Actions</div><ul class="advice-list" id="advice-list"></ul></div>
+
+</div>
+
+<footer>
+  <p style="color:var(--neon); font-size:1rem; font-family:'Rajdhani',sans-serif; font-weight:700; margin-bottom:0.5rem;">AGING?F***THAT!</p>
+  <p>This tool provides an estimate only. It is not a medical assessment or diagnosis.</p>
+  <p style="margin-top:0.5rem;"><a href="index.html">Home</a> &nbsp;|&nbsp; <a href="biomarkers.html">Lee's Data</a> &nbsp;|&nbsp; <a href="peptides.html">Peptides</a></p>
+  <p style="margin-top:1rem; color:#444;">&copy; Lee C. Stonehouse, AGING?F***THAT!, #agingfthat</p>
+</footer>
+
+<script>
+const FIELDS = {
+  f_glucose:   { optimal:[4.0,5.0], good:[3.8,5.5], warn:[5.5,6.2], weight:8, dir:'range' },
+  hba1c:       { optimal:[4.5,5.4], good:[5.4,5.7], warn:[5.7,6.4], weight:10, dir:'lower_better' },
+  insulin:     { optimal:[2,8],     good:[8,12],     warn:[12,20],   weight:7,  dir:'lower_better' },
+  homair:      { optimal:[0,1.0],   good:[1.0,1.8],  warn:[1.8,2.9], weight:7, dir:'lower_better' },
+  cholesterol: { optimal:[3.5,5.0], good:[5.0,5.5],  warn:[5.5,7.0], weight:5, dir:'lower_better' },
+  ldl:         { optimal:[1.0,2.5], good:[2.5,3.0],  warn:[3.0,4.0], weight:7, dir:'lower_better' },
+  hdl:         { optimal:[1.5,3.5], good:[1.2,1.5],  warn:[0.9,1.2], weight:6, dir:'higher_better' },
+  trig:        { optimal:[0.3,1.0], good:[1.0,1.7],  warn:[1.7,2.5], weight:6, dir:'lower_better' },
+  hscrp:       { optimal:[0,0.5],   good:[0.5,1.5],  warn:[1.5,3.0], weight:9, dir:'lower_better' },
+  sysbp:       { optimal:[100,120], good:[120,130],   warn:[130,140], weight:8, dir:'range' },
+  rhr:         { optimal:[40,55],   good:[55,65],     warn:[65,80],   weight:6, dir:'lower_better' },
+  testost:     { optimal:[20,35],   good:[15,20],     warn:[10,15],   weight:7, dir:'higher_better' },
+  freetestost: { optimal:[0.3,0.7], good:[0.2,0.3],   warn:[0.1,0.2], weight:7, dir:'higher_better' },
+  igf1:        { optimal:[150,280], good:[120,150],   warn:[80,120],  weight:8, dir:'range' },
+  dheas:       { optimal:[150,400], good:[100,150],   warn:[60,100],  weight:6, dir:'higher_better' },
+  cortisol:    { optimal:[300,500], good:[200,300],   warn:[150,200], weight:5, dir:'range' },
+  tsh:         { optimal:[1.0,2.0], good:[0.5,1.0],  warn:[2.0,3.0], weight:5, dir:'range' },
+  bodyfat:     { optimal:[10,18],   good:[18,22],     warn:[22,28],   weight:8, dir:'lower_better' },
+  leanmass:    { optimal:[60,80],   good:[50,60],     warn:[40,50],   weight:6, dir:'higher_better' },
+  visceral:    { optimal:[0,80],    good:[80,120],    warn:[120,160], weight:9, dir:'lower_better' },
+  bmi:         { optimal:[21,25],   good:[25,27],     warn:[27,30],   weight:4, dir:'range' },
+  vo2max:      { optimal:[40,60],   good:[35,40],     warn:[28,35],   weight:10, dir:'higher_better' },
+  grip:        { optimal:[40,65],   good:[34,40],     warn:[26,34],   weight:7, dir:'higher_better' },
+  hrv:         { optimal:[50,120],  good:[35,50],     warn:[20,35],   weight:8, dir:'higher_better' },
+  ferritin:    { optimal:[50,200],  good:[25,50],     warn:[200,300], weight:4, dir:'range' },
+  vitd:        { optimal:[100,175], good:[75,100],    warn:[50,75],   weight:7, dir:'higher_better' },
+  homocys:     { optimal:[0,7],     good:[7,10],      warn:[10,15],   weight:8, dir:'lower_better' },
+  omega3:      { optimal:[8,20],    good:[5,8],       warn:[3,5],     weight:6, dir:'higher_better' },
+};
+
+/* Lee's own verified numbers, wherever we have a real value for a field the tool asks about */
+const LEE_REFERENCE = {
+  rhr: 47,
+  testost: 29,
+  bodyfat: 9.6,
+  leanmass: 75,
+  visceral: 54.6,
+  vo2max: 50,
+};
+const LEE_BIO_AGE = 44;
+const LEE_CHRON_AGE = 63;
+
+const FIELD_NAMES = {
+  rhr:'Resting Heart Rate', testost:'Total Testosterone', bodyfat:'Body Fat %',
+  leanmass:'Lean Muscle Mass', visceral:'Visceral Fat Area', vo2max:'VO\u2082 Max',
+};
+const FIELD_UNITS = {
+  rhr:'bpm', testost:'nmol/L', bodyfat:'%', leanmass:'kg', visceral:'cm\u00b2', vo2max:'mL/kg/min',
+};
+/* true = higher number is the better/younger direction for this field */
+const FIELD_HIGHER_IS_BETTER = {
+  rhr:false, testost:true, bodyfat:false, leanmass:true, visceral:false, vo2max:true,
+};
+
+const CATEGORIES = {
+  metabolic: ['f_glucose','hba1c','insulin','homair'],
+  cardio:    ['cholesterol','ldl','hdl','trig','hscrp','sysbp','rhr'],
+  hormonal:  ['testost','freetestost','igf1','dheas','cortisol','tsh'],
+  bodcomp:   ['bodyfat','leanmass','visceral','bmi'],
+  fitness:   ['vo2max','grip','hrv'],
+  cellular:  ['ferritin','vitd','homocys','omega3'],
+};
+
+const CAT_NAMES = {
+  metabolic:'Metabolic', cardio:'Cardiovascular', hormonal:'Hormonal',
+  bodcomp:'Body Comp', fitness:'Fitness', cellular:'Cellular'
+};
+const CAT_COLORS = {
+  metabolic:'var(--neon)', cardio:'var(--magenta)', hormonal:'var(--purple)',
+  bodcomp:'var(--teal)', fitness:'var(--orange)', cellular:'var(--neon2)'
+};
+
+function getScore(id, val) {
+  const f = FIELDS[id]; if(!f) return null;
+  const v = parseFloat(val); if(isNaN(v)) return null;
+  const [oMin,oMax] = f.optimal;
+  if(f.dir === 'lower_better') {
+    if(v <= oMax) return 100;
+    const [gMin,gMax] = f.good;
+    if(v <= gMax) return 75;
+    const [wMin,wMax] = f.warn;
+    if(v <= wMax) return 40;
+    return 10;
+  } else if(f.dir === 'higher_better') {
+    if(v >= oMin) return 100;
+    const [gMin,gMax] = f.good;
+    if(v >= gMin) return 75;
+    const [wMin,wMax] = f.warn;
+    if(v >= wMin) return 40;
+    return 10;
+  } else {
+    if(v >= oMin && v <= oMax) return 100;
+    const dist = Math.min(Math.abs(v-oMin), Math.abs(v-oMax));
+    const range = oMax - oMin;
+    if(dist <= range*0.3) return 75;
+    if(dist <= range*0.8) return 40;
+    return 10;
+  }
+}
+
+function scoreField(input, id) {
+  const score = getScore(id, input.value);
+  const scoreEl = document.getElementById('s_'+id);
+  input.className = 'field-input';
+  if(score === null) { scoreEl.textContent = '\u2014'; scoreEl.style.color='var(--muted)'; return; }
+  if(score >= 90) { input.classList.add('good'); scoreEl.textContent='\u2713'; scoreEl.style.color='var(--neon)'; }
+  else if(score >= 60) { input.classList.add('warn'); scoreEl.textContent='~'; scoreEl.style.color='var(--yellow)'; }
+  else { input.classList.add('bad'); scoreEl.textContent='\u2717'; scoreEl.style.color='var(--red)'; }
+}
+
+
+function toggleBlurb(fid) {
+  const el = document.getElementById('blurb_'+fid);
+  if (el) el.classList.toggle('show');
+}
+
+function toggleCat(cat) {
+  const body = document.getElementById('body-'+cat);
+  const tog = document.getElementById('toggle-'+cat);
+  const hidden = body.style.display === 'none';
+  body.style.display = hidden ? '' : 'none';
+  tog.textContent = hidden ? '\u25b2' : '\u25bc';
+}
+
+function calculate() {
+  const chronAge = parseFloat(document.getElementById('chron_age').value) || 63;
+  let totalWeight = 0, totalScore = 0;
+  const catScores = {};
+  const lowFields = [];
+
+  for(const [cat, fields] of Object.entries(CATEGORIES)) {
+    let catW = 0, catS = 0, filled = 0;
+    for(const fid of fields) {
+      const val = document.getElementById(fid).value;
+      const score = getScore(fid, val);
+      if(score !== null) {
+        const w = FIELDS[fid].weight;
+        catW += w; catS += score * w;
+        totalWeight += w; totalScore += score * w;
+        filled++;
+        if(score < 60) lowFields.push({ id:fid, score });
+      }
+    }
+    catScores[cat] = catW > 0 ? (catS/catW) : null;
+    const scoreEl = document.getElementById('score-'+cat);
+    if(catScores[cat] !== null) {
+      const pct = Math.round(catScores[cat]);
+      scoreEl.textContent = pct+'%';
+      scoreEl.style.opacity = 1;
+    } else {
+      scoreEl.textContent = '\u2014';
+    }
+  }
+
+  if(totalWeight === 0) { alert('Please enter at least a few biomarker values first.'); return; }
+
+  const avgScore = totalScore / totalWeight;
+  const bioAge = Math.round(chronAge - ((avgScore - 50) / 50) * 17);
+  const delta = bioAge - chronAge;
+
+  const resultBar = document.getElementById('result-bar');
+  resultBar.classList.add('show');
+  const ageEl = document.getElementById('result-age-val');
+  ageEl.textContent = bioAge;
+  const deltaEl = document.getElementById('result-delta-val');
+  if(delta < 0) { deltaEl.textContent = Math.abs(delta)+' years YOUNGER than your chronological age'; deltaEl.style.color='var(--neon)'; ageEl.style.color='var(--neon)'; }
+  else if(delta > 0) { deltaEl.textContent = delta+' years OLDER than your chronological age'; deltaEl.style.color='var(--red)'; ageEl.style.color='var(--red)'; }
+  else { deltaEl.textContent = 'Equal to your chronological age'; deltaEl.style.color='var(--yellow)'; ageEl.style.color='var(--yellow)'; }
+
+  document.getElementById('result-summary').textContent = `Based on ${totalWeight} data points across your biomarker profile. Score: ${Math.round(avgScore)}/100.`;
+
+  const gaugePct = Math.min(100, Math.max(0, avgScore));
+  const gaugeColor = avgScore >= 75 ? 'var(--neon)' : avgScore >= 50 ? 'var(--yellow)' : 'var(--red)';
+  const gaugeFill = document.getElementById('gauge-fill');
+  gaugeFill.style.width = '0%';
+  gaugeFill.style.background = gaugeColor;
+  setTimeout(() => { gaugeFill.style.width = gaugePct + '%'; }, 100);
+
+  /* --- Compare to Lee --- */
+  const leeCompare = document.getElementById('lee-compare');
+  const headlineEl = document.getElementById('lee-headline-text');
+  const bioAgeDiff = bioAge - LEE_BIO_AGE;
+  let headline = '';
+  if (bioAgeDiff > 0) {
+    headline = `Your estimated biological age is <strong>${bioAge}</strong>. Lee's is <strong>${LEE_BIO_AGE}</strong>, verified, at a chronological age of <strong>${LEE_CHRON_AGE}</strong>. That's <strong>${bioAgeDiff} years</strong> of headroom, exactly what the 1-year programme is built to close.`;
+  } else if (bioAgeDiff < 0) {
+    headline = `Your estimated biological age is <strong>${bioAge}</strong>, already ${Math.abs(bioAgeDiff)} years ahead of Lee's own verified <strong>${LEE_BIO_AGE}</strong>. Strong starting point, the programme is about locking that in and extending it further.`;
+  } else {
+    headline = `Your estimated biological age is <strong>${bioAge}</strong>, matching Lee's own verified biological age exactly.`;
+  }
+  headlineEl.innerHTML = headline;
+
+  const fieldCompareEl = document.getElementById('lee-field-compares');
+  fieldCompareEl.innerHTML = '';
+  let anyFieldCompared = false;
+  for (const [fid, leeVal] of Object.entries(LEE_REFERENCE)) {
+    const userValRaw = document.getElementById(fid).value;
+    if (userValRaw === '' || userValRaw === null) continue;
+    const userVal = parseFloat(userValRaw);
+    if (isNaN(userVal)) continue;
+    anyFieldCompared = true;
+    const higherBetter = FIELD_HIGHER_IS_BETTER[fid];
+    const userBetter = higherBetter ? userVal > leeVal : userVal < leeVal;
+    const equal = userVal === leeVal;
+    const youColor = equal ? 'var(--text)' : (userBetter ? 'var(--neon)' : 'var(--red)');
+    const row = document.createElement('div');
+    row.className = 'lee-vs-row';
+    row.innerHTML = `
+      <div class="lee-vs-fieldname">${FIELD_NAMES[fid]}</div>
+      <div class="lee-vs-you"><div class="lee-vs-label">You</div><div class="lee-vs-val" style="color:${youColor}">${userVal}${FIELD_UNITS[fid]==='%'?'%':''}</div></div>
+      <div class="lee-vs-mid">vs</div>
+      <div class="lee-vs-lee"><div class="lee-vs-label">Lee</div><div class="lee-vs-val" style="color:var(--eggshell);-webkit-text-stroke:0.5px var(--neon);">${leeVal}${FIELD_UNITS[fid]==='%'?'%':''}</div></div>
+    `;
+    fieldCompareEl.appendChild(row);
+  }
+  if (!anyFieldCompared) {
+    fieldCompareEl.innerHTML = '<p style="text-align:center; color:var(--muted); font-size:0.85rem;">Enter Resting Heart Rate, Testosterone, Body Fat %, Lean Mass, Visceral Fat, or VO\u2082 Max above for a direct field-by-field comparison against Lee\'s own verified numbers.</p>';
+  }
+  leeCompare.classList.add('show');
+
+  const bdGrid = document.getElementById('breakdown-grid');
+  bdGrid.innerHTML = '';
+  for(const [cat, score] of Object.entries(catScores)) {
+    if(score === null) continue;
+    const pct = Math.round(score);
+    const col = pct >= 80 ? 'var(--neon)' : pct >= 55 ? 'var(--yellow)' : 'var(--red)';
+    bdGrid.innerHTML += `<div class="breakdown-card">
+      <div class="breakdown-cat">${CAT_NAMES[cat]}</div>
+      <div class="breakdown-val" style="color:${col}">${pct}%</div>
+      <div class="breakdown-sub" style="color:${col}">${pct>=80?'Optimal':pct>=55?'Moderate':'Needs work'}</div>
+    </div>`;
+  }
+  document.getElementById('breakdown').classList.add('show');
+
+  const adviceEl = document.getElementById('advice-list');
+  const adviceMap = {
+    f_glucose:'Lower fasting glucose, reduce refined carbs, prioritise protein, increase Zone 2 cardio.',
+    hba1c:'Improve HbA1c, a sustained low-carb/keto approach and resistance training are most effective.',
+    insulin:'Reduce fasting insulin, time-restricted eating and daily exercise are first-line interventions.',
+    homair:'Improve insulin sensitivity, MOTS-c peptide protocol plus Zone 2 training plus low-carb.',
+    hscrp:'Reduce inflammation, omega-3 supplementation, sleep optimisation, reduce ultra-processed foods.',
+    ldl:'Address LDL, review dietary saturated fat; consider NMR particle count for full picture.',
+    hdl:'Raise HDL, aerobic exercise, healthy fats (olive oil, oily fish), reduce simple carbs.',
+    trig:'Lower triglycerides, keto/low-carb is the single most effective dietary intervention.',
+    sysbp:'Blood pressure elevated, magnesium, stress reduction, reduce sodium, increase potassium.',
+    rhr:'Lower resting HR, Zone 2 cardio 3 to 5 times weekly; HRV will improve in parallel.',
+    testost:'Testosterone suboptimal, review TRT protocol, sleep quality, body fat, zinc/magnesium.',
+    igf1:'IGF-1 below optimal, consider Ipamorelin/CJC-1295 protocol; review sleep and protein intake.',
+    dheas:'DHEA-S low, DHEA supplementation (25 to 50mg) is evidence-supported; monitor with physician.',
+    vitd:'Vitamin D insufficient, supplement 4,000 to 6,000 IU daily with K2; retest in 3 months.',
+    homocys:'Homocysteine elevated, B12, B6, and methylfolate supplementation; check MTHFR status.',
+    bodyfat:'Body fat% above optimal, extend IF window, prioritise resistance training, maintain protein.',
+    visceral:'Visceral fat requires attention, highest-priority intervention; keto/low-carb and daily exercise.',
+    vo2max:'VO\u2082 max below optimal, most powerful longevity predictor; weekly HIIT plus Zone 2 protocol.',
+    hrv:'HRV improvement needed, sleep quality, alcohol reduction, cold exposure, stress management.',
+    grip:'Grip strength below optimal, daily resistance training; grip is a proxy for overall functional strength.',
+    omega3:'Omega-3 index low, 2 to 3g daily EPA/DHA; retest in 3 months.',
+  };
+  adviceEl.innerHTML = '';
+  lowFields.sort((a,b)=>a.score-b.score).slice(0,6).forEach(({id}) => {
+    if(adviceMap[id]) {
+      adviceEl.innerHTML += `<li><div class="advice-marker">\u2192</div><div>${adviceMap[id]}</div></li>`;
+    }
+  });
+  if(!adviceEl.innerHTML) {
+    adviceEl.innerHTML = `<li><div class="advice-marker">\u2713</div><div style="color:var(--neon)">Excellent profile. Continue your current protocol and retest in 6 to 12 months.</div></li>`;
+  }
+  document.getElementById('advice-section').classList.add('show');
+  resultBar.scrollIntoView({behavior:'smooth', block:'center'});
+}
+
+function resetAll() {
+  document.querySelectorAll('.field-input').forEach(i => { i.value=''; i.className='field-input'; });
+  document.querySelectorAll('.field-score').forEach(s => { s.textContent='\u2014'; s.style.color='var(--muted)'; });
+  Object.keys(CATEGORIES).forEach(cat => { document.getElementById('score-'+cat).textContent='\u2014'; });
+  document.getElementById('result-bar').classList.remove('show');
+  document.getElementById('lee-compare').classList.remove('show');
+  document.getElementById('breakdown').classList.remove('show');
+  document.getElementById('advice-section').classList.remove('show');
+}
+</script>
+<div class="wa-cta-wrap"><a href="https://wa.me/447935903549" target="_blank" rel="noopener" class="wa-cta">Enquire for 1-Year Program Here &rarr;</a></div>
+</body>
+</html>
