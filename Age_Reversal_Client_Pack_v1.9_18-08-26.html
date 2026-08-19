@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Age Reversal Program - Client Pack</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 <style>
 :root{
   --ink:#2b211d;
@@ -123,8 +124,8 @@ footer{padding:18px 34px;background:var(--pale);color:var(--muted);font-size:12p
 <section class="section">
 <h2>1. Personal Details</h2>
 <div class="body grid">
-<div><label>Full name</label><input name="full_name" type="text"></div>
-<div><label>Preferred name</label><input name="preferred_name" type="text"></div>
+<div><label>Full name</label><input name="full_name" type="text" oninput="renderBioAgeChart()"></div>
+<div><label>Preferred name</label><input name="preferred_name" type="text" oninput="renderBioAgeChart()"></div>
 <div><label>Date of birth</label><input name="dob" type="date" oninput="calcAge()"></div>
 <div><label>Age</label><input name="age" type="number" readonly></div>
 <div><label>Sex</label><select name="sex"><option></option><option>Male</option><option>Female</option><option>Prefer not to say</option><option>Other</option></select></div>
@@ -134,6 +135,15 @@ footer{padding:18px 34px;background:var(--pale);color:var(--muted);font-size:12p
 <div class="full"><label>Home address</label><textarea name="address"></textarea></div>
 <div><label>Emergency contact</label><input name="emergency_contact" type="text"></div>
 <div><label>Emergency contact number</label><input name="emergency_number" type="tel"></div>
+</div>
+</section>
+
+<section class="section" id="bioAgeForecastSection">
+<h2>Bio-Age Trajectory Forecast <span style="font-size:12px;font-weight:400;color:var(--muted);">(preview mock-up, refines once baseline testing is on file)</span></h2>
+<div class="body">
+  <div id="bioAgeChartMeta" style="font-size:13px;color:var(--muted);margin-bottom:12px;"><span id="bioAgeChartName">This client's</span> chronological age today: <strong id="bioAgeChartAge">, enter date of birth above ,</strong></div>
+  <canvas id="bioAgeChart" height="110"></canvas>
+  <div class="smallnote" style="margin-top:10px;">Solid lines: age to date. Dashed lines from today: illustrative Programme forecast only, not a medical prediction, the actual Biological Age line sharpens once baseline DEXA, VO&#8322; max and blood work are recorded in sections 9, 12 below. Axis: age in years, 0 to 120.</div>
 </div>
 </section>
 
@@ -516,6 +526,7 @@ function applyData(data){
     else if(el.type === "radio") el.checked = (el.value === data[el.name]);
     else el.value = data[el.name] ?? "";
   });
+  renderBioAgeChart();
 }
 function status(msg){ document.getElementById("status").textContent = msg; }
 
@@ -578,6 +589,56 @@ function calcAge(){
   const m = now.getMonth()-d.getMonth();
   if(m<0 || (m===0 && now.getDate()<d.getDate())) age--;
   document.querySelector('[name="age"]').value = age;
+  renderBioAgeChart();
+}
+
+let bioAgeChartInstance = null;
+function renderBioAgeChart(){
+  const canvas = document.getElementById('bioAgeChart');
+  if(!canvas || typeof Chart === 'undefined') return;
+
+  const dobVal = document.querySelector('[name="dob"]').value;
+  const nameVal = (document.querySelector('[name="full_name"]').value || document.querySelector('[name="preferred_name"]').value || '').trim();
+  let age = parseFloat(document.querySelector('[name="age"]').value);
+  let haveAge = !isNaN(age) && age > 0;
+  if(!haveAge){ age = 45; } // illustrative placeholder until DOB is entered
+
+  document.getElementById('bioAgeChartName').textContent = nameVal ? nameVal + "'s" : "This client's";
+  document.getElementById('bioAgeChartAge').textContent = haveAge ? (Math.round(age) + ' years') : 'enter date of birth above';
+
+  const maxAge = 120;
+  const chronoPoints = [{x:0,y:0},{x:maxAge,y:maxAge}];
+  const bioSolid = [{x:0,y:0},{x:age,y:age}];
+  const rate = 0.6; // illustrative: biological age advances ~40% slower than calendar time under the Programme
+  const bioForecast = [{x:age,y:age}];
+  for(let x = Math.ceil(age/5)*5; x <= maxAge; x += 5){
+    if(x <= age) continue;
+    bioForecast.push({x, y: age + (x-age)*rate});
+  }
+  if(bioForecast[bioForecast.length-1].x < maxAge){
+    bioForecast.push({x:maxAge, y: age + (maxAge-age)*rate});
+  }
+
+  const ctx = canvas.getContext('2d');
+  if(bioAgeChartInstance) bioAgeChartInstance.destroy();
+  bioAgeChartInstance = new Chart(ctx, {
+    type:'line',
+    data:{ datasets:[
+      { label:'Chronological Age', data:chronoPoints, borderColor:'#173f6d', borderDash:[6,4], borderWidth:2, pointRadius:0, fill:false },
+      { label:'Biological Age, to date', data:bioSolid, borderColor:'#513a2f', borderWidth:3, pointRadius:0, fill:false },
+      { label:'Biological Age, Programme forecast', data:bioForecast, borderColor:'#513a2f', borderDash:[3,3], borderWidth:2, pointRadius:0, fill:false },
+    ]},
+    options:{
+      responsive:true,
+      animation:false,
+      parsing:false,
+      scales:{
+        x:{ type:'linear', min:0, max:maxAge, title:{display:true,text:'Age (years)'} },
+        y:{ type:'linear', min:0, max:maxAge, title:{display:true,text:'Age (years)'} }
+      },
+      plugins:{ legend:{ position:'bottom', labels:{ boxWidth:14, font:{size:11} } } }
+    }
+  });
 }
 
 function escapeForScript(s){
@@ -768,6 +829,7 @@ window.addEventListener("DOMContentLoaded",()=>{
   ["consent_date","contract_date","provider_date"].forEach(n=>{
     const el=document.querySelector(`[name="${n}"]`); if(el && !el.value) el.value=today;
   });
+  renderBioAgeChart();
 });
 </script>
 </body>
