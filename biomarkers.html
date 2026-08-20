@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lee's Data | AGING? F***THAT!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+  <script src="biometric-dashboard.js"></script>
+  <style>
+    :root {
+      --gold:#3E1C01; --cyan:#5A8CAF; --green:#4A7A9C;
+      --blue:#7FA8C9; --orange:#9C6B3F; --purple:#6B7F99;
+      --red:#7A4A2E; --text:#3E1C01; --muted:#8A7666;
+      --bg:#FFFFFF; --card:#F4F8FB; --border:#DCE8F1;
+      --neon:var(--gold); --neon2:var(--red); --teal:var(--cyan); --card2:var(--card); --eggshell:var(--blue);
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      background:var(--bg);color:var(--text);
+      font-family:'Segoe UI',system-ui,sans-serif;
+      min-height:100vh;padding:28px 20px 48px;
+    }
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+      background-image:radial-gradient(circle,#DCE8F1 1px,transparent 1px);
+      background-size:28px 28px;opacity:0.35;
+    }
+    .dash{position:relative;z-index:1;max-width:940px;margin:0 auto;}
+
+    .fade{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
+    .fade.in{opacity:1;transform:none;}
+    .d1{transition-delay:.05s} .d2{transition-delay:.12s} .d3{transition-delay:.2s}
+    .d4{transition-delay:.28s} .d5{transition-delay:.36s} .d6{transition-delay:.44s}
+    .d7{transition-delay:.52s} .d8{transition-delay:.60s} .d9{transition-delay:.68s}
+
+    .header{text-align:center;padding:24px 0 32px;border-bottom:1px solid var(--border);margin-bottom:32px;}
+    .brand{font-size:13px;letter-spacing:.25em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+    .headline{font-size:clamp(22px,4vw,34px);font-weight:800;line-height:1.2;margin-bottom:8px;}
+    .headline span{color:var(--gold);}
+    .subhead{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto;}
+    .badge-program{
+      display:inline-block;margin-top:14px;padding:6px 18px;
+      background:linear-gradient(135deg,#EEF5FA,#E4EEF6);
+      border:1px solid #7FA8C9;border-radius:20px;
+      font-size:12px;letter-spacing:.15em;color:#3E1C01;text-transform:uppercase;
+    }
+
+    .hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:28px;}
+    .hero-card{
+      background:var(--card);border:1px solid var(--border);border-radius:14px;
+      padding:22px 16px;text-align:center;position:relative;overflow:hidden;
+    }
+    .hero-card::before{
+      content:'';position:absolute;inset:0;opacity:.06;
+      background:radial-gradient(circle at 50% 0%,var(--accent),transparent 70%);
+    }
+    .hero-icon{font-size:26px;margin-bottom:8px;}
+    .hero-val{font-size:clamp(32px,5vw,44px);font-weight:800;line-height:1;margin-bottom:4px;}
+    .hero-label{font-size:11px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+    .hero-context{font-size:12px;color:var(--muted);}
+    .hero-badge{
+      display:inline-block;margin-top:8px;padding:3px 10px;border-radius:10px;
+      font-size:11px;font-weight:700;letter-spacing:.05em;
+    }
+
+    .section{margin-bottom:28px;}
+    .section-title{
+      font-size:11px;letter-spacing:.2em;color:var(--muted);text-transform:uppercase;
+      margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);
+      display:flex;align-items:center;gap:8px;
+    }
+    .section-title::before{content:'';display:block;width:3px;height:16px;background:var(--gold);border-radius:2px;}
+
+    .comp-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 24px;}
+    .comp-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+    .comp-row:last-child{margin-bottom:0;}
+    .comp-label{font-size:12px;color:var(--text);min-width:160px;flex-shrink:0;}
+    .comp-track{flex:1;height:10px;background:#E4EEF6;border-radius:5px;overflow:hidden;}
+    .comp-fill{height:100%;border-radius:5px;width:0;transition:width 1s cubic-bezier(.25,.46,.45,.94);}
+    .comp-num{font-size:13px;font-weight:700;min-width:36px;text-align:right;}
+    .comp-tag{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:700;letter-spacing:.05em;}
+
+    .dexa-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;}
+    .dexa-card{
+      background:var(--card);border:1px solid var(--border);border-radius:12px;
+      padding:16px 14px;text-align:center;
+    }
+    .dexa-val{font-size:24px;font-weight:800;margin-bottom:2px;}
+    .dexa-label{font-size:11px;color:var(--muted);letter-spacing:.08em;}
+    .dexa-delta{font-size:11px;margin-top:4px;}
+
+    .ls-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;}
+    .ls-card{
+      background:var(--card);border:1px solid var(--border);border-radius:12px;
+      padding:16px 14px;text-align:center;
+    }
+    .ls-icon{font-size:22px;display:block;margin-bottom:6px;}
+    .ls-val{font-size:20px;font-weight:800;margin-bottom:2px;}
+    .ls-label{font-size:10px;color:var(--muted);letter-spacing:.08em;line-height:1.4;}
+
+    .deliverables{
+      background:linear-gradient(135deg,#F4F8FB,#E4EEF6);
+      border:1px solid #B8D4E9;border-radius:16px;padding:28px 28px 24px;
+    }
+    .deliverables h3{font-size:16px;font-weight:700;margin-bottom:18px;color:var(--gold);}
+    .deliv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;}
+    .deliv-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5;}
+    .deliv-check{color:var(--green);font-size:16px;flex-shrink:0;margin-top:1px;}
+    .deliv-text strong{color:var(--text);}
+    .deliv-text span{color:var(--muted);font-size:12px;}
+
+    .goal-row{margin-bottom:16px;}
+    .goal-row:last-child{margin-bottom:0;}
+    .goal-meta{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+    .goal-name{font-size:13px;font-weight:600;}
+    .goal-range{font-size:12px;color:var(--muted);}
+    .goal-track{height:8px;background:#E4EEF6;border-radius:4px;overflow:hidden;}
+    .goal-fill{height:100%;border-radius:4px;width:0;transition:width 1.2s cubic-bezier(.25,.46,.45,.94);}
+    .goal-dates{display:flex;justify-content:space-between;margin-top:4px;font-size:10px;color:var(--muted);}
+
+    .disclaimer{
+      background:rgba(184,212,233,.3);border:1px solid rgba(127,168,201,.4);
+      border-radius:10px;padding:14px 18px;font-size:12px;color:var(--muted);
+      margin-bottom:24px;line-height:1.6;
+    }
+    .disclaimer strong{color:var(--gold);}
+
+    .footer{text-align:center;padding-top:28px;border-top:1px solid var(--border);}
+    .ft-brand{font-size:18px;font-weight:800;letter-spacing:.08em;margin-bottom:8px;}
+    .ft-brand span{color:var(--gold);}
+    .ft-sources{font-size:11px;color:var(--muted);line-height:1.8;}
+    .ft-cta{
+      display:inline-block;margin-top:18px;padding:12px 32px;
+      background:linear-gradient(135deg,var(--gold),#6B4226);
+      color:#FFFFFF;font-weight:800;font-size:14px;letter-spacing:.05em;
+      border-radius:30px;text-decoration:none;
+    }
+
+    @media(max-width:600px){
+      .comp-label{min-width:120px;font-size:11px;}
+      .deliverables{padding:20px 16px;}
+    }
+    nav{
+      position:sticky;top:0;z-index:200;
+      background:rgba(255,255,255,0.96);border-bottom:1px solid var(--border);
+      padding:0 2rem;display:flex;align-items:center;justify-content:space-between;
+      height:56px;backdrop-filter:blur(10px);margin:-28px -20px 28px;
+    }
+    .nav-logo{font-weight:800;font-size:1.1rem;color:var(--gold);letter-spacing:1px;text-decoration:none;}
+    .nav-links{display:flex;gap:1.4rem;flex-wrap:nowrap;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.78rem;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;transition:color 0.2s;white-space:nowrap;}
+    .nav-links a:hover, .nav-links a.active{color:var(--cyan);}
+    @media(max-width:800px){
+      .nav-links{gap:0.9rem;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;}
+      .nav-links::-webkit-scrollbar{display:none;}
+      .nav-links a{font-size:0.68rem;}
+      nav{padding:0 1rem;}
+    }
+
+    /* ---- Ported from Bio-Age Calculator: biomarker input form ---- */
+    .intro-bar { background:rgba(61,28,2,0.05); border:1px solid rgba(61,28,2,0.2); border-radius:8px; padding:1rem 1.5rem; margin-bottom:2rem; display:flex; gap:1rem; align-items:flex-start; flex-wrap:wrap; }
+    .intro-bar-icon { font-size:1.4rem; flex-shrink:0; margin-top:2px; }
+    .intro-bar p { font-size:0.85rem; color:var(--muted); line-height:1.6; }
+    .intro-bar strong { color:var(--neon); }
+    .cat-section { margin-bottom:2rem; }
+    .cat-header { display:flex; align-items:center; gap:0.75rem; padding:0.75rem 1rem; background:var(--card2); border-radius:8px 8px 0 0; border:1px solid var(--border); border-bottom:none; cursor:pointer; user-select:none; }
+    .cat-header:hover { background:#E4EEF6; }
+    .cat-icon { font-size:1.2rem; }
+    .cat-title { font-family:'Rajdhani', sans-serif; font-size:1rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; }
+    .cat-score { margin-left:auto; font-family:'Share Tech Mono', monospace; font-size:0.8rem; }
+    .cat-toggle { font-size:0.8rem; color:var(--muted); margin-left:0.5rem; }
+    .cat-body { border:1px solid var(--border); border-top:none; border-radius:0 0 8px 8px; overflow:hidden; }
+    .field-row { display:grid; grid-template-columns:1fr auto 180px auto; gap:0.75rem; align-items:center; padding:0.6rem 1rem; border-bottom:1px solid rgba(220,232,241,0.6); transition:background 0.15s; }
+    .field-row:last-child { border-bottom:none; }
+    .field-row:hover { background:rgba(220,232,241,0.4); }
+    @media(max-width:600px){ .field-row { grid-template-columns:1fr 80px; } .field-unit, .field-score { display:none; } }
+    .field-label { font-size:0.88rem; color:var(--text); }
+    .field-ref { font-size:0.72rem; color:var(--muted); font-family:'Share Tech Mono', monospace; margin-top:1px; }
+    .field-lee-ref { font-size:0.7rem; color:var(--neon); font-family:'Share Tech Mono', monospace; margin-top:1px; }
+    .field-unit { font-size:0.75rem; color:var(--muted); font-family:'Share Tech Mono', monospace; text-align:center; }
+    .field-input { background:rgba(220,232,241,0.6); border:1px solid var(--border); border-radius:5px; color:var(--text); font-family:'Share Tech Mono', monospace; font-size:0.88rem; padding:0.4rem 0.65rem; width:100%; text-align:right; transition:border-color 0.2s; -moz-appearance:textfield; }
+    .field-input::-webkit-inner-spin-button { display:none; }
+    .field-input:focus { outline:none; border-color:var(--neon); }
+    .field-input.good { border-color:rgba(61,28,2,0.5); }
+    .field-input.warn { border-color:rgba(20,33,61,0.5); }
+    .field-input.bad  { border-color:rgba(122,74,46,0.5); }
+    .field-score { font-family:'Share Tech Mono', monospace; font-size:0.75rem; text-align:center; min-width:50px; }
+    .field-info-btn { display:inline-block; width:14px; height:14px; line-height:14px; text-align:center; border-radius:50%; background:var(--eggshell); color:var(--neon); font-size:10px; font-weight:700; cursor:pointer; margin-left:6px; vertical-align:middle; user-select:none; }
+    .field-blurb { display:none; grid-column:1/-1; background:var(--card2); border-top:1px dashed var(--border); padding:0.6rem 1rem; font-size:0.8rem; color:var(--muted); line-height:1.6; }
+    .field-blurb.show { display:block; }
+    .calc-btn-wrap { text-align:center; margin:2rem 0; }
+    .calc-btn { background:var(--neon); color:#FFFFFF; font-family:'Rajdhani', sans-serif; font-size:1.1rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; border:none; padding:1rem 3rem; border-radius:6px; cursor:pointer; transition:transform 0.15s, box-shadow 0.15s; }
+    .calc-btn:hover { transform:translateY(-2px); box-shadow:0 0 20px rgba(61,28,2,0.4); }
+    .reset-btn { background:transparent; color:var(--muted); border:1px solid var(--border); font-family:'Rajdhani', sans-serif; font-size:0.9rem; font-weight:600; letter-spacing:2px; text-transform:uppercase; padding:0.6rem 1.5rem; border-radius:6px; cursor:pointer; margin-left:1rem; transition:color 0.2s, border-color 0.2s; }
+    .reset-btn:hover { color:var(--text); border-color:var(--muted); }
+    #breakdown { margin-top:2rem; display:none; }
+    #breakdown.show { display:block; }
+    .breakdown-title { font-family:'Rajdhani', sans-serif; font-size:1.1rem; color:var(--neon); letter-spacing:2px; text-transform:uppercase; margin-bottom:1rem; }
+    .breakdown-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:0.75rem; }
+    .breakdown-card { background:var(--card2); border:1px solid var(--border); border-radius:8px; padding:1rem; text-align:center; }
+    .breakdown-cat { font-size:0.72rem; font-family:'Share Tech Mono', monospace; color:var(--muted); letter-spacing:1px; text-transform:uppercase; margin-bottom:0.25rem; }
+    .breakdown-val { font-family:'Rajdhani', sans-serif; font-size:1.8rem; font-weight:700; }
+    .breakdown-sub { font-size:0.72rem; color:var(--muted); margin-top:0.1rem; }
+    .history-table { width:100%; border-collapse:collapse; margin-bottom:1rem; font-size:0.85rem; }
+    .history-table th { text-align:left; font-family:'Rajdhani',sans-serif; letter-spacing:1px; text-transform:uppercase; font-size:0.72rem; color:var(--muted); padding:0.5rem; border-bottom:2px solid var(--border); }
+    .history-table td { padding:0.5rem; border-bottom:1px solid var(--border); font-family:'Share Tech Mono', monospace; }
+    .history-add-row { display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:0.6rem; align-items:end; margin-top:0.75rem; }
+    .history-add-row label { display:block; font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:3px; }
+    .history-add-row input { width:100%; padding:0.45rem 0.6rem; border:1px solid var(--border); border-radius:5px; font-family:'Share Tech Mono', monospace; background:var(--card); color:var(--text); }
+
+  </style>
+<style>
+.wa-cta-wrap{text-align:center;padding:14px 20px;}
+.wa-cta{display:inline-block;padding:12px 32px;background:linear-gradient(135deg,#3E1C01,#6B4226);color:#FFFFFF;font-weight:800;font-size:14px;letter-spacing:.05em;border-radius:30px;text-decoration:none;font-family:'Rajdhani',sans-serif;transition:opacity 0.2s;}
+.wa-cta:hover{opacity:0.85;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">AGING?F***THAT!</a>
+  <div class="nav-links">
+    <a href="index.html#about">About</a>
+    <a href="index.html#tenets">Tenets</a>
+    <a href="index.html#book">Book</a>
+    <a href="index.html#data">Data Hub</a>
+    <a href="index.html#gallery">Gallery</a>
+    <a href="biomarkers.html">Lee's Data</a>
+    <a href="bio-age-calculator.html">Bio-Age Calculator</a>
+    <a href="programs-offered.html">Programs Offered</a>
+    <a href="lab-partners.html">Lab Partners</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="admin.html">Admin</a>
+  </div>
+</nav>
+<div class="wa-cta-wrap"><a href="https://wa.me/447935903549" target="_blank" rel="noopener" class="wa-cta">Enquire for 1-Year Program Here &rarr;</a></div>
+
+<div class="dash">
+
+  <div class="header fade d1">
+    <div class="brand">AGING? F***THAT!, Lee's Data</div>
+    <h1 class="headline">This is what a <span>63-year-old</span> body can look like.</h1>
+    <p class="subhead">Lee's verified biomarkers, the benchmark your 1-year Age Reversal Program aims for.</p>
+    <div class="badge-program">&#10022; Bespoke 1-Year Age Reversal Program</div>
+  </div>
+
+  <div class="hero-grid fade d2">
+
+    <div class="hero-card" style="--accent:var(--gold)">
+      <div class="hero-icon">&#129516;</div>
+      <div class="hero-val" style="color:var(--gold)" id="heroBioAge">44</div>
+      <div class="hero-label">Biological Age</div>
+      <div class="hero-context">Chronological: <span id="heroChronoAge">63</span></div>
+      <div class="hero-badge" style="background:rgba(62,28,1,.10);color:var(--gold)" id="heroDelta">&minus;18 YEARS</div>
+    </div>
+
+    <div class="hero-card" style="--accent:var(--cyan)">
+      <div class="hero-icon">&#129749;</div>
+      <div class="hero-val" style="color:var(--cyan)">50</div>
+      <div class="hero-label">VO&#8322;Max</div>
+      <div class="hero-context">ml/kg/min</div>
+      <div class="hero-badge" style="background:rgba(90,140,175,.15);color:var(--cyan)">TOP 2%</div>
+    </div>
+
+    <div class="hero-card" style="--accent:var(--green)">
+      <div class="hero-icon">&#9889;</div>
+      <div class="hero-val" style="color:var(--green)">9.6%</div>
+      <div class="hero-label">Body Fat</div>
+      <div class="hero-context">DEXA verified &middot; Apr 2025</div>
+      <div class="hero-badge" style="background:rgba(74,122,156,.15);color:var(--green)">ELITE RANGE</div>
+    </div>
+
+    <div class="hero-card" style="--accent:var(--blue)">
+      <div class="hero-icon">&#128170;</div>
+      <div class="hero-val" style="color:var(--blue)">75kg</div>
+      <div class="hero-label">Lean Mass</div>
+      <div class="hero-context">ALMI 98th percentile</div>
+      <div class="hero-badge" style="background:rgba(127,168,201,.18);color:var(--blue)">98/100</div>
+    </div>
+
+    <div class="hero-card" style="--accent:var(--orange)">
+      <div class="hero-icon">&#9879;&#65039;</div>
+      <div class="hero-val" style="color:var(--orange)">29</div>
+      <div class="hero-label">Testosterone</div>
+      <div class="hero-context">nmol/L &middot; Optimised</div>
+      <div class="hero-badge" style="background:rgba(156,107,63,.15);color:var(--orange)">OPTIMAL</div>
+    </div>
+
+  </div>
+
+  <div class="section fade d3">
+    <div class="section-title">VO&#8322;Max, Population Comparison</div>
+    <div class="comp-card">
+
+      <div class="comp-row">
+        <div class="comp-label" style="font-weight:700;color:var(--cyan)">Lee (age 63) &#9733;</div>
+        <div class="comp-track">
+          <div class="comp-fill" data-w="91%" style="background:linear-gradient(90deg,var(--cyan),#4A7A9C);"></div>
+        </div>
+        <div class="comp-num" style="color:var(--cyan)">50</div>
+        <div class="comp-tag" style="background:rgba(90,140,175,.15);color:var(--cyan)">TOP 2%</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-label">Elite Athlete (60s)</div>
+        <div class="comp-track">
+          <div class="comp-fill" data-w="82%" style="background:#7FA8C9;"></div>
+        </div>
+        <div class="comp-num" style="color:var(--blue)">45</div>
+        <div class="comp-tag" style="background:rgba(127,168,201,.12);color:var(--blue)">TOP 10%</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-label">Active Male (60s)</div>
+        <div class="comp-track">
+          <div class="comp-fill" data-w="55%" style="background:#B5A696;"></div>
+        </div>
+        <div class="comp-num" style="color:var(--muted)">30</div>
+        <div class="comp-tag" style="background:#E4EEF6;color:var(--muted)">AVERAGE</div>
+      </div>
+
+      <div class="comp-row">
+        <div class="comp-label">Sedentary Male (60s)</div>
+        <div class="comp-track">
+          <div class="comp-fill" data-w="36%" style="background:#8A7666;"></div>
+        </div>
+        <div class="comp-num" style="color:var(--muted)">20</div>
+        <div class="comp-tag" style="background:#E4EEF6;color:#8A7666">LOW</div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section fade d4">
+    <div class="section-title">Body Composition, DEXA Scan (BodyScan UK)</div>
+    <div class="dexa-grid">
+      <div class="dexa-card">
+        <div class="dexa-val" style="color:var(--green)">9.6%</div>
+        <div class="dexa-label">BODY FAT</div>
+        <div class="dexa-delta" style="color:var(--green)">&darr; 4.1% in 6 months</div>
+      </div>
+      <div class="dexa-card">
+        <div class="dexa-val" style="color:var(--blue)">75kg</div>
+        <div class="dexa-label">LEAN MASS</div>
+        <div class="dexa-delta" style="color:var(--blue)">Preserved &amp; growing</div>
+      </div>
+      <div class="dexa-card">
+        <div class="dexa-val" style="color:var(--gold)">3.6</div>
+        <div class="dexa-label">BONE T-SCORE</div>
+        <div class="dexa-delta" style="color:var(--green)">&uarr; +0.4 &middot; Exceptional</div>
+      </div>
+      <div class="dexa-card">
+        <div class="dexa-val" style="color:var(--green)">54.6</div>
+        <div class="dexa-label">VISCERAL FAT cm&sup2;</div>
+        <div class="dexa-delta" style="color:var(--green)">&darr; 37% in 6 months</div>
+      </div>
+      <div class="dexa-card">
+        <div class="dexa-val" style="color:var(--text)">84kg</div>
+        <div class="dexa-label">BODYWEIGHT</div>
+        <div class="dexa-delta" style="color:var(--green)">&darr; 7kg &middot; All fat</div>
+      </div>
+      <div class="dexa-card">
+        <div class="dexa-val" style="color:var(--orange)">97kg</div>
+        <div class="dexa-label">PEAK WEIGHT</div>
+        <div class="dexa-delta" style="color:var(--green)">&darr; 13kg total lost</div>
+      </div>
+      <div class="dexa-card">
+        <div class="dexa-val" style="color:var(--blue)">11.96</div>
+        <div class="dexa-label">ALMI kg/m&sup2;</div>
+        <div class="dexa-delta" style="color:var(--blue)">Rank 98/100</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade d5">
+    <div class="section-title">Lifestyle Protocol</div>
+    <div class="ls-grid">
+      <div class="ls-card">
+        <span class="ls-icon">&#128564;</span>
+        <div class="ls-val" style="color:var(--cyan)">7 to 8h</div>
+        <div class="ls-label">Sleep<br>Optimised</div>
+      </div>
+      <div class="ls-card">
+        <span class="ls-icon">&#127939;&#65039;</span>
+        <div class="ls-val" style="color:var(--gold);font-size:18px;">DAILY</div>
+        <div class="ls-label">~20 Rest Days<br>Per Year</div>
+      </div>
+      <div class="ls-card">
+        <span class="ls-icon">&#128138;</span>
+        <div class="ls-val" style="color:var(--green)">0</div>
+        <div class="ls-label">Prescription<br>Medications</div>
+      </div>
+      <div class="ls-card">
+        <span class="ls-icon">&#129367;</span>
+        <div class="ls-val" style="font-size:13px;color:var(--text);line-height:1.3;">KETO<br>BIASED</div>
+        <div class="ls-label">Low Carb &middot; High Protein<br>Medium Fats</div>
+      </div>
+      <div class="ls-card">
+        <span class="ls-icon">&#9201;&#65039;</span>
+        <div class="ls-val" style="color:var(--gold)">16:8</div>
+        <div class="ls-label">Intermittent<br>Fasting</div>
+      </div>
+      <div class="ls-card">
+        <span class="ls-icon">&#9879;&#65039;</span>
+        <div class="ls-val" style="font-size:18px;color:var(--orange)">TRT<br>2021</div>
+        <div class="ls-label">Hormone<br>Optimised</div>
+      </div>
+      <div class="ls-card">
+        <span class="ls-icon">&#128300;</span>
+        <div class="ls-val" style="font-size:18px;color:var(--purple)">ANNUAL</div>
+        <div class="ls-label">Full Blood<br>Panel Review</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade d6">
+    <div class="section-title">What You Receive on the 1-Year Age Reversal Program</div>
+    <div class="deliverables">
+      <h3>Your Full Programme Deliverables</h3>
+      <div class="deliv-grid">
+        <div class="deliv-item">
+          <span class="deliv-check">&#10003;</span>
+          <div class="deliv-text">
+            <strong>Full Biomarker Baseline</strong><br>
+            <span>Comprehensive blood panel + DEXA body scan, your starting point</span>
+          </div>
+        </div>
+        <div class="deliv-item">
+          <span class="deliv-check">&#10003;</span>
+          <div class="deliv-text">
+            <strong>Personalised Protocol</strong><br>
+            <span>Training, nutrition, sleep &amp; recovery, built around your data</span>
+          </div>
+        </div>
+        <div class="deliv-item">
+          <span class="deliv-check">&#10003;</span>
+          <div class="deliv-text">
+            <strong>Monthly Dashboard Reports</strong><br>
+            <span>Exactly like this one, tracking your biomarker progress each month</span>
+          </div>
+        </div>
+        <div class="deliv-item">
+          <span class="deliv-check">&#10003;</span>
+          <div class="deliv-text">
+            <strong>Direct Access to Lee</strong><br>
+            <span>Regular check-ins, adjustments, and accountability throughout the year</span>
+          </div>
+        </div>
+        <div class="deliv-item">
+          <span class="deliv-check">&#10003;</span>
+          <div class="deliv-text">
+            <strong>AGING? F***THAT!, The Book</strong><br>
+            <span>Signed copy included, the complete framework behind Lee's results</span>
+          </div>
+        </div>
+        <div class="deliv-item">
+          <span class="deliv-check">&#10003;</span>
+          <div class="deliv-text">
+            <strong>Hormone Optimisation Guidance</strong><br>
+            <span>Review &amp; referral support for TRT, peptides &amp; longevity protocols</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section fade d7">
+    <div class="section-title">What's Achievable, 12-Month Target Trajectory</div>
+    <div class="comp-card" style="padding:24px;">
+
+      <div class="goal-row">
+        <div class="goal-meta">
+          <span class="goal-name">Biological Age Reduction</span>
+          <span class="goal-range">&minus;5 to &minus;18 years depending on starting point</span>
+        </div>
+        <div class="goal-track">
+          <div class="goal-fill" data-w="75%" style="background:linear-gradient(90deg,var(--gold),#d97706);"></div>
+        </div>
+        <div class="goal-dates"><span>Month 0, Baseline</span><span>Month 12, Target</span></div>
+      </div>
+
+      <div class="goal-row">
+        <div class="goal-meta">
+          <span class="goal-name">Body Fat % Reduction</span>
+          <span class="goal-range">Avg client: &minus;4 to &minus;8% in year one</span>
+        </div>
+        <div class="goal-track">
+          <div class="goal-fill" data-w="65%" style="background:linear-gradient(90deg,var(--green),#5A8CAF);"></div>
+        </div>
+        <div class="goal-dates"><span>Month 0, Baseline</span><span>Month 12, Target</span></div>
+      </div>
+
+      <div class="goal-row">
+        <div class="goal-meta">
+          <span class="goal-name">Lean Muscle Mass</span>
+          <span class="goal-range">Preserve + gain while losing fat</span>
+        </div>
+        <div class="goal-track">
+          <div class="goal-fill" data-w="70%" style="background:linear-gradient(90deg,var(--blue),#4A7A9C);"></div>
+        </div>
+        <div class="goal-dates"><span>Month 0, Baseline</span><span>Month 12, Target</span></div>
+      </div>
+
+      <div class="goal-row">
+        <div class="goal-meta">
+          <span class="goal-name">VO&#8322;Max Improvement</span>
+          <span class="goal-range">+5 to 10 ml/kg/min with structured training</span>
+        </div>
+        <div class="goal-track">
+          <div class="goal-fill" data-w="60%" style="background:linear-gradient(90deg,var(--cyan),#4A7A9C);"></div>
+        </div>
+        <div class="goal-dates"><span>Month 0, Baseline</span><span>Month 12, Target</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section fade d5" style="border:none;padding-top:0;">
+    <div class="section-title">Full Biometric Data</div>
+    <div class="intro-bar">
+      <div class="intro-bar-icon">&#128203;</div>
+      <p>The same worksheet used on the public <strong>Bio-Age Calculator</strong>, filled in with Lee's actual verified results where testing has been done. Blank fields are markers not yet tracked, not zeros. Update this after every new blood panel or DEXA scan, then log the result below to build the trend.</p>
+    </div>
+
+    <div class="intro-bar" style="align-items:center; gap:1.5rem; flex-wrap:wrap;">
+      <div style="flex:1; min-width:200px;">
+        <div style="font-family:'Rajdhani',sans-serif; font-size:0.8rem; font-weight:700; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-bottom:0.4rem;">Date of Birth</div>
+        <input class="field-input" id="dob_input" type="date" style="width:100%; text-align:left;" oninput="updateChronAge()">
+      </div>
+      <div style="min-width:150px;">
+        <div style="font-family:'Rajdhani',sans-serif; font-size:0.8rem; font-weight:700; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-bottom:0.4rem;">Gender</div>
+        <select class="field-input" id="gender_input" style="width:100%; text-align:left;">
+          <option value="">Select</option>
+          <option value="male" selected>Male</option>
+          <option value="female">Female</option>
+          <option value="prefer_not">Prefer not to say</option>
+        </select>
+      </div>
+      <div style="min-width:130px;">
+        <div style="font-family:'Rajdhani',sans-serif; font-size:0.8rem; font-weight:700; letter-spacing:1px; color:var(--muted); text-transform:uppercase; margin-bottom:0.4rem;">Chronological Age</div>
+        <input class="field-input" id="chron_age" type="number" step="1" min="0" max="120" value="63" style="width:100%; text-align:left;">
+      </div>
+    </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('metabolic')">
+      <div class="cat-icon">&#9879;&#65039;</div>
+      <div class="cat-title" style="color:var(--neon)">Metabolic &amp; Glucose</div>
+      <div class="cat-score" id="score-metabolic" style="color:var(--neon)">,</div>
+      <div class="cat-toggle" id="toggle-metabolic">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-metabolic">
+      <div class="field-row">
+        <div><div class="field-label">Fasting Glucose <span class="field-info-btn" onclick="toggleBlurb('f_glucose')">i</span></div><div class="field-ref">Optimal: 4.0 to 5.0 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="f_glucose" type="number" step="0.1" placeholder="e.g. 4.8" oninput="scoreField(this,'f_glucose')">
+        <div class="field-score" id="s_f_glucose">,</div>
+      </div>
+<div class="field-blurb" id="blurb_f_glucose">Measures blood sugar after an overnight fast. High readings signal poor glucose control and rising diabetes risk, often years before diagnosis. Low readings (below range) can indicate poor meal timing or overtraining without adequate fuel.</div>
+      <div class="field-row">
+        <div><div class="field-label">HbA1c <span class="field-info-btn" onclick="toggleBlurb('hba1c')">i</span></div><div class="field-ref">Optimal: &lt;5.4% (&lt;36 mmol/mol)</div></div>
+        <div class="field-unit">%</div>
+        <input class="field-input" id="hba1c" type="number" step="0.1" placeholder="e.g. 5.1" oninput="scoreField(this,'hba1c')">
+        <div class="field-score" id="s_hba1c">,</div>
+      </div>
+<div class="field-blurb" id="blurb_hba1c">A 3-month average of blood sugar control, the single best marker for metabolic ageing. High HbA1c accelerates ageing across nearly every organ system via glycation damage. Low is rarely a concern outside of anaemia distorting the result.</div>
+      <div class="field-row">
+        <div><div class="field-label">Fasting Insulin <span class="field-info-btn" onclick="toggleBlurb('insulin')">i</span></div><div class="field-ref">Optimal: &lt;8 mIU/L</div></div>
+        <div class="field-unit">mIU/L</div>
+        <input class="field-input" id="insulin" type="number" step="0.1" placeholder="e.g. 5.0" oninput="scoreField(this,'insulin')">
+        <div class="field-score" id="s_insulin">,</div>
+      </div>
+<div class="field-blurb" id="blurb_insulin">Fasting insulin reveals problems years before glucose does. High insulin means your body is working overtime to manage sugar, an early warning of insulin resistance. Low insulin alongside normal glucose is the sign of a metabolically efficient body.</div>
+      <div class="field-row">
+        <div><div class="field-label">HOMA-IR <span class="field-info-btn" onclick="toggleBlurb('homair')">i</span></div><div class="field-ref">Optimal: &lt;1.0 (insulin resistance proxy)</div></div>
+        <div class="field-unit">ratio</div>
+        <input class="field-input" id="homair" type="number" step="0.1" placeholder="e.g. 0.8" oninput="scoreField(this,'homair')">
+        <div class="field-score" id="s_homair">,</div>
+      </div>
+<div class="field-blurb" id="blurb_homair">A calculated ratio of glucose and insulin, this is the earliest reliable insulin resistance marker available. High HOMA-IR predicts future diabetes, fatty liver, and cardiovascular disease. Low is the goal, it means your cells respond efficiently to insulin.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('cardio')">
+      <div class="cat-icon">&#10084;&#65039;</div>
+      <div class="cat-title" style="color:var(--magenta)">Cardiovascular</div>
+      <div class="cat-score" id="score-cardio" style="color:var(--magenta)">,</div>
+      <div class="cat-toggle" id="toggle-cardio">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-cardio">
+      <div class="field-row">
+        <div><div class="field-label">Total Cholesterol <span class="field-info-btn" onclick="toggleBlurb('cholesterol')">i</span></div><div class="field-ref">Optimal: &lt;5.0 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="cholesterol" type="number" step="0.1" placeholder="e.g. 4.5" oninput="scoreField(this,'cholesterol')">
+        <div class="field-score" id="s_cholesterol">,</div>
+      </div>
+<div class="field-blurb" id="blurb_cholesterol">Total cholesterol alone is a blunt tool, but extremes matter. Very high levels warrant closer inspection of LDL and particle count. Very low levels can affect hormone production, since cholesterol is the raw material for testosterone and other hormones.</div>
+      <div class="field-row">
+        <div><div class="field-label">LDL Cholesterol <span class="field-info-btn" onclick="toggleBlurb('ldl')">i</span></div><div class="field-ref">Optimal: &lt;2.5 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="ldl" type="number" step="0.1" placeholder="e.g. 2.0" oninput="scoreField(this,'ldl')">
+        <div class="field-score" id="s_ldl">,</div>
+      </div>
+<div class="field-blurb" id="blurb_ldl">Often called bad cholesterol, LDL carries fat through the bloodstream and, at high levels, drives arterial plaque formation. High LDL is a major cardiovascular risk factor. Low LDL is generally protective, though extremely low levels rarely cause issues.</div>
+      <div class="field-row">
+        <div><div class="field-label">HDL Cholesterol <span class="field-info-btn" onclick="toggleBlurb('hdl')">i</span></div><div class="field-ref">Optimal: &gt;1.5 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="hdl" type="number" step="0.1" placeholder="e.g. 1.8" oninput="scoreField(this,'hdl')">
+        <div class="field-score" id="s_hdl">,</div>
+      </div>
+<div class="field-blurb" id="blurb_hdl">Good cholesterol, HDL clears excess cholesterol from arteries and transports it back to the liver. High HDL is protective and associated with longevity. Low HDL is an independent cardiovascular risk factor, even if other markers look fine.</div>
+      <div class="field-row">
+        <div><div class="field-label">Triglycerides <span class="field-info-btn" onclick="toggleBlurb('trig')">i</span></div><div class="field-ref">Optimal: &lt;1.0 mmol/L</div></div>
+        <div class="field-unit">mmol/L</div>
+        <input class="field-input" id="trig" type="number" step="0.1" placeholder="e.g. 0.8" oninput="scoreField(this,'trig')">
+        <div class="field-score" id="s_trig">,</div>
+      </div>
+<div class="field-blurb" id="blurb_trig">Triglycerides are stored fat circulating in the blood, heavily influenced by sugar and alcohol intake. High triglycerides signal poor metabolic health and raise heart disease risk. Low is favourable and reflects good dietary control.</div>
+      <div class="field-row">
+        <div><div class="field-label">hsCRP (High-Sensitivity) <span class="field-info-btn" onclick="toggleBlurb('hscrp')">i</span></div><div class="field-ref">Optimal: &lt;0.5 mg/L</div></div>
+        <div class="field-unit">mg/L</div>
+        <input class="field-input" id="hscrp" type="number" step="0.1" placeholder="e.g. 0.4" oninput="scoreField(this,'hscrp')">
+        <div class="field-score" id="s_hscrp">,</div>
+      </div>
+<div class="field-blurb" id="blurb_hscrp">A sensitive marker of systemic inflammation, the single biggest driver of accelerated ageing. High hsCRP is linked to heart disease, cognitive decline, and nearly every age-related condition. Low is the target, it means your body isn't fighting chronic low-grade inflammation.</div>
+      <div class="field-row">
+        <div><div class="field-label">Systolic Blood Pressure <span class="field-info-btn" onclick="toggleBlurb('sysbp')">i</span></div><div class="field-ref">Optimal: 100 to 120 mmHg</div></div>
+        <div class="field-unit">mmHg</div>
+        <input class="field-input" id="sysbp" type="number" step="1" placeholder="e.g. 115" oninput="scoreField(this,'sysbp')">
+        <div class="field-score" id="s_sysbp">,</div>
+      </div>
+<div class="field-blurb" id="blurb_sysbp">The pressure in your arteries when your heart beats. High blood pressure silently damages blood vessels, the heart, kidneys, and brain over years. Low blood pressure is usually fine unless it causes dizziness or fatigue.</div>
+      <div class="field-row">
+        <div><div class="field-label">Resting Heart Rate <span class="field-info-btn" onclick="toggleBlurb('rhr')">i</span></div><div class="field-ref">Optimal: &lt;55 bpm</div><div class="field-lee-ref">Lee: 47 bpm</div></div>
+        <div class="field-unit">bpm</div>
+        <input class="field-input" id="rhr" type="number" step="1" placeholder="e.g. 52" oninput="scoreField(this,'rhr')">
+        <div class="field-score" id="s_rhr">,</div>
+      </div>
+<div class="field-blurb" id="blurb_rhr">Your heart rate at complete rest, a strong proxy for cardiovascular fitness. High resting heart rate suggests poor conditioning or stress. Low resting heart rate (within reason) reflects a strong, efficient heart, elite athletes often sit in the 40s.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('hormonal')">
+      <div class="cat-icon">&#9889;</div>
+      <div class="cat-title" style="color:var(--purple)">Hormonal</div>
+      <div class="cat-score" id="score-hormonal" style="color:var(--purple)">,</div>
+      <div class="cat-toggle" id="toggle-hormonal">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-hormonal">
+      <div class="field-row">
+        <div><div class="field-label">Total Testosterone <span class="field-info-btn" onclick="toggleBlurb('testost')">i</span></div><div class="field-ref">Optimal male: 20 to 35 nmol/L</div><div class="field-lee-ref">Lee: 29 nmol/L</div></div>
+        <div class="field-unit">nmol/L</div>
+        <input class="field-input" id="testost" type="number" step="0.1" placeholder="e.g. 22.0" oninput="scoreField(this,'testost')">
+        <div class="field-score" id="s_testost">,</div>
+      </div>
+<div class="field-blurb" id="blurb_testost">The primary male hormone, driving muscle mass, bone density, mood, libido, and motivation. Low testosterone accelerates muscle loss, fat gain, and cognitive decline with age. High levels (within physiological range) support vitality, but should always be medically supervised.</div>
+      <div class="field-row">
+        <div><div class="field-label">Free Testosterone <span class="field-info-btn" onclick="toggleBlurb('freetestost')">i</span></div><div class="field-ref">Optimal male: &gt;0.3 nmol/L</div></div>
+        <div class="field-unit">nmol/L</div>
+        <input class="field-input" id="freetestost" type="number" step="0.01" placeholder="e.g. 0.45" oninput="scoreField(this,'freetestost')">
+        <div class="field-score" id="s_freetestost">,</div>
+      </div>
+<div class="field-blurb" id="blurb_freetestost">The active, usable portion of your total testosterone, not bound to proteins. This matters more than total testosterone for how you actually feel. Low free testosterone can cause fatigue and low libido even when total testosterone looks normal.</div>
+      <div class="field-row">
+        <div><div class="field-label">IGF-1 (Growth Hormone proxy) <span class="field-info-btn" onclick="toggleBlurb('igf1')">i</span></div><div class="field-ref">Optimal: 150 to 280 ng/mL</div></div>
+        <div class="field-unit">ng/mL</div>
+        <input class="field-input" id="igf1" type="number" step="1" placeholder="e.g. 200" oninput="scoreField(this,'igf1')">
+        <div class="field-score" id="s_igf1">,</div>
+      </div>
+<div class="field-blurb" id="blurb_igf1">A proxy for growth hormone activity, driving tissue repair, muscle maintenance, and recovery. Low IGF-1 is linked to reduced muscle mass and slower recovery with age. Very high levels need medical review, since IGF-1 has complex effects on cancer risk.</div>
+      <div class="field-row">
+        <div><div class="field-label">DHEA-S <span class="field-info-btn" onclick="toggleBlurb('dheas')">i</span></div><div class="field-ref">Optimal 60+: &gt;150 &micro;g/dL</div></div>
+        <div class="field-unit">&micro;g/dL</div>
+        <input class="field-input" id="dheas" type="number" step="1" placeholder="e.g. 180" oninput="scoreField(this,'dheas')">
+        <div class="field-score" id="s_dheas">,</div>
+      </div>
+<div class="field-blurb" id="blurb_dheas">A precursor hormone your body uses to produce testosterone and other hormones, and a marker of adrenal reserve. Low DHEA-S is common with age and linked to reduced vitality and stress resilience. High is generally favourable in older adults.</div>
+      <div class="field-row">
+        <div><div class="field-label">Cortisol (morning) <span class="field-info-btn" onclick="toggleBlurb('cortisol')">i</span></div><div class="field-ref">Optimal: 300 to 500 nmol/L</div></div>
+        <div class="field-unit">nmol/L</div>
+        <input class="field-input" id="cortisol" type="number" step="1" placeholder="e.g. 380" oninput="scoreField(this,'cortisol')">
+        <div class="field-score" id="s_cortisol">,</div>
+      </div>
+<div class="field-blurb" id="blurb_cortisol">Your primary stress hormone, essential in the right amount, damaging in excess. High morning cortisol, especially if chronic, breaks down muscle and worsens insulin resistance. Low cortisol can cause fatigue and poor stress tolerance.</div>
+      <div class="field-row">
+        <div><div class="field-label">TSH (Thyroid) <span class="field-info-btn" onclick="toggleBlurb('tsh')">i</span></div><div class="field-ref">Optimal: 1.0 to 2.0 mIU/L</div></div>
+        <div class="field-unit">mIU/L</div>
+        <input class="field-input" id="tsh" type="number" step="0.1" placeholder="e.g. 1.5" oninput="scoreField(this,'tsh')">
+        <div class="field-score" id="s_tsh">,</div>
+      </div>
+<div class="field-blurb" id="blurb_tsh">Thyroid stimulating hormone, the control signal for your metabolism. High TSH suggests an underactive thyroid, associated with fatigue, weight gain, and slowed metabolism. Low TSH suggests an overactive thyroid, which carries its own risks.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('bodcomp')">
+      <div class="cat-icon">&#128170;</div>
+      <div class="cat-title" style="color:var(--teal)">Body Composition</div>
+      <div class="cat-score" id="score-bodcomp" style="color:var(--teal)">,</div>
+      <div class="cat-toggle" id="toggle-bodcomp">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-bodcomp">
+      <div class="field-row">
+        <div><div class="field-label">Body Fat Percentage (DEXA) <span class="field-info-btn" onclick="toggleBlurb('bodyfat')">i</span></div><div class="field-ref">Optimal 60+: &lt;20% male / &lt;28% female</div><div class="field-lee-ref">Lee: 9.6%</div></div>
+        <div class="field-unit">%</div>
+        <input class="field-input" id="bodyfat" type="number" step="0.1" placeholder="e.g. 16.0" oninput="scoreField(this,'bodyfat')">
+        <div class="field-score" id="s_bodyfat">,</div>
+      </div>
+<div class="field-blurb" id="blurb_bodyfat">The percentage of your body that is fat tissue, measured accurately only by DEXA. High body fat, particularly visceral fat, drives inflammation and metabolic disease. Low body fat within a healthy range is protective, but extremely low levels can affect hormone production.</div>
+      <div class="field-row">
+        <div><div class="field-label">Lean Muscle Mass (DEXA) <span class="field-info-btn" onclick="toggleBlurb('leanmass')">i</span></div><div class="field-ref">Optimal: preserve / increase vs. age norm</div><div class="field-lee-ref">Lee: 75 kg</div></div>
+        <div class="field-unit">kg</div>
+        <input class="field-input" id="leanmass" type="number" step="0.1" placeholder="e.g. 62.0" oninput="scoreField(this,'leanmass')">
+        <div class="field-score" id="s_leanmass">,</div>
+      </div>
+<div class="field-blurb" id="blurb_leanmass">Muscle, organs, and bone, everything that isn't fat. This is your metabolic engine and your best defence against frailty in later life. Low or declining lean mass predicts loss of independence with age. High and stable lean mass is one of the strongest longevity markers there is.</div>
+      <div class="field-row">
+        <div><div class="field-label">Bone Density, T-score (DEXA) <span class="field-info-btn" onclick="toggleBlurb('bonedensity')">i</span></div><div class="field-ref">Optimal: &gt;+1.0 SD vs. young-adult mean</div><div class="field-lee-ref">Lee: 3.6</div></div>
+        <div class="field-unit">T-score</div>
+        <input class="field-input" id="bonedensity" type="number" step="0.1" placeholder="e.g. 1.2" oninput="scoreField(this,'bonedensity')">
+        <div class="field-score" id="s_bonedensity">,</div>
+      </div>
+<div class="field-blurb" id="blurb_bonedensity">Measured by DEXA, your bone mineral density compared to a healthy young adult of the same sex, expressed as a T-score in standard deviations. Higher (more positive) is better, it means stronger, denser bone and lower fracture risk. Below -1.0 indicates osteopenia, below -2.5 indicates osteoporosis, both accelerate functional ageing.</div>
+      <div class="field-row">
+        <div><div class="field-label">Visceral Fat Area <span class="field-info-btn" onclick="toggleBlurb('visceral')">i</span></div><div class="field-ref">Optimal: &lt;100 cm&sup2; (DEXA)</div><div class="field-lee-ref">Lee: 54.6 cm&sup2;</div></div>
+        <div class="field-unit">cm&sup2;</div>
+        <input class="field-input" id="visceral" type="number" step="0.1" placeholder="e.g. 60.0" oninput="scoreField(this,'visceral')">
+        <div class="field-score" id="s_visceral">,</div>
+      </div>
+<div class="field-blurb" id="blurb_visceral">Fat stored around your internal organs, far more dangerous than fat under the skin. High visceral fat is strongly linked to heart disease, diabetes, and inflammation, even in people who look lean. Low visceral fat is one of the best things you can optimise for healthspan.</div>
+      <div class="field-row">
+        <div><div class="field-label">BMI <span class="field-info-btn" onclick="toggleBlurb('bmi')">i</span></div><div class="field-ref">Optimal longevity: 22 to 25</div></div>
+        <div class="field-unit">kg/m&sup2;</div>
+        <input class="field-input" id="bmi" type="number" step="0.1" placeholder="e.g. 23.5" oninput="scoreField(this,'bmi')">
+        <div class="field-score" id="s_bmi">,</div>
+      </div>
+<div class="field-blurb" id="blurb_bmi">A simple weight-to-height ratio, useful as a rough screen but blind to muscle versus fat. High BMI in a muscular person can be misleading, always read alongside body fat %. Low BMI in older adults can indicate insufficient muscle mass, which is a genuine risk factor.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('fitness')">
+      <div class="cat-icon">&#127939;</div>
+      <div class="cat-title" style="color:var(--orange)">Functional Fitness</div>
+      <div class="cat-score" id="score-fitness" style="color:var(--orange)">,</div>
+      <div class="cat-toggle" id="toggle-fitness">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-fitness">
+      <div class="field-row">
+        <div><div class="field-label">VO&#8322; Max <span class="field-info-btn" onclick="toggleBlurb('vo2max')">i</span></div><div class="field-ref">Excellent 60+: &gt;40 mL/kg/min</div><div class="field-lee-ref">Lee: 50 mL/kg/min</div></div>
+        <div class="field-unit">mL/kg/min</div>
+        <input class="field-input" id="vo2max" type="number" step="0.1" placeholder="e.g. 45.0" oninput="scoreField(this,'vo2max')">
+        <div class="field-score" id="s_vo2max">,</div>
+      </div>
+<div class="field-blurb" id="blurb_vo2max">The maximum amount of oxygen your body can use during exercise, widely regarded as the single strongest predictor of longevity of any biomarker. High VO2 Max means your heart, lungs, and muscles work together efficiently. Low VO2 Max is one of the most modifiable risk factors for early death.</div>
+      <div class="field-row">
+        <div><div class="field-label">Grip Strength (dominant hand) <span class="field-info-btn" onclick="toggleBlurb('grip')">i</span></div><div class="field-ref">Optimal male 60+: &gt;40 kg</div></div>
+        <div class="field-unit">kg</div>
+        <input class="field-input" id="grip" type="number" step="0.5" placeholder="e.g. 45.0" oninput="scoreField(this,'grip')">
+        <div class="field-score" id="s_grip">,</div>
+      </div>
+<div class="field-blurb" id="blurb_grip">A simple squeeze test that predicts overall strength, frailty risk, and even mortality in older adults. High grip strength correlates with better outcomes across nearly every health measure. Low grip strength is an early, often-missed warning sign of declining functional capacity.</div>
+      <div class="field-row">
+        <div><div class="field-label">HRV (Heart Rate Variability) <span class="field-info-btn" onclick="toggleBlurb('hrv')">i</span></div><div class="field-ref">Optimal 60+: &gt;40 ms (RMSSD)</div></div>
+        <div class="field-unit">ms</div>
+        <input class="field-input" id="hrv" type="number" step="1" placeholder="e.g. 55" oninput="scoreField(this,'hrv')">
+        <div class="field-score" id="s_hrv">,</div>
+      </div>
+<div class="field-blurb" id="blurb_hrv">Heart rate variability, the tiny variations between heartbeats, reflects how well your nervous system recovers from stress. High HRV indicates good recovery capacity and resilience. Low HRV suggests accumulated stress, poor sleep, or overtraining.</div>
+    </div>
+  </div>
+
+  <div class="cat-section">
+    <div class="cat-header" onclick="toggleCat('cellular')">
+      <div class="cat-icon">&#129516;</div>
+      <div class="cat-title" style="color:var(--neon2)">Inflammation &amp; Cellular</div>
+      <div class="cat-score" id="score-cellular" style="color:var(--neon2)">,</div>
+      <div class="cat-toggle" id="toggle-cellular">&#9650;</div>
+    </div>
+    <div class="cat-body" id="body-cellular">
+      <div class="field-row">
+        <div><div class="field-label">Ferritin <span class="field-info-btn" onclick="toggleBlurb('ferritin')">i</span></div><div class="field-ref">Optimal: 50 to 200 ng/mL</div></div>
+        <div class="field-unit">ng/mL</div>
+        <input class="field-input" id="ferritin" type="number" step="1" placeholder="e.g. 100" oninput="scoreField(this,'ferritin')">
+        <div class="field-score" id="s_ferritin">,</div>
+      </div>
+<div class="field-blurb" id="blurb_ferritin">Your iron storage marker. High ferritin can indicate inflammation or iron overload, both worth investigating. Low ferritin means depleted iron stores, causing fatigue and poor exercise capacity, common and easily corrected.</div>
+      <div class="field-row">
+        <div><div class="field-label">Vitamin D (25-OH) <span class="field-info-btn" onclick="toggleBlurb('vitd')">i</span></div><div class="field-ref">Optimal: 100 to 150 nmol/L</div></div>
+        <div class="field-unit">nmol/L</div>
+        <input class="field-input" id="vitd" type="number" step="1" placeholder="e.g. 120" oninput="scoreField(this,'vitd')">
+        <div class="field-score" id="s_vitd">,</div>
+      </div>
+<div class="field-blurb" id="blurb_vitd">A hormone more than a vitamin, involved in immune function, bone health, mood, and hundreds of genetic pathways. Low vitamin D is extremely common, especially in the UK, and linked to almost every chronic disease. High levels within range are protective and easily achieved through supplementation.</div>
+      <div class="field-row">
+        <div><div class="field-label">Homocysteine <span class="field-info-btn" onclick="toggleBlurb('homocys')">i</span></div><div class="field-ref">Optimal: &lt;7 &micro;mol/L</div></div>
+        <div class="field-unit">&micro;mol/L</div>
+        <input class="field-input" id="homocys" type="number" step="0.1" placeholder="e.g. 6.0" oninput="scoreField(this,'homocys')">
+        <div class="field-score" id="s_homocys">,</div>
+      </div>
+<div class="field-blurb" id="blurb_homocys">An amino acid byproduct that, at high levels, damages blood vessels and is linked to heart disease and cognitive decline. Low homocysteine is protective and usually reflects good B-vitamin status.</div>
+      <div class="field-row">
+        <div><div class="field-label">Omega-3 Index <span class="field-info-btn" onclick="toggleBlurb('omega3')">i</span></div><div class="field-ref">Optimal: &gt;8%</div></div>
+        <div class="field-unit">%</div>
+        <input class="field-input" id="omega3" type="number" step="0.1" placeholder="e.g. 9.0" oninput="scoreField(this,'omega3')">
+        <div class="field-score" id="s_omega3">,</div>
+      </div>
+<div class="field-blurb" id="blurb_omega3">The percentage of omega-3 fats in your red blood cell membranes, a strong marker of anti-inflammatory status. High omega-3 index is linked to better heart and brain health and even increased lifespan. Low levels are common in typical Western diets and easily corrected with fish oil.</div>
+    </div>
+  </div>
+
+  <div class="calc-btn-wrap">
+    <button class="calc-btn" onclick="calculateLee()">Recalculate</button>
+    <button class="reset-btn" onclick="clearLeeFields()">Clear Fields</button>
+  </div>
+  <div id="breakdown"><div class="breakdown-title">Category Breakdown</div><div class="breakdown-grid" id="breakdown-grid"></div></div>
+  </div>
+
+  <div class="section fade d6">
+    <div class="section-title">Biometric Dashboard, Test History</div>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1rem;">Chronological age (blue) against biological age, green where Lee is ahead of it, red where he isn't. Log a new row every time a fresh result comes in, from either the fields above or an older test you're backfilling.</p>
+    <div style="background:var(--card); border:1px solid var(--border); border-radius:8px; padding:1.25rem; margin-bottom:1.25rem;">
+      <div style="position:relative; height:280px; width:100%;">
+        <canvas id="bioChart"></canvas>
+      </div>
+      <div id="bioChartPanel"></div>
+    </div>
+    <table class="history-table" id="historyTable">
+      <thead><tr><th>Date</th><th>Chronological Age</th><th>Biological Age</th><th></th></tr></thead>
+      <tbody id="historyTableBody"></tbody>
+    </table>
+    <div class="history-add-row">
+      <div><label>Date</label><input type="date" id="hist_date"></div>
+      <div><label>Chronological Age</label><input type="number" step="0.1" id="hist_chrono"></div>
+      <div><label>Biological Age</label><input type="number" step="0.1" id="hist_bio"></div>
+      <div><button class="calc-btn" style="padding:0.6rem 1.5rem;font-size:0.85rem;" onclick="addHistoryRow()">+ Add Test Date</button></div>
+    </div>
+    <p style="font-size:0.72rem;color:var(--muted);margin-top:0.6rem;">Use this to backfill the Oct 2024 and Apr 2025 DEXA results and the May 2024 blood panel referenced in the footer below, once you've got the biological-age figure calculated for each of those dates.</p>
+  </div>
+
+  <div class="disclaimer fade d8">
+    <strong>Note on biomarker data:</strong> All metrics shown are Lee's personally verified results from DEXA scans (BodyScan UK), blood panels (OneDayTests), VO&#8322;Max field testing, and AI-composite biological age analysis. Individual results will vary. This dashboard is provided as an example of what is measurable and achievable with a structured age-reversal protocol.
+  </div>
+
+  <div class="footer fade d9">
+    <div class="ft-brand">AGING? <span>F***THAT!</span></div>
+    <div class="ft-sources">
+      DEXA: BodyScan UK &middot; Oct 2024 &amp; Apr 2025 &nbsp;|&nbsp;
+      Blood Panel: OneDayTests &middot; May 2024 &nbsp;|&nbsp;
+      VO&#8322;Max: Garmin / Field Test &middot; Apr 2026<br>
+      Bio Age: Claude AI composite analysis &nbsp;|&nbsp;
+      <a href="https://agingfthat.com" style="color:var(--gold);text-decoration:none;">agingfthat.com</a>
+    </div>
+    </div>
+
+</div>
+
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.querySelectorAll('[data-w]').forEach(el => {
+        el.style.width = el.dataset.w;
+      });
+    }, 500);
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold: 0.1});
+  document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+<script>
+const FIELDS = {
+  f_glucose:  { optimal:[70,85],  good:[85,95],    warn:[95,110],  weight:8, dir:'lower_better' },
+  hba1c:      { optimal:[0,5.0],  good:[5.0,5.4],  warn:[5.4,5.7], weight:8, dir:'lower_better' },
+  insulin:    { optimal:[0,5],    good:[5,8],      warn:[8,15],    weight:6, dir:'lower_better' },
+  homair:     { optimal:[0,1.0],  good:[1.0,1.8],  warn:[1.8,2.9], weight:6, dir:'lower_better' },
+  cholesterol:{ optimal:[0,180],  good:[180,200],  warn:[200,240], weight:4, dir:'lower_better' },
+  ldl:        { optimal:[0,90],   good:[90,115],   warn:[115,160], weight:6, dir:'lower_better' },
+  hdl:        { optimal:[60,120], good:[45,60],    warn:[35,45],   weight:6, dir:'higher_better' },
+  trig:       { optimal:[0,80],   good:[80,110],   warn:[110,150], weight:5, dir:'lower_better' },
+  hscrp:      { optimal:[0,0.5],  good:[0.5,1.0],  warn:[1.0,3.0], weight:8, dir:'lower_better' },
+  sysbp:      { optimal:[0,115],  good:[115,125],  warn:[125,140], weight:7, dir:'lower_better' },
+  rhr:        { optimal:[0,52],   good:[52,60],    warn:[60,70],   weight:7, dir:'lower_better' },
+  testost:    { optimal:[24,40],  good:[18,24],    warn:[12,18],   weight:6, dir:'higher_better' },
+  freetestost:{ optimal:[0.4,1.0],good:[0.3,0.4],  warn:[0.2,0.3], weight:4, dir:'higher_better' },
+  igf1:       { optimal:[150,250],good:[120,150],  warn:[90,120],  weight:4, dir:'higher_better' },
+  dheas:      { optimal:[10,14],  good:[7,10],     warn:[4,7],     weight:3, dir:'higher_better' },
+  cortisol:   { optimal:[8,15],   good:[15,20],    warn:[20,25],   weight:4, dir:'lower_better' },
+  tsh:        { optimal:[0.5,2.0],good:[2.0,3.0],  warn:[3.0,4.5], weight:4, dir:'lower_better' },
+  bodyfat:    { optimal:[0,15],   good:[15,20],    warn:[20,25],   weight:8, dir:'lower_better' },
+  leanmass:   { optimal:[60,80],  good:[50,60],    warn:[40,50],   weight:6, dir:'higher_better' },
+  bonedensity:{ optimal:[1.0,4.0],good:[0.0,1.0],  warn:[-1.0,0.0],weight:6, dir:'higher_better' },
+  visceral:   { optimal:[0,50],   good:[50,80],    warn:[80,120],  weight:7, dir:'lower_better' },
+  bmi:        { optimal:[20,23],  good:[18.5,25],  warn:[25,28],   weight:3, dir:'range' },
+  vo2max:     { optimal:[45,70],  good:[38,45],    warn:[30,38],   weight:9, dir:'higher_better' },
+  grip:       { optimal:[45,65],  good:[38,45],    warn:[30,38],   weight:5, dir:'higher_better' },
+  hrv:        { optimal:[60,100], good:[45,60],    warn:[30,45],   weight:5, dir:'higher_better' },
+  ferritin:   { optimal:[50,150], good:[30,50],    warn:[15,30],   weight:3, dir:'range' },
+  vitd:       { optimal:[50,80],  good:[40,50],    warn:[30,40],   weight:5, dir:'higher_better' },
+  homocys:    { optimal:[0,8],    good:[8,10],     warn:[10,13],   weight:4, dir:'lower_better' },
+  omega3:     { optimal:[8,12],   good:[6,8],      warn:[4,6],     weight:4, dir:'higher_better' },
+};
+const CATEGORIES = {
+  metabolic: ['f_glucose','hba1c','insulin','homair'],
+  cardio:    ['cholesterol','ldl','hdl','trig','hscrp','sysbp','rhr'],
+  hormonal:  ['testost','freetestost','igf1','dheas','cortisol','tsh'],
+  bodcomp:   ['bodyfat','leanmass','bonedensity','visceral','bmi'],
+  fitness:   ['vo2max','grip','hrv'],
+  cellular:  ['ferritin','vitd','homocys','omega3'],
+};
+const KNOWN_VALUES = { rhr:47, testost:29, bodyfat:9.6, leanmass:75, bonedensity:3.6, visceral:54.6, vo2max:50 };
+
+function getScore(id, val) {
+  const f = FIELDS[id]; if(!f) return null;
+  const v = parseFloat(val); if(isNaN(v)) return null;
+  const [oMin,oMax] = f.optimal;
+  if(f.dir === 'lower_better') {
+    if(v <= oMax) return 100;
+    const [,gMax] = f.good; if(v <= gMax) return 75;
+    const [,wMax] = f.warn; if(v <= wMax) return 40;
+    return 10;
+  } else if(f.dir === 'higher_better') {
+    if(v >= oMin) return 100;
+    const [gMin] = f.good; if(v >= gMin) return 75;
+    const [wMin] = f.warn; if(v >= wMin) return 40;
+    return 10;
+  } else {
+    if(v >= oMin && v <= oMax) return 100;
+    const dist = Math.min(Math.abs(v-oMin), Math.abs(v-oMax));
+    const range = oMax - oMin;
+    if(dist <= range*0.3) return 75;
+    if(dist <= range*0.8) return 40;
+    return 10;
+  }
+}
+function scoreField(input, id) {
+  const score = getScore(id, input.value);
+  const scoreEl = document.getElementById('s_'+id);
+  input.className = 'field-input';
+  if(score === null) { scoreEl.textContent = '\u2014'; scoreEl.style.color='var(--muted)'; return; }
+  if(score >= 90) { input.classList.add('good'); scoreEl.textContent='\u2713'; scoreEl.style.color='var(--gold)'; }
+  else if(score >= 60) { input.classList.add('warn'); scoreEl.textContent='~'; scoreEl.style.color='#B08B2E'; }
+  else { input.classList.add('bad'); scoreEl.textContent='\u2717'; scoreEl.style.color='var(--red)'; }
+}
+function toggleBlurb(fid) { const el = document.getElementById('blurb_'+fid); if(el) el.classList.toggle('show'); }
+function toggleCat(cat) {
+  const body = document.getElementById('body-'+cat);
+  const tog = document.getElementById('toggle-'+cat);
+  const hidden = body.style.display === 'none';
+  body.style.display = hidden ? '' : 'none';
+  tog.textContent = hidden ? '\u25b2' : '\u25bc';
+}
+function updateChronAge() {
+  const dobVal = document.getElementById('dob_input').value;
+  if(!dobVal) return;
+  const d = new Date(dobVal), now = new Date();
+  let age = now.getFullYear() - d.getFullYear();
+  const m = now.getMonth() - d.getMonth();
+  if(m < 0 || (m === 0 && now.getDate() < d.getDate())) age--;
+  document.getElementById('chron_age').value = age;
+  document.getElementById('heroChronoAge').textContent = age;
+}
+
+function calculateLee() {
+  const chronAge = parseFloat(document.getElementById('chron_age').value) || 63;
+  let totalWeight = 0, totalScore = 0;
+  const catScores = {};
+  for(const [cat, fields] of Object.entries(CATEGORIES)) {
+    let catW = 0, catS = 0;
+    for(const fid of fields) {
+      const el = document.getElementById(fid); if(!el) continue;
+      const score = getScore(fid, el.value);
+      if(score !== null) { catW += FIELDS[fid].weight; catS += score*FIELDS[fid].weight; totalWeight += FIELDS[fid].weight; totalScore += score*FIELDS[fid].weight; }
+    }
+    catScores[cat] = catW > 0 ? (catS/catW) : null;
+    const scoreEl = document.getElementById('score-'+cat);
+    if(scoreEl) scoreEl.textContent = catScores[cat] !== null ? Math.round(catScores[cat])+'%' : '\u2014';
+  }
+  if(totalWeight === 0) { alert('Enter at least a few biomarker values first.'); return; }
+  const avgScore = totalScore/totalWeight;
+  const bioAge = Math.round(chronAge - ((avgScore-50)/50)*17);
+
+  document.getElementById('heroBioAge').textContent = bioAge;
+  document.getElementById('heroChronoAge').textContent = chronAge;
+  const delta = bioAge - chronAge;
+  document.getElementById('heroDelta').textContent = (delta<=0 ? '\u2212' + Math.abs(delta) : '+' + delta) + ' YEARS';
+
+  const catNames = {metabolic:'Metabolic',cardio:'Cardiovascular',hormonal:'Hormonal',bodcomp:'Body Comp',fitness:'Fitness',cellular:'Cellular'};
+  const grid = document.getElementById('breakdown-grid');
+  grid.innerHTML = '';
+  for(const [cat,score] of Object.entries(catScores)) {
+    if(score === null) continue;
+    grid.innerHTML += `<div class="breakdown-card"><div class="breakdown-cat">${catNames[cat]}</div><div class="breakdown-val" style="color:var(--gold)">${Math.round(score)}%</div></div>`;
+  }
+  document.getElementById('breakdown').classList.add('show');
+}
+
+function clearLeeFields() {
+  document.querySelectorAll('.field-input').forEach(i => { if(i.type !== 'date') { i.value=''; i.className='field-input'; } });
+  document.querySelectorAll('.field-score').forEach(s => { s.textContent='\u2014'; s.style.color='var(--muted)'; });
+  Object.keys(CATEGORIES).forEach(cat => { const el=document.getElementById('score-'+cat); if(el) el.textContent='\u2014'; });
+  document.getElementById('breakdown').classList.remove('show');
+}
+
+/* ---- Test History (dated Biometric Dashboard) ---- */
+let TEST_HISTORY = [
+  { sortDate: '2010-01-01', date: '~2010', chronoAge: 47, bioAge: 51 },
+  { sortDate: '2015-06-01', date: '2015', chronoAge: 52, bioAge: 58 },
+  { sortDate: '2025-10-01', date: 'Q4/25', chronoAge: 63, bioAge: 44 },
+];
+
+function renderHistoryTable() {
+  const body = document.getElementById('historyTableBody');
+  const sorted = [...TEST_HISTORY].sort((a,b) => new Date(a.sortDate || a.date) - new Date(b.sortDate || b.date));
+  body.innerHTML = sorted.map((h,i) => `<tr><td>${h.date}</td><td>${h.chronoAge}</td><td>${h.bioAge}</td><td><button class="reset-btn" style="margin-left:0;padding:0.2rem 0.6rem;font-size:0.7rem;" onclick="removeHistoryRow('${h.date}')">Remove</button></td></tr>`).join('');
+  renderBiometricChart('bioChart', TEST_HISTORY, { title: 'Age gap: chrono vs bio age' });
+  renderBiometricPanel('bioChartPanel', TEST_HISTORY);
+}
+function addHistoryRow() {
+  const date = document.getElementById('hist_date').value;
+  const chrono = parseFloat(document.getElementById('hist_chrono').value);
+  const bio = parseFloat(document.getElementById('hist_bio').value);
+  if(!date || isNaN(chrono) || isNaN(bio)) { alert('Enter a date, chronological age and biological age to log a test result.'); return; }
+  TEST_HISTORY = TEST_HISTORY.filter(h => h.date !== date);
+  TEST_HISTORY.push({ date, chronoAge: chrono, bioAge: bio });
+  document.getElementById('hist_date').value = '';
+  document.getElementById('hist_chrono').value = '';
+  document.getElementById('hist_bio').value = '';
+  renderHistoryTable();
+}
+function removeHistoryRow(date) {
+  TEST_HISTORY = TEST_HISTORY.filter(h => h.date !== date);
+  renderHistoryTable();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  Object.entries(KNOWN_VALUES).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if(el) { el.value = val; scoreField(el, id); }
+  });
+  renderHistoryTable();
+});
+</script>
+<div class="wa-cta-wrap"><a href="https://wa.me/447935903549" target="_blank" rel="noopener" class="wa-cta">Enquire for 1-Year Program Here &rarr;</a></div>
+</body>
+</html>
