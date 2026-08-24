@@ -147,9 +147,6 @@ function renderBiometricChart(canvasId, history, opts) {
   return chart;
 }
 
-/* Dash-panel: legend + dynamic "X years biologically younger/older" tile,
-   rendered as HTML into a container placed right after the canvas.
-   Legend indent (44px) lines the first dot up under the chart's y-axis. */
 function renderBiometricPanel(panelId, history) {
   const el = document.getElementById(panelId);
   if (!el || !history || !history.length) { if (el) el.innerHTML = ''; return; }
@@ -179,8 +176,6 @@ function renderBiometricPanel(panelId, history) {
     '</div>';
 }
 
-/* Shared scoring core, so Lee's Data, the Calculator, and the Client Pack
-   all convert biomarkers to a Biological Age the same way. */
 function scoreBiomarker(field, val) {
   const v = parseFloat(val);
   if (isNaN(v)) return null;
@@ -218,3 +213,73 @@ function computeBioAge(fields, values, chronAge) {
   const avgScore = totalScore / totalWeight;
   return Math.round(chronAge - ((avgScore - 50) / 50) * 17);
 }
+
+/* Contract alignment override: keeps the password-protected client pack offer in sync
+   with programs-offered.html without changing saved client data or payment logic. */
+window.addEventListener('DOMContentLoaded', () => {
+  window.applyContractLevel = function applyContractLevelAligned() {
+    const l = document.getElementById('contract_level')?.value;
+    const F = document.getElementById('program_fee');
+    const a = document.getElementById('instalment_1');
+    const b = document.getElementById('instalment_2');
+    const c = document.getElementById('instalment_3');
+    const S = document.getElementById('tierSummary');
+    const T = document.getElementById('dynamicServiceTerms');
+    const G = document.getElementById('dynamicGuaranteeTerms');
+    const P = document.getElementById('dynamicPaymentTerms');
+    const w = [document.getElementById('p2a'), document.getElementById('p2d'), document.getElementById('p3a'), document.getElementById('p3d')];
+    if (!F || !a || !b || !c || !S || !T || !G || !P) return;
+
+    const lifetime = `<li><strong>Lifetime personalised analytics dashboard & portal:</strong> once established, access to the Client's existing personalised online analytics dashboard and recorded data is provided for life, subject to reasonable technology/platform changes. This does not include ongoing coaching, new testing or new analysis after the contracted Program ends unless separately agreed.</li>`;
+    const analysis = `<li><strong>Personalised online analytics dashboard:</strong> data input and ongoing time-series/delta analysis throughout the Program.</li>`;
+    const upgrade = `<li><strong>Upgrade protection:</strong> a B or C Client may upgrade to Elite A. The Elite A price applicable when the original Program commenced will be honoured and Program fees already paid under B or C will be credited against that Elite A price. The remaining balance/payment schedule is agreed at conversion. The Elite guarantee applies only after formal conversion to Elite A and subject to its age and health eligibility limits and Program compliance requirements.</li>`;
+
+    if (l === 'elite') {
+      F.value = 24000; a.value = b.value = c.value = 8000; w.forEach(x => { if (x) x.style.display = 'block'; });
+      S.innerHTML = `<strong>ELITE A — £24,000 / 12 months</strong><ul>
+        <li>Three-month intensive setup period.</li>
+        <li>Minimum three face-to-face sessions/days with the Provider each week throughout the 12 months.</li>
+        <li>Online and telephone support 7:00am to 7:00pm, guaranteed subject to reasonable availability and best endeavours.</li>
+        <li>Three complete biometric rounds: baseline, midpoint and endpoint.</li>
+        <li>Every biometric round includes a full blood panel, DEXA and VO₂ max, with appointments arranged, paid for by the Provider and personally chaperoned.</li>
+        ${analysis}${lifetime}
+        <li><strong>10-year biological/biometric age-reversal guarantee</strong>, subject to age and health eligibility limits and Program compliance.</li></ul>`;
+      T.innerHTML = S.innerHTML;
+      G.innerHTML = `<strong>Elite A guarantee only.</strong> 10-year biological/biometric age-reversal guarantee, subject to age and health eligibility limits and Program compliance.`;
+      P.innerHTML = `<strong>£24,000:</strong> three advance payments of £8,000 at Month 0, Month 4 and Month 8. Three complete biometric rounds are included, arranged, paid for by the Provider and personally chaperoned.`;
+    } else if (l === 'b') {
+      F.value = 12000; a.value = b.value = c.value = 4000; w.forEach(x => { if (x) x.style.display = 'block'; });
+      S.innerHTML = `<strong>PROGRAM B — £12,000 / 12 months</strong><ul>
+        <li>One-month intensive face-to-face setup period.</li>
+        <li>After Month 1, coaching continues virtually via online and telephone support.</li>
+        <li>Online and telephone support 7:00am to 7:00pm, subject to reasonable availability and best endeavours.</li>
+        <li>Three complete biometric rounds: baseline, midpoint and endpoint.</li>
+        <li>Every biometric round includes a full blood panel, DEXA and VO₂ max, with appointments arranged, paid for by the Provider and personally chaperoned.</li>
+        ${analysis}${lifetime}
+        <li><strong>Best endeavours. No 10-year guarantee.</strong></li>
+        ${upgrade}</ul>`;
+      T.innerHTML = S.innerHTML;
+      G.innerHTML = `<strong>No 10-year guarantee.</strong> The Provider will use best endeavours to improve agreed health, fitness and biometric outcomes during the 12-month term, but no specific biological-age reduction or other outcome is guaranteed.`;
+      P.innerHTML = `<strong>£12,000:</strong> three advance payments of £4,000 at Month 0, Month 4 and Month 8. Three complete biometric rounds are included, arranged, paid for by the Provider and personally chaperoned.`;
+    } else if (l === 'c') {
+      F.value = 10000; a.value = 10000; b.value = c.value = ''; w.forEach(x => { if (x) x.style.display = 'none'; });
+      S.innerHTML = `<strong>PROGRAM C — £10,000 / 3 months</strong><ul>
+        <li>Three-month intensive Program, equivalent to the intensive setup phase of Elite A.</li>
+        <li>Minimum three face-to-face sessions/days with the Provider each week throughout the three months.</li>
+        <li>Online and telephone support 7:00am to 7:00pm, subject to reasonable availability and best endeavours.</li>
+        <li>Two complete biometric rounds: baseline and end of Month 3.</li>
+        <li>Every biometric round includes a full blood panel, DEXA and VO₂ max, with appointments arranged, paid for by the Provider and personally chaperoned.</li>
+        ${analysis}${lifetime}
+        <li><strong>Best endeavours. No 10-year guarantee.</strong></li>
+        ${upgrade}</ul>`;
+      T.innerHTML = S.innerHTML;
+      G.innerHTML = `<strong>No 10-year guarantee.</strong> The Provider will use best endeavours to improve agreed health, fitness and biometric outcomes during the three-month term, but no specific biological-age reduction or other outcome is guaranteed.`;
+      P.innerHTML = `<strong>£10,000:</strong> one payment in full at Month 0. Two complete biometric rounds are included, arranged, paid for by the Provider and personally chaperoned.`;
+    } else {
+      F.value = a.value = b.value = c.value = ''; w.forEach(x => { if (x) x.style.display = 'block'; });
+      S.textContent = 'Select a level to populate price, payments and terms.';
+      T.textContent = G.textContent = P.textContent = 'Select the Contract Level above.';
+    }
+    if (typeof updatePaymentDates === 'function') updatePaymentDates();
+  };
+});
