@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AFT Invoice Generator</title>
+<style>
+:root{--brown:#3D1C02;--blue:#A9CDEA;--ink:#2b211d;--pale:#f6f3ef;--line:#d9d3cd;--muted:#6f6a66}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#ece9e5;color:var(--ink)}.shell{max-width:1000px;margin:24px auto;background:#fff;box-shadow:0 8px 30px rgba(0,0,0,.12)}header{padding:26px 32px;border-bottom:4px solid var(--blue)}.brand{font-weight:900;font-size:24px;color:var(--brown)}.brand span{color:var(--blue);-webkit-text-stroke:1px var(--brown)}h1{margin:5px 0 0;color:var(--brown)}main{padding:28px 32px}.tools{background:var(--pale);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:22px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px}.full{grid-column:1/-1}label{font-size:12px;font-weight:700;display:block;margin-bottom:4px}input,textarea{width:100%;padding:10px;border:1px solid #bbb;border-radius:7px;font:inherit}textarea{min-height:82px}.btn{border:0;border-radius:7px;padding:11px 14px;background:var(--brown);color:#fff;font-weight:700;cursor:pointer;margin:6px 8px 0 0}.btn.blue{background:#173f6d}.small{font-size:12px;color:var(--muted)}.invoice{border:1px solid var(--line);padding:26px;border-radius:10px}.invoice-head{display:flex;justify-content:space-between;gap:25px;align-items:flex-start}.right{text-align:right}.money{font-size:24px;font-weight:800;color:var(--brown)}table{width:100%;border-collapse:collapse;margin:24px 0}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}th:last-child,td:last-child{text-align:right}.bank{background:var(--pale);padding:14px;border-radius:8px}.notice{padding:10px 12px;background:#eef4fb;border-left:4px solid #173f6d;margin:15px 0}.hideprint{}@media(max-width:700px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.invoice-head{display:block}.right{text-align:left;margin-top:14px}}@media print{body{background:#fff}.shell{box-shadow:none;margin:0;max-width:none}.hideprint,.tools{display:none!important}.invoice{border:0;padding:0}header{border-bottom:3px solid #A9CDEA}}
+</style>
+</head>
+<body>
+<div class="shell">
+<header><div class="brand">AGING?<span>F***THAT!</span></div><h1>Client Invoice Generator</h1><div class="small">Admin tool — load a completed Client Pack HTML to pre-fill invoice details.</div></header>
+<main>
+<section class="tools hideprint">
+<label>Load completed client fact-find HTML</label><input id="clientFile" type="file" accept=".html,text/html">
+<div class="small">The file is read locally in your browser. It is not uploaded by this tool.</div>
+<div style="margin-top:10px"><button class="btn blue" onclick="loadClientPack()">LOAD CLIENT PACK</button><button class="btn" onclick="window.print()">PRINT / SAVE PDF</button><button class="btn" onclick="downloadInvoiceHTML()">DOWNLOAD INVOICE HTML</button><a class="btn" style="display:inline-block;text-decoration:none" href="admin.html">BACK TO ADMIN</a></div>
+</section>
+<section class="invoice" id="invoice">
+<div class="invoice-head"><div><div class="brand">AGING?<span>F***THAT!</span></div><p><strong>Lee C. Stonehouse</strong><br>Age Reversal Program<br>mrfthat@gmail.com<br>+44 07935 903549</p></div><div class="right"><h2>INVOICE</h2><div class="grid" style="grid-template-columns:1fr 1fr;max-width:380px"><div><label>Invoice number</label><input id="invoiceNo" value="AFT-001"></div><div><label>Invoice date</label><input id="invoiceDate" type="date"></div><div><label>Due date</label><input id="dueDate" type="date"></div><div><label>Program start</label><input id="programStart" type="date"></div></div></div></div>
+<hr style="border:0;border-top:1px solid var(--line);margin:22px 0">
+<div class="grid"><div><label>Invoice to</label><input id="clientName"><label style="margin-top:8px">Email</label><input id="clientEmail"></div><div><label>Client / service address</label><textarea id="clientAddress"></textarea></div></div>
+<table><thead><tr><th>Description</th><th>Amount</th></tr></thead><tbody><tr><td><input id="description" value="Elite A — Age Reversal Program — Payment 1 of 3"></td><td style="width:190px"><input id="amount" type="number" step="0.01" value="8000"></td></tr></tbody></table>
+<div class="grid"><div><div class="bank"><strong>Bank transfer details</strong><br><span id="bankText">Account name: Lee Stonehouse<br>Bank: Barclays Bank UK<br>Sort code: 20-42-58<br>Account number: 43851184</span><br><br><label>Payment reference</label><input id="paymentRef" value="AFT_A.H._001"></div></div><div class="right"><div class="small">TOTAL DUE</div><div class="money" id="totalDue">£8,000.00</div></div></div>
+<div class="notice"><strong>Payment timing:</strong> Please ensure cleared funds are received by the due date so included baseline appointments and testing can be secured ahead of programme commencement.</div>
+<p class="small">This invoice relates to the Program Agreement between the Client and Lee C. Stonehouse. Payment is currently made directly to the Provider personally using the bank details shown above.</p>
+</section>
+</main></div>
+<script>
+const q=id=>document.getElementById(id);q('invoiceDate').value=new Date().toISOString().slice(0,10);
+q('amount').addEventListener('input',()=>q('totalDue').textContent=Number(q('amount').value||0).toLocaleString('en-GB',{style:'currency',currency:'GBP'}));
+function field(doc,name){const el=doc.querySelector(`[name="${name}"]`);return el?(el.value||el.getAttribute('value')||'').trim():''}
+function textareaVal(doc,name){const el=doc.querySelector(`textarea[name="${name}"]`);return el?(el.value||el.textContent||'').trim():''}
+function loadClientPack(){const f=q('clientFile').files[0];if(!f){alert('Choose a completed Client Pack HTML first.');return}const r=new FileReader();r.onload=()=>{const doc=new DOMParser().parseFromString(r.result,'text/html');const name=field(doc,'client_legal_name')||field(doc,'contract_client')||field(doc,'full_name');q('clientName').value=name;q('clientEmail').value=field(doc,'email');q('clientAddress').value=textareaVal(doc,'contract_service_address')||textareaVal(doc,'address');q('programStart').value=field(doc,'program_start');q('dueDate').value=field(doc,'payment_date_1');q('amount').value=field(doc,'instalment_1')||'8000';q('paymentRef').value=field(doc,'payment_reference')||'';const level=field(doc,'contract_level');q('description').value=(level==='elite'?'Elite A':level==='b'?'Program B':level==='c'?'Program C':'Age Reversal Program')+' — Payment 1';const bank=[['Account name',field(doc,'bank_account_name')],['Bank',field(doc,'bank_name')],['Sort code',field(doc,'bank_sort_code')],['Account number',field(doc,'bank_account_number')]].filter(x=>x[1]);if(bank.length)q('bankText').innerHTML=bank.map(x=>x[0]+': '+x[1]).join('<br>');q('amount').dispatchEvent(new Event('input'));};r.readAsText(f)}
+function downloadInvoiceHTML(){const clone=document.documentElement.cloneNode(true);clone.querySelectorAll('input,textarea').forEach(el=>{if(el.tagName==='TEXTAREA')el.textContent=el.value;else el.setAttribute('value',el.value)});clone.querySelectorAll('.tools').forEach(x=>x.remove());const html='<!DOCTYPE html>\n'+clone.outerHTML;const b=new Blob([html],{type:'text/html;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(q('invoiceNo').value||'AFT-Invoice')+'.html';a.click();URL.revokeObjectURL(a.href)}
+</script>
+</body></html>
