@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>New Bio Age Model - Lee Stonehouse</title>
+<style>
+body { font-family: Arial, sans-serif; max-width: 720px; margin: 40px auto; color: #1a1a1a; line-height: 1.5; }
+h1 { font-size: 24px; margin-bottom: 4px; }
+.subhead { color: #666; margin-bottom: 32px; font-size: 14px; }
+.bioage-score-block { text-align: center; padding: 32px; background: #f4f9f7; border-radius: 12px; margin-bottom: 32px; }
+.bioage-score-label { font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+.bioage-score-number { font-size: 64px; font-weight: bold; color: #0a7c5c; }
+.bioage-score-unit { font-size: 14px; color: #666; margin-bottom: 12px; }
+.bioage-score-vs { display: flex; justify-content: center; gap: 16px; font-size: 14px; }
+.bioage-score-chron { color: #666; }
+.bioage-score-delta { background: #0a7c5c; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; }
+.section-title { font-size: 18px; font-weight: bold; margin-top: 36px; margin-bottom: 8px; border-bottom: 2px solid #e5e5e5; padding-bottom: 6px; }
+.methodology-text { font-size: 14px; color: #333; margin-bottom: 16px; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; }
+th { text-align: left; background: #f4f9f7; padding: 8px 10px; border-bottom: 2px solid #ddd; }
+td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
+.notes-box { background: #fdf6ec; border: 1px solid #f0dfc0; border-radius: 8px; padding: 16px; font-size: 13px; margin-top: 24px; }
+.notes-box h3 { margin-top: 0; font-size: 15px; }
+.disclaimer { font-size: 11px; color: #999; margin-top: 32px; border-top: 1px solid #eee; padding-top: 12px; }
+.back-link { display: inline-block; margin-bottom: 20px; font-size: 13px; color: #0a7c5c; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="admin.html">Back to Admin</a>
+
+<h1>New Bio Age Model</h1>
+<div class="subhead">Lee Stonehouse. Chronological age 63. Assessment methodology September 2026. Composite scoring model, working draft.</div>
+
+<div class="bioage-score-block">
+<div class="bioage-score-label">Biological Age</div>
+<div class="bioage-score-number">46</div>
+<div class="bioage-score-unit">Years, Composite Estimate</div>
+<div class="bioage-score-vs">
+<span class="bioage-score-chron">Chronological: 63</span>
+<span class="bioage-score-delta">17 YEARS YOUNGER</span>
+</div>
+</div>
+
+<div class="section-title">How This Number Is Built</div>
+<div class="methodology-text">
+The score combines nine markers across four categories: body composition (DEXA scan), cardiovascular fitness (VO2 max), blood chemistry, and vitals. Each marker is scored against age matched reference ranges and given a weighting based on how strongly it predicts biological aging and how responsive it is to lifestyle change. The nine markers carry a combined weight of 75 out of a possible 100 in the full model. Three markers (hsCRP, homocysteine, free testosterone) were not available from current records and are excluded rather than estimated. The result is a weighted average, not a simple mean, so the strongest predictors (VO2 max, HbA1c, visceral fat, lean mass) carry more influence than the others.
+</div>
+
+<div class="section-title">Data Sources and Dates</div>
+<div class="methodology-text">
+Figures are drawn from three separate testing dates between 2024 and 2026 rather than a single sitting, reflecting how the underlying tests are typically taken months apart. This is treated as a reasonable aggregate estimate of current status rather than a single day snapshot.
+</div>
+<table>
+<tr><th>Source</th><th>Date</th></tr>
+<tr><td>DEXA scan (BodyView)</td><td>25 April 2025</td></tr>
+<tr><td>VO2 max, rowing protocol</td><td>April 2026 (most recent of two tests)</td></tr>
+<tr><td>Blood panel, lipids and testosterone</td><td>13 August 2026</td></tr>
+<tr><td>Blood panel, HbA1c</td><td>25 June 2024</td></tr>
+<tr><td>Blood pressure</td><td>2026, GP reading</td></tr>
+<tr><td>Resting heart rate</td><td>30 day average, Huawei GT5</td></tr>
+</table>
+
+<div class="section-title">Body Composition (DEXA)</div>
+<table>
+<tr><th>Marker</th><th>What it is</th><th>Result</th><th>Weight</th></tr>
+<tr><td>Body fat %</td><td>Fat mass as a share of total body mass</td><td>9.6%, Athletic</td><td>8</td></tr>
+<tr><td>Lean mass</td><td>Muscle and non fat tissue</td><td>74.6 kg, ALMI 11.8, 99th percentile for age</td><td>9</td></tr>
+<tr><td>Bone density</td><td>Skeletal strength, T-score</td><td>T-score 3.6, well above average</td><td>8</td></tr>
+<tr><td>Visceral fat</td><td>Fat surrounding internal organs</td><td>54.6 cm2, optimal range</td><td>9</td></tr>
+</table>
+
+<div class="section-title">Cardiovascular Fitness</div>
+<table>
+<tr><th>Marker</th><th>What it is</th><th>Result</th><th>Weight</th></tr>
+<tr><td>VO2 max</td><td>Maximal oxygen uptake, the single strongest predictor in the model</td><td>50 to 52 ml/kg/min, self administered rowing test</td><td>10</td></tr>
+</table>
+
+<div class="section-title">Blood Chemistry</div>
+<table>
+<tr><th>Marker</th><th>What it is</th><th>Result</th><th>Weight</th></tr>
+<tr><td>HbA1c</td><td>Average blood glucose over roughly three months</td><td>33 mmol/mol (about 5.2%), in range</td><td>10</td></tr>
+<tr><td>Testosterone</td><td>Total testosterone</td><td>19.4 nmol/L, in range</td><td>7</td></tr>
+</table>
+
+<div class="section-title">Vitals</div>
+<table>
+<tr><th>Marker</th><th>What it is</th><th>Result</th><th>Weight</th></tr>
+<tr><td>Systolic blood pressure</td><td>Pressure in the arteries at each heartbeat</td><td>130 mmHg, borderline elevated</td><td>8</td></tr>
+<tr><td>Resting heart rate</td><td>Heart rate at rest</td><td>47 bpm, excellent</td><td>6</td></tr>
+</table>
+
+<div class="notes-box">
+<h3>Notes and Limitations</h3>
+Total testosterone dropped sharply against the prior reading (minus 12.1 nmol/L) while remaining in range. Worth confirming this isn't a lab or unit change before treating it as a trend.<br><br>
+VO2 max is a self administered rowing estimate, not a lab based maximal test. A supervised test is planned in Brighton in the coming weeks, and this figure should be updated once that is done.<br><br>
+hsCRP, homocysteine, and free testosterone were not available for this cycle and were excluded rather than guessed. Adding them would sharpen the estimate.<br><br>
+Cholesterol and LDL read out of range on the standard reference, consistent with the known pattern on a ketogenic diet and not treated as a negative marker here.<br><br>
+BMI was deliberately excluded as unreliable for a high muscle mass individual. Free testosterone weighting was reviewed and kept at 7.
+</div>
+
+<div class="disclaimer">
+This is not a medical diagnosis. Consult your physician for clinical interpretation.
+</div>
+
+</body>
+</html>
