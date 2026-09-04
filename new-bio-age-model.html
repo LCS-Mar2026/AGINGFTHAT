@@ -1,107 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>New Bio Age Model - Lee Stonehouse</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AFT Biological Age Model — September 2026</title>
 <style>
-body { font-family: Arial, sans-serif; max-width: 720px; margin: 40px auto; color: #1a1a1a; line-height: 1.5; }
-h1 { font-size: 24px; margin-bottom: 4px; }
-.subhead { color: #666; margin-bottom: 32px; font-size: 14px; }
-.bioage-score-block { text-align: center; padding: 32px; background: #f4f9f7; border-radius: 12px; margin-bottom: 32px; }
-.bioage-score-label { font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
-.bioage-score-number { font-size: 64px; font-weight: bold; color: #0a7c5c; }
-.bioage-score-unit { font-size: 14px; color: #666; margin-bottom: 12px; }
-.bioage-score-vs { display: flex; justify-content: center; gap: 16px; font-size: 14px; }
-.bioage-score-chron { color: #666; }
-.bioage-score-delta { background: #0a7c5c; color: white; padding: 4px 12px; border-radius: 20px; font-weight: bold; }
-.section-title { font-size: 18px; font-weight: bold; margin-top: 36px; margin-bottom: 8px; border-bottom: 2px solid #e5e5e5; padding-bottom: 6px; }
-.methodology-text { font-size: 14px; color: #333; margin-bottom: 16px; }
-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; }
-th { text-align: left; background: #f4f9f7; padding: 8px 10px; border-bottom: 2px solid #ddd; }
-td { padding: 8px 10px; border-bottom: 1px solid #eee; vertical-align: top; }
-.notes-box { background: #fdf6ec; border: 1px solid #f0dfc0; border-radius: 8px; padding: 16px; font-size: 13px; margin-top: 24px; }
-.notes-box h3 { margin-top: 0; font-size: 15px; }
-.disclaimer { font-size: 11px; color: #999; margin-top: 32px; border-top: 1px solid #eee; padding-top: 12px; }
-.back-link { display: inline-block; margin-bottom: 20px; font-size: 13px; color: #0a7c5c; text-decoration: none; }
+:root{--brown:#3D1C02;--blue:#A9CDEA;--navy:#14213D;--muted:#7f6f63;--line:#DCE8F1;--soft:#F7FAFC;--good:#eaf4ee}
+*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--brown);font-family:Arial,sans-serif;line-height:1.5}.wrap{max-width:1180px;margin:30px auto;padding:0 22px}.top{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:18px}.back{color:var(--brown);text-decoration:none;font-weight:700}.version{display:inline-block;padding:5px 10px;border:1px solid var(--line);border-radius:20px;font-size:12px;background:var(--soft)}h1{margin:.4rem 0 .3rem;font-size:34px}.lead{color:var(--muted);max-width:900px}.notice{background:#f7fbff;border-left:5px solid var(--blue);padding:16px 18px;margin:24px 0;border-radius:6px}.logic{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}.logic div{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--soft)}.logic strong{display:block;font-size:20px}.section{margin:28px 0}.section h2{border-bottom:2px solid var(--blue);padding-bottom:7px}.category{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:16px 0}.category h3{margin:0;padding:13px 15px;background:var(--soft)}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px 10px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}th{background:#fbfcfd}.why{color:#5f554d}.input{width:100px;padding:7px;border:1px solid #bbb;border-radius:5px}.score{font-weight:700;min-width:60px}.calcbox{border:2px solid var(--blue);background:#f9fcff;border-radius:12px;padding:20px;margin:28px 0}.calcgrid{display:grid;grid-template-columns:160px 1fr;gap:12px;align-items:center}.calcbtn{margin-top:14px;background:var(--brown);color:#fff;border:0;border-radius:7px;padding:11px 18px;font-weight:700;cursor:pointer}.result{font-size:28px;font-weight:700;margin-top:14px}.small{font-size:12px;color:var(--muted)}.formula{font-family:monospace;background:#f5f5f3;padding:12px;border-radius:8px;overflow:auto}.foot{margin:40px 0 25px;padding-top:15px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}@media(max-width:800px){.logic{grid-template-columns:1fr 1fr}.top{display:block}table{font-size:11px}.input{width:80px}}
 </style>
 </head>
-<body>
+<body><div class="wrap">
+<div class="top"><div><a class="back" href="admin.html">← Back to Admin</a><h1>AFT Biological Age Model</h1><div class="version">September 2026 · Working Model v1.0</div></div><div class="small">MODEL PAGE — NO PERSONAL DATA STORED HERE</div></div>
+<p class="lead">This page defines the multifactorial AFT Biological Age model itself: the markers included, the scoring bands, their relative weightings and the calculation logic. Personal results belong in the Personal Data / client record, not in this model specification.</p>
+<div class="notice"><strong>How it works.</strong> Each available biomarker is converted to a score of 100, 75, 40 or 10 according to its current optimal/good/warning band. That score is multiplied by the marker weighting. Missing values are excluded rather than guessed, and the remaining weights are re-normalised automatically. The weighted composite is then translated into an estimated biological-age difference from chronological age. This is an AFT composite estimate, not an epigenetic clock or medical diagnosis.</div>
+<div class="logic"><div><strong>29</strong>current model markers</div><div><strong>6</strong>domains</div><div><strong>200</strong>total model weight points</div><div><strong>±17 yrs</strong>current age translation range</div></div>
 
-<a class="back-link" href="admin.html">Back to Admin</a>
+<div class="calcbox"><h2 style="margin-top:0">Blank Model Calculator</h2><p class="small">Enter a chronological age and any available markers below. Fields are deliberately blank. Missing fields are ignored.</p><div class="calcgrid"><label>Chronological age</label><input id="age" class="input" type="number" min="18" max="120" placeholder="e.g. 63"></div><button class="calcbtn" onclick="calculateBioAge()">Calculate biological age</button><button class="calcbtn" style="background:#777;margin-left:8px" onclick="resetAll()">Reset</button><div id="result" class="result"></div><div id="detail" class="small"></div></div>
 
-<h1>New Bio Age Model</h1>
-<div class="subhead">Lee Stonehouse. Chronological age 63. Assessment methodology September 2026. Composite scoring model, working draft.</div>
+<div class="section"><h2>Calculation logic</h2><div class="formula">marker score ∈ {100, 75, 40, 10}\nweighted composite = Σ(marker score × marker weight) / Σ(weights of entered markers)\nbiological age = chronological age − ((weighted composite − 50) / 50 × 17)</div><p class="small">The model therefore rewards a larger contribution from the markers with higher weights. The current scoring bands and weights below are the same ones used by the website calculator as at 4 September 2026.</p></div>
 
-<div class="bioage-score-block">
-<div class="bioage-score-label">Biological Age</div>
-<div class="bioage-score-number">46</div>
-<div class="bioage-score-unit">Years, Composite Estimate</div>
-<div class="bioage-score-vs">
-<span class="bioage-score-chron">Chronological: 63</span>
-<span class="bioage-score-delta">17 YEARS YOUNGER</span>
+<div id="model"></div>
+<div class="section"><h2>Model governance</h2><p>Before any future release is treated as locked, changes to marker inclusion, thresholds, weighting, directionality or age-translation logic should be versioned and date-stamped. Personal data should remain in <a href="biomarkers.html">Personal Data</a> and client biometrics in the client bundle/dashboard.</p></div>
+<div class="foot">This is a working AFT methodology tool for transparency and programme design. It is not a medical diagnosis and should not replace clinical interpretation.</div>
 </div>
-</div>
-
-<div class="section-title">How This Number Is Built</div>
-<div class="methodology-text">
-The score combines nine markers across four categories: body composition (DEXA scan), cardiovascular fitness (VO2 max), blood chemistry, and vitals. Each marker is scored against age matched reference ranges and given a weighting based on how strongly it predicts biological aging and how responsive it is to lifestyle change. The nine markers carry a combined weight of 75 out of a possible 100 in the full model. Three markers (hsCRP, homocysteine, free testosterone) were not available from current records and are excluded rather than estimated. The result is a weighted average, not a simple mean, so the strongest predictors (VO2 max, HbA1c, visceral fat, lean mass) carry more influence than the others.
-</div>
-
-<div class="section-title">Data Sources and Dates</div>
-<div class="methodology-text">
-Figures are drawn from three separate testing dates between 2024 and 2026 rather than a single sitting, reflecting how the underlying tests are typically taken months apart. This is treated as a reasonable aggregate estimate of current status rather than a single day snapshot.
-</div>
-<table>
-<tr><th>Source</th><th>Date</th></tr>
-<tr><td>DEXA scan (BodyView)</td><td>25 April 2025</td></tr>
-<tr><td>VO2 max, rowing protocol</td><td>April 2026 (most recent of two tests)</td></tr>
-<tr><td>Blood panel, lipids and testosterone</td><td>13 August 2026</td></tr>
-<tr><td>Blood panel, HbA1c</td><td>25 June 2024</td></tr>
-<tr><td>Blood pressure</td><td>2026, GP reading</td></tr>
-<tr><td>Resting heart rate</td><td>30 day average, Huawei GT5</td></tr>
-</table>
-
-<div class="section-title">Body Composition (DEXA)</div>
-<table>
-<tr><th>Marker</th><th>What it is</th><th>Result</th><th>Weight</th></tr>
-<tr><td>Body fat %</td><td>Fat mass as a share of total body mass</td><td>9.6%, Athletic</td><td>8</td></tr>
-<tr><td>Lean mass</td><td>Muscle and non fat tissue</td><td>74.6 kg, ALMI 11.8, 99th percentile for age</td><td>9</td></tr>
-<tr><td>Bone density</td><td>Skeletal strength, T-score</td><td>T-score 3.6, well above average</td><td>8</td></tr>
-<tr><td>Visceral fat</td><td>Fat surrounding internal organs</td><td>54.6 cm2, optimal range</td><td>9</td></tr>
-</table>
-
-<div class="section-title">Cardiovascular Fitness</div>
-<table>
-<tr><th>Marker</th><th>What it is</th><th>Result</th><th>Weight</th></tr>
-<tr><td>VO2 max</td><td>Maximal oxygen uptake, the single strongest predictor in the model</td><td>50 to 52 ml/kg/min, self administered rowing test</td><td>10</td></tr>
-</table>
-
-<div class="section-title">Blood Chemistry</div>
-<table>
-<tr><th>Marker</th><th>What it is</th><th>Result</th><th>Weight</th></tr>
-<tr><td>HbA1c</td><td>Average blood glucose over roughly three months</td><td>33 mmol/mol (about 5.2%), in range</td><td>10</td></tr>
-<tr><td>Testosterone</td><td>Total testosterone</td><td>19.4 nmol/L, in range</td><td>7</td></tr>
-</table>
-
-<div class="section-title">Vitals</div>
-<table>
-<tr><th>Marker</th><th>What it is</th><th>Result</th><th>Weight</th></tr>
-<tr><td>Systolic blood pressure</td><td>Pressure in the arteries at each heartbeat</td><td>130 mmHg, borderline elevated</td><td>8</td></tr>
-<tr><td>Resting heart rate</td><td>Heart rate at rest</td><td>47 bpm, excellent</td><td>6</td></tr>
-</table>
-
-<div class="notes-box">
-<h3>Notes and Limitations</h3>
-Total testosterone dropped sharply against the prior reading (minus 12.1 nmol/L) while remaining in range. Worth confirming this isn't a lab or unit change before treating it as a trend.<br><br>
-VO2 max is a self administered rowing estimate, not a lab based maximal test. A supervised test is planned in Brighton in the coming weeks, and this figure should be updated once that is done.<br><br>
-hsCRP, homocysteine, and free testosterone were not available for this cycle and were excluded rather than guessed. Adding them would sharpen the estimate.<br><br>
-Cholesterol and LDL read out of range on the standard reference, consistent with the known pattern on a ketogenic diet and not treated as a negative marker here.<br><br>
-BMI was deliberately excluded as unreliable for a high muscle mass individual. Free testosterone weighting was reviewed and kept at 7.
-</div>
-
-<div class="disclaimer">
-This is not a medical diagnosis. Consult your physician for clinical interpretation.
-</div>
-
-</body>
-</html>
+<script>
+const FIELDS={
+f_glucose:{name:'Fasting Glucose',unit:'mmol/L',optimal:[4.0,5.0],good:[3.8,5.5],warn:[5.5,6.2],weight:8,dir:'range',why:'Snapshot of fasting glucose control; persistent elevation can indicate impaired metabolic regulation.'},
+hba1c:{name:'HbA1c',unit:'%',optimal:[4.5,5.4],good:[5.4,5.7],warn:[5.7,6.4],weight:10,dir:'lower_better',why:'Approximate 2–3 month glycaemic exposure and a core marker of metabolic health.'},
+insulin:{name:'Fasting Insulin',unit:'mIU/L',optimal:[2,8],good:[8,12],warn:[12,20],weight:7,dir:'lower_better',why:'Helps identify hyperinsulinaemia and early insulin resistance before glucose rises markedly.'},
+homair:{name:'HOMA-IR',unit:'ratio',optimal:[0,1.0],good:[1.0,1.8],warn:[1.8,2.9],weight:7,dir:'lower_better',why:'Calculated proxy for insulin resistance using fasting glucose and insulin.'},
+cholesterol:{name:'Total Cholesterol',unit:'mmol/L',optimal:[3.5,5.0],good:[5.0,5.5],warn:[5.5,7.0],weight:5,dir:'lower_better',why:'Broad lipid marker; useful in context but interpreted alongside LDL, HDL and triglycerides.'},
+ldl:{name:'LDL Cholesterol',unit:'mmol/L',optimal:[1.0,2.5],good:[2.5,3.0],warn:[3.0,4.0],weight:7,dir:'lower_better',why:'Major atherogenic lipid marker and cardiovascular-risk signal.'},
+hdl:{name:'HDL Cholesterol',unit:'mmol/L',optimal:[1.5,3.5],good:[1.2,1.5],warn:[0.9,1.2],weight:6,dir:'higher_better',why:'Part of lipid-risk assessment and reverse cholesterol transport; interpreted in context.'},
+trig:{name:'Triglycerides',unit:'mmol/L',optimal:[0.3,1.0],good:[1.0,1.7],warn:[1.7,2.5],weight:6,dir:'lower_better',why:'Reflect circulating stored fat and provide metabolic/cardiovascular context.'},
+hscrp:{name:'hsCRP',unit:'mg/L',optimal:[0,0.5],good:[0.5,1.5],warn:[1.5,3.0],weight:9,dir:'lower_better',why:'Sensitive marker of systemic inflammation; useful for cardiovascular and inflammatory risk context.'},
+sysbp:{name:'Systolic Blood Pressure',unit:'mmHg',optimal:[100,120],good:[120,130],warn:[130,140],weight:8,dir:'range',why:'Measures arterial pressure during contraction and is a major modifiable vascular-risk marker.'},
+rhr:{name:'Resting Heart Rate',unit:'bpm',optimal:[40,55],good:[55,65],warn:[65,80],weight:6,dir:'lower_better',why:'Reflects cardiovascular fitness, autonomic tone and general physiological load.'},
+testost:{name:'Total Testosterone',unit:'nmol/L',optimal:[20,35],good:[15,20],warn:[10,15],weight:7,dir:'higher_better',why:'Relevant to male muscle, bone, sexual function and vitality; treatment context matters.'},
+freetestost:{name:'Free Testosterone',unit:'nmol/L',optimal:[0.3,0.7],good:[0.2,0.3],warn:[0.1,0.2],weight:7,dir:'higher_better',why:'Represents the biologically available fraction and adds context where SHBG alters total testosterone.'},
+igf1:{name:'IGF-1',unit:'ng/mL',optimal:[150,280],good:[120,150],warn:[80,120],weight:8,dir:'range',why:'Growth-hormone axis marker relevant to tissue maintenance and recovery; excessive values also require context.'},
+dheas:{name:'DHEA-S',unit:'µg/dL',optimal:[150,400],good:[100,150],warn:[60,100],weight:6,dir:'higher_better',why:'Adrenal androgen marker that generally declines with age and provides endocrine context.'},
+cortisol:{name:'Morning Cortisol',unit:'nmol/L',optimal:[300,500],good:[200,300],warn:[150,200],weight:5,dir:'range',why:'Stress-axis marker; both persistently low and high values can warrant clinical interpretation.'},
+tsh:{name:'TSH',unit:'mIU/L',optimal:[1.0,2.0],good:[0.5,1.0],warn:[2.0,3.0],weight:5,dir:'range',why:'Core thyroid-regulation marker affecting metabolic rate, energy and multiple organ systems.'},
+bodyfat:{name:'Body Fat %',unit:'%',optimal:[10,18],good:[18,22],warn:[22,28],weight:8,dir:'lower_better',why:'Direct body-composition measure; interpreted alongside muscle and visceral fat rather than body weight alone.'},
+leanmass:{name:'Lean Mass',unit:'kg',optimal:[60,80],good:[50,60],warn:[40,50],weight:6,dir:'higher_better',why:'Proxy for muscle reserve, mobility, glucose disposal and resilience with ageing.'},
+bonedensity:{name:'Bone Density T-score',unit:'T-score',optimal:[1.0,4.0],good:[0.0,1.0],warn:[-1.0,0.0],weight:6,dir:'higher_better',why:'Skeletal-reserve marker relevant to osteoporosis, fracture risk and independence.'},
+visceral:{name:'Visceral Fat Area',unit:'cm²',optimal:[0,80],good:[80,120],warn:[120,160],weight:9,dir:'lower_better',why:'Central fat around the organs; strongly relevant to metabolic and cardiovascular risk.'},
+bmi:{name:'BMI',unit:'kg/m²',optimal:[21,25],good:[25,27],warn:[27,30],weight:4,dir:'range',why:'Simple population-level weight-for-height marker; deliberately low weighted because muscularity can distort it.'},
+vo2max:{name:'VO₂ Max',unit:'mL/kg/min',optimal:[40,60],good:[35,40],warn:[28,35],weight:10,dir:'higher_better',why:'Cardiorespiratory-fitness measure and one of the strongest functional predictors of long-term health outcomes.'},
+grip:{name:'Grip Strength',unit:'kg',optimal:[40,65],good:[34,40],warn:[26,34],weight:7,dir:'higher_better',why:'Simple functional marker of strength, frailty risk and overall physical reserve.'},
+hrv:{name:'HRV',unit:'ms',optimal:[50,120],good:[35,50],warn:[20,35],weight:8,dir:'higher_better',why:'Autonomic-recovery marker influenced by fitness, stress, sleep and illness.'},
+ferritin:{name:'Ferritin',unit:'µg/L',optimal:[50,200],good:[25,50],warn:[200,300],weight:4,dir:'range',why:'Iron-storage marker; both deficiency and excess can affect health and performance.'},
+vitd:{name:'Vitamin D',unit:'nmol/L',optimal:[100,175],good:[75,100],warn:[50,75],weight:7,dir:'higher_better',why:'Relevant to bone, muscle and immune function; interpreted with clinical context.'},
+homocys:{name:'Homocysteine',unit:'µmol/L',optimal:[0,7],good:[7,10],warn:[10,15],weight:8,dir:'lower_better',why:'Amino-acid marker associated with vascular risk and B-vitamin metabolism.'},
+omega3:{name:'Omega-3 Index',unit:'%',optimal:[8,20],good:[5,8],warn:[3,5],weight:6,dir:'higher_better',why:'Red-cell membrane omega-3 measure associated with cardiovascular and inflammatory status.'}
+};
+const CATS={
+'Metabolic & Glucose':['f_glucose','hba1c','insulin','homair'],
+'Cardiovascular':['cholesterol','ldl','hdl','trig','hscrp','sysbp','rhr'],
+'Hormonal':['testost','freetestost','igf1','dheas','cortisol','tsh'],
+'Body Composition':['bodyfat','leanmass','bonedensity','visceral','bmi'],
+'Fitness & Functional':['vo2max','grip','hrv'],
+'Cellular / Nutritional':['ferritin','vitd','homocys','omega3']};
+function rangeText(f){const s=(a)=>a[0]+'–'+a[1];return 'Optimal '+s(f.optimal)+' · Good '+s(f.good)+' · Warning '+s(f.warn)}
+function score(f,v){v=parseFloat(v);if(Number.isNaN(v))return null;let lo=f.optimal[0],hi=f.optimal[1];if(f.dir==='lower_better'){if(v<=hi)return 100;if(v<=f.good[1])return 75;if(v<=f.warn[1])return 40;return 10}if(f.dir==='higher_better'){if(v>=lo)return 100;if(v>=f.good[0])return 75;if(v>=f.warn[0])return 40;return 10}if(v>=lo&&v<=hi)return 100;let d=Math.min(Math.abs(v-lo),Math.abs(v-hi)),r=hi-lo;return d<=r*.3?75:d<=r*.8?40:10}
+function render(){let root=document.getElementById('model');Object.entries(CATS).forEach(([cat,ids])=>{let box=document.createElement('div');box.className='category';let rows=ids.map(id=>{let f=FIELDS[id];return `<tr><td><strong>${f.name}</strong><br><span class="small">${f.unit}</span></td><td>${rangeText(f)}</td><td><strong>${f.weight}</strong></td><td class="why">${f.why}</td><td><input class="input marker" data-id="${id}" type="number" step="any" placeholder="blank"></td><td class="score" id="s_${id}">—</td></tr>`}).join('');box.innerHTML=`<h3>${cat}</h3><table><thead><tr><th>Marker</th><th>Scoring bands</th><th>Weight</th><th>Why it matters</th><th>Value</th><th>Score</th></tr></thead><tbody>${rows}</tbody></table>`;root.appendChild(box)});document.querySelectorAll('.marker').forEach(el=>el.addEventListener('input',()=>{let q=score(FIELDS[el.dataset.id],el.value);document.getElementById('s_'+el.dataset.id).textContent=q===null?'—':q}))}
+function calculateBioAge(){let age=parseFloat(document.getElementById('age').value);if(!age){document.getElementById('result').textContent='Enter chronological age first.';return}let sw=0,ss=0,count=0;document.querySelectorAll('.marker').forEach(el=>{let f=FIELDS[el.dataset.id],q=score(f,el.value);if(q!==null){sw+=f.weight;ss+=q*f.weight;count++}});if(!sw){document.getElementById('result').textContent='Enter at least one biomarker.';return}let composite=ss/sw,bio=Math.round(age-((composite-50)/50)*17),delta=bio-age;document.getElementById('result').textContent=`Estimated Biological Age: ${bio}`;document.getElementById('detail').textContent=`${count} markers entered · ${sw}/200 active weight points · weighted score ${composite.toFixed(1)} · ${Math.abs(delta)} years ${delta<0?'younger':delta>0?'older':'same as chronological age'}.`}
+function resetAll(){document.getElementById('age').value='';document.querySelectorAll('.marker').forEach(x=>x.value='');document.querySelectorAll('.score').forEach(x=>x.textContent='—');document.getElementById('result').textContent='';document.getElementById('detail').textContent=''}
+render();
+</script></body></html>
