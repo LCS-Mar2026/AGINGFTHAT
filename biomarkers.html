@@ -243,6 +243,7 @@
 <div class="dash">
 <div class="header fade d1">
 <div class="brand">AGING? F***THAT!, Lee's Data</div>
+<div style="display:inline-block;margin:8px 0 4px;padding:7px 12px;background:#A9CDEA;color:#3D1C02;border-radius:5px;font-family:'Share Tech Mono',monospace;font-size:0.76rem;font-weight:700;letter-spacing:.06em;">DATA VERSION: 04 SEPTEMBER 2026 · AS OF 04 SEPTEMBER 2026</div>
 <h1 class="headline">This is what a <span>63-year-old</span> body can be like.</h1>
 <p class="subhead">Lee's verified biomarkers, the benchmark your 1-year Age Reversal Program aims for.</p>
 <div class="badge-program">✦ Bespoke 1-Year Age Reversal Program</div>
@@ -278,9 +279,9 @@
 </div>
 <div class="hero-card" style="--accent:var(--orange)">
 <div class="hero-icon">⚗️</div>
-<div class="hero-val" style="color:var(--orange)">29</div>
+<div class="hero-val" style="color:var(--orange)">19.4</div>
 <div class="hero-label">Testosterone</div>
-<div class="hero-context">nmol/L · Optimised</div>
+<div class="hero-context">nmol/L · NHS 13 Aug 2026</div>
 <div class="hero-badge" style="background:rgba(156,107,63,.15);color:var(--orange)">OPTIMAL</div>
 </div>
 </div>
@@ -487,7 +488,7 @@
 </div>
 <div class="field-blurb" id="blurb_f_glucose">Measures blood sugar after an overnight fast. High readings signal poor glucose control and rising diabetes risk, often years before diagnosis. Low readings (below range) can indicate poor meal timing or overtraining without adequate fuel.</div>
 <div class="field-row">
-<div><div class="field-label">HbA1c <span class="field-info-btn" onclick="toggleBlurb('hba1c')">i</span></div><div class="field-ref">Optimal: &lt;5.4% (&lt;36 mmol/mol)</div></div>
+<div><div class="field-label">HbA1c <span class="field-info-btn" onclick="toggleBlurb('hba1c')">i</span></div><div class="field-ref">Optimal: &lt;5.4% (&lt;36 mmol/mol)</div><div class="field-lee-ref">Lee: 33 mmol/mol ≈ 5.2% · NHS 25 Jun 2024</div></div>
 <div class="field-unit">%</div>
 <input class="field-input" id="hba1c" oninput="scoreField(this,'hba1c')" placeholder="e.g. 5.1" step="0.1" type="number"/>
 <div class="field-score" id="s_hba1c">,</div>
@@ -553,7 +554,7 @@
 </div>
 <div class="field-blurb" id="blurb_hscrp">A sensitive marker of systemic inflammation, the single biggest driver of accelerated ageing. High hsCRP is linked to heart disease, cognitive decline, and nearly every age-related condition. Low is the target, it means your body isn't fighting chronic low-grade inflammation.</div>
 <div class="field-row">
-<div><div class="field-label">Systolic Blood Pressure <span class="field-info-btn" onclick="toggleBlurb('sysbp')">i</span></div><div class="field-ref">Optimal: 100 to 120 mmHg</div></div>
+<div><div class="field-label">Systolic Blood Pressure <span class="field-info-btn" onclick="toggleBlurb('sysbp')">i</span></div><div class="field-ref">Optimal: 100 to 120 mmHg</div><div class="field-lee-ref">Lee: 120 mmHg · current confirmed value</div></div>
 <div class="field-unit">mmHg</div>
 <input class="field-input" id="sysbp" oninput="scoreField(this,'sysbp')" placeholder="e.g. 115" step="1" type="number"/>
 <div class="field-score" id="s_sysbp">,</div>
@@ -577,14 +578,14 @@
 </div>
 <div class="cat-body" id="body-hormonal">
 <div class="field-row">
-<div><div class="field-label">Total Testosterone <span class="field-info-btn" onclick="toggleBlurb('testost')">i</span></div><div class="field-ref">Optimal male: 20 to 35 nmol/L</div><div class="field-lee-ref">Lee: 29 nmol/L</div></div>
+<div><div class="field-label">Total Testosterone <span class="field-info-btn" onclick="toggleBlurb('testost')">i</span></div><div class="field-ref">Optimal male: 20 to 35 nmol/L</div><div class="field-lee-ref">Lee: 19.4 nmol/L · NHS 13 Aug 2026</div></div>
 <div class="field-unit">nmol/L</div>
 <input class="field-input" id="testost" oninput="scoreField(this,'testost')" placeholder="e.g. 22.0" step="0.1" type="number"/>
 <div class="field-score" id="s_testost">,</div>
 </div>
 <div class="field-blurb" id="blurb_testost">The primary male hormone, driving muscle mass, bone density, mood, libido, and motivation. Low testosterone accelerates muscle loss, fat gain, and cognitive decline with age. High levels (within physiological range) support vitality, but should always be medically supervised.</div>
 <div class="field-row">
-<div><div class="field-label">Free Testosterone <span class="field-info-btn" onclick="toggleBlurb('freetestost')">i</span></div><div class="field-ref">Optimal male: &gt;0.3 nmol/L</div></div>
+<div><div class="field-label">Free Testosterone <span class="field-info-btn" onclick="toggleBlurb('freetestost')">i</span></div><div class="field-ref">Optimal male: &gt;0.3 nmol/L</div><div class="field-lee-ref">Lee: 0.443 nmol/L (443 pmol/L) · NHS 10 Mar 2026</div></div>
 <div class="field-unit">nmol/L</div>
 <input class="field-input" id="freetestost" oninput="scoreField(this,'freetestost')" placeholder="e.g. 0.45" step="0.01" type="number"/>
 <div class="field-score" id="s_freetestost">,</div>
@@ -762,7 +763,7 @@
 <p style="font-size:0.72rem;color:var(--muted);margin-top:0.6rem;">Use this to backfill the Oct 2024 and Apr 2025 DEXA results and the May 2024 blood panel referenced in the footer below, once you've got the biological-age figure calculated for each of those dates.</p>
 </div>
 <div class="disclaimer fade d8">
-<strong>Note on biomarker data:</strong> All metrics shown are Lee's personally verified results, DEXA scans via BodyScan UK (Oct 2024 &amp; Apr 2025), blood panels via OneDayTests (May 2024), and VO₂Max field testing via Huawei Health &amp; WHOOP (Apr 2026), combined into an AI-composite biological age analysis. Individual results will vary. This dashboard is provided as an example of what is measurable and achievable with a structured age-reversal protocol.
+<strong>Note on biomarker data:</strong> Data version 04 September 2026. Metrics shown combine Lee's verified DEXA scans via BodyScan UK (Oct 2024 &amp; Apr 2025), NHS blood results (latest supplied 13 Aug 2026; other current values dated individually), the One Day Tests panel (31 May 2024), and VO₂Max field testing via Huawei Health &amp; WHOOP (Apr 2026), using the AFT September 2026 composite biological-age model. Individual results will vary. This dashboard is provided as an example of what is measurable and achievable with a structured age-reversal protocol.
   </div>
 <div class="footer fade d9">
 <div class="ft-brand">AGING? <span>F***THAT!</span></div>
@@ -787,45 +788,30 @@
 </script>
 <script>
 const FIELDS = {
-  f_glucose:  { optimal:[70,85],  good:[85,95],    warn:[95,110],  weight:8, dir:'lower_better' },
-  hba1c:      { optimal:[0,5.0],  good:[5.0,5.4],  warn:[5.4,5.7], weight:8, dir:'lower_better' },
-  insulin:    { optimal:[0,5],    good:[5,8],      warn:[8,15],    weight:6, dir:'lower_better' },
-  homair:     { optimal:[0,1.0],  good:[1.0,1.8],  warn:[1.8,2.9], weight:6, dir:'lower_better' },
-  cholesterol:{ optimal:[0,180],  good:[180,200],  warn:[200,240], weight:4, dir:'lower_better' },
-  ldl:        { optimal:[0,90],   good:[90,115],   warn:[115,160], weight:6, dir:'lower_better' },
-  hdl:        { optimal:[60,120], good:[45,60],    warn:[35,45],   weight:6, dir:'higher_better' },
-  trig:       { optimal:[0,80],   good:[80,110],   warn:[110,150], weight:5, dir:'lower_better' },
-  hscrp:      { optimal:[0,0.5],  good:[0.5,1.0],  warn:[1.0,3.0], weight:8, dir:'lower_better' },
-  sysbp:      { optimal:[0,115],  good:[115,125],  warn:[125,140], weight:7, dir:'lower_better' },
-  rhr:        { optimal:[0,52],   good:[52,60],    warn:[60,70],   weight:7, dir:'lower_better' },
-  testost:    { optimal:[24,40],  good:[18,24],    warn:[12,18],   weight:6, dir:'higher_better' },
-  freetestost:{ optimal:[0.4,1.0],good:[0.3,0.4],  warn:[0.2,0.3], weight:4, dir:'higher_better' },
-  igf1:       { optimal:[150,250],good:[120,150],  warn:[90,120],  weight:4, dir:'higher_better' },
-  dheas:      { optimal:[10,14],  good:[7,10],     warn:[4,7],     weight:3, dir:'higher_better' },
-  cortisol:   { optimal:[8,15],   good:[15,20],    warn:[20,25],   weight:4, dir:'lower_better' },
-  tsh:        { optimal:[0.5,2.0],good:[2.0,3.0],  warn:[3.0,4.5], weight:4, dir:'lower_better' },
-  bodyfat:    { optimal:[0,15],   good:[15,20],    warn:[20,25],   weight:8, dir:'lower_better' },
-  leanmass:   { optimal:[60,80],  good:[50,60],    warn:[40,50],   weight:6, dir:'higher_better' },
-  bonedensity:{ optimal:[1.0,4.0],good:[0.0,1.0],  warn:[-1.0,0.0],weight:6, dir:'higher_better' },
-  visceral:   { optimal:[0,50],   good:[50,80],    warn:[80,120],  weight:7, dir:'lower_better' },
-  bmi:        { optimal:[20,23],  good:[18.5,25],  warn:[25,28],   weight:3, dir:'range' },
-  vo2max:     { optimal:[45,70],  good:[38,45],    warn:[30,38],   weight:9, dir:'higher_better' },
-  grip:       { optimal:[45,65],  good:[38,45],    warn:[30,38],   weight:5, dir:'higher_better' },
-  hrv:        { optimal:[60,100], good:[45,60],    warn:[30,45],   weight:5, dir:'higher_better' },
-  ferritin:   { optimal:[50,150], good:[30,50],    warn:[15,30],   weight:3, dir:'range' },
-  vitd:       { optimal:[50,80],  good:[40,50],    warn:[30,40],   weight:5, dir:'higher_better' },
-  homocys:    { optimal:[0,8],    good:[8,10],     warn:[10,13],   weight:4, dir:'lower_better' },
-  omega3:     { optimal:[8,12],   good:[6,8],      warn:[4,6],     weight:4, dir:'higher_better' },
+  hba1c:      { optimal:[4.5,5.4], good:[5.4,5.7],  warn:[5.7,6.4], weight:10, dir:'lower_better' },
+  hscrp:      { optimal:[0,0.5],   good:[0.5,1.5],  warn:[1.5,3.0], weight:9,  dir:'lower_better' },
+  homocys:    { optimal:[0,7],     good:[7,10],     warn:[10,15],   weight:9,  dir:'lower_better' },
+  testost:    { optimal:[20,35],   good:[15,20],    warn:[10,15],   weight:7,  dir:'higher_better' },
+  freetestost:{ optimal:[0.3,0.7], good:[0.2,0.3],  warn:[0.1,0.2],weight:7,  dir:'higher_better' },
+  bodyfat:    { optimal:[0,18],    good:[18,22],    warn:[22,28],   weight:8,  dir:'lower_better' },
+  leanmass:   { optimal:[60,80],   good:[50,60],    warn:[40,50],   weight:9,  dir:'higher_better' },
+  bonedensity:{ optimal:[1,4],     good:[0,1],      warn:[-1,0],    weight:8,  dir:'higher_better' },
+  visceral:   { optimal:[0,80],    good:[80,120],   warn:[120,160], weight:9,  dir:'lower_better' },
+  vo2max:     { optimal:[40,60],   good:[35,40],    warn:[28,35],   weight:10, dir:'higher_better' },
+  sysbp:      { optimal:[100,120], good:[120,130],  warn:[130,140], weight:8,  dir:'range' },
+  rhr:        { optimal:[40,55],   good:[55,65],    warn:[65,80],   weight:6,  dir:'lower_better' }
 };
+/* Only these 12 fields contribute to the September 2026 AFT BioAge model.
+   Other displayed blood and lifestyle fields remain contextual and unweighted. */
 const CATEGORIES = {
-  metabolic: ['f_glucose','hba1c','insulin','homair'],
-  cardio:    ['cholesterol','ldl','hdl','trig','hscrp','sysbp','rhr'],
-  hormonal:  ['testost','freetestost','igf1','dheas','cortisol','tsh'],
-  bodcomp:   ['bodyfat','leanmass','bonedensity','visceral','bmi'],
-  fitness:   ['vo2max','grip','hrv'],
-  cellular:  ['ferritin','vitd','homocys','omega3'],
+  metabolic: ['hba1c'],
+  cardio:    ['hscrp','sysbp','rhr'],
+  hormonal:  ['testost','freetestost'],
+  bodcomp:   ['bodyfat','leanmass','bonedensity','visceral'],
+  fitness:   ['vo2max'],
+  cellular:  ['homocys']
 };
-const KNOWN_VALUES = { rhr:47, testost:29, bodyfat:9.6, leanmass:75, bonedensity:3.6, visceral:54.6, vo2max:50 };
+const KNOWN_VALUES = { hba1c:5.2, sysbp:120, rhr:47, testost:19.4, freetestost:0.443, bodyfat:9.6, leanmass:74.6, bonedensity:3.6, visceral:54.6, vo2max:50 };
 
 function getScore(id, val) {
   const f = FIELDS[id]; if(!f) return null;
@@ -895,7 +881,7 @@ function calculateLee() {
   }
   if(totalWeight === 0) { alert('Enter at least a few biomarker values first.'); return; }
   const avgScore = totalScore/totalWeight;
-  const bioAge = Math.round(chronAge - ((avgScore-50)/50)*17);
+  const bioAge = Math.round(chronAge - ((avgScore-50)/50)*20);
 
   document.getElementById('heroBioAge').textContent = bioAge;
   document.getElementById('heroChronoAge').textContent = chronAge;
