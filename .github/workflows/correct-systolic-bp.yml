@@ -1,0 +1,39 @@
+name: Correct systolic BP and recalculate Bio Age
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/correct-systolic-bp.yml']
+permissions:
+  contents: write
+jobs:
+  update-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Correct BP and recalculate report
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('example-report.html')
+          s=p.read_text(encoding='utf-8')
+          reps=[
+            ('<span class="rng-tag" style="color:#2bc7ff;border-color:#2bc7ff66">OKAY</span></div>\n<div class="rng-track"><div class="rng-band" style="left:55.6%;width:18.5%"></div><div class="rng-dot" style="left:80.2%;background:#2bc7ff;box-shadow:0 0 8px #2bc7ff"></div></div>\n<div class="rng-foot"><span class="rng-val" style="color:#2bc7ff">130 mmHg</span><span class="rng-date">GP</span></div>\n<div class="rng-blurb" id="blurb_systolic_bp">Pressure in the arteries when the heart beats. High blood pressure silently damages vessels, heart, kidneys and brain over years. Slightly above optimal, worth trending.</div>', '<span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>\n<div class="rng-track"><div class="rng-band" style="left:55.6%;width:18.5%"></div><div class="rng-dot" style="left:61.7%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>\n<div class="rng-foot"><span class="rng-val" style="color:#21c97a">120 mmHg</span><span class="rng-date">GP</span></div>\n<div class="rng-blurb" id="blurb_systolic_bp">Pressure in the arteries when the heart beats. 120 mmHg is a healthy systolic reading and improves the cardiovascular contribution to the AFT Bio Age model.</div>'),
+            ('<div class="breakdown-card"><div class="breakdown-cat">Vitals</div><div class="breakdown-val">66%</div><div class="breakdown-weight">weight 14</div></div>', '<div class="breakdown-card"><div class="breakdown-cat">Vitals</div><div class="breakdown-val">83%</div><div class="breakdown-weight">weight 14</div></div>'),
+            ('<div><strong style="color:#00ff6a">48</strong><div class="lbl">Biological Age</div><div class="sub">Chronological 63</div><div class="badge" style="background:rgba(0,255,106,.18);color:#00ff6a">-15 YEARS</div></div>', '<div><strong style="color:#00ff6a">47</strong><div class="lbl">Biological Age</div><div class="sub">Chronological 63</div><div class="badge" style="background:rgba(0,255,106,.18);color:#00ff6a">-16 YEARS</div></div>'),
+            ('<text x="590" y="343" fill="#fff" font-family="Arial" font-size="10" font-weight="900" text-anchor="middle">48</text>', '<text x="590" y="350" fill="#fff" font-family="Arial" font-size="10" font-weight="900" text-anchor="middle">47</text>'),
+            ('<circle cx="590" cy="315" r="6"/>', '<circle cx="590" cy="322" r="6"/>'),
+            ('<polyline points="330,315 590,315" fill="none" stroke="#00ff6a" stroke-width="3"/>', '<polyline points="330,315 590,322" fill="none" stroke="#00ff6a" stroke-width="3"/>'),
+            ('<div class="final-num" style="color:#00ff6a;text-shadow:0 0 26px #00ff6a77">48</div>\n      <div class="final-sub">Composite Biological Age &middot; Chronological 63 &middot; <strong style="color:#00ff6a">-15 years</strong></div>', '<div class="final-num" style="color:#00ff6a;text-shadow:0 0 26px #00ff6a77">47</div>\n      <div class="final-sub">Composite Biological Age &middot; Chronological 63 &middot; <strong style="color:#00ff6a">-16 years</strong></div>')
+          ]
+          for old,new in reps:
+            if old not in s:
+              raise SystemExit('Expected fragment missing: '+old[:120])
+            s=s.replace(old,new,1)
+          p.write_text(s,encoding='utf-8')
+      - name: Commit corrected report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add example-report.html
+          git commit -m "Correct systolic BP to 120 and Bio Age to 47"
+          git push
