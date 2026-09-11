@@ -1,0 +1,40 @@
+name: Apply AFT report scoring logic
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/aft-report-scoring-logic.yml']
+permissions:
+  contents: write
+jobs:
+  update-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply scoring and colour logic
+        shell: python
+        run: |
+          from pathlib import Path
+          p = Path('example-report.html')
+          s = p.read_text(encoding='utf-8')
+          replacements = [
+            ('<div class="metric-card"><div class="metric-val" style="color:var(--cyan)">3.6</div><div class="metric-label">BONE T-SCORE</div><div class="metric-sub">WHO: Normal, Z 3.5</div></div>', '<div class="metric-card"><div class="metric-val" style="color:#00ff6a">3.6</div><div class="metric-label">BONE T-SCORE</div><div class="metric-sub">Exceptional · WHO: Normal, Z 3.5</div></div>'),
+            ('<div class="metric-card"><div class="metric-val" style="color:var(--blue)">11.8</div><div class="metric-label">ALMI kg/m²</div><div class="metric-sub">99th percentile</div></div>', '<div class="metric-card"><div class="metric-val" style="color:#00ff6a">11.8</div><div class="metric-label">ALMI kg/m²</div><div class="metric-sub">Exceptional · 99th percentile</div></div>'),
+            ('<div class="ring-card"><div class="ring" style="background:conic-gradient(var(--cyan) 0% 78%, #0d2836 78% 100%)"><div class="ring-inner"><b>48</b><span>YEARS</span></div></div><div class="ring-name">Overall Body Comp. Age</div><div class="ring-delta">−14 years</div></div>', '<div class="ring-card"><div class="ring" style="background:conic-gradient(#00ff6a 0% 78%, #0d2836 78% 100%)"><div class="ring-inner"><b style="color:#00ff6a">48</b><span>YEARS</span></div></div><div class="ring-name">Overall Body Comp. Age</div><div class="ring-delta" style="color:#00ff6a">−14 years · EXCEPTIONAL</div></div>'),
+            ('.breakdown-val{font-size:21px;font-weight:900;color:var(--cyan)}', '.breakdown-val{font-size:21px;font-weight:900;color:#fff}'),
+            ("<p class=\"sub\">AFT's 12-marker weighted algorithm across body composition, fitness, hormonal, metabolic and vital-sign categories. Divergence capped at ±20 years. A Bio Age younger than chronological age is shown in green; older would show in red.</p>", "<p class=\"sub\">AFT's 12-marker weighted algorithm across body composition, fitness, hormonal, metabolic and vital-sign categories. Divergence capped at ±20 years.</p><div class=\"notice\" style=\"margin:12px 0 20px\"><b>Scoring &amp; colour logic — version 11 September 2026.</b> Domain percentages show each domain's weighting in the AFT Composite Biological Age calculation; they are model weights, not performance scores, and are therefore shown in neutral white. Health-age results are assessed against chronological age: younger is green; more than 5 years younger is Exceptional / bright green; equal is neutral; and older is red. Individual biomarker tiles use the same principle where an age comparison exists; otherwise colour reflects the appropriate performance or reference classification. Exceptional DEXA results, including ALMI at the 99th percentile and a T-score of 3.6, are shown bright green.</div>")
+          ]
+          changed = 0
+          for old, new in replacements:
+              if old not in s:
+                  raise SystemExit('Expected source fragment not found: ' + old[:100])
+              s = s.replace(old, new, 1)
+              changed += 1
+          p.write_text(s, encoding='utf-8')
+          print(f'Applied {changed} institutional scoring updates')
+      - name: Commit report update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add example-report.html
+          git commit -m "Institutionalise AFT Bio Age scoring logic"
+          git push
