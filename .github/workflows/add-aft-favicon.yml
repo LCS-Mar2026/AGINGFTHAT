@@ -1,0 +1,39 @@
+name: Apply AFT favicon across website
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/add-aft-favicon.yml']
+permissions:
+  contents: write
+jobs:
+  favicon:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add favicon link to HTML pages
+        shell: python
+        run: |
+          from pathlib import Path
+          link = '<link rel="icon" type="image/svg+xml" href="/favicon.svg">'
+          changed=[]
+          for p in Path('.').rglob('*.html'):
+              s=p.read_text(encoding='utf-8')
+              if 'rel="icon"' in s or "rel='icon'" in s:
+                  continue
+              low=s.lower()
+              i=low.find('<head>')
+              if i < 0:
+                  continue
+              pos=i+len('<head>')
+              s=s[:pos]+link+s[pos:]
+              p.write_text(s,encoding='utf-8')
+              changed.append(str(p))
+          print('Updated',len(changed),'HTML files')
+      - name: Commit favicon rollout
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add '*.html' '**/*.html' 2>/dev/null || true
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Use AFT branded favicon across website"
+          git push
