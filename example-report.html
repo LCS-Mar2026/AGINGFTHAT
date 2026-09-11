@@ -144,7 +144,7 @@ table.dtable tr:last-child td{border-bottom:none}
 .breakdown-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:22px}
 .breakdown-card{border:1px solid #168cc0;border-radius:12px;padding:14px;text-align:center;background:#061d2c}
 .breakdown-cat{font-size:8.5px;color:var(--muted);letter-spacing:.02em;text-transform:uppercase;margin-bottom:4px;word-break:break-word;line-height:1.3}
-.breakdown-val{font-size:21px;font-weight:900;color:var(--cyan)}
+.breakdown-val{font-size:21px;font-weight:900;color:#fff}
 .breakdown-weight{font-size:9.5px;color:#7899a9;margin-top:2px}
 
 .chart-wrap{height:440px;width:100%;margin-top:6px;border:1px solid #168cc0;border-radius:16px;background:radial-gradient(circle at 50% 20%,#0a3046,#031522 72%);padding:10px}
@@ -564,10 +564,10 @@ table.dtable tr:last-child td{border-bottom:none}
     <div class="metric-grid" style="margin-bottom:20px">
       <div class="metric-card"><div class="metric-val" style="color:#00ff6a">9.6%</div><div class="metric-label">BODY FAT</div><div class="metric-sub">down 2.7% since Dec 2024</div></div>
       <div class="metric-card"><div class="metric-val" style="color:var(--blue)">74.6kg</div><div class="metric-label">LEAN MASS</div><div class="metric-sub">up from 72.61kg</div></div>
-      <div class="metric-card"><div class="metric-val" style="color:var(--cyan)">3.6</div><div class="metric-label">BONE T-SCORE</div><div class="metric-sub">WHO: Normal, Z 3.5</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#00ff6a">3.6</div><div class="metric-label">BONE T-SCORE</div><div class="metric-sub">Exceptional · WHO: Normal, Z 3.5</div></div>
       <div class="metric-card"><div class="metric-val" style="color:#00ff6a">54.6cm²</div><div class="metric-label">VISCERAL FAT</div><div class="metric-sub">down 22.4cm² since Dec 2024</div></div>
       <div class="metric-card"><div class="metric-val" style="color:#fff">85.7kg</div><div class="metric-label">BODYWEIGHT</div><div class="metric-sub">BMI 28.6</div></div>
-      <div class="metric-card"><div class="metric-val" style="color:var(--blue)">11.8</div><div class="metric-label">ALMI kg/m²</div><div class="metric-sub">99th percentile</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#00ff6a">11.8</div><div class="metric-label">ALMI kg/m²</div><div class="metric-sub">Exceptional · 99th percentile</div></div>
       <div class="metric-card"><div class="metric-val" style="color:#00ff6a">41+</div><div class="metric-label">VO&#8322;MAX ESTIMATE</div><div class="metric-sub">Body-comp derived, Superior</div></div>
     </div>
 
@@ -629,7 +629,7 @@ table.dtable tr:last-child td{border-bottom:none}
       <div class="ring-card"><div class="ring" style="background:conic-gradient(var(--good) 0% 79%, #0d2836 79% 100%)"><div class="ring-inner"><b>49</b><span>YEARS</span></div></div><div class="ring-name">Metabolic Health Age</div><div class="ring-delta">−13 years</div></div>
       <div class="ring-card"><div class="ring" style="background:conic-gradient(var(--good) 0% 76%, #0d2836 76% 100%)"><div class="ring-inner"><b>47</b><span>YEARS</span></div></div><div class="ring-name">Muscle Health Age</div><div class="ring-delta">−15 years</div></div>
       <div class="ring-card"><div class="ring" style="background:conic-gradient(var(--good) 0% 76%, #0d2836 76% 100%)"><div class="ring-inner"><b>47</b><span>YEARS</span></div></div><div class="ring-name">Bone Health Age</div><div class="ring-delta">−15 years</div></div>
-      <div class="ring-card"><div class="ring" style="background:conic-gradient(var(--cyan) 0% 78%, #0d2836 78% 100%)"><div class="ring-inner"><b>48</b><span>YEARS</span></div></div><div class="ring-name">Overall Body Comp. Age</div><div class="ring-delta">−14 years</div></div>
+      <div class="ring-card"><div class="ring" style="background:conic-gradient(#00ff6a 0% 78%, #0d2836 78% 100%)"><div class="ring-inner"><b style="color:#00ff6a">48</b><span>YEARS</span></div></div><div class="ring-name">Overall Body Comp. Age</div><div class="ring-delta" style="color:#00ff6a">−14 years · EXCEPTIONAL</div></div>
     </div>
 
     <div class="card">
@@ -656,7 +656,7 @@ table.dtable tr:last-child td{border-bottom:none}
   <section class="sec" id="bioage">
     <div class="sec-eyebrow">05 · Model</div>
     <h2>Composite Bio-Age Model</h2>
-    <p class="sub">AFT's 12-marker weighted algorithm across body composition, fitness, hormonal, metabolic and vital-sign categories. Divergence capped at ±20 years. A Bio Age younger than chronological age is shown in green; older would show in red.</p>
+    <p class="sub">AFT's 12-marker weighted algorithm across body composition, fitness, hormonal, metabolic and vital-sign categories. Divergence capped at ±20 years.</p><div class="notice" style="margin:12px 0 20px"><b>Scoring &amp; colour logic — version 11 September 2026.</b> Domain percentages show each domain's weighting in the AFT Composite Biological Age calculation; they are model weights, not performance scores, and are therefore shown in neutral white. Health-age results are assessed against chronological age: younger is green; more than 5 years younger is Exceptional / bright green; equal is neutral; and older is red. Individual biomarker tiles use the same principle where an age comparison exists; otherwise colour reflects the appropriate performance or reference classification. Exceptional DEXA results, including ALMI at the 99th percentile and a T-score of 3.6, are shown bright green.</div>
 
     <div class="breakdown-grid">
       <div class="breakdown-card"><div class="breakdown-cat">Body Composition</div><div class="breakdown-val">100%</div><div class="breakdown-weight">weight 34</div></div>
