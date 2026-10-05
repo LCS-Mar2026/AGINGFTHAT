@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Example Report | AGING?F***THAT!</title>
+<meta name="description" content="Example consolidated biometric analysis report: bio age model, blood and hormone panel, VO2 Max, DEXA body composition and posture."/>
+<link rel="canonical" href="https://agingfthat.com/report.html"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<link rel="stylesheet" href="report.css"/>
+</head>
+<body style="margin:0">
+<div id="report-root"></div>
+<noscript><p style="color:#edfaff;font-family:Arial;padding:24px">This report needs JavaScript enabled to display.</p></noscript>
+<script>
+(function(){
+  var parts=['report-part-1.html','report-part-2.html','report-part-3.html','report-part-4.html','report-part-5.html'];
+  var root=document.getElementById('report-root');
+  Promise.all(parts.map(function(p){return fetch(p,{cache:'no-cache'}).then(function(r){return r.text();});}))
+    .then(function(chunks){
+      root.innerHTML=chunks.join('');
+      document.querySelectorAll('[data-w]').forEach(function(el){ setTimeout(function(){ el.style.width=el.dataset.w; },200); });
+      document.body.setAttribute('data-sex','male');
+      window.toggleBlurb=function(slug){var b=document.getElementById('blurb_'+slug);if(!b)return;var c=b.closest('.rng-card');if(c)c.classList.toggle('open');};
+      window.setSex=function(sex,btn){document.body.setAttribute('data-sex',sex);var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
+      window.setToggle=function(btn){var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
+    });
+})();
+</script>
+</body>
+</html>
