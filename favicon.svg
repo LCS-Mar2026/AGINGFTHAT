@@ -1,1 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="AGING?F DNA helix"><title>AGING?F DNA helix</title><image width="48" height="48" href="data:image/png;base64,__SVG_PLACEHOLDER__"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="AGING?F DNA helix">
+<title>AGING?F DNA helix</title>
+<rect width="64" height="64" rx="14" fill="#031522"/>
+<g fill="none" stroke-linecap="round">
+<path d="M20 9 C 48 17 48 24 32 32 C 16 40 16 47 44 55" stroke="#A9CDEA" stroke-width="4.4"/>
+<path d="M44 9 C 16 17 16 24 32 32 C 48 40 48 47 20 55" stroke="#2BC7FF" stroke-width="4.4"/>
+<path d="M25 16 L 39 16" stroke="#713000" stroke-width="2.8"/>
+<path d="M25 48 L 39 48" stroke="#713000" stroke-width="2.8"/>
+</g>
+</svg>
