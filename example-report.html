@@ -1,1 +1,780 @@
-x
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Example Report | AGING?F***THAT!</title>
+<style>
+:root{--cyan:#2bc7ff;--blue:#A9CDEA;--ink:#031522;--panel:#061d2c;--text:#edfaff;--muted:#a9c8d8;--bad:#ff4b4b;--good:#21c97a;--brown:#3D1C02;--copper:#713000;--line:#19bff5;--amber:#ffb020}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 50% 0,#0a3550 0,#031522 38%,#020b12 100%);color:var(--text);font:16px/1.55 Arial,sans-serif}
+.wrap{max-width:1150px;margin:0 auto;padding:0 20px 60px}
+
+.mast{padding:14px 0 2px;text-align:center;overflow:hidden;background:radial-gradient(circle at 50% 20%,#0d3b56,#031522 72%)}
+.mast img.logo{display:block;width:100%;height:auto;margin:0 auto;filter:drop-shadow(0 0 8px #21c7ff) drop-shadow(0 0 22px #21c7ff66)}
+.tagline{display:block;width:100%;text-align:center;font-weight:900;letter-spacing:clamp(.12em,1.7vw,.62em);font-size:clamp(11px,2vw,15px);padding:8px 0 14px;color:#e9fbff}
+
+.hero{margin:8px 0 22px;padding:26px 28px;border:1.5px solid var(--cyan);border-radius:24px;background:radial-gradient(circle at 50% 0,#0d4566,#061d2c 58%,#031522);box-shadow:inset 0 0 38px #16bfff18,0 0 24px #16bfff55}
+.hero h1{font-size:clamp(24px,4vw,34px);margin:0 0 8px;font-weight:900;letter-spacing:-.02em}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 16px #13bfff66}
+.hero p.lead{color:var(--muted);margin:0 0 18px;font-size:14px}
+.meta-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.meta-grid div{border:1px solid #168cc0;border-radius:14px;padding:12px 10px;background:#061d2c;text-align:center}
+.meta-grid b{display:block;font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+.meta-grid span{font-size:13px;font-weight:700;color:#fff}
+
+.tick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 20px}
+.tick{display:flex;align-items:flex-start;gap:9px;border:1px solid #168cc0;border-radius:12px;padding:10px 12px;background:#061d2c;font-size:11.5px;font-weight:700;color:#fff}
+.tick .box{width:16px;height:16px;flex-shrink:0;margin-top:1px;border-radius:4px;border:1.5px solid var(--cyan);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:var(--ink);background:var(--cyan)}
+.tick .tx{display:flex;flex-direction:column;gap:2px}
+.tick .prov{font-size:9.5px;font-weight:600;color:var(--muted);text-transform:none;letter-spacing:0}
+.tick.off{opacity:.55}
+.tick.off .box{background:transparent;border-color:#3a5568;color:transparent}
+.tick.not-tested{border-color:#5a2a2a}
+.tick.not-tested .box{background:transparent;border-color:var(--bad);color:var(--bad);font-weight:900}
+.tick.not-tested .tx{color:#c98a8a}
+.tick.not-tested .prov{color:var(--bad)}
+
+.phase-grid{display:flex;gap:8px;justify-content:center}
+.phase-grid .tick{flex:1;justify-content:center}
+
+.pill-toggle{display:inline-flex;flex-wrap:nowrap;max-width:100%;overflow-x:auto;border:1px solid #168cc0;border-radius:999px;background:#061d2c}
+.pill-toggle button{border:none;background:transparent;color:var(--muted);font-size:10.5px;font-weight:900;letter-spacing:.04em;padding:8px 12px;cursor:pointer;transition:background .2s,color .2s;white-space:nowrap}
+.pill-toggle button.active{background:var(--cyan);color:var(--ink)}
+.sex-female{display:none}
+[data-sex="female"] .sex-female{display:flex}
+[data-sex="female"] .sex-male{display:none}
+
+.legend-tier{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--muted);margin:14px 0 4px;align-items:center;justify-content:center}
+.legend-tier .lt{display:inline-flex;align-items:center;gap:6px}
+.legend-tier i{width:11px;height:11px;border-radius:3px;display:inline-block}
+.legend-tier.boxed{border:1px solid #168cc0;border-radius:12px;padding:10px 18px;background:#061d2c;margin:0 0 18px}
+
+.rng-blurb{max-height:0;overflow:hidden;font-size:11px;color:var(--muted);line-height:1.55;transition:max-height .25s ease,margin-top .25s ease}
+.rng-card{cursor:pointer}
+.rng-card.open .rng-blurb{max-height:220px;margin-top:9px}
+.rng-card .rng-hint{font-size:9px;color:#3a5568;text-align:right;margin-top:2px;letter-spacing:.04em}
+
+.notice{background:linear-gradient(145deg,#3a2a08,#1e1504);border:1px solid var(--amber);border-left:5px solid var(--amber);border-radius:16px;padding:16px 18px;margin:20px 0;font-size:12.5px;color:#f5e2b8;line-height:1.65}
+.notice b{color:var(--amber)}
+
+.idx{display:flex;flex-wrap:nowrap;gap:6px;justify-content:center;margin:26px 0 32px;overflow-x:auto;padding-bottom:4px}
+.idx a{min-height:0;flex-shrink:0;padding:9px 12px;border:1.5px solid var(--brown);border-radius:999px;background:var(--brown);box-shadow:0 0 10px #3D1C0266;color:#fff;text-decoration:none;font-size:10px;font-weight:900;letter-spacing:.03em;text-transform:uppercase;transition:box-shadow .2s;white-space:nowrap}
+.idx a:hover{box-shadow:0 0 18px #3D1C02aa}
+
+.stats{display:flex;flex-wrap:nowrap;gap:10px;margin:0 0 14px;overflow-x:auto}
+.stats div{flex:1 1 0;min-width:96px;border:1px solid #168cc0;border-radius:16px;padding:12px 6px;background:linear-gradient(145deg,#08283a,#04131e);display:flex;flex-direction:column;align-items:center;text-align:center;box-shadow:inset 0 0 25px #15c4ff0d}
+.stats strong{display:block;font-size:clamp(15px,1.8vw,22px);line-height:1;margin-bottom:6px;text-shadow:0 0 12px currentColor;white-space:nowrap}
+.stats .lbl{font-size:8px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.stats .sub{font-size:8.5px;color:#7899a9;margin-top:3px;white-space:nowrap}
+.stats .badge{margin-top:auto;padding:3px 7px;font-size:8px;font-weight:900;border-radius:10px;letter-spacing:.03em;white-space:nowrap}
+
+section.sec{padding:44px 0 8px;scroll-margin-top:16px}
+.sec-eyebrow{font-size:11px;font-weight:900;letter-spacing:.25em;color:var(--cyan);text-transform:uppercase;text-shadow:0 0 10px #13bfff55}
+.sec h2{font-size:clamp(21px,3vw,30px);margin:6px 0 8px;font-weight:900}
+.sec p.sub{color:var(--muted);font-size:13px;max-width:760px;margin:0 0 22px;line-height:1.65}
+
+.card{border:1px solid #168cc0;border-radius:18px;padding:22px 24px;background:linear-gradient(145deg,#08283a,#04131e);margin-bottom:20px;box-shadow:inset 0 0 25px #15c4ff0d}
+.card h3{margin:0 0 12px;font-size:12px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+
+table.dtable{width:100%;border-collapse:collapse;font-size:12.5px}
+table.dtable th{text-align:left;padding:9px 10px;background:#08283a;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+table.dtable td{padding:9px 10px;border-bottom:1px solid #17435a}
+table.dtable tr:last-child td{border-bottom:none}
+.flag-out{color:var(--bad);font-weight:800}
+.flag-in{color:var(--good);font-weight:800}
+
+.rng-group-title{font-size:11px;letter-spacing:.14em;color:var(--cyan);text-transform:uppercase;margin:22px 0 10px;font-weight:800}
+.rng-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:6px}
+.rng-card{border:1px solid #168cc0;border-radius:10px;padding:8px 9px;background:#061d2c}
+.rng-head{display:flex;justify-content:space-between;align-items:center;gap:5px;margin-bottom:6px}
+.rng-name{font-size:9.5px;font-weight:700;color:#fff;line-height:1.2}
+.rng-star{color:var(--cyan)}
+.rng-tag{font-size:6.5px;font-weight:900;letter-spacing:.03em;padding:2px 5px;border-radius:7px;border:1px solid;white-space:nowrap}
+.rng-track{position:relative;height:6px;background:#031522;border-radius:4px;margin-bottom:6px;border:1px solid #17435a}
+.rng-band{position:absolute;top:-1px;bottom:-1px;background:rgba(43,199,255,0.18);border-radius:4px}
+.rng-dot{position:absolute;top:-2.5px;width:9px;height:9px;border-radius:50%;transform:translateX(-50%);border:2px solid #04131e}
+.rng-foot{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:2px}
+.rng-val{font-size:11px;font-weight:800}
+.rng-date{font-size:7.5px;color:#7899a9}
+
+.method-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:20px}
+.method-card{border:1px solid var(--cyan);border-radius:18px;padding:20px 22px;background:radial-gradient(circle at 50% 0,#0d4566,#061d2c 70%)}
+.method-title{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.method-val{font-size:32px;font-weight:900;color:var(--cyan);text-shadow:0 0 14px #13bfff55}
+.method-unit{font-size:12px;color:var(--muted);margin-left:4px}
+.method-desc{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6}
+
+.comp-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.comp-row:last-child{margin-bottom:0}
+.comp-label{font-size:12px;min-width:170px;flex-shrink:0;color:#fff}
+.comp-track{flex:1;height:10px;background:#031522;border-radius:5px;overflow:hidden;border:1px solid #17435a}
+.comp-fill{height:100%;border-radius:5px;width:0;transition:width 1s cubic-bezier(.25,.46,.45,.94)}
+.comp-num{font-size:13px;font-weight:800;min-width:36px;text-align:right}
+.comp-tag{font-size:9.5px;padding:2px 9px;border-radius:8px;font-weight:900;letter-spacing:.04em}
+
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px auto 22px;max-width:52%}
+.tbl-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl-scroll table{min-width:480px}
+.photo-card{position:relative;border:1px solid var(--cyan);border-radius:16px;overflow:hidden;background:#031522;box-shadow:0 0 16px #16bfff22}
+.photo-card img{display:block;width:100%;height:auto}
+.photo-label{position:absolute;left:10px;bottom:10px;padding:5px 12px;border-radius:999px;background:#020b12cc;color:#fff;font-size:11px;font-weight:900;letter-spacing:.06em;box-shadow:0 0 10px #16bfff55}
+
+.metric-grid{display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding-bottom:4px}
+.metric-card{flex:1 1 0;min-width:98px;border:1px solid #168cc0;border-radius:14px;padding:12px 8px;text-align:center;background:#061d2c}
+.metric-val{font-size:16px;font-weight:900;margin-bottom:2px;text-shadow:0 0 10px currentColor;white-space:nowrap}
+.metric-label{font-size:8.5px;font-weight:800;color:#fff;letter-spacing:.02em;line-height:1.25;white-space:nowrap}
+.metric-sub{font-size:8px;color:var(--muted);margin-top:4px;white-space:nowrap}
+
+.dexa-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px auto 22px;max-width:52%}
+.dexa-shot{position:relative;border:1px solid var(--cyan);border-radius:16px;overflow:hidden;background:#031522;box-shadow:0 0 16px #16bfff22;text-align:center}
+.dexa-shot img{display:block;width:100%;height:auto;margin:0 auto;background:#031522}
+.dexa-shot .photo-label{position:absolute}
+
+.ring-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px}
+.ring-card{border:1px solid #168cc0;border-radius:16px;padding:18px 12px;text-align:center;background:#061d2c}
+.ring{width:88px;height:88px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center}
+.ring-inner{width:68px;height:68px;border-radius:50%;background:#061d2c;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-inner b{font-size:20px;line-height:1;color:#fff}
+.ring-inner span{font-size:8px;color:var(--muted);letter-spacing:.05em}
+.ring-name{font-size:11px;font-weight:800;color:#fff}
+.ring-delta{font-size:10.5px;color:var(--good);margin-top:2px;font-weight:700}
+
+.breakdown-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:22px}
+.breakdown-card{border:1px solid #168cc0;border-radius:12px;padding:14px;text-align:center;background:#061d2c}
+.breakdown-cat{font-size:8.5px;color:var(--muted);letter-spacing:.02em;text-transform:uppercase;margin-bottom:4px;word-break:break-word;line-height:1.3}
+.breakdown-val{font-size:21px;font-weight:900;color:#fff}
+.breakdown-weight{font-size:9.5px;color:#7899a9;margin-top:2px}
+
+.chart-wrap{height:440px;width:100%;margin-top:6px;border:1px solid #168cc0;border-radius:16px;background:radial-gradient(circle at 50% 20%,#0a3046,#031522 72%);padding:10px}
+.chart-wrap svg{display:block;width:100%;height:100%}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:12px 0 4px}
+.key{display:inline-block;width:26px;height:3px;vertical-align:middle;margin-right:7px}
+.key.chrono{background:var(--blue)}
+.key.bio{background:#00ff6a}
+
+.final-panel{border:1.5px solid var(--cyan);border-radius:24px;padding:36px 28px;text-align:center;background:radial-gradient(circle at 50% 0,#0d4566,#061d2c 58%,#031522);box-shadow:inset 0 0 38px #16bfff18,0 0 24px #16bfff55;margin-top:8px}
+.final-num{font-size:clamp(27px,4.5vw,40px);font-weight:900;color:var(--good);text-shadow:0 0 26px #21c97a77;line-height:1}
+.final-sub{font-size:13px;color:var(--muted);margin-top:8px}
+.final-sub strong{color:var(--good)}
+.final-cross{font-size:11.5px;color:#7899a9;margin-top:16px;max-width:560px;margin-left:auto;margin-right:auto;line-height:1.6}
+
+@media(max-width:900px){
+  .meta-grid{grid-template-columns:repeat(3,1fr)}
+  .rng-grid{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:760px){
+  .meta-grid{grid-template-columns:repeat(2,1fr)}
+  .tick-grid{grid-template-columns:1fr 1fr}
+  .photo-grid,.dexa-compare{grid-template-columns:1fr 1fr;max-width:80%}
+  .rng-grid{grid-template-columns:repeat(3,1fr)}
+  .card{padding:16px}
+}
+@media(max-width:520px){
+  .rng-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ==== background graphic layer + translucent copy tiles (added 5 Oct 2026) ==== */
+body::before{content:"";position:fixed;inset:0;z-index:-2;
+  background-image:url('https://cdn.marblism.com/Xi8Ifi9FqM7.webp');
+  background-size:cover;background-position:50% 22%;background-repeat:no-repeat;
+  opacity:.30;filter:saturate(1.05)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(3,21,34,.72) 0%,rgba(3,21,34,.62) 45%,rgba(2,11,18,.80) 100%)}
+body{background:#031522}
+.mast{background:transparent}
+
+/* copy tiles -> translucent with a blur so the graphic reads through */
+.card,.method-card,.hero{background:rgba(6,29,44,.55)!important;
+  -webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);
+  box-shadow:inset 0 0 25px #15c4ff14,0 0 18px #16bfff22!important}
+.hero{background:rgba(6,29,44,.50)!important}
+
+/* numeric + chart tiles stay SOLID so figures stay legible */
+.metric-card,.ring-card,.breakdown-card,.final-panel,.chart-wrap,.dtable,.comp-row,.rng-card,.notice,.photo-card{
+  -webkit-backdrop-filter:none;backdrop-filter:none}
+.metric-card{background:#061d2c!important}
+.ring-card{background:#061d2c!important}
+.breakdown-card{background:#061d2c!important}
+.final-panel{background:radial-gradient(circle at 50% 0,#0d4566,#061d2c 58%,#031522)!important}
+.chart-wrap{background:radial-gradient(circle at 50% 20%,#0a3046,#031522 72%)!important}
+.dtable th,.dtable td{background:#061d2c}
+.comp-row{background:#061d2c!important}
+.rng-card{background:#061d2c!important}
+.card .breakdown-card,.card .metric-card,.card .ring-card{position:relative;z-index:1}
+@media print{body::before,body::after{display:none}body{background:#fff}}
+</style>
+<!-- brand icons -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+<a href="index.html" style="display:inline-block;color:var(--cyan);font-weight:900;text-decoration:none;font-size:12px;letter-spacing:.05em;padding:14px 20px 0">&larr; AGING?F***THAT!</a>
+<div class="wrap">
+
+  <div class="mast">
+    <img class="logo" alt="AGING?F***THAT!" src="aft-logo.png"/>
+    <div class="tagline">CONSOLIDATED BIOMETRIC ANALYSIS</div>
+  </div>
+
+  <div class="hero">
+    <h1>Analytics Modalities</h1>
+    <p class="lead">Testing modalities applied for this report, plus additional modalities available under the Age Reversal Programme.</p>
+    <div class="tick-grid">
+      <div class="tick"><span class="box">&#10003;</span><span class="tx">Chiropractic &amp; Postural<span class="prov">Chiropractic Life, Hove</span></span></div>
+      <div class="tick"><span class="box">&#10003;</span><span class="tx">VO&#8322; Max<span class="prov">AI &amp; wearables, self-measured</span></span></div>
+      <div class="tick"><span class="box">&#10003;</span><span class="tx">DEXA Scan<span class="prov">BodyView</span></span></div>
+      <div class="tick"><span class="box">&#10003;</span><span class="tx">Blood &amp; Hormone Analysis<span class="prov">NHS App / One Day Tests</span></span></div>
+      <div class="tick not-tested"><span class="box">&#10007;</span><span class="tx">Genetic Analysis<span class="prov">Not tested</span></span></div>
+      <div class="tick not-tested"><span class="box">&#10007;</span><span class="tx">Epigenetic Analysis<span class="prov">Not tested</span></span></div>
+    </div>
+    <div class="meta-grid">
+      <div><b>Client</b><span>Lee Stonehouse</span></div>
+      <div><b>Report Date</b><span>10 Sep 2026</span></div>
+      <div><b>Chronological Age</b><span>63</span></div>
+      <div><b>Date of Birth</b><span>15 Mar 1963</span></div>
+      <div style="grid-column:span 2"><b>Sex</b><span class="pill-toggle" role="group" aria-label="Sex toggle">
+        <button type="button" class="active" onclick="setSex('male',this)">MALE</button><button type="button" onclick="setSex('female',this)">FEMALE</button>
+      </span></div>
+    </div>
+
+    <div style="margin-top:14px">
+      <b style="display:block;text-align:center;font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:7px">Programme</b>
+      <div style="display:flex;justify-content:center">
+        <span class="pill-toggle" role="group" aria-label="Programme toggle" style="width:100%;max-width:560px;justify-content:center">
+          <button type="button" class="active" style="flex:1" onclick="setToggle(this)">ELITE AGE REVERSAL</button><button type="button" style="flex:1" onclick="setToggle(this)">12-MO VIRTUAL</button><button type="button" style="flex:1" onclick="setToggle(this)">3-MO INTENSIVE</button>
+        </span>
+      </div>
+    </div>
+
+    <div style="margin-top:14px">
+      <b style="display:block;text-align:center;font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:7px">Phase</b>
+      <div class="phase-grid">
+        <div class="tick"><span class="box">&#10003;</span><span class="tx">Beginning</span></div>
+        <div class="tick off"><span class="box"></span><span class="tx">Middle</span></div>
+        <div class="tick off"><span class="box"></span><span class="tx">End</span></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="idx">
+    <a href="#blood">Blood &amp; Hormone Panel</a>
+    <a href="#chiro">Chiropractic &amp; Posture</a>
+    <a href="#vo2">VO&#8322; Max Analysis</a>
+    <a href="#dexa">DEXA Body Composition</a>
+    <a href="#bioage">Composite Bio-Age Model</a>
+  </div>
+
+  <div class="legend-tier boxed">
+    <span class="lt"><i style="background:var(--bad)"></i>Flagged</span>
+    <span class="lt"><i style="background:var(--cyan)"></i>Okay</span>
+    <span class="lt"><i style="background:var(--good)"></i>Good</span>
+    <span class="lt"><i style="background:#00ff6a"></i>Exceptional</span>
+  </div>
+  <div class="stats">
+    <div><strong style="color:#00ff6a">47</strong><div class="lbl">Resting HR bpm</div><div class="sub">Huawei GT5</div><div class="badge" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</div></div>
+    <div><strong style="color:#00ff6a">50</strong><div class="lbl">VO&#8322;Max ml/kg/min</div><div class="sub">Self-test, rowing</div><div class="badge" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</div></div>
+    <div><strong style="color:#00ff6a">9.6%</strong><div class="lbl">Body Fat</div><div class="sub">DEXA, Apr 2025</div><div class="badge" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</div></div>
+    <div><strong style="color:#00ff6a">54.6cm&sup2;</strong><div class="lbl">Visceral Fat</div><div class="sub">DEXA, target &lt;80cm&sup2;</div><div class="badge" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</div></div>
+    <div class="sex-male"><strong style="color:#00ff6a">443</strong><div class="lbl">Free Testosterone pmol/L</div><div class="sub">NHS, range 220-620</div><div class="badge" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</div></div>
+    <div class="sex-female"><strong style="color:var(--cyan)">ESTIMATED</strong><div class="lbl">Oestradiol pg/mL</div><div class="sub">Not yet tested</div><div class="badge" style="background:rgba(43,199,255,.18);color:var(--cyan)">AWAITING TEST</div></div>
+    <div><strong style="color:#00ff6a">47</strong><div class="lbl">Biological Age</div><div class="sub">Chronological 63</div><div class="badge" style="background:rgba(0,255,106,.18);color:#00ff6a">-16 YEARS</div></div>
+  </div>
+
+  <!-- ============ BLOOD ============ -->
+  <section class="sec" id="blood">
+    <div class="sec-eyebrow">01 · Panel</div>
+    <h2>Blood &amp; Hormone Panel</h2>
+    <p class="sub">★ = Composite Bio-Age Model, 7 Blood Inputs. Tap a card for a brief explanation.</p>
+
+    <div class="rng-group-title">Composite Bio-Age Model &middot; 7 Inputs</div>
+<div class="rng-grid"><div class="rng-card" onclick="toggleBlurb('hba1c')">
+<div class="rng-head"><span class="rng-name">HbA1c <span class="rng-star">&#9733;</span></span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:36.1%;width:37.9%"></div><div class="rng-dot" style="left:59.6%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">33 mmol/mol</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_hba1c">Reflects 3 month average blood sugar control. Lower is better: high HbA1c accelerates ageing across nearly every organ system via glycation damage.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('hscrp')">
+<div class="rng-head"><span class="rng-name">hsCRP <span class="rng-star">&#9733;</span></span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:74.1%"></div><div class="rng-dot" style="left:37.0%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">1.5 mg/L</span><span class="rng-date">ESTIMATED</span></div>
+<div class="rng-blurb" id="blurb_hscrp">A marker of systemic inflammation, one of the biggest drivers of accelerated ageing. Not yet tested; shown as a population-average estimate.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('homocysteine')">
+<div class="rng-head"><span class="rng-name">Homocysteine <span class="rng-star">&#9733;</span></span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:74.1%"></div><div class="rng-dot" style="left:59.3%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">8.0 µmol/L</span><span class="rng-date">ESTIMATED</span></div>
+<div class="rng-blurb" id="blurb_homocysteine">High levels damage blood vessels and are linked to heart disease and cognitive decline. Not yet tested; shown as a population-average estimate.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('total_testosterone')">
+<div class="rng-head"><span class="rng-name">Total Testosterone <span class="rng-star">&#9733;</span></span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:22.0%;width:52.1%"></div><div class="rng-dot" style="left:49.6%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">19.4 nmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_total_testosterone">Drives muscle mass, bone density, mood and libido. Low levels accelerate muscle loss and cognitive decline with age; higher within range supports vitality.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('free_testosterone')">
+<div class="rng-head"><span class="rng-name">Free Testosterone <span class="rng-star">&#9733;</span></span><span class="rng-tag" style="color:#00ff6a;border-color:#00ff6a66">EXCEPTIONAL</span></div>
+<div class="rng-track"><div class="rng-band" style="left:26.3%;width:47.8%"></div><div class="rng-dot" style="left:52.9%;background:#00ff6a;box-shadow:0 0 8px #00ff6a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#00ff6a">443 pmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_free_testosterone">The active, usable portion of testosterone. Matters more than the total figure for how you actually feel day to day. Low levels cause fatigue even when total testosterone looks normal.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('systolic_bp')">
+<div class="rng-head"><span class="rng-name">Systolic BP <span class="rng-star">&#9733;</span></span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:55.6%;width:18.5%"></div><div class="rng-dot" style="left:61.7%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">120 mmHg</span><span class="rng-date">GP</span></div>
+<div class="rng-blurb" id="blurb_systolic_bp">Pressure in the arteries when the heart beats. 120 mmHg is a healthy systolic reading and improves the cardiovascular contribution to the AFT Bio Age model.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('resting_hr')">
+<div class="rng-head"><span class="rng-name">Resting HR <span class="rng-star">&#9733;</span></span><span class="rng-tag" style="color:#00ff6a;border-color:#00ff6a66">EXCEPTIONAL</span></div>
+<div class="rng-track"><div class="rng-band" style="left:41.2%;width:32.9%"></div><div class="rng-dot" style="left:38.7%;background:#00ff6a;box-shadow:0 0 8px #00ff6a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#00ff6a">47 bpm</span><span class="rng-date">Huawei GT5</span></div>
+<div class="rng-blurb" id="blurb_resting_hr">A strong proxy for cardiovascular fitness. Elite athletes often sit in the 40s; high resting heart rate suggests poor conditioning or stress.</div>
+</div></div>
+<div class="rng-group-title">Lipid Panel</div>
+<div class="rng-grid"><div class="rng-card" onclick="toggleBlurb('total_cholesterol')">
+<div class="rng-head"><span class="rng-name">Total Cholesterol</span><span class="rng-tag" style="color:#ff4b4b;border-color:#ff4b4b66">FLAGGED</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:70.1%"></div><div class="rng-dot" style="left:87.0%;background:#ff4b4b;box-shadow:0 0 8px #ff4b4b"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#ff4b4b">6.2 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_total_cholesterol">Total cholesterol alone is a blunt marker, but a high reading warrants closer inspection of LDL and particle count.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('non-hdl_cholesterol')">
+<div class="rng-head"><span class="rng-name">Non-HDL Cholesterol</span><span class="rng-tag" style="color:#ff4b4b;border-color:#ff4b4b66">FLAGGED</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:74.1%"></div><div class="rng-dot" style="left:85.2%;background:#ff4b4b;box-shadow:0 0 8px #ff4b4b"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#ff4b4b">4.6 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_non-hdl_cholesterol">Captures all the 'bad' cholesterol carriers in one number. High levels drive arterial plaque formation.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('hdl_cholesterol')">
+<div class="rng-head"><span class="rng-name">HDL Cholesterol</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:24.7%;width:49.4%"></div><div class="rng-dot" style="left:39.5%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">1.6 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_hdl_cholesterol">'Good' cholesterol, clears excess cholesterol from arteries. Higher is protective and associated with longevity.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('ldl_cholesterol')">
+<div class="rng-head"><span class="rng-name">LDL Cholesterol</span><span class="rng-tag" style="color:#ff4b4b;border-color:#ff4b4b66">FLAGGED</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:65.2%"></div><div class="rng-dot" style="left:87.0%;background:#ff4b4b;box-shadow:0 0 8px #ff4b4b"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#ff4b4b">4.0 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_ldl_cholesterol">'Bad' cholesterol. At high levels it drives arterial plaque formation, a major cardiovascular risk factor.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('cholesterolhdl_ratio')">
+<div class="rng-head"><span class="rng-name">Cholesterol:HDL Ratio</span><span class="rng-tag" style="color:#2bc7ff;border-color:#2bc7ff66">OKAY</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:74.1%"></div><div class="rng-dot" style="left:64.2%;background:#2bc7ff;box-shadow:0 0 8px #2bc7ff"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#2bc7ff">3.9</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_cholesterolhdl_ratio">A useful cardiovascular risk ratio. Lower is better; under 4.5 is generally acceptable, under 3.5 is optimal.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('triglycerides')">
+<div class="rng-head"><span class="rng-name">Triglycerides</span><span class="rng-tag" style="color:#2bc7ff;border-color:#2bc7ff66">OKAY</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:74.1%"></div><div class="rng-dot" style="left:69.7%;background:#2bc7ff;box-shadow:0 0 8px #2bc7ff"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#2bc7ff">1.6 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_triglycerides">Stored fat circulating in the blood, heavily influenced by sugar and alcohol intake. In range, but above the optimal <1.0 mmol/L.</div>
+</div></div>
+<div class="rng-group-title">Kidney Function</div>
+<div class="rng-grid"><div class="rng-card" onclick="toggleBlurb('creatinine')">
+<div class="rng-head"><span class="rng-name">Creatinine</span><span class="rng-tag" style="color:#ff4b4b;border-color:#ff4b4b66">FLAGGED</span></div>
+<div class="rng-track"><div class="rng-band" style="left:42.0%;width:32.1%"></div><div class="rng-dot" style="left:80.5%;background:#ff4b4b;box-shadow:0 0 8px #ff4b4b"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#ff4b4b">113 umol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_creatinine">A kidney filtration marker. Muscle mass, creatine use and hydration can all raise it, worth trending with a clinician rather than reading in isolation.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('egfr_mdrd')">
+<div class="rng-head"><span class="rng-name">eGFR (MDRD)</span><span class="rng-tag" style="color:#ff4b4b;border-color:#ff4b4b66">FLAGGED</span></div>
+<div class="rng-track"><div class="rng-band" style="left:51.3%;width:22.8%"></div><div class="rng-dot" style="left:32.5%;background:#ff4b4b;box-shadow:0 0 8px #ff4b4b"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#ff4b4b">57 mL/min</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_egfr_mdrd">Estimated kidney filtration rate. Flagged low by the NHS App; should be trended with the clinician responsible for care.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('sodium')">
+<div class="rng-head"><span class="rng-name">Sodium</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:67.5%;width:6.6%"></div><div class="rng-dot" style="left:72.0%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">142 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_sodium">Electrolyte balance marker. Comfortably in range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('potassium')">
+<div class="rng-head"><span class="rng-name">Potassium</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:48.9%;width:25.2%"></div><div class="rng-dot" style="left:65.7%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">4.7 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_potassium">Electrolyte balance marker. Comfortably in range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('urea')">
+<div class="rng-head"><span class="rng-name">Urea</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:23.7%;width:50.3%"></div><div class="rng-dot" style="left:58.9%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">6.2 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_urea">Kidney and protein metabolism marker. In range.</div>
+</div></div>
+<div class="rng-group-title">Liver &amp; Protein</div>
+<div class="rng-grid"><div class="rng-card" onclick="toggleBlurb('total_bilirubin')">
+<div class="rng-head"><span class="rng-name">Total Bilirubin</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:74.1%"></div><div class="rng-dot" style="left:21.2%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">6 umol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_total_bilirubin">Liver function marker. Well within range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('total_protein')">
+<div class="rng-head"><span class="rng-name">Total Protein</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:55.6%;width:18.5%"></div><div class="rng-dot" style="left:63.0%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">68 g/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_total_protein">General nutritional and liver marker. In range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('albumin')">
+<div class="rng-head"><span class="rng-name">Albumin</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:51.9%;width:22.2%"></div><div class="rng-dot" style="left:71.1%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">48 g/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_albumin">Liver and nutritional status marker. Near the top of the healthy range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('alt')">
+<div class="rng-head"><span class="rng-name">ALT</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:74.1%"></div><div class="rng-dot" style="left:66.8%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">37 IU/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_alt">Liver enzyme. In range, no signs of liver stress.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('alp')">
+<div class="rng-head"><span class="rng-name">ALP</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:17.1%;width:57.0%"></div><div class="rng-dot" style="left:25.1%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">44 IU/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_alp">Liver and bone enzyme marker. In range.</div>
+</div></div>
+<div class="rng-group-title">Full Blood Count</div>
+<div class="rng-grid"><div class="rng-card" onclick="toggleBlurb('haemoglobin')">
+<div class="rng-head"><span class="rng-name">Haemoglobin</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:56.6%;width:17.4%"></div><div class="rng-dot" style="left:68.0%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">156 g/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_haemoglobin">Oxygen-carrying capacity of the blood. Healthy mid-range reading.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('haematocrit')">
+<div class="rng-head"><span class="rng-name">Haematocrit</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:59.3%;width:14.8%"></div><div class="rng-dot" style="left:69.6%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">0.47 L/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_haematocrit">Proportion of blood that is red cells. In range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('rbc')">
+<div class="rng-head"><span class="rng-name">RBC</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:60.6%;width:13.5%"></div><div class="rng-dot" style="left:64.5%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">4.79 x10¹²/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_rbc">Red blood cell count. In range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('wbc')">
+<div class="rng-head"><span class="rng-name">WBC</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:26.9%;width:47.1%"></div><div class="rng-dot" style="left:35.0%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">5.2 x10⁹/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_wbc">White blood cell count, immune system marker. In range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('platelets')">
+<div class="rng-head"><span class="rng-name">Platelets</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:27.8%;width:46.3%"></div><div class="rng-dot" style="left:48.3%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">261 x10⁹/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_platelets">Clotting cell count. In range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('mcv')">
+<div class="rng-head"><span class="rng-name">MCV</span><span class="rng-tag" style="color:#2bc7ff;border-color:#2bc7ff66">OKAY</span></div>
+<div class="rng-track"><div class="rng-band" style="left:59.3%;width:14.8%"></div><div class="rng-dot" style="left:72.7%;background:#2bc7ff;box-shadow:0 0 8px #2bc7ff"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#2bc7ff">98.1 fL</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_mcv">Average red cell size. In range, near the top end.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('mch')">
+<div class="rng-head"><span class="rng-name">MCH</span><span class="rng-tag" style="color:#ff4b4b;border-color:#ff4b4b66">FLAGGED</span></div>
+<div class="rng-track"><div class="rng-band" style="left:62.5%;width:11.6%"></div><div class="rng-dot" style="left:75.5%;background:#ff4b4b;box-shadow:0 0 8px #ff4b4b"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#ff4b4b">32.6 pg</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_mch">Average haemoglobin per red cell. Slightly above range, worth trending.</div>
+</div></div>
+<div class="rng-group-title">Other</div>
+<div class="rng-grid"><div class="rng-card" onclick="toggleBlurb('shbg')">
+<div class="rng-head"><span class="rng-name">SHBG</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:12.3%;width:61.7%"></div><div class="rng-dot" style="left:81.5%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">66 nmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_shbg">Binds sex hormones for transport. Slightly above the typical band but flagged in range by the NHS App.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('psa')">
+<div class="rng-head"><span class="rng-name">PSA</span><span class="rng-tag" style="color:#2bc7ff;border-color:#2bc7ff66">OKAY</span></div>
+<div class="rng-track"><div class="rng-band" style="left:0.0%;width:74.1%"></div><div class="rng-dot" style="left:57.0%;background:#2bc7ff;box-shadow:0 0 8px #2bc7ff"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#2bc7ff">3.08 ug/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_psa">Prostate health marker. In range but worth monitoring the trend with age.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('adjusted_calcium')">
+<div class="rng-head"><span class="rng-name">Adjusted Calcium</span><span class="rng-tag" style="color:#21c97a;border-color:#21c97a66">GOOD</span></div>
+<div class="rng-track"><div class="rng-band" style="left:62.7%;width:11.4%"></div><div class="rng-dot" style="left:67.8%;background:#21c97a;box-shadow:0 0 8px #21c97a"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#21c97a">2.38 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_adjusted_calcium">Bone and metabolic marker. Mid-range.</div>
+</div>
+<div class="rng-card" onclick="toggleBlurb('phosphate')">
+<div class="rng-head"><span class="rng-name">Phosphate</span><span class="rng-tag" style="color:#ff4b4b;border-color:#ff4b4b66">FLAGGED</span></div>
+<div class="rng-track"><div class="rng-band" style="left:39.5%;width:34.6%"></div><div class="rng-dot" style="left:38.0%;background:#ff4b4b;box-shadow:0 0 8px #ff4b4b"></div></div>
+<div class="rng-foot"><span class="rng-val" style="color:#ff4b4b">0.77 mmol/L</span><span class="rng-date">NHS</span></div>
+<div class="rng-blurb" id="blurb_phosphate">Bone and metabolic marker. Slightly below range.</div>
+</div></div>
+
+  </section>
+
+  <!-- ============ CHIRO ============ -->
+  <section class="sec" id="chiro">
+    <div class="sec-eyebrow">02 · Assessment</div>
+    <h2>Chiropractic &amp; Posture Analysis</h2>
+    <p class="sub">Clinical assessment plus PostureScreen digital postural analysis.</p>
+
+    <div class="card">
+      <h3>Key clinical findings</h3>
+      <div style="font-size:13.5px;line-height:1.75;color:#e9fbff">Chronic subluxations (misalignments) noted throughout the spine with resultant neurological and muscular dysfunction. Concomitant postural imbalance with anterior head carriage and loss of cervical spine range of motion. Recommended care: 2×/week for 4 weeks, reviewed at visit 8.</div>
+    </div>
+
+    <div class="photo-grid">
+      <div class="photo-card"><img src="anterior-posture-view.jpg" alt="Anterior posture view"/><div class="photo-label">Anterior View</div></div>
+      <div class="photo-card"><img src="lateral-posture-view.jpg" alt="Lateral posture view"/><div class="photo-label">Lateral View</div></div>
+    </div>
+
+    <div class="metric-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="metric-val" style="color:var(--amber)">17.2kg</div><div class="metric-label">EFFECTIVE HEAD WEIGHT</div><div class="metric-sub">vs 6.3kg actual, 4.36cm / 11.6° fwd</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:var(--bad)">2.46cm</div><div class="metric-label">HIP SHIFT (FRONT)</div><div class="metric-sub">Left, tilted 2.3° right</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:var(--bad)">5.19cm</div><div class="metric-label">KNEE SHIFT (SIDE)</div><div class="metric-sub">Forward, 9.1° off vertical</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:var(--blue)">8.40cm</div><div class="metric-label">HEAD VS ANKLE ALIGN.</div><div class="metric-sub">Forward, 3.3° flexed</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#fff">5.07cm</div><div class="metric-label">TOTAL SHIFTS, FRONT</div><div class="metric-sub">Total tilts 4.5°</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#fff">10.92cm</div><div class="metric-label">TOTAL SHIFTS, SIDE</div><div class="metric-sub">Total tilts 22.8°</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Front view detail</h3>
+      <table class="dtable">
+        <thead><tr><th>Measure</th><th>Reading</th></tr></thead>
+        <tbody>
+          <tr><td>Head</td><td>Shifted 1.40cm left · not tilted</td></tr>
+          <tr><td>Shoulders</td><td>Shifted 0.77cm right · tilted 2.2° left</td></tr>
+          <tr><td>Ribcage</td><td>Shifted 0.44cm left</td></tr>
+          <tr><td>Hips</td><td>Shifted 2.46cm left · tilted 2.3° right</td></tr>
+          <tr><td>Q-Angle</td><td>Right 3.8° · Left 9.4°</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ VO2 MAX ============ -->
+  <section class="sec" id="vo2">
+    <div class="sec-eyebrow">03 · Fitness</div>
+    <h2>VO&#8322; Max Analysis</h2>
+
+    <div class="method-grid">
+      <div class="method-card">
+        <div class="method-title">Rowing Ergometer &amp; AI Analytics</div>
+        <div class="method-val">50-52<span class="method-unit">ml/kg/min</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Population comparison, self-test result</h3>
+      <div class="comp-row">
+        <div class="comp-label" style="font-weight:800;color:#00ff6a">Lee (age 63) ★</div>
+        <div class="comp-track"><div class="comp-fill" data-w="91%" style="background:linear-gradient(90deg,#00ff6a,#21c97a)"></div></div>
+        <div class="comp-num" style="color:#00ff6a">50</div>
+        <div class="comp-tag" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-label">Elite Athlete (60s)</div>
+        <div class="comp-track"><div class="comp-fill" data-w="82%" style="background:var(--good)"></div></div>
+        <div class="comp-num" style="color:var(--good)">45</div>
+        <div class="comp-tag" style="background:rgba(33,201,122,.18);color:var(--good)">GOOD</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-label">Active Male (60s)</div>
+        <div class="comp-track"><div class="comp-fill" data-w="55%" style="background:var(--cyan)"></div></div>
+        <div class="comp-num" style="color:var(--cyan)">30</div>
+        <div class="comp-tag" style="background:rgba(43,199,255,.18);color:var(--cyan)">OKAY</div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-label">Sedentary Male (60s)</div>
+        <div class="comp-track"><div class="comp-fill" data-w="36%" style="background:var(--bad)"></div></div>
+        <div class="comp-num" style="color:var(--bad)">20</div>
+        <div class="comp-tag" style="background:rgba(255,75,75,.18);color:var(--bad)">FLAGGED</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DEXA ============ -->
+  <section class="sec" id="dexa">
+    <div class="sec-eyebrow">04 · Body Composition</div>
+    <h2>DEXA Body Composition &amp; Bone Density</h2>
+
+    <div class="dexa-compare">
+      <div class="dexa-shot"><img src="dexa-scan-21-dec-2024.jpg" alt="DEXA scan 21 Dec 2024"/><div class="photo-label" style="position:relative;display:inline-block;margin:10px auto;left:auto;bottom:auto">21 Dec 2024</div></div>
+      <div class="dexa-shot"><img src="dexa-scan-25-apr-2025.jpg" alt="DEXA scan 25 Apr 2025"/><div class="photo-label" style="position:relative;display:inline-block;margin:10px auto;left:auto;bottom:auto">25 Apr 2025 · Latest</div></div>
+    </div>
+
+    <div style="font-size:10px;letter-spacing:.12em;color:var(--cyan);text-transform:uppercase;font-weight:800;margin-bottom:10px">Latest scores, 25 Apr 2025</div>
+    <div class="metric-grid" style="margin-bottom:20px">
+      <div class="metric-card"><div class="metric-val" style="color:#00ff6a">9.6%</div><div class="metric-label">BODY FAT</div><div class="metric-sub">down 2.7% since Dec 2024</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:var(--blue)">74.6kg</div><div class="metric-label">LEAN MASS</div><div class="metric-sub">up from 72.61kg</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#00ff6a">3.6</div><div class="metric-label">BONE T-SCORE</div><div class="metric-sub">Exceptional · WHO: Normal, Z 3.5</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#00ff6a">54.6cm²</div><div class="metric-label">VISCERAL FAT</div><div class="metric-sub">down 22.4cm² since Dec 2024</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#fff">85.7kg</div><div class="metric-label">BODYWEIGHT</div><div class="metric-sub">BMI 28.6</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#00ff6a">11.8</div><div class="metric-label">ALMI kg/m²</div><div class="metric-sub">Exceptional · 99th percentile</div></div>
+      <div class="metric-card"><div class="metric-val" style="color:#00ff6a">41+</div><div class="metric-label">VO&#8322;MAX ESTIMATE</div><div class="metric-sub">Body-comp derived, Superior</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Body composition trend</h3>
+      <div class="chart-wrap" style="height:400px">
+        <svg viewBox="0 0 900 400" role="img" aria-label="DEXA body composition trend, indexed to 14 Oct 2024 baseline">
+          <g stroke="#17435a">
+            <line x1="70" y1="330" x2="850" y2="330"/>
+            <line x1="70" y1="257" x2="850" y2="257"/>
+            <line x1="70" y1="185" x2="850" y2="185"/>
+            <line x1="70" y1="112" x2="850" y2="112"/>
+            <line x1="70" y1="40" x2="850" y2="40"/>
+          </g>
+          <g fill="#a9c8d8" font-family="Arial" font-size="8" font-weight="700">
+            <text x="40" y="333">60%</text>
+            <text x="40" y="260">70%</text>
+            <text x="40" y="188">80%</text>
+            <text x="40" y="115">90%</text>
+            <text x="30" y="43">100%</text>
+            <text x="100" y="368" text-anchor="middle">14 Oct 2024</text>
+            <text x="370" y="368" text-anchor="middle">21 Dec 2024</text>
+            <text x="820" y="368" text-anchor="middle">25 Apr 2025</text>
+            <text x="460" y="390" text-anchor="middle">SCAN DATE &middot; INDEXED TO 14 OCT 2024 = 100%</text>
+          </g>
+          <text x="20" y="185" fill="#a9c8d8" font-family="Arial" font-size="8" font-weight="900" text-anchor="middle" transform="rotate(-90 20 185)">% OF BASELINE</text>
+
+          <polyline points="100,40 370,87 820,89" fill="none" stroke="#2bc7ff" stroke-width="3.5"/>
+          <g fill="#2bc7ff"><circle cx="100" cy="40" r="6"/><circle cx="370" cy="87" r="6"/><circle cx="820" cy="89" r="6"/></g>
+          <text x="828" y="86" fill="#2bc7ff" font-family="Arial" font-size="9.5" font-weight="900">WEIGHT 85.7kg</text>
+
+          <polyline points="100,40 370,73 820,54" fill="none" stroke="#A9CDEA" stroke-width="3.5"/>
+          <g fill="#A9CDEA"><circle cx="100" cy="40" r="6"/><circle cx="370" cy="73" r="6"/><circle cx="820" cy="54" r="6"/></g>
+          <text x="828" y="51" fill="#A9CDEA" font-family="Arial" font-size="9.5" font-weight="900">LEAN MASS 74.6kg</text>
+
+          <polyline points="100,40 370,114 820,257" fill="none" stroke="#ffb020" stroke-width="3.5"/>
+          <g fill="#ffb020"><circle cx="100" cy="40" r="6"/><circle versions not changed.<circle cx="370" cy="114" r="6"/><circle cx="820" cy="257" r="6"/></g>
+          <text x="828" y="254" fill="#ffb020" font-family="Arial" font-size="9.5" font-weight="900">BODY FAT 9.6%</text>
+
+          <polyline points="100,40 370,123 820,310" fill="none" stroke="#00ff6a" stroke-width="3.5"/>
+          <g fill="#00ff6a"><circle cx="100" cy="40" r="6"/><circle cx="370" cy="123" r="6"/><circle cx="820" cy="310" r="6"/></g>
+          <text x="828" y="313" fill="#00ff6a" font-family="Arial" font-size="9.5" font-weight="900">VISCERAL FAT 54.6cm&sup2;</text>
+        </svg>
+      </div>
+      <div class="tbl-scroll" style="margin-top:16px">
+      <table class="dtable">
+        <thead><tr><th>Date</th><th>Weight</th><th>Body Fat %</th><th>Lean Mass</th><th>Visceral Fat</th></tr></thead>
+        <tbody>
+          <tr><td>14 Oct 2024</td><td>92kg</td><td>13.7%</td><td>76.04kg</td><td>87cm²</td></tr>
+          <tr><td>21 Dec 2024</td><td>86.0kg</td><td>12.3%</td><td>72.61kg</td><td>77cm²</td></tr>
+          <tr><td>25 Apr 2025</td><td>85.7kg</td><td>9.6%</td><td>74.60kg</td><td>54.6cm²</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+    <h3 style="font-size:12px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin:24px 0 12px">BodyView health ages</h3>
+    <div class="ring-grid" style="margin-bottom:20px">
+      <div class="ring-card"><div class="ring" style="background:conic-gradient(var(--good) 0% 79%, #0d2836 79% 100%)"><div class="ring-inner"><b>49</b><span>YEARS</span></div></div><div class="ring-name">Metabolic Health Age</div><div class="ring-delta">−13 years</div></div>
+      <div class="ring-card"><div class="ring" style="background:conic-gradient(var(--good) 0% 76%, #0d2836 76% 100%)"><div class="ring-inner"><b>47</b><span>YEARS</span></div></div><div class="ring-name">Muscle Health Age</div><div class="ring-delta">−15 years</div></div>
+      <div class="ring-card"><div class="ring" style="background:conic-gradient(var(--good) 0% 76%, #0d2836 76% 100%)"><div class="ring-inner"><b>47</b><span>YEARS</span></div></div><div class="ring-name">Bone Health Age</div><div class="ring-delta">−15 years</div></div>
+      <div class="ring-card"><div class="ring" style="background:conic-gradient(#00ff6a 0% 78%, #0d2836 78% 100%)"><div class="ring-inner"><b style="color:#00ff6a">48</b><span>YEARS</span></div></div><div class="ring-name">Overall Body Comp. Age</div><div class="ring-delta" style="color:#00ff6a">−14 years · EXCEPTIONAL</div></div>
+    </div>
+
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+        <h3 style="margin:0">Longevity Health Index</h3>
+        <div style="font-size:22px;font-weight:900;color:#00ff6a">100/100 <span style="font-size:12px;font-weight:800;color:#00ff6a">EXCEPTIONAL</span></div>
+      </div>
+      <div class="tbl-scroll">
+      <table class="dtable">
+        <thead><tr><th>Metric</th><th>Result</th><th>Target</th><th>Points</th><th>Grade</th></tr></thead>
+        <tbody>
+          <tr><td>Visceral Fat</td><td>54.6 cm²</td><td>&lt;80 cm²</td><td>37/37</td><td><span class="comp-tag" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</span></td></tr>
+          <tr><td>Lean Mass, Arms &amp; Legs (ALMI)</td><td>11.8 kg/m²</td><td>&gt;8.76 kg/m²</td><td>24/24</td><td><span class="comp-tag" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</span></td></tr>
+          <tr><td>Bone Mineral Density (Z)</td><td>3.5</td><td>&ge;0</td><td>18/18</td><td><span class="comp-tag" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</span></td></tr>
+          <tr><td>Fat Mass Index (FMI)</td><td>2.8 kg/m²</td><td>2 to 5 kg/m²</td><td>13/13</td><td><span class="comp-tag" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</span></td></tr>
+          <tr><td>Muscle Symmetry</td><td>5.58%</td><td>&lt;20%</td><td>8/8</td><td><span class="comp-tag" style="background:rgba(0,255,106,.18);color:#00ff6a">EXCEPTIONAL</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPOSITE BIOAGE ============ -->
+  <section class="sec" id="bioage">
+    <div class="sec-eyebrow">05 · Model</div>
+    <h2>Composite Bio-Age Model</h2>
+    <p class="sub">AFT's 12-marker weighted algorithm across body composition, fitness, hormonal, metabolic and vital-sign categories. Divergence capped at ±20 years.</p><div class="notice" style="margin:12px 0 20px"><b>Scoring &amp; colour logic — version 11 September 2026.</b> Domain percentages show each domain's weighting in the AFT Composite Biological Age calculation; they are model weights, not performance scores, and are therefore shown in neutral white. Health-age results are assessed against chronological age: younger is green; more than 5 years younger is Exceptional / bright green; equal is neutral; and older is red. Individual biomarker tiles use the same principle where an age comparison exists; otherwise colour reflects the appropriate performance or reference classification. Exceptional DEXA results, including ALMI at the 99th percentile and a T-score of 3.6, are shown bright green.</div>
+
+    <div class="breakdown-grid">
+      <div class="breakdown-card"><div class="breakdown-cat">Body Composition</div><div class="breakdown-val">100%</div><div class="breakdown-weight">weight 34</div></div>
+      <div class="breakdown-card"><div class="breakdown-cat">Fitness (VO&#8322;max)</div><div class="breakdown-val">100%</div><div class="breakdown-weight">weight 10</div></div>
+      <div class="breakdown-card"><div class="breakdown-cat">Hormonal</div><div class="breakdown-val">88%</div><div class="breakdown-weight">weight 14</div></div>
+      <div class="breakdown-card"><div class="breakdown-cat">Metabolic /<br>Inflammatory</div><div class="breakdown-val">75%</div><div class="breakdown-weight">weight 28</div></div>
+      <div class="breakdown-card"><div class="breakdown-cat">Vitals</div><div class="breakdown-val">83%</div><div class="breakdown-weight">weight 14</div></div>
+    </div>
+
+    <div class="card">
+      <h3>Bio Age Divergence, verified assessment dates</h3>
+      <div class="chart-wrap">
+        <svg viewBox="0 0 900 430" role="img" aria-label="Chronological vs biological age divergence chart, Lee Stonehouse">
+          <g stroke="#17435a">
+            <line x1="70" y1="350" x2="850" y2="350"/>
+            <line x1="70" y1="280" x2="850" y2="280"/>
+            <line x1="70" y1="210" x2="850" y2="210"/>
+            <line x1="70" y1="140" x2="850" y2="140"/>
+            <line x1="70" y1="70" x2="850" y2="70"/>
+          </g>
+          <g fill="#a9c8d8" font-family="Arial" font-size="8" font-weight="700">
+            <text x="45" y="353">43</text>
+            <text x="45" y="283">53</text>
+            <text x="45" y="213">63</text>
+            <text x="45" y="143">73</text>
+            <text x="45" y="73">83</text>
+            <text x="63" y="388">61</text>
+            <text x="323" y="388">62</text>
+            <text x="583" y="388">63</text>
+            <text x="843" y="388">64</text>
+            <text x="420" y="415">CHRONOLOGICAL AGE</text>
+          </g>
+          <text fill="#a9c8d8" font-family="Arial" font-size="8" font-weight="900" text-anchor="middle" transform="rotate(-90 22 210)" x="22" y="210">ATTAINED AGE</text>
+          <line x1="70" y1="224" x2="850" y2="203" stroke="#A9CDEA" stroke-width="3"/>
+          <g fill="#A9CDEA"><circle cx="70" cy="224" r="6"/><circle cx="850" cy="203" r="6"/></g>
+          <text x="600" y="196" fill="#A9CDEA" font-family="Arial" font-size="9" font-weight="900" text-anchor="middle">CHRONO AGE</text>
+          <polyline points="330,315 590,322" fill="none" stroke="#00ff6a" stroke-width="3"/>
+          <text x="460" y="300" fill="#00ff6a" font-family="Arial" font-size="10" font-weight="900" text-anchor="middle">BIO AGE</text>
+          <g fill="#00ff6a">
+            <circle cx="330" cy="315" r="6"/>
+            <circle cx="590" cy="322" r="6"/>
+          </g>
+          <text x="330" y="343" fill="#fff" font-family="Arial" font-size="10" font-weight="900" text-anchor="middle">48</text>
+          <text x="330" y="356" fill="#a9c8d8" font-family="Arial" font-size="7.5" text-anchor="middle">Apr 2025</text>
+          <text x="590" y="350" fill="#fff" font-family="Arial" font-size="10" font-weight="900" text-anchor="middle">47</text>
+          <text x="590" y="356" fill="#a9c8d8" font-family="Arial" font-size="7.5" text-anchor="middle">Sep 2026</text>
+        </svg>
+      </div>
+      <div class="legend"><span><i class="key chrono"></i>Chronological Age</span><span><i class="key bio"></i>Biological Age</span></div>
+    </div>
+
+    <div class="final-panel">
+      <div class="final-num" style="color:#00ff6a;text-shadow:0 0 26px #00ff6a77">47</div>
+      <div class="final-sub">Composite Biological Age &middot; Chronological 63 &middot; <strong style="color:#00ff6a">-16 years</strong></div>
+    </div>
+  </section>
+
+
+</div>
+
+<script>
+  document.querySelectorAll('[data-w]').forEach(el => { setTimeout(() => { el.style.width = el.dataset.w; }, 200); });
+
+  function toggleBlurb(slug){
+    var blurb = document.getElementById('blurb_' + slug);
+    if(!blurb) return;
+    var card = blurb.closest('.rng-card');
+    if(card) card.classList.toggle('open');
+  }
+
+  function setSex(sex, btn){
+    document.body.setAttribute('data-sex', sex);
+    var group = btn.closest('.pill-toggle');
+    group.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+  document.body.setAttribute('data-sex','male');
+
+  function setToggle(btn){
+    var group = btn.closest('.pill-toggle');
+    group.querySelectorAll('button').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
