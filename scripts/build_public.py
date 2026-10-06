@@ -19,7 +19,7 @@ for name in PUBLIC:
         base = posixpath.dirname(name)
         for match in re.finditer(r"(?:href|src)=[\"\']([^\"\']+)", text, re.I):
             url = html.unescape(match[1])
-            if re.match(r"https?://|mailto:|tel:#", url): continue
+            if re.match(r"https?://|mailto:|tel:|#", url): continue
             ref = url.split("#")[0].split("?")[0]
             target = ref.lstrip("/") if ref.startswith("/") else posixpath.normpath(posixpath.join(base, ref))
             if target in ("", "."): continue
