@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Blood & Hormone Panel | AGING?F***THAT!</title>
+<meta name="description" content="Private client blood and hormone panel with reference ranges, status flags and plain-English marker explanations."/>
+<link rel="canonical" href="https://agingfthat.com/client-blood-panel.html"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<link rel="stylesheet" href="report.css"/>
+<style>body::before{background-image:url(https://cdn.marblism.com/y3qYRB37I2n.webp)}</style>
+</head>
+<body>
+<a href="admin.html" style="display:inline-block;color:var(--cyan);font-weight:900;text-decoration:none;font-size:12px;letter-spacing:.05em;padding:14px 20px 0">&larr; PRIVATE CLIENT AREA</a>
+<div class="mast"><img class="logo" alt="AGING?F***THAT!" src="aft-logo.png"/><div class="tagline">PRIVATE CLIENT AREA</div></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 6px"><a href="client-report.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">FULL REPORT</a><a href="client-blood-panel.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">BLOOD &amp; HORMONE PANEL</a><a href="client-scan-history.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">SCAN &amp; ASSESSMENT HISTORY</a></div>
+<div id="content" style="display:none"></div>
+<div id="gate" style="max-width:420px;margin:14vh auto 0;padding:0 18px;text-align:center">
+  <img src="aft-logo.png" alt="AGING?F***THAT!" style="width:78%;max-width:340px;height:auto;margin:0 auto 10px;filter:drop-shadow(0 0 8px #21c7ff66);display:block"/>
+  <div style="font-weight:900;letter-spacing:.14em;font-size:12px;color:#e9fbff;padding:6px 0 16px">PRIVATE CLIENT AREA</div>
+  <div style="border:1px solid #168cc0;border-radius:18px;padding:26px 22px;background:rgba(6,29,44,.72);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);box-shadow:0 0 22px #16bfff33">
+    <label for="pw" style="display:block;font-size:9.5px;letter-spacing:.12em;color:#a9c8d8;text-transform:uppercase;margin-bottom:9px">Access code</label>
+    <input id="pw" type="password" autocomplete="current-password" style="width:100%;padding:12px 14px;border:1px solid #168cc0;border-radius:9px;background:#031522;color:#edfaff;font-size:15px;box-sizing:border-box"/>
+    <button id="btn" style="display:block;width:100%;margin-top:12px;padding:12px 14px;border:0;border-radius:9px;background:var(--cyan);color:#031522;font-family:Arial,sans-serif;font-weight:900;letter-spacing:.06em;cursor:pointer;font-size:13px">OPEN REPORT</button>
+    <div id="err" style="color:#ff4b4b;font-size:12px;margin-top:10px;min-height:16px"></div>
+  </div>
+  <p style="color:#7899a9;font-size:11px;margin-top:18px;line-height:1.6">Authorised clients only. Enter the access code issued by AGING?F***THAT! to view this report.</p>
+</div>
+<script>
+(function(){
+  var H='9cc1b0f4778ff2e3acce8f0774c21d5a995e788fdbe366f9070d61338bae2b43';
+  var SESSION_KEY='agnf_admin_20260904';
+  var gate=document.getElementById('gate'),content=document.getElementById('content');
+  function digest(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
+  function unlock(){gate.style.display='none';content.style.display='block';window.scrollTo(0,0);load()}
+  function go(){digest(document.getElementById('pw').value).then(function(h){if(h===H){sessionStorage.setItem(SESSION_KEY,'1');unlock();}else{document.getElementById('err').textContent='Access denied.';}})}
+  document.getElementById('btn').addEventListener('click',go);
+  document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+  if(sessionStorage.getItem(SESSION_KEY)==='1')unlock();
+  function wire(root){
+    root.querySelectorAll('[data-w]').forEach(function(el){setTimeout(function(){el.style.width=el.dataset.w;},200)});
+    document.body.setAttribute('data-sex','male');
+    window.toggleBlurb=function(slug){var b=document.getElementById('blurb_'+slug);if(!b)return;var c=b.closest('.rng-card');if(c)c.classList.toggle('open');};
+    window.setSex=function(sex,btn){document.body.setAttribute('data-sex',sex);var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
+    window.setToggle=function(btn){var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
+  }
+  function load(){
+    var parts=['report-part-1.html','report-part-2.html','report-part-3.html','report-part-4.html','report-part-5.html'];
+    Promise.all(parts.map(function(p){return fetch(p,{cache:'no-cache'}).then(function(r){return r.text();})}))
+      .then(function(chunks){
+        var holder=document.createElement('div');
+        holder.innerHTML=chunks.join('');
+        var backlink=holder.querySelector('a[href="index.html"]');
+        if(backlink)backlink.remove();
+        var m=holder.querySelector('.mast');
+        if(m)m.remove();
+        var h=holder.querySelector('.hero');
+        if(h)h.remove();
+        var idx=holder.querySelector('.idx');
+        if(idx)idx.remove();
+        var keep=holder.querySelectorAll('.legend-tier.boxed, .stats, section#blood');
+        holder.innerHTML='';
+        keep.forEach(function(el){holder.appendChild(el)});
+        var target=document.getElementById('content');
+        target.innerHTML='';
+        target.appendChild(holder);
+        wire(target);
+      })
+      .catch(function(e){document.getElementById('content').innerHTML='<div class="wrap"><div class="card"><h3>Report could not be loaded. Please refresh the page.</h3></div></div>';});
+  }
+})();
+</script>
+<footer style="border-top:1px solid #17435a;margin-top:48px;padding:20px 0 34px;text-align:center;color:#7899a9;font-size:11.5px">&copy; Lee C. Stonehouse &middot; AGING?F***THAT! &middot; Private client area &middot; Information only, not medical advice</footer>
+</body>
+</html>
