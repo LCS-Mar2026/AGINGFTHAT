@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="robots" content="noindex,nofollow"/>
 <title>Private Client Report | AGING?F***THAT!</title>
-<meta name="description" content="Private client report"/>
+<meta name="description" content="Private consolidated client report: bio age model, blood and hormone panel, VO2 Max, DEXA body composition and posture."/>
 <link rel="canonical" href="https://agingfthat.com/client-report.html"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
@@ -58,13 +58,7 @@
         if(backlink)backlink.remove();
         var m=holder.querySelector('.mast');
         if(m)m.remove();
-        var h=holder.querySelector('.hero');
-        if(h)h.remove();
-        var idx=holder.querySelector('.idx');
-        if(idx)idx.remove();
-        var keep=holder.querySelectorAll('section.sec');
-        holder.innerHTML='';
-        keep.forEach(function(el){holder.appendChild(el)});
+        // keep hero, idx, legend, stats and all five sections
         var target=document.getElementById('content');
         target.innerHTML='';
         target.appendChild(holder);
