@@ -1,95 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Example Report | AGING?F***THAT!</title>
-<style>
-:root{--cyan:#2bc7ff;--blue:#A9CDEA;--ink:#031522;--panel:#061d2c;--text:#edfaff;--muted:#a9c8d8;--bad:#ff4b4b;
---good:#3ddc97;--line:#19bff5;--card:#07283c}
-*{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font:15px/1.6 Arial,sans-serif;color:var(--text);
-background:radial-gradient(circle at 50% 0,#0a3550 0,#031522 40%,#020b12 100%)}
-.wrap{max-width:940px;margin:0 auto;padding:22px 16px 60px}
-header.top{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--line);
-padding-bottom:16px;margin-bottom:8px}
-img.logo{height:56px;width:auto;filter:drop-shadow(0 0 8px #21c7ff66)}
-.title-block h1{margin:0;font-size:clamp(20px,4vw,28px);letter-spacing:-.01em}
-.title-block p{margin:2px 0 0;color:var(--muted);font-size:13px}
-.badge-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 4px}
-.badge{font-size:11px;font-weight:900;letter-spacing:1.2px;padding:6px 12px;
-border:1px solid var(--cyan);border-radius:999px;background:#061d2c;color:#bff0ff}
-.badge.warn{border-color:#ff4b4b;color:#ffc9c9}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:18px}
-.card{background:var(--card);border:1px solid #167ba5;border-radius:14px;padding:16px}
-.card h3{margin:0 0 6px;font-size:12px;letter-spacing:1.6px;color:var(--cyan)}
-.card .big{font-size:26px;font-weight:900;margin:4px 0}
-.card .delta{font-size:13px}
-.delta.up{color:var(--good)}.delta.down{color:var(--bad)}
-.bar{height:8px;border-radius:99px;background:#0a3350;margin-top:10px;overflow:hidden}
-.bar span{display:block;height:100%;background:linear-gradient(90deg,#19bff5,#3ddc97)}
-section.block{margin-top:34px}
-section.block>h2{font-size:15px;letter-spacing:2px;color:var(--cyan);margin:0 0 12px;
-padding-bottom:6px;border-bottom:1px solid var(--line)}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{color:var(--muted);text-align:left;font-size:11px;letter-spacing:1px;padding:8px 10px;border-bottom:1px solid var(--line)}
-td{padding:9px 10px;border-bottom:1px solid #123048}
-td.num{font-weight:700}
-td .flag{font-size:11px;padding:2px 8px;border-radius:99px;background:#0b3d2a;color:#7ef0bd;font-weight:700}
-td .flag.bad{background:#3d0b0b;color:#ff9a9a}
-.photo-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:14px}
-.photo-card{background:var(--card);border:1px solid #167ba5;border-radius:14px;overflow:hidden;position:relative}
-.photo-card img{display:block;width:100%;height:auto}
-.photo-label{position:absolute;left:10px;bottom:10px;background:#020b12cc;padding:4px 10px;
-border-radius:99px;font-size:11px;font-weight:900;letter-spacing:.8px}
-.dexa-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-@media(max-width:640px){.dexa-row{grid-template-columns:1fr}}
-.dexa-shot{background:var(--card);border:1px solid #167ba5;border-radius:14px;overflow:hidden;position:relative}
-.dexa-shot img{display:block;width:100%;height:auto}
-.dexa-shot .photo-label{position:absolute;left:auto;right:10px;top:10px;bottom:auto}
-.footnote{margin-top:30px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
-/* ==== background graphic layer + translucent copy tiles (added 5 Oct 2026) ==== */
-body::before{content:"";position:fixed;inset:0;z-index:-2;
-  background-image:url('https://cdn.marblism.com/Xi8Ifi9FqM7.webp');
-  background-size:cover;background-position:center;opacity:.22}
-</style>
-<!-- brand icons -->
+<link rel="canonical" href="https://agingfthat.com/example-report.html">
+<meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="manifest" href="/site.webmanifest">
+<style>
+:root{--b:#3D1C02;--blue:#A9CDEA;--cyan:#2BC7FF;--muted:#8A7666}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--b);background:#f7f7f5}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background-image:url('https://cdn.marblism.com/Xi8Ifi9FqM7.webp');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;opacity:.22}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(3,21,34,.18),rgba(2,11,18,.22))}
+.wrap{max-width:880px;margin:0 auto;padding:28px 18px 60px}
+header{text-align:center;margin-bottom:26px}
+h1{margin:6px 0 4px;font-size:26px;letter-spacing:.5px}
+.tag{color:var(--muted);font-size:13px}
+.block{background:rgba(255,255,255,.94);border:1px solid #e2dedb;border-radius:14px;padding:20px 22px;margin:0 0 18px;box-shadow:0 8px 26px #00000010}
+h2{margin:0 0 14px;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#14213D}
+h3{margin:0 0 6px;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
+.metric{border:1px solid #e6e2df;border-radius:11px;padding:14px;background:#fff}
+.big{font-size:30px;font-weight:900;line-height:1.05}
+.delta{font-size:12px;color:var(--muted);margin-top:3px}
+.bar{height:6px;border-radius:99px;background:#eee9e6;margin-top:10px;overflow:hidden}
+.bar span{display:block;height:100%;background:linear-gradient(90deg,#2BC7FF,#21c97a)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid #eee9e6}
+th{font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted)}
+td.num{font-weight:700}
+.flag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.9px;padding:4px 9px;border-radius:99px;background:#e7f7ee;color:#127a45}
+.photo-row,.dexa-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.photo-card,.dexa-shot{background:#fff;border:1px solid #e6e2df;border-radius:11px;padding:10px;text-align:center}
+.photo-card img,.dexa-shot img{width:100%;height:auto;border-radius:7px;display:block}
+.photo-label{margin-top:8px;font-size:10.5px;letter-spacing:1.1px;font-weight:700;color:var(--muted)}
+.footnote{font-size:12px;color:var(--muted);text-align:center;line-height:1.6}
+@media(max-width:600px){.wrap{padding:14px 10px 40px}h1{font-size:21px}.block{padding:16px}}
+</style>
 </head>
 <body>
 <div class="wrap">
-<header class="top">
-<img class="logo" src="aft-logo.png" alt="AGING?F***THAT!"/>
-<div class="title-block">
+<header>
+<img src="aft-logo.png" alt="AGING?F***THAT!" style="width:180px;height:auto">
 <h1>Example Client Report — Bio Age Assessment</h1>
-<p>Multi-variate, independent-lab verified assessment · Sample client · October 2026</p>
-</div>
+<div class="tag">Multi-variate, independent-lab verified assessment · Sample client · October 2026</div>
 </header>
-<div class="badge-row">
-<span class="badge">BIO AGE 47</span><span class="badge">CHRONOLOGICAL 63</span>
-<span class="badge">DIVERGENCE −16 YEARS</span><span class="badge warn">PENDING 15 OCT 2026 UPDATE</span>
-</div>
+
+<section class="block">
 <div class="grid">
-<div class="card"><h3>BIOLOGICAL AGE</h3><div class="big">47</div><div class="delta up">16 years below chronological</div><div class="bar"><span style="width:74%"></span></div></div>
-<div class="card"><h3>CHRONOLOGICAL AGE</h3><div class="big">63</div><div class="delta">Reference baseline</div><div class="bar"><span style="width:63%"></span></div></div>
-<div class="card"><h3>VO2MAX</h3><div class="big">Top 5%</div><div class="delta up">for age bracket</div><div class="bar"><span style="width:95%"></span></div></div>
-<div class="card"><h3>DEXA BODY COMP</h3><div class="big">13.8%</div><div class="delta up">body fat, 25 Apr 2025 scan</div><div class="bar"><span style="width:80%"></span></div></div>
+<div class="metric"><h3>Biological age</h3><div class="big">47</div><div class="delta">16 years below chronological</div></div>
+<div class="metric"><h3>Chronological age</h3><div class="big">63</div><div class="delta">Reference baseline</div></div>
+<div class="metric"><h3>VO2max</h3><div class="big">50</div><div class="delta up">ml/kg/min, self-tested</div></div>
+<div class="metric"><h3>DEXA body comp</h3><div class="big">9.6%</div><div class="delta up">body fat, 25 Apr 2025 DEXA</div><div class="bar"><span style="width:80%"></span></div></div>
 </div>
+</section>
+
+<section class="block">
+<h2>BIO AGE 47 | CHRONOLOGICAL 63 | DIVERGENCE −16 YEARS</h2>
+<p style="margin:0;font-size:14px;line-height:1.7">A composite biological age is not one measurement. It is a weighted model across blood and hormone markers, fitness capacity and body composition. The example below shows how a single verified cycle presents in the client area.</p>
+</section>
+
 <section class="block">
 <h2>BIOMARKER PANEL</h2>
 <table>
 <tr><th>MARKER</th><th>RESULT</th><th>RANGE</th><th>STATUS</th></tr>
 <tr><td>HS-CRP</td><td class="num">0.4 mg/L</td><td>&lt;1.0</td><td><span class="flag">OPTIMAL</span></td></tr>
-<tr><td>HbA1c</td><td class="num">4.9%</td><td>4.0–5.6</td><td><span class="flag">OPTIMAL</span></td></tr>
-<tr><td>ApoB</td><td class="num">68 mg/dL</td><td>&lt;80</td><td><span class="flag">OPTIMAL</span></td></tr>
-<tr><td>Testosterone</td><td class="num">742 ng/dL</td><td>450–800</td><td><span class="flag">OPTIMAL</span></td></tr>
-<tr><td>Vitamin D</td><td class="num">58 ng/mL</td><td>40–60</td><td><span class="flag">OPTIMAL</span></td></tr>
-<tr><td>Fasting insulin</td><td class="num">3.2 µIU/mL</td><td>2–6</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>HbA1c</td><td class="num">33 mmol/mol</td><td>&lt;42</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>ApoB</td><td class="num">0.68 g/L</td><td>&lt;0.80</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Testosterone</td><td class="num">25.8 nmol/L</td><td>8.6–29.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Vitamin D</td><td class="num">145 nmol/L</td><td>75–150</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Fasting insulin</td><td class="num">22 pmol/L</td><td>14–42</td><td><span class="flag">OPTIMAL</span></td></tr>
 </table>
 </section>
+
 <section class="block">
 <h2>SCAN RECORDS</h2>
 <div class="photo-row">
@@ -97,6 +82,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;
 <div class="photo-card"><img src="lateral-posture-view.jpg" alt="Lateral view" loading="lazy"/><div class="photo-label">LATERAL VIEW</div></div>
 </div>
 </section>
+
 <section class="block">
 <h2>DEXA SCAN HISTORY</h2>
 <div class="dexa-row">
@@ -106,5 +92,6 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;
 </section>
 <p class="footnote">Illustrative example report. Figures are sample values, not medical advice. Live client reports use independent-lab verified biomarker data and follow the same format. · AGING?F***THAT! · Lee C. Stonehouse</p>
 </div>
+<script>/* second layer of the page-10 backdrop, paired with example-report page */</script>
 </body>
 </html>
