@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['build_social.py', '.github/workflows/social-post.yml']
+    paths: ['build_social.py', 'build_story.py', '.github/workflows/social-post.yml']
 
 permissions:
   contents: write
@@ -18,28 +18,27 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install --quiet pillow
-      - name: Fetch assets and diagnose
+      - name: Fetch assets and render
         run: |
           {
-            echo "== artwork =="
-            curl -sSL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" -o /tmp/art.webp -w "http=%{http_code} bytes=%{size_download}\n" "https://cdn.marblism.com/E-n_qZpqlk3.webp" || echo "art fetch FAILED"
-            file /tmp/art.webp 2>&1
+            echo "== artifacts =="
+            curl -sSL -o /tmp/art.webp -w "square http=%{http_code} bytes=%{size_download}\n" "https://cdn.marblism.com/E-n_qZpqlk3.webp" || echo "square fetch FAILED"
+            curl -sSL -o /tmp/art-story.webp -w "story http=%{http_code} bytes=%{size_download}\n" "https://cdn.marblism.com/EsJL0vHWYEe.webp" || echo "story fetch FAILED"
+            file /tmp/art.webp /tmp/art-story.webp 2>&1
             echo "== font =="
-            curl -sSL -o /tmp/Montserrat.ttf -w "http=%{http_code} bytes=%{size_download}\n" "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf" || echo "font fetch FAILED"
-            file /tmp/Montserrat.ttf 2>&1
-            echo "== repo =="
-            ls -la
+            curl -sSL -o /tmp/Montserrat.ttf -w "font http=%{http_code} bytes=%{size_download}\n" "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf" || echo "font fetch FAILED"
             echo "== render =="
             python3 build_social.py 2>&1 || echo "RENDER FAILED"
+            python3 build_story.py 2>&1 || echo "STORY FAILED"
             echo "== result =="
             ls -la social/
           } > diag.txt 2>&1
           cat diag.txt
-      - name: Publish graphic and diagnostics
+      - name: Publish graphics and diagnostics
         run: |
           set -e
           git config user.name "Penny (Blog Writer)"
           git config user.email "penny@agingfthat.com"
           git add -A social/ diag.txt
-          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Add 7 Oct Instagram post graphic [automated]"
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Add 7 Oct Instagram post and story graphics [automated]"
           git push
