@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['render/social_post.py']
+    paths: ['build_social.py']
 
 permissions:
   contents: write
@@ -20,10 +20,13 @@ jobs:
       - run: pip install --quiet pillow
       - run: curl -sSL -o /tmp/art.webp "https://cdn.marblism.com/E-n_qZpqlk3.webp"
       - run: curl -sSL -o /tmp/Montserrat.ttf "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf"
-      - run: python3 render/social_post.py
-      - run: |
+      - run: python3 build_social.py
+      - name: Commit and push
+        run: |
+          set -e
+          ls -la social/
           git config user.name "Penny (Blog Writer)"
           git config user.email "penny@agingfthat.com"
-          git add social/
-          git commit -m "Add 7 Oct Instagram post graphic (daily social build)" || echo "nothing to commit"
+          git add -A social/
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Add 7 Oct Instagram post graphic [automated]"
           git push

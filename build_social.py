@@ -1,5 +1,4 @@
-"""Render the daily AFT Instagram POST (1440x1800 master + 1080x1350) for the
-current article. Artwork and font are fetched into /tmp by the workflow."""
+"""Render the daily AFT Instagram POST: 1440x1800 master + 1080x1350 for Instagram."""
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 
 W, H = 1440, 1800
