@@ -21,10 +21,10 @@ jobs:
       - name: Fetch assets and render
         run: |
           {
-            echo "== artifacts =="
-            curl -sSL -o /tmp/art.webp -w "square http=%{http_code} bytes=%{size_download}\n" "https://cdn.marblism.com/E-n_qZpqlk3.webp" || echo "square fetch FAILED"
-            curl -sSL -o /tmp/art-story.webp -w "story http=%{http_code} bytes=%{size_download}\n" "https://cdn.marblism.com/EsJL0vHWYEe.webp" || echo "story fetch FAILED"
-            file /tmp/art.webp /tmp/art-story.webp 2>&1
+            echo "== article hero (must match the live article) =="
+            curl -sSL -o /tmp/hero.webp -w "hero http=%{http_code} bytes=%{size_download}\n" "https://cdn.marblism.com/l2j9ic1_upY.webp" || echo "hero fetch FAILED"
+            file /tmp/hero.webp 2>&1
+            echo "hero sha256: $(sha256sum /tmp/hero.webp | cut -d' ' -f1)"
             echo "== font =="
             curl -sSL -o /tmp/Montserrat.ttf -w "font http=%{http_code} bytes=%{size_download}\n" "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf" || echo "font fetch FAILED"
             echo "== render =="
@@ -40,5 +40,5 @@ jobs:
           git config user.name "Penny (Blog Writer)"
           git config user.email "penny@agingfthat.com"
           git add -A social/ diag.txt
-          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Add 7 Oct Instagram post and story graphics [automated]"
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Social imagery uses the article hero image [automated]"
           git push
