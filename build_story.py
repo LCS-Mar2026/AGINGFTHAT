@@ -1,4 +1,5 @@
 """9:16 Instagram story with the blog snapshot AND the caption baked in.
+Artwork = THE ARTICLE'S OWN HERO so the social post matches the blog.
 One image, nothing to copy. Lee adds music and posts."""
 import os, hashlib
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
@@ -36,8 +37,8 @@ PILL="BLOG \u00b7 LINK IN BIO"
 OUT="social/how-to-read-biological-age-results-story"
 
 ART_H=int(H*0.44)
-art=Image.open("/tmp/art-story.webp").convert("RGB")
-r=max(W/art.width, ART_H/art.height)
+art=Image.open("/tmp/hero.webp").convert("RGB")
+r=max(W/art.width,ART_H/art.height)
 art=art.resize((int(art.width*r),int(art.height*r)),Image.LANCZOS)
 l=(art.width-W)//2; t=int((art.height-ART_H)*0.34)
 art=art.crop((l,t,l+W,t+ART_H))

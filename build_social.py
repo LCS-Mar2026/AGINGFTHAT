@@ -1,4 +1,5 @@
-"""Rebuild the 7 Oct Instagram POST image inside CI, to avoid transporting a 275 KB binary."""
+"""Rebuild the 7 Oct Instagram POST image inside CI, to avoid transporting a 275 KB binary.
+Artwork = THE ARTICLE'S OWN HERO so the social post matches the blog."""
 import os, sys, hashlib
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 
@@ -30,7 +31,7 @@ LINE="New articles daily at agingfthat.com/blog"
 PILL="BLOG \u00b7 LINK IN BIO"
 OUT="social/how-to-read-biological-age-results"
 
-art=Image.open("/tmp/art.webp").convert("RGB")
+art=Image.open("/tmp/hero.webp").convert("RGB")
 BAND=int(H*0.472)
 r=max(W/art.width,BAND/art.height)
 art=art.resize((int(art.width*r),int(art.height*r)),Image.LANCZOS)
