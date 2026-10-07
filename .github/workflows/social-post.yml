@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['build_social.py']
+    paths: ['build_social.py', '.github/workflows/social-post.yml']
 
 permissions:
   contents: write
@@ -18,9 +18,14 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install --quiet pillow
-      - run: curl -sSL -o /tmp/art.webp "https://cdn.marblism.com/E-n_qZpqlk3.webp"
+      - name: Fetch artwork
+        run: |
+          set -x
+          curl -sS -f -L -o /tmp/art.webp "https://cdn.marblism.com/E-n_qZpqlk3.webp" || curl -sS -f -L -o /tmp/art.webp "https://agingfthat.com/social/how-to-read-biological-age-results.jpg" || true
+          ls -la /tmp/art.webp || echo "ARTWORK MISSING"
+          file /tmp/art.webp || true
       - run: curl -sSL -o /tmp/Montserrat.ttf "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf"
-      - run: python3 build_social.py
+      - run: python3 build_social.py || (echo "RENDER FAILED"; ls -la; exit 1)
       - name: Commit and push
         run: |
           set -e
