@@ -1,0 +1,73 @@
+== artwork ==
+http=200 bytes=551786
+/tmp/art.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1792x1008, Scaling: [none]x[none], YUV color, decoders should clamp
+== font ==
+http=200 bytes=744936
+/tmp/Montserrat.ttf: TrueType Font data, 24 tables, 1st "GDEF", 59 names, Macintosh, type 256 string, WeightThinMontserrat-ThinExtraLightMontserrat-ExtraLightLightMontserrat-LightRegularMontserrat-R
+== repo ==
+total 2080
+drwxr-xr-x 6 runner runner   4096 Oct  7 08:50 .
+drwxr-xr-x 3 runner runner   4096 Oct  7 08:50 ..
+drwxr-xr-x 7 runner runner   4096 Oct  7 08:50 .git
+drwxr-xr-x 3 runner runner   4096 Oct  7 08:50 .github
+-rw-r--r-- 1 runner runner      0 Oct  7 08:50 .nojekyll
+-rw-r--r-- 1 runner runner 262723 Oct  7 08:50 AFT_Book_Cover.jpg
+-rw-r--r-- 1 runner runner 103629 Oct  7 08:50 After_Gym1_1.jpg
+-rw-r--r-- 1 runner runner 107397 Oct  7 08:50 Aiden1.jpg
+-rw-r--r-- 1 runner runner 124525 Oct  7 08:50 Before39c.jpg
+-rw-r--r-- 1 runner runner 139165 Oct  7 08:50 Before_19.jpeg
+-rw-r--r-- 1 runner runner     14 Oct  7 08:50 CNAME
+-rw-r--r-- 1 runner runner 171463 Oct  7 08:50 Family_Afterat63.jpg
+-rw-r--r-- 1 runner runner 102870 Oct  7 08:50 Family_Beforeat50.jpg
+-rw-r--r-- 1 runner runner 136003 Oct  7 08:50 Gracie1.jpeg
+-rw-r--r-- 1 runner runner 123809 Oct  7 08:50 Lee&Maria_63.jpeg
+-rw-r--r-- 1 runner runner 308140 Oct  7 08:50 Lee_AFT_Headshot.jpg
+-rw-r--r-- 1 runner runner 157753 Oct  7 08:50 Sophie1.jpg
+-rw-r--r-- 1 runner runner   4613 Oct  7 08:50 admin.html
+-rw-r--r-- 1 runner runner   1540 Oct  7 08:50 aft-logo.png
+-rw-r--r-- 1 runner runner  12087 Oct  7 08:50 android-chrome-192.png
+-rw-r--r-- 1 runner runner    149 Oct  7 08:50 android-chrome-512.png
+-rw-r--r-- 1 runner runner   5910 Oct  7 08:50 anterior-posture-view.jpg
+-rw-r--r-- 1 runner runner  11285 Oct  7 08:50 apple-touch-icon.png
+drwxr-xr-x 2 runner runner   4096 Oct  7 08:50 blog
+-rw-r--r-- 1 runner runner  20241 Oct  7 08:50 blog.html
+-rw-r--r-- 1 runner runner  11185 Oct  7 08:50 brand-guidelines-assets-v01-011026.html
+-rw-r--r-- 1 runner runner    404 Oct  7 08:50 brand-guidelines-v01-011026.html
+-rw-r--r-- 1 runner runner    404 Oct  7 08:50 brand-guidelines.html
+-rw-r--r-- 1 runner runner   3139 Oct  7 08:50 build_social.py
+-rw-r--r-- 1 runner runner   7014 Oct  7 08:50 client-blood-panel.html
+-rw-r--r-- 1 runner runner  24725 Oct  7 08:50 client-progress.html
+-rw-r--r-- 1 runner runner   6784 Oct  7 08:50 client-report.html
+-rw-r--r-- 1 runner runner   7069 Oct  7 08:50 client-scan-history.html
+-rw-r--r-- 1 runner runner    416 Oct  7 08:50 diag.txt
+-rw-r--r-- 1 runner runner   7217 Oct  7 08:50 elite-a-program-details.html
+-rw-r--r-- 1 runner runner   6990 Oct  7 08:50 example-report.html
+-rw-r--r-- 1 runner runner   1143 Oct  7 08:50 favicon.ico
+-rw-r--r-- 1 runner runner    554 Oct  7 08:50 favicon.svg
+-rw-r--r-- 1 runner runner     43 Oct  7 08:50 home.css
+-rw-r--r-- 1 runner runner  15542 Oct  7 08:50 index.html
+-rw-r--r-- 1 runner runner   7109 Oct  7 08:50 lab-partners.html
+-rw-r--r-- 1 runner runner   5477 Oct  7 08:50 lateral-posture-view.jpg
+-rw-r--r-- 1 runner runner   8135 Oct  7 08:50 new-bio-age-model.html
+-rw-r--r-- 1 runner runner   5287 Oct  7 08:50 programme-b-details.html
+-rw-r--r-- 1 runner runner   3941 Oct  7 08:50 programme-c-details.html
+-rw-r--r-- 1 runner runner  13103 Oct  7 08:50 programs-offered.html
+-rw-r--r-- 1 runner runner  11319 Oct  7 08:50 report-part-1.html
+-rw-r--r-- 1 runner runner  11287 Oct  7 08:50 report-part-2.html
+-rw-r--r-- 1 runner runner  11321 Oct  7 08:50 report-part-3.html
+-rw-r--r-- 1 runner runner  11299 Oct  7 08:50 report-part-4.html
+-rw-r--r-- 1 runner runner    150 Oct  7 08:50 report-part-5.html
+-rw-r--r-- 1 runner runner  14762 Oct  7 08:50 report.css
+-rw-r--r-- 1 runner runner   2034 Oct  7 08:50 report.html
+-rw-r--r-- 1 runner runner     78 Oct  7 08:50 robots.txt
+drwxr-xr-x 2 runner runner   4096 Oct  7 08:50 scripts
+-rw-r--r-- 1 runner runner    228 Oct  7 08:50 site.webmanifest
+-rw-r--r-- 1 runner runner   2015 Oct  7 08:50 sitemap.xml
+== render ==
+render OK (1440, 1800) 1080 file bytes 263950 sha256 c24f55f5e42d3ff41c4654f1747094cdd6d966fc507a773f97694b76759524c4
+== result ==
+total 840
+drwxr-xr-x 2 runner runner   4096 Oct  7 08:50 .
+drwxr-xr-x 7 runner runner   4096 Oct  7 08:50 ..
+-rw-r--r-- 1 runner runner 582049 Oct  7 08:50 how-to-read-biological-age-results-1440.jpg
+-rw-r--r-- 1 runner runner 263950 Oct  7 08:50 how-to-read-biological-age-results.jpg
