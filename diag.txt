@@ -1,18 +1,32 @@
-== artifacts ==
-square http=200 bytes=551786
-story http=200 bytes=617650
-/tmp/art.webp:       RIFF (little-endian) data, Web/P image, VP8 encoding, 1792x1008, Scaling: [none]x[none], YUV color, decoders should clamp
-/tmp/art-story.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1008x1792, Scaling: [none]x[none], YUV color, decoders should clamp
+== article hero (must match the live article) ==
+hero http=200 bytes=951054
+/tmp/hero.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1792x1008, Scaling: [none]x[none], YUV color, decoders should clamp
+hero sha256: fb76bdc0715b04765fb14978239f976757cf35a9cda3115ceaac161b44af33d5
 == font ==
 font http=200 bytes=744936
 == render ==
-render OK (1440, 1800) 1080 file bytes 263950 sha256 c24f55f5e42d3ff41c4654f1747094cdd6d966fc507a773f97694b76759524c4
-content ends y: 1657 | pill top: 1762 | gap: 105 | fits: True
-story OK (1080, 1920) bytes 445240 sha256 286b00dfb04a896b18478bd961e0015746ed1ac1945ee4b0c111df633454a72f
+Traceback (most recent call last):
+  File "/home/runner/work/AGINGFTHAT/AGINGFTHAT/build_social.py", line 33, in <module>
+    art=Image.open("/tmp/art.webp").convert("RGB")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/PIL/Image.py", line 3639, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/art.webp'
+RENDER FAILED
+Traceback (most recent call last):
+  File "/home/runner/work/AGINGFTHAT/AGINGFTHAT/build_story.py", line 39, in <module>
+    art=Image.open("/tmp/art-story.webp").convert("RGB")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/PIL/Image.py", line 3639, in open
+    fp = builtins.open(filename, "rb")
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/art-story.webp'
+STORY FAILED
 == result ==
 total 1276
-drwxr-xr-x 2 runner runner   4096 Oct  7 10:47 .
-drwxr-xr-x 7 runner runner   4096 Oct  7 10:47 ..
--rw-r--r-- 1 runner runner 582049 Oct  7 10:47 how-to-read-biological-age-results-1440.jpg
--rw-r--r-- 1 runner runner 445240 Oct  7 10:47 how-to-read-biological-age-results-story.jpg
--rw-r--r-- 1 runner runner 263950 Oct  7 10:47 how-to-read-biological-age-results.jpg
+drwxr-xr-x 2 runner runner   4096 Oct  7 10:56 .
+drwxr-xr-x 7 runner runner   4096 Oct  7 10:56 ..
+-rw-r--r-- 1 runner runner 582049 Oct  7 10:56 how-to-read-biological-age-results-1440.jpg
+-rw-r--r-- 1 runner runner 445240 Oct  7 10:56 how-to-read-biological-age-results-story.jpg
+-rw-r--r-- 1 runner runner 263950 Oct  7 10:56 how-to-read-biological-age-results.jpg
