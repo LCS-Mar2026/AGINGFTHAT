@@ -7,11 +7,12 @@ story http=200 bytes=617650
 font http=200 bytes=744936
 == render ==
 render OK (1440, 1800) 1080 file bytes 263950 sha256 c24f55f5e42d3ff41c4654f1747094cdd6d966fc507a773f97694b76759524c4
-story OK (1080, 1920) bytes 468306 sha256 9f9d897a064be30c8b5246b40ce8e1c2d7fb5cbdcf69712c983167a922c6dc43
+content ends y: 1657 | pill top: 1762 | gap: 105 | fits: True
+story OK (1080, 1920) bytes 445240 sha256 286b00dfb04a896b18478bd961e0015746ed1ac1945ee4b0c111df633454a72f
 == result ==
-total 1300
-drwxr-xr-x 2 runner runner   4096 Oct  7 10:43 .
-drwxr-xr-x 7 runner runner   4096 Oct  7 10:43 ..
--rw-r--r-- 1 runner runner 582049 Oct  7 10:43 how-to-read-biological-age-results-1440.jpg
--rw-r--r-- 1 runner runner 468306 Oct  7 10:43 how-to-read-biological-age-results-story.jpg
--rw-r--r-- 1 runner runner 263950 Oct  7 10:43 how-to-read-biological-age-results.jpg
+total 1276
+drwxr-xr-x 2 runner runner   4096 Oct  7 10:47 .
+drwxr-xr-x 7 runner runner   4096 Oct  7 10:47 ..
+-rw-r--r-- 1 runner runner 582049 Oct  7 10:47 how-to-read-biological-age-results-1440.jpg
+-rw-r--r-- 1 runner runner 445240 Oct  7 10:47 how-to-read-biological-age-results-story.jpg
+-rw-r--r-- 1 runner runner 263950 Oct  7 10:47 how-to-read-biological-age-results.jpg
