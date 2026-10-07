@@ -5,28 +5,13 @@ hero sha256: fb76bdc0715b04765fb14978239f976757cf35a9cda3115ceaac161b44af33d5
 == font ==
 font http=200 bytes=744936
 == render ==
-Traceback (most recent call last):
-  File "/home/runner/work/AGINGFTHAT/AGINGFTHAT/build_social.py", line 33, in <module>
-    art=Image.open("/tmp/art.webp").convert("RGB")
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/PIL/Image.py", line 3639, in open
-    fp = builtins.open(filename, "rb")
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/tmp/art.webp'
-RENDER FAILED
-Traceback (most recent call last):
-  File "/home/runner/work/AGINGFTHAT/AGINGFTHAT/build_story.py", line 39, in <module>
-    art=Image.open("/tmp/art-story.webp").convert("RGB")
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.12.14/x64/lib/python3.12/site-packages/PIL/Image.py", line 3639, in open
-    fp = builtins.open(filename, "rb")
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-FileNotFoundError: [Errno 2] No such file or directory: '/tmp/art-story.webp'
-STORY FAILED
+render OK (1440, 1800) 1080 file bytes 335754 sha256 bcf5ed8740e4ff4e2efe03ece93899079842d5059dbd9bc7959d41ebfcba63cf
+content ends y: 1657 | pill top: 1762 | gap: 105 | fits: True
+story OK (1080, 1920) bytes 509027 sha256 2de2760ffef4f192590111226ffb9d8f6f6847882493b65467c707de0bc4e1d8
 == result ==
-total 1276
+total 1572
 drwxr-xr-x 2 runner runner   4096 Oct  7 10:56 .
 drwxr-xr-x 7 runner runner   4096 Oct  7 10:56 ..
--rw-r--r-- 1 runner runner 582049 Oct  7 10:56 how-to-read-biological-age-results-1440.jpg
--rw-r--r-- 1 runner runner 445240 Oct  7 10:56 how-to-read-biological-age-results-story.jpg
--rw-r--r-- 1 runner runner 263950 Oct  7 10:56 how-to-read-biological-age-results.jpg
+-rw-r--r-- 1 runner runner 750529 Oct  7 10:57 how-to-read-biological-age-results-1440.jpg
+-rw-r--r-- 1 runner runner 509027 Oct  7 10:57 how-to-read-biological-age-results-story.jpg
+-rw-r--r-- 1 runner runner 335754 Oct  7 10:57 how-to-read-biological-age-results.jpg
