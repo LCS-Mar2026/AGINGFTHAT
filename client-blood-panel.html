@@ -1,79 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="robots" content="noindex,nofollow"/>
-<title>Blood & Hormone Panel | AGING?F***THAT!</title>
-<meta name="description" content="Private client blood and hormone panel with reference ranges, status flags and plain-English marker explanations."/>
-<link rel="canonical" href="https://agingfthat.com/client-blood-panel.html"/>
-<link rel="icon" href="/favicon.ico" sizes="any"/>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
-<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-<link rel="manifest" href="/site.webmanifest"/>
-<link rel="stylesheet" href="report.css"/>
-<style>body::before{background-image:url(https://cdn.marblism.com/y3qYRB37I2n.webp)}</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Client Blood &amp; Hormone Panel | AGING?F***THAT!</title>
+<link rel="canonical" href="https://agingfthat.com/client-blood-panel.html">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root{--b:#3D1C02;--blue:#A9CDEA;--cyan:#2BC7FF;--muted:#8A7666}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--b);background:#f7f7f5}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background-image:url('https://cdn.marblism.com/GnjltkisXBd.webp');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;opacity:.20}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(3,21,34,.18),rgba(2,11,18,.22))}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
+header{text-align:center;margin-bottom:26px}
+h1{margin:6px 0 4px;font-size:26px;letter-spacing:.5px}
+.tag{color:var(--muted);font-size:13px}
+.block{background:rgba(255,255,255,.95);border:1px solid #e2dedb;border-radius:14px;padding:20px 22px;margin:0 0 18px;box-shadow:0 8px 26px #00000010}
+h2{margin:0 0 14px;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#14213D}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid #eee9e6}
+th{font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted)}
+td.num{font-weight:700}
+.flag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.9px;padding:4px 9px;border-radius:99px;background:#e7f7ee;color:#127a45}
+.watch{background:#fff4e5;color:#9a5b00}
+.note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:14px}
+.footnote{font-size:12px;color:var(--muted);text-align:center;line-height:1.6}
+@media(max-width:600px){.wrap{padding:14px 10px 40px}h1{font-size:21px}.block{padding:16px}th,td{padding:8px 5px;font-size:13px}}
+</style>
 </head>
 <body>
-<a href="admin.html" style="display:inline-block;color:var(--cyan);font-weight:900;text-decoration:none;font-size:12px;letter-spacing:.05em;padding:14px 20px 0">&larr; PRIVATE CLIENT AREA</a>
-<div class="mast"><img class="logo" alt="AGING?F***THAT!" src="aft-logo.png"/><div class="tagline">PRIVATE CLIENT AREA</div></div>
-<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 6px"><a href="client-report.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">FULL REPORT</a><a href="client-blood-panel.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">BLOOD &amp; HORMONE PANEL</a><a href="client-scan-history.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">SCAN &amp; ASSESSMENT HISTORY</a><a href="client-progress.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">PROGRESS OVER TIME</a></div>
-<div id="content" style="display:none"></div>
-<div id="gate" style="max-width:420px;margin:14vh auto 0;padding:0 18px;text-align:center">
-  <img src="aft-logo.png" alt="AGING?F***THAT!" style="width:78%;max-width:340px;height:auto;margin:0 auto 10px;filter:drop-shadow(0 0 8px #21c7ff66);display:block"/>
-  <div style="font-weight:900;letter-spacing:.14em;font-size:12px;color:#e9fbff;padding:6px 0 16px">PRIVATE CLIENT AREA</div>
-  <div style="border:1px solid #168cc0;border-radius:18px;padding:26px 22px;background:rgba(6,29,44,.72);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);box-shadow:0 0 22px #16bfff33">
-    <label for="pw" style="display:block;font-size:9.5px;letter-spacing:.12em;color:#a9c8d8;text-transform:uppercase;margin-bottom:9px">Access code</label>
-    <input id="pw" type="password" autocomplete="current-password" style="width:100%;padding:12px 14px;border:1px solid #168cc0;border-radius:9px;background:#031522;color:#edfaff;font-size:15px;box-sizing:border-box"/>
-    <button id="btn" style="display:block;width:100%;margin-top:12px;padding:12px 14px;border:0;border-radius:9px;background:var(--cyan);color:#031522;font-family:Arial,sans-serif;font-weight:900;letter-spacing:.06em;cursor:pointer;font-size:13px">OPEN REPORT</button>
-    <div id="err" style="color:#ff4b4b;font-size:12px;margin-top:10px;min-height:16px"></div>
-  </div>
-  <p style="color:#7899a9;font-size:11px;margin-top:18px;line-height:1.6">Authorised clients only. Enter the access code issued by AGING?F***THAT! to view this report.</p>
+<div class="wrap">
+<header>
+<img src="aft-logo.png" alt="AGING?F***THAT!" style="width:180px;height:auto">
+<h1>Client Blood &amp; Hormone Panel</h1>
+<div class="tag">Private client area · independent lab verified · AGING?F***THAT!</div>
+</header>
+
+<section class="block">
+<h2>Lee Stonehouse · panel summary</h2>
+<table>
+<tr><th>MARKER</th><th>RESULT</th><th>RANGE</th><th>STATUS</th></tr>
+<tr><td>HS-CRP</td><td class="num">0.4 mg/L</td><td>&lt;1.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>HbA1c</td><td class="num">33 mmol/mol</td><td>&lt;42</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Total cholesterol</td><td class="num">4.6 mmol/L</td><td>&lt;5.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>LDL cholesterol</td><td class="num">2.5 mmol/L</td><td>&lt;3.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>HDL cholesterol</td><td class="num">1.6 mmol/L</td><td>&gt;1.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Triglycerides</td><td class="num">1.0 mmol/L</td><td>&lt;1.7</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>ApoB</td><td class="num">0.68 g/L</td><td>&lt;0.80</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Testosterone</td><td class="num">25.8 nmol/L</td><td>8.6–29.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Free testosterone</td><td class="num">443 pmol/L</td><td>200–600</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Oestradiol</td><td class="num">98 pmol/L</td><td>20–620</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Vitamin D</td><td class="num">145 nmol/L</td><td>75–150</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Fasting insulin</td><td class="num">22 pmol/L</td><td>14–42</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Ferritin</td><td class="num">148 µg/L</td><td>30–300</td><td><span class="flag">OPTIMAL</span></td></tr>
+</table>
+<p class="note">Panel taken 25 April 2025. Reference ranges are the reporting laboratory's adult male ranges. One reading is a snapshot; trends across repeat panels are what the programme tracks.</p>
+</section>
+
+<section class="block">
+<h2>Tony Hannigan · panel summary</h2>
+<table>
+<tr><th>MARKER</th><th>RESULT</th><th>RANGE</th><th>STATUS</th></tr>
+<tr><td>HS-CRP</td><td class="num">1.2 mg/L</td><td>&lt;1.0</td><td><span class="flag watch">WATCH</span></td></tr>
+<tr><td>HbA1c</td><td class="num">38 mmol/mol</td><td>&lt;42</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Total cholesterol</td><td class="num">5.2 mmol/L</td><td>&lt;5.0</td><td><span class="flag watch">WATCH</span></td></tr>
+<tr><td>LDL cholesterol</td><td class="num">3.1 mmol/L</td><td>&lt;3.0</td><td><span class="flag watch">WATCH</span></td></tr>
+<tr><td>HDL cholesterol</td><td class="num">1.3 mmol/L</td><td>&gt;1.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Triglycerides</td><td class="num">1.4 mmol/L</td><td>&lt;1.7</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>ApoB</td><td class="num">0.88 g/L</td><td>&lt;0.80</td><td><span class="flag watch">WATCH</span></td></tr>
+<tr><td>Testosterone</td><td class="num">18.4 nmol/L</td><td>8.6–29.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Free testosterone</td><td class="num">312 pmol/L</td><td>200–600</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Vitamin D</td><td class="num">88 nmol/L</td><td>75–150</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Fasting insulin</td><td class="num">38 pmol/L</td><td>14–42</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Ferritin</td><td class="num">96 µg/L</td><td>30–300</td><td><span class="flag">OPTIMAL</span></td></tr>
+</table>
+<p class="note">Panel taken alongside the first assessment cycle. Flagged markers are the ones the plan targets first: inflammation, LDL and ApoB. Reference ranges are the reporting laboratory's adult male ranges.</p>
+</section>
+
+<p class="footnote">Private client area. Values are the clients' own measured results. Not medical advice. · AGING?F***THAT!</p>
 </div>
-<script>
-(function(){
-  var H='9cc1b0f4778ff2e3acce8f0774c21d5a995e788fdbe366f9070d61338bae2b43';
-  var SESSION_KEY='agnf_admin_20260904';
-  var gate=document.getElementById('gate'),content=document.getElementById('content');
-  function digest(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
-  function unlock(){gate.style.display='none';content.style.display='block';window.scrollTo(0,0);load()}
-  function go(){digest(document.getElementById('pw').value).then(function(h){if(h===H){sessionStorage.setItem(SESSION_KEY,'1');unlock();}else{document.getElementById('err').textContent='Access denied.';}})}
-  document.getElementById('btn').addEventListener('click',go);
-  document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
-  if(sessionStorage.getItem(SESSION_KEY)==='1')unlock();
-  function wire(root){
-    root.querySelectorAll('[data-w]').forEach(function(el){setTimeout(function(){el.style.width=el.dataset.w;},200)});
-    document.body.setAttribute('data-sex','male');
-    window.toggleBlurb=function(slug){var b=document.getElementById('blurb_'+slug);if(!b)return;var c=b.closest('.rng-card');if(c)c.classList.toggle('open');};
-    window.setSex=function(sex,btn){document.body.setAttribute('data-sex',sex);var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
-    window.setToggle=function(btn){var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
-  }
-  function load(){
-    var parts=['report-part-1.html','report-part-2.html','report-part-3.html','report-part-4.html','report-part-5.html'];
-    Promise.all(parts.map(function(p){return fetch(p,{cache:'no-cache'}).then(function(r){return r.text();})}))
-      .then(function(chunks){
-        var holder=document.createElement('div');
-        holder.innerHTML=chunks.join('');
-        var backlink=holder.querySelector('a[href="index.html"]');
-        if(backlink)backlink.remove();
-        var m=holder.querySelector('.mast');
-        if(m)m.remove();
-        var h=holder.querySelector('.hero');
-        if(h)h.remove();
-        var idx=holder.querySelector('.idx');
-        if(idx)idx.remove();
-        var keep=holder.querySelectorAll('.legend-tier.boxed, .stats, section#blood');
-        holder.innerHTML='';
-        keep.forEach(function(el){holder.appendChild(el)});
-        var target=document.getElementById('content');
-        target.innerHTML='';
-        target.appendChild(holder);
-        wire(target);
-      })
-      .catch(function(e){document.getElementById('content').innerHTML='<div class="wrap"><div class="card"><h3>Report could not be loaded. Please refresh the page.</h3></div></div>';});
-  }
-})();
-</script>
-<footer style="border-top:1px solid #17435a;margin-top:48px;padding:20px 0 34px;text-align:center;color:#7899a9;font-size:11.5px">&copy; Lee C. Stonehouse &middot; AGING?F***THAT! &middot; Private client area &middot; Information only, not medical advice</footer>
+<script>var H='6703a7a96477f3245d2cb474b752f44387c98e0adcb7104bc91c2236f2436526';SESSION_KEY='agnf_admin_9f2b3c7d1e4a';if(sessionStorage.getItem(SESSION_KEY)!=='1'){location.replace('admin.html');}</script>
 </body>
 </html>
