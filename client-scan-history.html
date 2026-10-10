@@ -4,15 +4,15 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <meta name="robots" content="noindex,nofollow"/>
-<title>Scan & Assessment History | AGING?F***THAT!</title>
-<meta name="description" content="Private client scan and assessment history: chiropractic and posture analysis, VO2 Max and DEXA body composition and bone density trends."/>
+<title>Scan &amp; Assessment History | AGING?F***THAT!</title>
+<meta name="description" content="Private client scan and assessment history: chiropractic and posture analysis, VO2 Max testing and DEXA body composition over time."/>
 <link rel="canonical" href="https://agingfthat.com/client-scan-history.html"/>
 <link rel="icon" href="/favicon.ico" sizes="any"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <link rel="stylesheet" href="report.css"/>
-<style>body::before{background-image:url(https://cdn.marblism.com/dBKBCjiRpwT.webp);background-position:center}</style>
+<style>body::before{background-image:url(https://cdn.marblism.com/y3qYRB37I2n.webp)}</style>
 </head>
 <body>
 <a href="admin.html" style="display:inline-block;color:var(--cyan);font-weight:900;text-decoration:none;font-size:12px;letter-spacing:.05em;padding:14px 20px 0">&larr; PRIVATE CLIENT AREA</a>
@@ -32,8 +32,8 @@
 </div>
 <script>
 (function(){
-  var H='9cc1b0f4778ff2e3acce8f0774c21d5a995e788fdbe366f9070d61338bae2b43';
-  var SESSION_KEY='agnf_admin_20260904';
+  var H='6703a7a96477f3245d2cb474b752f44387c98e0adcb7104bc91c2236f2436526';
+  var SESSION_KEY='agnf_admin_9f2b3c7d1e4a';
   var gate=document.getElementById('gate'),content=document.getElementById('content');
   function digest(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
   function unlock(){gate.style.display='none';content.style.display='block';window.scrollTo(0,0);load()}
@@ -49,20 +49,12 @@
     window.setToggle=function(btn){var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
   }
   function load(){
-    var parts=['report-part-1.html','report-part-2.html','report-part-3.html','report-part-4.html','report-part-5.html'];
+    var parts=['report-part-1.html','report-part-2.html','report-part-3.html'];
     Promise.all(parts.map(function(p){return fetch(p,{cache:'no-cache'}).then(function(r){return r.text();})}))
       .then(function(chunks){
         var holder=document.createElement('div');
         holder.innerHTML=chunks.join('');
-        var backlink=holder.querySelector('a[href="index.html"]');
-        if(backlink)backlink.remove();
-        var m=holder.querySelector('.mast');
-        if(m)m.remove();
-        var h=holder.querySelector('.hero');
-        if(h)h.remove();
-        var idx=holder.querySelector('.idx');
-        if(idx)idx.remove();
-        var keep=holder.querySelectorAll('section#chiro, section#vo2, section#dexa');
+        var keep=holder.querySelectorAll('.legend-tier.boxed, section#scan');
         holder.innerHTML='';
         keep.forEach(function(el){holder.appendChild(el)});
         var target=document.getElementById('content');
