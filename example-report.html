@@ -1,200 +1,189 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Client Report — Biometric Age Assessment Dashboard | AGING?F***THAT!</title>
-<meta name="description" content="An AFT biometric age assessment dashboard: body composition, movement and posture, heart health, blood markers and biological age in one view.">
+<title>Client Report — Biometric Age Assessment | AGING?F***THAT!</title>
+<meta name="description" content="An AFT biometric age assessment dashboard: body composition, movement and posture, heart health, blood markers and biological age.">
 <link rel="canonical" href="https://agingfthat.com/example-report.html">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
 <style>
-:root{--navy:#031522;--panel:#061d2c;--line:#123c52;--text:#edfaff;--muted:#a9c8d8;--cyan:#2BC7FF;--amber:#FF9F1C;--green:#21c97a;--red:#ff4b4b;--violet:#A855F7}
+:root{--navy:#031522;--panel:#04192a;--panel2:#062033;--line:#0f3b57;--text:#edfaff;--muted:#9fc4d6;--cyan:#2BC7FF;--green:#21c97a;--red:#ff4b4b;--violet:#A855F7;--amber:#FF9F1C}
 *{box-sizing:border-box}
-body{margin:0;background:var(--navy);color:var(--text);font:15px/1.5 Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--navy);color:var(--text);font:13px/1.45 Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
 a{color:var(--cyan)}
-.hero{position:relative;overflow:hidden;padding:18px 16px 14px;background:linear-gradient(120deg,#04243a,#031522 62%);border-bottom:1px solid var(--line)}
-.hero:after{content:"";position:absolute;right:-40px;top:-30px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#1e8fd422,transparent 68%);pointer-events:none}
-.wm{font-size:clamp(20px,5.6vw,40px);font-weight:900;letter-spacing:-.02em;line-height:1;margin:0;text-shadow:0 0 14px #2bc7ff55}
-.wm em{font-style:normal;color:var(--cyan)}
-.sub{margin:8px 0 0;font-size:clamp(11px,2.6vw,15px);font-weight:900;letter-spacing:.18em;color:#dff4ff}
-.strap{margin:7px 0 0;font-size:clamp(9px,2.1vw,12px);font-weight:800;letter-spacing:.22em;color:var(--cyan)}
+.hero{display:grid;grid-template-columns:1fr auto;align-items:center;gap:10px;padding:14px 14px 10px;background:linear-gradient(120deg,#04243a,#031522 62%);border-bottom:1px solid var(--line)}
+.hero-txt h1{margin:0;font-size:clamp(19px,5vw,34px);font-weight:900;letter-spacing:-.02em;line-height:1;text-shadow:0 0 14px #2bc7ff55}
+.hero-txt h1 em{font-style:normal;color:var(--cyan)}
+.hero-txt p{margin:6px 0 0;font-size:clamp(10px,2.3vw,14px);font-weight:900;letter-spacing:.16em;color:#dff4ff}
+.hero-txt .strap{margin:5px 0 0;font-size:clamp(8px,1.9vw,11px);font-weight:800;letter-spacing:.2em;color:var(--cyan)}
+.hero-art img{display:block;width:clamp(70px,17vw,150px);height:auto;opacity:.75}
 .metabar{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
-.metabar div{background:#052030;padding:9px 12px;font-size:11.5px;color:var(--muted)}
-.metabar b{display:block;color:#fff;font-size:12.5px;margin-top:2px}
-.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-left:5px;vertical-align:middle}
+.metabar div{background:#041c2c;padding:7px 11px;font-size:10px;color:var(--muted)}
+.metabar b{display:block;color:#fff;font-size:11.5px;margin-top:1px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:5px;vertical-align:middle}
 .dot.w{background:var(--amber)}
-.wrap{padding:14px 12px 26px;max-width:1400px;margin:0 auto}
-.panels{display:grid;gap:12px;grid-template-columns:1fr}
-.panel{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--cyan);border-radius:12px;padding:13px 13px 0;display:flex;flex-direction:column}
-.panel.bc{border-top-color:var(--amber)}.panel.mp{border-top-color:var(--green)}.panel.hh{border-top-color:var(--red)}.panel.ba{border-top-color:var(--violet)}.panel.bx{border-top-color:var(--cyan)}
-.ph{display:flex;align-items:center;gap:9px;margin-bottom:10px}
-.ic{width:30px;height:30px;flex:0 0 30px;border-radius:8px;display:grid;place-items:center;font-size:15px;background:#0b2b3f}
-.panel.bc .ic{color:var(--amber)}.panel.mp .ic{color:var(--green)}.panel.hh .ic{color:var(--red)}.panel.ba .ic{color:var(--violet)}.panel.bx .ic{color:var(--cyan)}
-.ph h2{margin:0;font-size:12.5px;letter-spacing:.11em;font-weight:900}
-.ph p{margin:2px 0 0;font-size:9.5px;letter-spacing:.08em;color:var(--muted)}
-.rows{display:grid;gap:8px;margin-bottom:10px}
-.row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-bottom:1px solid #0f2f42;padding-bottom:6px}
-.row span{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
-.row b{font-size:16px;font-weight:900}
-.tag{display:inline-block;font-size:9px;font-weight:900;letter-spacing:.07em;padding:2px 6px;border-radius:99px;margin-left:5px;vertical-align:middle}
-.ok{background:#0f3f2a;color:#5ff0a8}.bad{background:#42201c;color:#ff9b8f}.warn{background:#42331a;color:#ffd479}
-.bars{display:grid;gap:6px;margin:0 0 10px}
-.bar{display:grid;grid-template-columns:74px 1fr 52px;align-items:center;gap:7px;font-size:9.5px;color:var(--muted)}
-.track{height:7px;border-radius:99px;background:#0d2b3c;overflow:hidden}
-.track i{display:block;height:100%;border-radius:99px}
-.bar b{text-align:right;color:#dff2fb;font-size:10px}
-.good{background:linear-gradient(90deg,#21c97a,#5ff0a8)}.mid{background:linear-gradient(90deg,#FF9F1C,#ffd479)}.hot{background:linear-gradient(90deg,#ff4b4b,#ff9b8f)}.cy{background:linear-gradient(90deg,#2BC7FF,#7d5cf6)}
-.railtxt{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 10px}
-.railtxt i{font-style:normal;font-size:9px;letter-spacing:.05em;color:#9fc4d6;border:1px solid #14415a;border-radius:99px;padding:3px 7px}
-.shots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
-.shots img{width:100%;height:auto;border-radius:8px;border:1px solid #14415a;display:block;background:#02101a}
-ul.li{list-style:none;margin:0 0 10px;padding:0}
-ul.li li{position:relative;padding-left:15px;font-size:11.5px;color:#d6ecf7;margin-bottom:4px}
-ul.li li:before{content:"\2022";position:absolute;left:2px;color:var(--cyan);font-weight:900}
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-.tile{border:1px solid #14415a;border-radius:9px;padding:9px;background:#04222f;text-align:center}
-.tile small{display:block;font-size:9px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
-.tile b{display:block;font-size:19px;font-weight:900;margin:3px 0 4px}
-.tile u{display:inline-block;text-decoration:none;font-size:8.5px;font-weight:900;letter-spacing:.07em;padding:2px 7px;border-radius:99px}
-.donutwrap{display:grid;place-items:center;margin-bottom:9px}
-.donut{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;position:relative}
-.donut:after{content:"";position:absolute;inset:11px;border-radius:50%;background:#04202e}
-.donut .inner{position:relative;text-align:center;z-index:2}
-.donut .inner small{display:block;font-size:8.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
-.donut .inner b{display:block;font-size:33px;font-weight:900;line-height:1;margin:2px 0}
-.donut .inner em{font-style:normal;font-size:9px;letter-spacing:.08em;color:var(--muted)}
-.donut .inner u{display:block;text-decoration:none;font-size:9.5px;font-weight:800;color:#fff;margin-top:3px}
-.strip{text-align:center;font-size:10.5px;font-weight:900;letter-spacing:.05em;border-radius:7px;padding:7px 8px;margin-bottom:9px}
-.strip.good{background:#0f3f2a;color:#5ff0a8}.strip.bad{background:#421c1c;color:#ffb3a8}
-.note{font-style:italic;font-size:10.5px;color:var(--muted);text-align:center;margin:0 0 10px}
-.pb{margin-top:auto;padding-bottom:13px}
-.btn{display:block;width:100%;border:1px solid #1a4f6b;border-radius:99px;background:#08283a;color:#fff;font-weight:900;font-size:10.5px;letter-spacing:.06em;padding:11px 10px;text-align:center;text-decoration:none;cursor:pointer;font-family:inherit}
-.panel.bc .btn{border-color:var(--amber);color:#ffdca8}.panel.mp .btn{border-color:var(--green);color:#b6f7d4}
-.panel.hh .btn{border-color:var(--red);color:#ffc9c2}.panel.ba .btn{border-color:var(--violet);color:#e3ccff}.panel.bx .btn{border-color:var(--cyan)}
-table.mk{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px}
-table.mk th{font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 5px;border-bottom:1px solid #0f2f42}
-table.mk td{padding:6px 5px;border-bottom:1px solid #0d2b3c}
-table.mk td.n{font-weight:900;white-space:nowrap}
-.two{display:grid;gap:12px;margin-top:12px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px}
-.card h2{margin:0 0 11px;font-size:12px;letter-spacing:.12em;font-weight:900;color:#fff}
-.steps{display:grid;gap:9px}
-.step{display:flex;gap:10px;align-items:flex-start}
-.step i{flex:0 0 26px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--cyan);color:var(--cyan);display:grid;place-items:center;font-style:normal;font-weight:900;font-size:11px}
-.step div b{display:block;font-size:12px}
-.step div span{font-size:10.5px;color:var(--muted)}
-.docs{display:grid;gap:7px}
-.doc{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #123c52;border-radius:9px;padding:9px 10px;font-size:11.5px}
-.doc span{display:block}
-.doc small{display:block;color:var(--muted);font-size:9.5px;letter-spacing:.04em;margin-top:2px}
-.doc em{font-style:normal;font-size:9px;font-weight:900;letter-spacing:.06em;color:#8fb8cc;border:1px solid #1a4f6b;border-radius:99px;padding:3px 8px;white-space:nowrap}
-.disc{font-size:10px;color:#7899a9;margin:10px 0 0;line-height:1.5}
-footer{border-top:1px solid var(--line);padding:16px 14px;text-align:center;font-size:10.5px;color:#7899a9;background:#020d16}
-footer .l{font-weight:900;letter-spacing:.09em;color:#cfe9f5}
-footer .r{margin-top:4px;letter-spacing:.11em}
-.hide{display:none!important}
-@media(min-width:640px){.metabar{grid-template-columns:repeat(4,1fr)}.wrap{padding:18px 16px 34px}.panels{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr 1fr}}
-@media(min-width:1080px){.panels{grid-template-columns:repeat(4,1fr);gap:14px}.wrap{padding:20px 22px 40px}.hero{padding:22px 22px 16px}}
-
-</style>
-<style>
-.gaugewrap{display:grid;place-items:center;margin:4px 0 10px}
-.gauge{position:relative;width:158px;height:158px}
-.gauge svg{display:block;width:158px;height:158px;transform:rotate(-90deg)}
-.gauge .ctr{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:0 14px}
-.gauge .ctr small{font-size:8px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;line-height:1.25}
-.gauge .ctr b{font-size:30px;font-weight:900;line-height:1;display:block;margin:3px 0 2px}
-.gauge .ctr em{font-style:normal;font-size:8.5px;letter-spacing:.07em;color:var(--muted);display:block}
-.gauge .ctr u{text-decoration:none;display:block;font-size:9px;font-weight:800;color:#fff;margin-top:3px}
-.ecg{display:block;width:100%;height:46px;margin:0 0 8px}
-.ecg polyline{fill:none;stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
-.chart{background:#04202e;border:1px solid #14415a;border-radius:9px;padding:10px 9px 6px;margin-bottom:10px}
-.chart svg{display:block;width:100%;height:152px}
-.chart .gl{stroke:#12405a;stroke-width:1}
-.chart .ax{fill:#8fb8cc;font-size:8.5px;letter-spacing:.04em}
-.chart .lg{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:6px}
-.chart .lg span{font-size:9px;color:var(--muted);display:flex;align-items:center;gap:5px}
-.chart .lg i{width:12px;height:3px;border-radius:2px;display:inline-block}
-.figpair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
-.figpair img{width:100%;height:auto;border-radius:8px;border:1px solid #14415a;display:block;background:#02101a}
-.mini{display:grid;gap:6px;margin:0 0 10px}
-.minirow{display:grid;grid-template-columns:1fr 62px;align-items:center;gap:8px;font-size:10.5px;color:var(--muted)}
-.minirow .track{height:8px;border-radius:99px;background:#0d2b3c;overflow:hidden}
-.minirow b{font-size:10.5px;text-align:right;color:#dff2fb}
-.note2{font-size:9.5px;color:#7899a9;margin:6px 0 0;line-height:1.45}
-.absent{background:#152a3a;color:#8fb8cc}
-</style>
-</head><body>
-<header class="hero"><h1 class="wm">AGING?<em>F***</em>THAT!</h1><p class="sub">BIOMETRIC AGE ASSESSMENT DASHBOARD</p><p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></header>
+.wrap{padding:11px 10px 22px;max-width:1500px;margin:0 auto}
+.panels{display:grid;gap:9px;grid-template-columns:repeat(2,1fr)}
+.panel{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;display:flex;flex-direction:column;overflow:hidden}
+.panel.bc{border-color:#1c5d8a}.panel.mp{border-color:#1d7a4e}.panel.hh{border-color:#8a2b2b}.panel.ba{border-color:#6a3a9e}
+.ph{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center;padding:9px 10px;border-bottom:1px solid var(--line)}
+.panel.bc .ph{background:linear-gradient(90deg,#08324d,#061f31)}
+.panel.mp .ph{background:linear-gradient(90deg,#073d29,#061f31)}
+.panel.hh .ph{background:linear-gradient(90deg,#4a1414,#061f31)}
+.panel.ba .ph{background:linear-gradient(90deg,#3a1a56,#061f31)}
+.ic{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:14px;background:#0b2b3f}
+.panel.bc .ic{color:var(--cyan);background:#0d3d5c}.panel.mp .ic{color:var(--green);background:#0d4530}
+.panel.hh .ic{color:var(--red);background:#4d1414}.panel.ba .ic{color:#d8b4fe;background:#3d1a5c}
+.ph h2{margin:0;font-size:11px;letter-spacing:.1em;font-weight:900;line-height:1.15}
+.ph p{margin:2px 0 0;font-size:7.5px;letter-spacing:.07em;color:var(--muted);line-height:1.25}
+.body{padding:10px;flex:1;display:flex;flex-direction:column}
+.pb{padding:0 10px 10px}
+.btn{display:block;width:100%;border:1px solid #1a4f6b;border-radius:7px;background:#08283a;color:#fff;font-weight:900;font-size:9px;letter-spacing:.05em;padding:9px 8px;text-align:center;text-decoration:none;cursor:pointer;font-family:inherit}
+.panel.bc .btn{border-color:#1c5d8a;color:#a8e4ff}.panel.mp .btn{border-color:#1d7a4e;color:#a8f7cf}
+.panel.hh .btn{border-color:#8a2b2b;color:#ffc9c2}.panel.ba .btn{border-color:#6a3a9e;color:#e3ccff}
+.bcgrid{display:grid;grid-template-columns:1fr;gap:8px}
+.fig{position:relative;border-radius:8px;overflow:hidden;background:#02101a;border:1px solid #0f3b57}
+.fig img{display:block;width:100%;height:auto}
+.stats{display:grid;gap:5px}
+.stat{display:flex;align-items:baseline;justify-content:space-between;gap:6px;border-bottom:1px solid #0d2f42;padding-bottom:4px}
+.stat span{color:var(--muted);font-size:8.5px;letter-spacing:.05em;text-transform:uppercase}
+.stat b{font-size:14px;font-weight:900;line-height:1.1}
+.tag{display:inline-block;font-size:8px;font-weight:900;letter-spacing:.05em;padding:1px 5px;border-radius:99px;margin-left:4px;vertical-align:middle}
+.ok{background:#0f3f2a;color:#5ff0a8}.bad{background:#42201c;color:#ff9b8f}.warn{background:#42331a;color:#ffd479}.absent{background:#152a3a;color:#8fb8cc}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:8px 0 0}
+.chip{background:#06263a;border:1px solid #103f59;border-radius:6px;padding:5px 2px;text-align:center;font-size:6.5px;letter-spacing:.03em;color:#9fc4d6;line-height:1.15}
+.chip i{display:block;font-style:normal;font-size:12px;color:var(--cyan);margin-bottom:3px}
+.figpair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.figpair img{width:100%;height:auto;border-radius:7px;border:1px solid #0f3b57;display:block;background:#02101a}
+.sil{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px}
+.sil svg{width:100%;height:auto;display:block}
+ul.li{list-style:none;margin:0 0 8px;padding:0}
+ul.li li{position:relative;padding-left:12px;font-size:9.5px;color:#d6ecf7;margin-bottom:3px;line-height:1.3}
+ul.li li:before{content:"\2022";position:absolute;left:1px;color:var(--green);font-weight:900}
+.panel.hh ul.li li:before{color:var(--red)}
+.heartwrap{position:relative;margin-bottom:8px}
+.heartwrap img{display:block;width:100%;height:auto;border-radius:7px}
+.ecg{position:absolute;left:0;right:0;top:50%;height:34px;transform:translateY(-50%);width:100%}
+.ecg polyline{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.tile{border:1px solid #14415a;border-radius:7px;padding:7px 5px;background:#062028;text-align:center}
+.tile small{display:block;font-size:7.5px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
+.tile b{display:block;font-size:16px;font-weight:900;margin:2px 0 3px;line-height:1}
+.tile u{display:inline-block;text-decoration:none;font-size:7.5px;font-weight:900;letter-spacing:.04em;padding:2px 6px;border-radius:99px}
+.gaugewrap{display:grid;place-items:center;margin:2px 0 8px}
+.gauge{position:relative;width:min(150px,100%);aspect-ratio:1}
+.gauge svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
+.gauge .ctr{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:0 16px}
+.gauge .ctr small{font-size:7px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;line-height:1.2}
+.gauge .ctr b{font-size:26px;font-weight:900;line-height:1;display:block;margin:2px 0 1px}
+.gauge .ctr em{font-style:normal;font-size:7.5px;letter-spacing:.05em;color:var(--muted);display:block}
+.gauge .ctr u{text-decoration:none;display:block;font-size:8px;font-weight:800;color:#fff;margin-top:2px}
+.strip{text-align:center;font-size:9.5px;font-weight:900;letter-spacing:.04em;border-radius:6px;padding:6px;margin-bottom:7px}
+.strip.good{background:#0f3f2a;color:#5ff0a8}.strip.bad{background:#421c1c;color:#ffb3a8}.strip.warn{background:#42331a;color:#ffd479}
+.note{font-style:italic;font-size:8.5px;color:var(--muted);text-align:center;margin:0 0 8px;line-height:1.3}
+.mini{display:grid;gap:5px;margin:0 0 8px}
+.minirow{display:grid;grid-template-columns:1fr 48px;align-items:center;gap:6px;font-size:8.5px;color:var(--muted)}
+.minirow .track{height:7px;border-radius:99px;background:#0d2b3c;overflow:hidden}
+.minirow b{font-size:9px;text-align:right;color:#dff2fb}
+.bloodrow{display:grid;gap:6px}
+.bm{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;border:1px solid #0f3b57;border-radius:7px;padding:6px 8px;background:#062028}
+.bm span{font-size:9.5px;color:#dff2fb}
+.bm small{display:block;font-size:7.5px;color:var(--muted);margin-top:1px}
+.bm b{font-size:12px;font-weight:900;text-align:right;white-space:nowrap}
+.two{display:grid;gap:9px;margin-top:9px}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;padding:10px}
+.card h2{margin:0 0 8px;font-size:10.5px;letter-spacing:.1em;font-weight:900;color:#fff}
+.steps{display:grid;grid-template-columns:1fr;gap:7px}
+.step{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center}
+.step i{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--cyan);color:var(--cyan);display:grid;place-items:center;font-style:normal;font-weight:900;font-size:10px}
+.step b{display:block;font-size:9.5px}
+.step small{font-size:8.5px;color:var(--muted)}
+.docs{display:grid;gap:5px}
+.doc{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;border:1px solid #0f3b57;border-radius:7px;padding:6px 8px;font-size:9.5px;background:#062028}
+.doc small{display:block;color:var(--muted);font-size:7.5px;margin-top:1px}
+.doc em{font-style:normal;font-size:7.5px;font-weight:900;letter-spacing:.04em;color:#8fb8cc;border:1px solid #1a4f6b;border-radius:99px;padding:2px 7px;white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:12px;text-align:center;font-size:9.5px;color:#7899a9;background:#020d16;margin-top:12px}
+footer .l{font-weight:900;letter-spacing:.07em;color:#cfe9f5}
+footer .r{margin-top:3px;letter-spacing:.09em}
+.disc{font-size:8.5px;color:#7899a9;margin:6px 0 0;line-height:1.4}
+@media(min-width:700px){
+ .metabar{grid-template-columns:repeat(4,1fr)}
+ .wrap{padding:14px 14px 28px}
+ .steps{grid-template-columns:repeat(4,1fr)}
+ .bloodrow{grid-template-columns:1fr 1fr}
+ .two{grid-template-columns:1.35fr 1fr}
+ .fig{max-width:270px;margin:0 auto}
+}
+@media(min-width:1080px){
+ .panels{grid-template-columns:repeat(4,1fr);gap:11px}
+ .wrap{padding:16px 18px 34px}
+ .ph h2{font-size:11.5px}
+ .stat b{font-size:15px}
+ .bloodrow{grid-template-columns:repeat(3,1fr)}
+ .two{grid-template-columns:1.4fr 1fr}
+}
+</style></head><body>
+<header class="hero"><div class="hero-txt"><h1>AGING?<em>F***</em>THAT!</h1><p>BIOMETRIC AGE ASSESSMENT DASHBOARD</p><p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></div><div class="hero-art"><img src="https://cdn.marblism.com/wNUCuEXFNct.webp" alt="3D anatomical scan figure illustrating a biometric age assessment"></div></header>
 <div class="metabar"><div>Name<b>Lee C. Stonehouse</b></div><div>Assessment Date<b>08 OCT 2026</b></div><div>Program<b>Elite</b></div><div>Status<b>Client<span class="dot "></span></b></div></div>
 <div class="wrap">
 <div class="panels">
 <section class="panel bc"><div class="ph"><span class="ic">&#128100;</span><div><h2>BODY COMPOSITION</h2><p>DEXA SCAN &#183; T1 / T2 / T3</p></div></div>
-<div class="rows">
-<div class="row"><span>Weight</span><b>85.7 kg</b></div>
-<div class="row"><span>Muscle Mass</span><b>74.6 kg<span class="tag ok">EXCEPTIONAL</span></b></div>
-<div class="row"><span>Body Fat</span><b>9.6%<span class="tag ok">LEAN</span></b></div>
-<div class="row"><span>Visceral Fat</span><b>54.6 cm&#178;<span class="tag ok">LOW</span></b></div>
-<div class="row"><span>BMI</span><b>22.4<span class="tag ok">HEALTHY</span></b></div>
-</div>
-<div class="chart"><svg viewBox="0 0 300 152"><line class="gl" x1="34" y1="10.0" x2="292" y2="10.0"/><text class="ax" x="2" y="13.0">85</text><line class="gl" x1="34" y1="50.7" x2="292" y2="50.7"/><text class="ax" x="2" y="53.7">56</text><line class="gl" x1="34" y1="91.3" x2="292" y2="91.3"/><text class="ax" x="2" y="94.3">28</text><line class="gl" x1="34" y1="132.0" x2="292" y2="132.0"/><text class="ax" x="2" y="135.0">-1</text><text class="ax" x="34.0" y="148" text-anchor="middle">T1</text><text class="ax" x="163.0" y="148" text-anchor="middle">T2</text><text class="ax" x="292.0" y="148" text-anchor="middle">T3</text><polyline points="34.0,29.6 163.0,27.2 292.0,24.8" fill="none" stroke="#2BC7FF" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="34.0" cy="29.6" r="3" fill="#2BC7FF"/><circle cx="163.0" cy="27.2" r="3" fill="#2BC7FF"/><circle cx="292.0" cy="24.8" r="3" fill="#2BC7FF"/><polyline points="34.0,111.8 163.0,114.5 292.0,117.2" fill="none" stroke="#21c97a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="34.0" cy="111.8" r="3" fill="#21c97a"/><circle cx="163.0" cy="114.5" r="3" fill="#21c97a"/><circle cx="292.0" cy="117.2" r="3" fill="#21c97a"/><polyline points="34.0,28.5 163.0,41.3 292.0,53.2" fill="none" stroke="#FF9F1C" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="34.0" cy="28.5" r="3" fill="#FF9F1C"/><circle cx="163.0" cy="41.3" r="3" fill="#FF9F1C"/><circle cx="292.0" cy="53.2" r="3" fill="#FF9F1C"/><polyline points="34.0,97.0 163.0,98.0 292.0,99.0" fill="none" stroke="#A855F7" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="34.0" cy="97.0" r="3" fill="#A855F7"/><circle cx="163.0" cy="98.0" r="3" fill="#A855F7"/><circle cx="292.0" cy="99.0" r="3" fill="#A855F7"/></svg><div class="lg"><span><i style="background:#2BC7FF"></i>Muscle mass (kg)</span><span><i style="background:#21c97a"></i>Body fat (%)</span><span><i style="background:#FF9F1C"></i>Visceral fat</span><span><i style="background:#A855F7"></i>BMI</span></div></div>
-<p class="note2">Three DEXA assessments at 12-month intervals. Muscle mass rising while body fat and visceral fat fall is the intended direction of travel.</p>
-<div class="pb"><a class="btn" href="#">VIEW FULL DEXA SCAN REPORT</a></div></section>
+<div class="body"><div class="bcgrid"><div class="fig"><img src="https://cdn.marblism.com/9J9277dyCCt.webp" alt="3D anatomical body composition visualisation showing muscle volume in blue and visceral fat in amber"></div>
+<div class="stats">
+<div class="stat"><span>Weight</span><b>85.7 kg</b></div>
+<div class="stat"><span>Body Fat</span><b>9.6%<span class="tag ok">LEAN</span></b></div>
+<div class="stat"><span>Muscle Mass</span><b>74.6 kg<span class="tag ok">EXCEPTIONAL</span></b></div>
+<div class="stat"><span>Visceral Fat</span><b>54.6 cm&#178;<span class="tag ok">LOW</span></b></div>
+<div class="stat"><span>BMI</span><b>22.4<span class="tag ok">HEALTHY</span></b></div>
+</div></div><div class="chips">
+<div class="chip"><i>1</i>Segmental Analysis</div>
+<div class="chip"><i>2</i>Muscle Balance</div>
+<div class="chip"><i>3</i>Body Shape</div>
+<div class="chip"><i>4</i>Metabolic Age</div>
+</div><div class="mini"><div class="minirow"><span>Muscle</span><span class="track"><i class="#21c97a" style="width:92%"></i></span><b>74.6 kg</b></div><div class="minirow"><span>Body fat</span><span class="track"><i class="#21c97a" style="width:90%"></i></span><b>9.6%</b></div><div class="minirow"><span>Visceral</span><span class="track"><i class="#21c97a" style="width:95%"></i></span><b>54.6</b></div><div class="minirow"><span>BMI</span><span class="track"><i class="#21c97a" style="width:88%"></i></span><b>22.4</b></div></div>
+</div><div class="pb"><a class="btn" href="#">VIEW FULL DEXA SCAN REPORT</a></div></section>
 <section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2><p>CHIROPRACTIC ANALYSIS &#183; MOVEMENT &#183; ALIGNMENT &#183; POSTURE</p></div></div>
-<div class="figpair"><img src="https://cdn.marblism.com/5BmFVv925aB.webp" alt="3D anatomical posture figure, front view, with a vertical alignment axis and offset markers at head, shoulders, ribcage, pelvis and knees" loading="lazy"><img src="https://cdn.marblism.com/QBo1eqeRDxl.webp" alt="3D anatomical posture figure, side view, with a vertical plumb line and angle markers at the cervical spine, thoracic curve, lumbar and pelvis" loading="lazy"></div>
-<ul class="li"><li>Forward head posture</li><li>Anterior pelvic tilt</li><li>Reduced spinal alignment</li><li>Measured against the 25 Apr 2025 assessment</li><li>Personalised recommendations</li></ul>
-<div class="mini">
-<div class="minirow"><span>Head shift</span><span class="track"><i class="#FF9F1C" style="width:62%"></i></span><b>1.40cm L</b></div>
-<div class="minirow"><span>Shoulders</span><span class="track"><i class="#21c97a" style="width:42%"></i></span><b>0.77cm R</b></div>
-<div class="minirow"><span>Ribcage</span><span class="track"><i class="#21c97a" style="width:30%"></i></span><b>0.44cm L</b></div>
-<div class="minirow"><span>Pelvis</span><span class="track"><i class="#FF9F1C" style="width:74%"></i></span><b>2.46cm L</b></div>
-<div class="minirow"><span>Knees</span><span class="track"><i class="#21c97a" style="width:32%"></i></span><b>0.60cm L</b></div>
-</div>
-<div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
+<div class="body"><div class="figpair"><img src="https://cdn.marblism.com/5BmFVv925aB.webp" alt="3D anatomical posture figure, front view, with a vertical alignment axis and offset markers"><img src="https://cdn.marblism.com/QBo1eqeRDxl.webp" alt="3D anatomical posture figure, side view, with a vertical plumb line and angle markers"></div>
+<div class="sil"><svg viewBox="0 0 40 76"><g fill="#FF9F1C"><circle cx="20" cy="8" r="6"/><rect x="15" y="15" width="10" height="20" rx="4"/><rect x="6" y="17" width="7" height="18" rx="3"/><rect x="27" y="17" width="7" height="18" rx="3"/><rect x="15" y="36" width="4.5" height="30" rx="2"/><rect x="20.5" y="36" width="4.5" height="30" rx="2"/></g></svg><svg viewBox="0 0 40 76"><g fill="#21c97a"><circle cx="20" cy="8" r="6"/><rect x="15" y="15" width="10" height="20" rx="4"/><rect x="6" y="17" width="7" height="18" rx="3"/><rect x="27" y="17" width="7" height="18" rx="3"/><rect x="15" y="36" width="4.5" height="30" rx="2"/><rect x="20.5" y="36" width="4.5" height="30" rx="2"/></g></svg><svg viewBox="0 0 40 76"><g fill="#21c97a"><circle cx="20" cy="8" r="6"/><rect x="15" y="15" width="10" height="20" rx="4"/><rect x="6" y="17" width="7" height="18" rx="3"/><rect x="27" y="17" width="7" height="18" rx="3"/><rect x="15" y="36" width="4.5" height="30" rx="2"/><rect x="20.5" y="36" width="4.5" height="30" rx="2"/></g></svg><svg viewBox="0 0 40 76"><g fill="#FF9F1C"><circle cx="20" cy="8" r="6"/><rect x="15" y="15" width="10" height="20" rx="4"/><rect x="6" y="17" width="7" height="18" rx="3"/><rect x="27" y="17" width="7" height="18" rx="3"/><rect x="15" y="36" width="4.5" height="30" rx="2"/><rect x="20.5" y="36" width="4.5" height="30" rx="2"/></g></svg></div>
+<ul class="li"><li>Forward head posture</li><li>Anterior pelvic tilt</li><li>Reduced spinal alignment</li><li>Measured against 25 Apr 2025</li><li>Personalised recommendations</li></ul><div class="mini"><div class="minirow"><span>Head shift</span><span class="track"><i class="#FF9F1C" style="width:62%"></i></span><b>1.40cm L</b></div><div class="minirow"><span>Shoulders</span><span class="track"><i class="#21c97a" style="width:42%"></i></span><b>0.77cm R</b></div><div class="minirow"><span>Ribcage</span><span class="track"><i class="#21c97a" style="width:30%"></i></span><b>0.44cm L</b></div><div class="minirow"><span>Pelvis</span><span class="track"><i class="#FF9F1C" style="width:74%"></i></span><b>2.46cm L</b></div></div>
+</div><div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
 <section class="panel hh"><div class="ph"><span class="ic">&#10084;&#65039;</span><div><h2>HEART HEALTH</h2><p>BLOOD PRESSURE &amp; RESTING HEART RATE &#183; CURRENT MEASUREMENTS</p></div></div>
-<svg class="ecg" viewBox="0 0 300 46" preserveAspectRatio="none"><polyline points="0,26 34,26 42,26 46,10 50,40 54,20 58,26 96,26 104,26 108,12 112,38 116,22 120,26 170,26 178,26 182,11 186,39 190,21 194,26 240,26 248,26 252,12 256,38 260,22 264,26 300,26" stroke="#21c97a"/></svg>
+<div class="body"><div class="heartwrap"><img src="https://cdn.marblism.com/zZxd4bJ1qSt.webp" alt="3D anatomical heart with an ECG trace"><svg class="ecg" viewBox="0 0 300 34" preserveAspectRatio="none"><polyline points="0,19 30,19 38,19 42,7 46,29 50,14 54,19 90,19 98,19 102,8 106,28 110,15 114,19 165,19 173,19 177,7 181,29 185,14 189,19 235,19 243,19 247,8 251,28 255,15 259,19 300,19" stroke="#21c97a"/></svg></div>
 <div class="tiles">
 <div class="tile"><small>Blood Pressure</small><b>120/78</b><small>mmHg</small><u class="tag ok">GOOD</u></div>
 <div class="tile"><small>Resting Heart Rate</small><b>47</b><small>bpm</small><u class="tag ok">EXCEPTIONAL</u></div>
-</div>
-<ul class="li"><li>Blood pressure within range</li><li>Resting heart rate exceptional</li><li>Supports cardiovascular health focus</li><li>Track and monitor progress</li></ul>
-<div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
-<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p id="baSub">YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS</p></div></div>
-<div class="gaugewrap"><div class="gauge"><svg viewBox="0 0 158 158"><circle cx="79" cy="79" r="66" fill="none" stroke="#0d2b3c" stroke-width="13"/><circle cx="79" cy="79" r="66" fill="none" stroke="#21c97a" stroke-width="13" stroke-linecap="round" stroke-dasharray="311.0 103.7"/></svg><div class="ctr"><small>Your Biometric Age</small><b>47</b><em>years</em><u>Chronological Age 63</u></div></div></div>
+</div><ul class="li"><li>Blood pressure within range</li><li>Resting heart rate exceptional</li><li>Supports cardiovascular health focus</li><li>Track and monitor progress</li></ul><div class="mini"><div class="minirow"><span>Systolic</span><span class="track"><i class="#21c97a" style="width:95%"></i></span><b>120</b></div><div class="minirow"><span>Diastolic</span><span class="track"><i class="#21c97a" style="width:90%"></i></span><b>78</b></div><div class="minirow"><span>Resting HR</span><span class="track"><i class="#21c97a" style="width:98%"></i></span><b>47</b></div></div>
+</div><div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
+<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS</p></div></div>
+<div class="body"><div class="gaugewrap"><div class="gauge"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="64" fill="none" stroke="#0d2b3c" stroke-width="12"/><circle cx="75" cy="75" r="64" fill="none" stroke="#21c97a" stroke-width="12" stroke-linecap="round" stroke-dasharray="301.6 100.5"/></svg><div class="ctr"><small>Your Biometric Age</small><b>47</b><em>years</em><u>Chronological Age 63</u></div></div></div>
 <div class="strip good">16 YEARS YOUNGER THAN YOUR ACTUAL AGE</div>
-<p class="note">A healthier, stronger longer life is within your control.</p>
-<div class="mini">
-<div class="minirow"><span>Biometric vs chronological</span><span class="track"><i class="#21c97a" style="width:90%"></i></span><b>&#8722;16 yrs</b></div>
-<div class="minirow"><span>Model confidence</span><span class="track"><i class="#21c97a" style="width:85%"></i></span><b>High</b></div>
-<div class="minirow"><span>Markers scored</span><span class="track"><i class="#FF9F1C" style="width:86%"></i></span><b>6 of 7</b></div>
+<p class="note">A healthier, stronger longer life is within your control.</p><div class="tiles">
+<div class="tile"><small>Marker Score</small><b>6/7</b><small>scored</small><u class="tag warn">GOOD</u></div>
+<div class="tile"><small>Trend</small><b>Improving</b><small>vs last</small><u class="tag ok">ON TRACK</u></div>
+</div></div><div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
 </div>
-<div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
-</div>
-<section class="panel bx bloods" style="margin-top:12px"><div class="ph"><span class="ic">&#129514;</span><div><h2>AFT BESPOKE PANEL 2</h2><p>SUSSEX PATHOLOGY &#183; PANEL DRAWN 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL</p></div></div>
-<table class="mk"><tr><th>Marker</th><th>Result</th><th>Reference</th><th>Status</th></tr>
-<tr><td>HbA1c (mmol/mol)</td><td class="n">32</td><td>&lt;42 normal</td><td><span class="tag ok">NORMAL</span></td></tr>
-<tr><td>HbA1c %HbA1c (%)</td><td class="n">5.08</td><td>&lt;6.0 normal</td><td><span class="tag ok">NORMAL</span></td></tr>
-<tr><td>Homocysteine</td><td class="n">22.46 &#181;mol/L</td><td>3.7&#8211;13.9</td><td><span class="tag bad">FLAGGED</span></td></tr>
-<tr><td>Albumin</td><td class="n">45 g/L</td><td>32&#8211;48</td><td><span class="tag ok">WITHIN</span></td></tr>
-<tr><td>SHBG</td><td class="n">48.41 nmol/L</td><td>17.33&#8211;71.5</td><td><span class="tag ok">WITHIN</span></td></tr>
-<tr><td>Testosterone</td><td class="n">43.58 nmol/L</td><td>6.51&#8211;23.74</td><td><span class="tag bad">FLAGGED</span></td></tr>
-<tr><td>Free Testosterone</td><td class="n">976.35 pmol/L</td><td>170&#8211;660</td><td><span class="tag bad">FLAGGED</span></td></tr>
-<tr><td>hs-CRP</td><td class="n">not tested</td><td>&lt;1.0</td><td><span class="tag absent">NO RESULT</span></td></tr>
-<tr><td>Cortisol &#8212; not scored</td><td class="n">261.69 nmol/L</td><td>145.4&#8211;619.4</td><td><span class="tag ok">WITHIN</span></td></tr>
-</table>
-<p class="disc">Results as reported by Sussex Pathology on 08 Oct 2026. Seven markers feed the biometric age model. Cortisol is reported but not scored. hs-CRP is a model input this panel does not currently test for, so it scores neutral. Automated report, not reviewed by a physician; results should be discussed with a qualified practitioner.</p>
+<section class="panel" style="margin-top:9px;border-color:#0f3b57"><div class="ph" style="background:linear-gradient(90deg,#06324c,#061f31)"><span class="ic" style="color:var(--cyan)">&#129514;</span><div><h2>AFT BESPOKE PANEL 2</h2><p>SUSSEX PATHOLOGY &#183; 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL</p></div></div>
+<div class="body"><div class="bloodrow">
+<div class="bm"><span><b>HbA1c</b> mmol/mol<small>ref &lt;42</small></span><b>32<span class="tag ok">NORMAL</span></b></div>
+<div class="bm"><span><b>HbA1c</b> %HbA1c<small>ref &lt;6.0</small></span><b>5.08<span class="tag ok">NORMAL</span></b></div>
+<div class="bm"><span><b>Homocysteine</b><small>ref 3.7&#8211;13.9</small></span><b>22.46 &#181;mol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span><b>Albumin</b><small>ref 32&#8211;48</small></span><b>45 g/L<span class="tag ok">WITHIN</span></b></div>
+<div class="bm"><span><b>SHBG</b><small>ref 17.33&#8211;71.5</small></span><b>48.41 nmol/L<span class="tag ok">WITHIN</span></b></div>
+<div class="bm"><span><b>Testosterone</b><small>ref 6.51&#8211;23.74</small></span><b>43.58 nmol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span><b>Free Testosterone</b><small>ref 170&#8211;660</small></span><b>976.35 pmol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span><b>hs-CRP</b><small>ref &lt;1.0</small></span><b>not tested<span class="tag absent">NO RESULT</span></b></div>
+<div class="bm"><span><b>Cortisol</b> &#8212; not scored<small>ref 145.4&#8211;619.4</small></span><b>261.69 nmol/L<span class="tag ok">WITHIN</span></b></div>
+</div><p class="disc">Results as reported by Sussex Pathology, 08 Oct 2026. Seven markers feed the biometric age model; cortisol is reported but not scored; hs-CRP is a model input this panel does not currently test for, so it scores neutral. Automated report, not reviewed by a physician.</p></div>
 <div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
 <div class="two"><section class="card"><h2>NEXT STEPS</h2><div class="steps">
-<div class="step"><i>1</i><div><b>Review Your Results</b><span>Read what each panel measures and what it means.</span></div></div>
-<div class="step"><i>2</i><div><b>Book a Consultation to Discuss</b><span>Go through the findings with Lee.</span></div></div>
-<div class="step"><i>3</i><div><b>Personalised Plan &amp; Recommendations</b><span>Interventions across the 10 tenets.</span></div></div>
-<div class="step"><i>4</i><div><b>Take Action &amp; Track Progress</b><span>Re-measure and confirm the change.</span></div></div>
-</div></section>
-<section class="card"><h2>SOURCE DOCUMENTS</h2><div class="docs">
-<div class="doc"><span>DEXA scan<small>14 Oct 2024, 21 Dec 2024 and 25 Apr 2025 &#183; body composition and bone density</small></span><em>ON FILE</em></div>
-<div class="doc"><span>Chiropractic assessment report<small>Posture, alignment and movement findings, with front and side imagery</small></span><em>ON FILE</em></div>
-<div class="doc"><span>AFT Bespoke Panel 2<small>Sussex Pathology &#183; 7 scored markers plus cortisol</small></span><em>ON FILE</em></div>
-<div class="doc"><span>Heart rate and blood pressure log<small>Home and in-clinic readings</small></span><em>ON FILE</em></div>
-<div class="doc"><span>Biometric age summary<small>Composite model output, by assessment date</small></span><em>ON FILE</em></div>
-</div><p class="disc">Documents are listed for reference. Source files are held securely and are not downloadable from this page.</p></section></div>
-</div>
-<footer><div class="l">AGING?F***THAT! &#124; LONGER. STRONGER. HEALTHIER.</div><div class="r">WWW.AGINGFTHAT.COM</div></footer>
-<script>(function(){document.querySelectorAll("a.btn[href=\u0022#\u0022]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();});});})();</script>
-</body></html>
+<div class="step"><i>1</i><div><b>Review Your Results</b><small>Read what each panel measures.</small></div></div>
+<div class="step"><i>2</i><div><b>Book a Consultation</b><small>Go through the findings with Lee.</small></div></div>
+<div class="step"><i>3</i><div><b>Personalised Plan</b><small>Interventions across the 10 tenets.</small></div></div>
+<div class="step"><i>4</i><div><b>Track Progress</b><small>Re-measure and confirm the change.</small></div></div>
+</div></section><section class="card"><h2>SOURCE DOCUMENTS</h2><div class="docs">
+<div class="doc"><span>DEXA Scan Report<small>14 Oct 2024, 21 Dec 2024, 25 Apr 2025</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Chiropractic Assessment<small>Posture, alignment and movement</small></span><em>ON FILE</em></div>
+<div class="doc"><span>AFT Bespoke Panel 2<small>Sussex Pathology &#183; 7 markers scored</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Blood Pressure Log<small>Home and in-clinic readings</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Biometric Age Summary<small>Composite model output</small></span><em>ON FILE</em></div>
+</div><p class="disc">Documents are listed for reference. Source files are held securely and not downloadable from this page.</p></section></div>
+</div><footer><div class="l">AGING?F***THAT! &#124; LONGER. STRONGER. HEALTHIER.</div><div class="r">WWW.AGINGFTHAT.COM</div></footer>
+<script>(function(){document.querySelectorAll("a.btn[href=\u0022#\u0022]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();});});})();</script></body></html>
