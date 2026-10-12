@@ -1,0 +1,43 @@
+name: Dashboard v4 layout
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-v4.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch the v4 patch and apply it
+        run: |
+          set -e
+          curl -sSL -o patch_v4.py "https://cdn.marblism.com/OEg0CnwOuK0.py"
+          echo "patch bytes: $(wc -c < patch_v4.py)"
+          python3 patch_v4.py
+          python3 build_dashboard.py
+          echo "=== result ==="
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f strip: $(grep -c 'class=\"strip' $f || true)"
+            echo "$f marker score: $(grep -c 'Marker Score' $f || true)"
+            echo "$f trend metric: $(grep -c 'Trend' $f || true)"
+            echo "$f chart: $(grep -c 'ba-chart' $f)"
+            echo "$f two-col: $(grep -c 'grid-template-columns:1fr 1fr;gap:9px;margin-top:9px' $f)"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard_src/gen.py dashboard_src/css.py dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Dashboard v4: Next steps beside Source documents, biometric age given a three-point trend chart"
+          git push
