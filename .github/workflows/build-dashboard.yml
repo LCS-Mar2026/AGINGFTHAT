@@ -1,0 +1,39 @@
+name: Build dashboard pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['build_dashboard.py', '.github/workflows/build-dashboard.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate both dashboard pages from one template
+        run: |
+          python3 build_dashboard.py
+          echo "=== result ==="
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f sha: $(sha256sum $f | cut -d' ' -f1)"
+            echo "$f panels: $(grep -c 'class=\"panel ' $f)"
+            echo "$f source-doc rows: $(grep -c 'class=\"doc\"' $f)"
+            echo "$f link-outs: $(grep -c 'href=\"report\|href=\"client\|\.\./' $f || true)"
+            echo "$f ageing: $(grep -ci ageing $f || true)"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Rebuild dashboard and example report from the shared template"
+          git push
