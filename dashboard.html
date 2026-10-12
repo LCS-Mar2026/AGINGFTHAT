@@ -1,4 +1,9 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Biometric Age Assessment Dashboard | AGING?F***THAT!</title><meta name="description" content="The AFT biometric age assessment dashboard: body composition, movement and posture, heart health, blood markers and biological age in one view."><link rel="canonical" href="https://agingfthat.com/dashboard.html"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><style>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Example Client Report — Biometric Age Assessment Dashboard | AGING?F***THAT!</title>
+<meta name="description" content="An example biometric age assessment dashboard: body composition, movement and posture, heart health, blood markers and estimated biological age in one view.">
+<link rel="canonical" href="https://agingfthat.com/dashboard.html">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
+<style>
 :root{--navy:#031522;--panel:#061d2c;--line:#123c52;--text:#edfaff;--muted:#a9c8d8;--cyan:#2BC7FF;--amber:#FF9F1C;--green:#21c97a;--red:#ff4b4b;--violet:#A855F7}
 *{box-sizing:border-box}
 body{margin:0;background:var(--navy);color:var(--text);font:15px/1.5 Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
@@ -13,6 +18,7 @@ a{color:var(--cyan)}
 .metabar div{background:#052030;padding:9px 12px;font-size:11.5px;color:var(--muted)}
 .metabar b{display:block;color:#fff;font-size:12.5px;margin-top:2px}
 .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-left:5px;vertical-align:middle}
+.dot.w{background:var(--amber)}
 .wrap{padding:14px 12px 26px;max-width:1400px;margin:0 auto}
 .panels{display:grid;gap:12px;grid-template-columns:1fr}
 .panel{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--cyan);border-radius:12px;padding:13px 13px 0;display:flex;flex-direction:column}
@@ -28,6 +34,12 @@ a{color:var(--cyan)}
 .row b{font-size:16px;font-weight:900}
 .tag{display:inline-block;font-size:9px;font-weight:900;letter-spacing:.07em;padding:2px 6px;border-radius:99px;margin-left:5px;vertical-align:middle}
 .ok{background:#0f3f2a;color:#5ff0a8}.bad{background:#42201c;color:#ff9b8f}.warn{background:#42331a;color:#ffd479}
+.bars{display:grid;gap:6px;margin:0 0 10px}
+.bar{display:grid;grid-template-columns:74px 1fr 52px;align-items:center;gap:7px;font-size:9.5px;color:var(--muted)}
+.track{height:7px;border-radius:99px;background:#0d2b3c;overflow:hidden}
+.track i{display:block;height:100%;border-radius:99px}
+.bar b{text-align:right;color:#dff2fb;font-size:10px}
+.good{background:linear-gradient(90deg,#21c97a,#5ff0a8)}.mid{background:linear-gradient(90deg,#FF9F1C,#ffd479)}.hot{background:linear-gradient(90deg,#ff4b4b,#ff9b8f)}.cy{background:linear-gradient(90deg,#2BC7FF,#7d5cf6)}
 .railtxt{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 10px}
 .railtxt i{font-style:normal;font-size:9px;letter-spacing:.05em;color:#9fc4d6;border:1px solid #14415a;border-radius:99px;padding:3px 7px}
 .shots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
@@ -41,7 +53,7 @@ ul.li li:before{content:"\2022";position:absolute;left:2px;color:var(--cyan);fon
 .tile b{display:block;font-size:19px;font-weight:900;margin:3px 0 4px}
 .tile u{display:inline-block;text-decoration:none;font-size:8.5px;font-weight:900;letter-spacing:.07em;padding:2px 7px;border-radius:99px}
 .donutwrap{display:grid;place-items:center;margin-bottom:9px}
-.donut{width:150px;height:150px;border-radius:50%;background:conic-gradient(from 200deg,#2BC7FF 0deg,#7d5cf6 150deg,#e0409a 250deg,#2BC7FF 330deg);display:grid;place-items:center;position:relative}
+.donut{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;position:relative}
 .donut:after{content:"";position:absolute;inset:11px;border-radius:50%;background:#04202e}
 .donut .inner{position:relative;text-align:center;z-index:2}
 .donut .inner small{display:block;font-size:8.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
@@ -69,89 +81,74 @@ table.mk td.n{font-weight:900;white-space:nowrap}
 .step div span{font-size:10.5px;color:var(--muted)}
 .docs{display:grid;gap:7px}
 .doc{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #123c52;border-radius:9px;padding:9px 10px;font-size:11.5px}
-.doc a,.doc b{font-size:10px;font-weight:900;letter-spacing:.05em;text-decoration:none;color:var(--cyan)}
-.doc b{color:var(--amber)}
+.doc span{display:block}
+.doc small{display:block;color:var(--muted);font-size:9.5px;letter-spacing:.04em;margin-top:2px}
+.doc em{font-style:normal;font-size:9px;font-weight:900;letter-spacing:.06em;color:#8fb8cc;border:1px solid #1a4f6b;border-radius:99px;padding:3px 8px;white-space:nowrap}
+.disc{font-size:10px;color:#7899a9;margin:10px 0 0;line-height:1.5}
 footer{border-top:1px solid var(--line);padding:16px 14px;text-align:center;font-size:10.5px;color:#7899a9;background:#020d16}
 footer .l{font-weight:900;letter-spacing:.09em;color:#cfe9f5}
 footer .r{margin-top:4px;letter-spacing:.11em}
 .hide{display:none!important}
 @media(min-width:640px){.metabar{grid-template-columns:repeat(4,1fr)}.wrap{padding:18px 16px 34px}.panels{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr 1fr}}
 @media(min-width:1080px){.panels{grid-template-columns:repeat(4,1fr);gap:14px}.wrap{padding:20px 22px 40px}.hero{padding:22px 22px 16px}}
-</style></head><body>
-<header class="hero"><h1 class="wm">AGING?<em>F***</em>THAT!</h1><p class="sub" id="hdrSub">BIOMETRIC AGE ASSESSMENT DASHBOARD</p><p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></header>
-<div class="metabar"><div>Name<b>Lee C. Stonehouse</b></div><div>Assessment Date<b id="md">12 OCT 2026</b></div><div>Source<b id="src">Level 1 Offer / Mailer</b></div><div>Status<b>Client<span class="dot"></span></b></div></div>
+
+</style>
+</head><body>
+<header class="hero"><h1 class="wm">AGING?<em>F***</em>THAT!</h1><p class="sub">BIOMETRIC AGE ASSESSMENT DASHBOARD</p><p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></header>
+<div class="metabar"><div>Name<b>John Smith</b></div><div>Assessment Date<b>12 OCT 2026</b></div><div>Source<b>Level 1 Offer / Mailer</b></div><div>Status<b>Applicant<span class="dot w"></span></b></div></div>
 <div class="wrap">
+<p class="disc" style="margin:0 0 12px"><b>EXAMPLE ONLY.</b> Every figure on this page is illustrative sample data, not a real client record. It shows the format of an AFT assessment dashboard.</p>
 <div class="panels">
 <section class="panel bc"><div class="ph"><span class="ic">&#128100;</span><div><h2>BODY COMPOSITION</h2><p>RENPHO MORPHO SCAN</p></div></div>
 <div class="rows">
-<div class="row"><span>Weight</span><b>78.4 kg</b></div>
-<div class="row"><span>Body Fat</span><b>9.6%<span class="tag ok">LEAN</span></b></div>
-<div class="row"><span>Muscle Mass</span><b>63.1 kg<span class="tag ok">GOOD</span></b></div>
-<div class="row"><span>Visceral Fat</span><b>6<span class="tag ok">LOW</span></b></div>
-<div class="row"><span>BMI</span><b>22.4<span class="tag ok">HEALTHY</span></b></div>
+<div class="row"><span>Weight</span><b>90.0 kg</b></div>
+<div class="row"><span>Body Fat</span><b>21.0%<span class="tag warn">ABOVE TARGET</span></b></div>
+<div class="row"><span>Muscle Mass</span><b>52.0 kg<span class="tag bad">LOW</span></b></div>
+<div class="row"><span>Visceral Fat</span><b>11<span class="tag bad">HIGH</span></b></div>
+<div class="row"><span>BMI</span><b>27.8<span class="tag warn">OVERWEIGHT</span></b></div>
 </div>
+<div class="bars"><div class="bar"><span>Muscle</span><span class="track"><i class="mid" style="width:58%"></i></span><b>52.0</b></div><div class="bar"><span>Body Fat</span><span class="track"><i class="hot" style="width:74%"></i></span><b>21.0</b></div><div class="bar"><span>Visceral</span><span class="track"><i class="hot" style="width:82%"></i></span><b>11</b></div><div class="bar"><span>BMI</span><span class="track"><i class="mid" style="width:72%"></i></span><b>27.8</b></div></div>
 <div class="railtxt"><i>Segmental Analysis</i><i>Muscle Balance</i><i>Body Shape</i><i>Metabolic Age</i></div>
-<div class="pb"><a class="btn" href="client-scan-history.html">VIEW FULL MORPHO SCAN REPORT</a></div>
-</section>
+<div class="pb"><a class="btn" href="#">VIEW FULL MORPHO SCAN REPORT</a></div></section>
 <section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2><p>CHIROPRACTIC ANALYSIS &#183; MOVEMENT &#183; ALIGNMENT &#183; POSTURE</p></div></div>
 <div class="shots"><img src="anterior-posture-view.jpg" alt="Anterior posture view from the chiropractic assessment" loading="lazy"><img src="lateral-posture-view.jpg" alt="Lateral posture view from the chiropractic assessment" loading="lazy"></div>
 <ul class="li"><li>Forward head posture</li><li>Anterior pelvic tilt</li><li>Reduced spinal alignment</li><li>Postural imbalance detected</li><li>Personalised recommendations</li></ul>
-<div class="pb"><a class="btn" href="client-scan-history.html">VIEW FULL CHIROPRACTIC REPORT</a></div>
-</section>
+<div class="bars"><div class="bar"><span>Head shift</span><span class="track"><i class="hot" style="width:70%"></i></span><b>1.40cm L</b></div><div class="bar"><span>Shoulders</span><span class="track"><i class="mid" style="width:55%"></i></span><b>0.77cm R</b></div><div class="bar"><span>Ribcage</span><span class="track"><i class="mid" style="width:38%"></i></span><b>0.44cm L</b></div><div class="bar"><span>Hips</span><span class="track"><i class="hot" style="width:80%"></i></span><b>2.46cm L</b></div></div>
+<div class="pb"><a class="btn" href="#">VIEW FULL CHIROPRACTIC REPORT</a></div></section>
 <section class="panel hh"><div class="ph"><span class="ic">&#10084;&#65039;</span><div><h2>HEART HEALTH</h2><p>BLOOD PRESSURE &amp; RESTING HEART RATE &#183; CURRENT MEASUREMENTS</p></div></div>
 <div class="tiles">
-<div class="tile"><small>Blood Pressure</small><b>118/74</b><small>mmHg</small><u class="tag ok">OPTIMAL</u></div>
-<div class="tile"><small>Resting Heart Rate</small><b>49</b><small>bpm</small><u class="tag ok">OPTIMAL</u></div>
+<div class="tile"><small>Blood Pressure</small><b>140/98</b><small>mmHg</small><u class="tag bad">ELEVATED</u></div>
+<div class="tile"><small>Resting Heart Rate</small><b>76</b><small>bpm</small><u class="tag warn">ABOVE OPTIMAL</u></div>
 </div>
-<ul class="li"><li>Blood pressure within optimal range</li><li>Resting heart rate indicates good fitness</li><li>Supports cardiovascular health focus</li><li>Track and monitor progress</li></ul>
-<div class="pb"><a class="btn" href="client-blood-panel.html">ADD / EDIT READINGS</a></div>
-</section>
-<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p id="baSub">YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS</p></div></div>
-<div class="donutwrap"><div class="donut"><div class="inner"><small>Your Biometric Age</small><b>47</b><em>years</em><u>Chronological Age 63</u></div></div></div>
-<div class="strip good">16 YEARS YOUNGER THAN YOUR ACTUAL AGE</div>
+<div class="bars"><div class="bar"><span>Systolic</span><span class="track"><i class="hot" style="width:78%"></i></span><b>140</b></div><div class="bar"><span>Diastolic</span><span class="track"><i class="hot" style="width:72%"></i></span><b>98</b></div><div class="bar"><span>Resting HR</span><span class="track"><i class="mid" style="width:58%"></i></span><b>76</b></div></div>
+<ul class="li"><li>Blood pressure above optimal range</li><li>Resting heart rate elevated</li><li>May benefit from improved fitness</li><li>Supports cardiovascular health focus</li><li>Track and monitor progress</li></ul>
+<div class="pb"><a class="btn" href="#">ADD / EDIT READINGS</a></div></section>
+<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>YOUR ESTIMATED BIOLOGICAL AGE &#183; BASED ON LEVEL 1 METRICS</p></div></div>
+<div class="donutwrap"><div class="donut" style="background:conic-gradient(from 200deg,#ff4b4b 0deg,#ff9b7a 120deg,#ffd479 240deg,#ff4b4b 360deg)"><div class="inner"><small>Your Biometric Age</small><b>77</b><em>years</em><u>Chronological Age 62</u></div></div></div>
+<div class="strip bad">15 YEARS OLDER THAN YOUR ACTUAL AGE</div>
 <p class="note">A healthier, stronger longer life is within your control.</p>
-<div class="pb"><a class="btn" href="client-report.html">VIEW YOUR FULL REPORT</a></div>
-</section>
+<div class="bars"><div class="bar"><span>Biometric Age</span><span class="track"><i class="hot" style="width:88%"></i></span><b>77</b></div><div class="bar"><span>Chronological</span><span class="track"><i class="cy" style="width:62%"></i></span><b>62</b></div><div class="bar"><span>Divergence</span><span class="track"><i class="hot" style="width:88%"></i></span><b>+15</b></div></div>
+<div class="pb"><a class="btn" href="#">VIEW YOUR FULL REPORT</a></div></section>
 </div>
-<section class="panel bx bloods"><div class="ph"><span class="ic">&#129514;</span><div><h2>BLOOD &amp; HORMONE MARKERS</h2><p>INDEPENDENT LAB VERIFIED &#183; BLOOD MARKERS OF LONGEVITY</p></div></div>
-<table class="mk"><tr><th>Marker</th><th>Result</th><th>Reference</th><th>Status</th></tr>
-<tr><td>HS-CRP</td><td class="n">0.4 mg/L</td><td>&lt;1.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>HbA1c</td><td class="n">33 mmol/mol</td><td>&lt;42</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>Total Cholesterol</td><td class="n">4.6 mmol/L</td><td>&lt;5.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>LDL Cholesterol</td><td class="n">2.5 mmol/L</td><td>&lt;3.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>HDL Cholesterol</td><td class="n">1.6 mmol/L</td><td>&gt;1.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>Triglycerides</td><td class="n">1.0 mmol/L</td><td>&lt;1.7</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>ApoB</td><td class="n">0.68 g/L</td><td>&lt;0.80</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>Testosterone</td><td class="n">25.8 nmol/L</td><td>8.6&#8211;29.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>Free Testosterone</td><td class="n">443 pmol/L</td><td>200&#8211;600</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>Vitamin D</td><td class="n">145 nmol/L</td><td>75&#8211;150</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>Fasting Insulin</td><td class="n">22 pmol/L</td><td>14&#8211;42</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-<tr><td>Ferritin</td><td class="n">148 &#181;g/L</td><td>30&#8211;300</td><td><span class="tag ok">OPTIMAL</span></td></tr>
-</table>
-<div class="pb"><a class="btn" href="client-blood-panel.html">VIEW FULL BLOOD &amp; HORMONE PANEL</a></div>
-</section>
-<div class="two">
-<section class="card"><h2>NEXT STEPS</h2><div class="steps">
+<section class="panel bx bloods" style="margin-top:12px"><div class="ph"><span class="ic">&#129514;</span><div><h2>BLOOD &amp; HORMONE MARKERS</h2><p>INDEPENDENT LAB VERIFIED &#183; BLOOD MARKERS OF LONGEVITY</p></div></div>
+<table class="mk"><tr><th>Marker</th><th>Result</th><th>Reference</th><th>Status</th></tr><tr><td>HS-CRP</td><td class="n">3.8 mg/L</td><td>&lt;1.0</td><td><span class="tag bad">ELEVATED</span></td></tr><tr><td>HbA1c</td><td class="n">41 mmol/mol</td><td>&lt;42</td><td><span class="tag warn">WATCH</span></td></tr><tr><td>Total Cholesterol</td><td class="n">6.1 mmol/L</td><td>&lt;5.0</td><td><span class="tag bad">ELEVATED</span></td></tr><tr><td>LDL Cholesterol</td><td class="n">4.2 mmol/L</td><td>&lt;3.0</td><td><span class="tag bad">ELEVATED</span></td></tr><tr><td>HDL Cholesterol</td><td class="n">1.0 mmol/L</td><td>&gt;1.0</td><td><span class="tag warn">WATCH</span></td></tr><tr><td>Triglycerides</td><td class="n">2.1 mmol/L</td><td>&lt;1.7</td><td><span class="tag bad">ELEVATED</span></td></tr><tr><td>ApoB</td><td class="n">1.05 g/L</td><td>&lt;0.80</td><td><span class="tag bad">ELEVATED</span></td></tr><tr><td>Fasting Glucose</td><td class="n">5.8 mmol/L</td><td>&lt;5.6</td><td><span class="tag warn">WATCH</span></td></tr><tr><td>Testosterone</td><td class="n">14.1 nmol/L</td><td>8.6&#8211;29.0</td><td><span class="tag ok">WITHIN</span></td></tr><tr><td>Vitamin D</td><td class="n">46 nmol/L</td><td>75&#8211;150</td><td><span class="tag bad">LOW</span></td></tr><tr><td>Fasting Insulin</td><td class="n">62 pmol/L</td><td>14&#8211;42</td><td><span class="tag warn">WATCH</span></td></tr><tr><td>Ferritin</td><td class="n">210 &#181;g/L</td><td>30&#8211;300</td><td><span class="tag ok">WITHIN</span></td></tr></table>
+<p class="disc">Illustrative sample values only, shown to demonstrate the panel format and status logic.</p>
+<div class="pb"><a class="btn" href="#">VIEW FULL BLOOD &amp; HORMONE PANEL</a></div></section>
+<div class="two"><section class="card"><h2>NEXT STEPS</h2><div class="steps">
 <div class="step"><i>1</i><div><b>Review Your Results</b><span>Read what each panel measures and what it means.</span></div></div>
 <div class="step"><i>2</i><div><b>Book a Consultation to Discuss</b><span>Go through the findings with Lee.</span></div></div>
 <div class="step"><i>3</i><div><b>Personalised Plan &amp; Recommendations</b><span>Interventions across the 10 tenets.</span></div></div>
 <div class="step"><i>4</i><div><b>Take Action &amp; Track Progress</b><span>Re-measure and confirm the change.</span></div></div>
 </div></section>
 <section class="card"><h2>SOURCE DOCUMENTS</h2><div class="docs">
-<div class="doc"><span>&#128196; Renpho Morpho Scan Report</span><a href="client-scan-history.html">VIEW</a></div>
-<div class="doc"><span>&#128196; Chiropractic Assessment Report</span><a href="client-scan-history.html">VIEW</a></div>
-<div class="doc"><span>&#128247; Posture Photos (Front &amp; Side)</span><a href="client-scan-history.html">VIEW</a></div>
-<div class="doc"><span>&#128147; Heart Rate &amp; Blood Pressure Log</span><a href="client-blood-panel.html">VIEW</a></div>
-<div class="doc"><span>&#128196; Full Assessment Summary (PDF)</span><b>GENERATE</b></div>
-</div></section>
-</div>
+<div class="doc"><span>Renpho Morpho scan report<small>Body composition, muscle balance, metabolic age</small></span><em>ON FILE</em></div>
+<div class="doc"><span>DEXA scan<small>Body composition and bone density, by assessment date</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Chiropractic assessment report<small>Posture, alignment and movement findings</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Blood and hormone panel<small>Independent lab panel, by draw date</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Heart rate and blood pressure log<small>Home and in-clinic readings</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Biometric age summary<small>Composite model output, by assessment date</small></span><em>ON FILE</em></div>
+</div><p class="disc">Documents are listed for reference. Source files are held securely and are not downloadable from this page.</p></section></div>
 </div>
 <footer><div class="l">AGING?F***THAT! &#124; LONGER. STRONGER. HEALTHIER.</div><div class="r">WWW.AGINGFTHAT.COM</div></footer>
-<script>
-(function(){var q=(location.search+"").toLowerCase();var lvl1=/level=1|level1|applicant/.test(q);
-if(lvl1){var b=document.querySelector(".bloods");if(b)b.classList.add("hide");
-var s=document.getElementById("hdrSub");if(s)s.textContent="LEVEL 1 BIOMETRIC AGE ASSESSMENT";
-var a=document.getElementById("baSub");if(a)a.textContent="YOUR ESTIMATED BIOLOGICAL AGE \u00b7 BASED ON LEVEL 1 METRICS";}
-document.querySelectorAll(".doc b, .doc a").forEach(function(el){el.addEventListener("click",function(e){if(el.tagName==="B")e.preventDefault();});});
-})();
-</script></body></html>
+<script>(function(){document.querySelectorAll("a.btn[href=\u0022#\u0022]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();});});})();</script>
+</body></html>
