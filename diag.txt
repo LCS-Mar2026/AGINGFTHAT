@@ -1,17 +1,17 @@
-== article hero (must match the live article) ==
-hero http=200 bytes=951054
+== daily artwork (fresh graphic, never the article hero, never a human figure) ==
+artwork http=200 bytes=364422
 /tmp/hero.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1792x1008, Scaling: [none]x[none], YUV color, decoders should clamp
-hero sha256: fb76bdc0715b04765fb14978239f976757cf35a9cda3115ceaac161b44af33d5
+artwork sha256: 738b6486895a5c0316d30ef55d641907e49527b57983253d53ada8bfa4166393
 == font ==
 font http=200 bytes=744936
 == render ==
-render OK (1440, 1800) 1080 file bytes 335754 sha256 bcf5ed8740e4ff4e2efe03ece93899079842d5059dbd9bc7959d41ebfcba63cf
+render OK (1440, 1800) 1080 file bytes 180642 sha256 4310d7e994860842693e583e1a44887837d67e68cd05ac1d27b6fd8baf1a7ec4
 content ends y: 1657 | pill top: 1762 | gap: 105 | fits: True
-story OK (1080, 1920) bytes 509027 sha256 2de2760ffef4f192590111226ffb9d8f6f6847882493b65467c707de0bc4e1d8
+story OK (1080, 1920) bytes 325391 sha256 e5be354cec043a528e4008f7a98713daf72bf6993d213772ea77e40aa2f64249
 == result ==
-total 1572
-drwxr-xr-x 2 runner runner   4096 Oct  7 10:56 .
-drwxr-xr-x 7 runner runner   4096 Oct  7 10:56 ..
--rw-r--r-- 1 runner runner 750529 Oct  7 10:57 how-to-read-biological-age-results-1440.jpg
--rw-r--r-- 1 runner runner 509027 Oct  7 10:57 how-to-read-biological-age-results-story.jpg
--rw-r--r-- 1 runner runner 335754 Oct  7 10:57 how-to-read-biological-age-results.jpg
+total 928
+drwxr-xr-x 2 runner runner   4096 Oct 12 12:06 .
+drwxr-xr-x 7 runner runner   4096 Oct 12 12:06 ..
+-rw-r--r-- 1 runner runner 429774 Oct 12 12:06 how-to-read-biological-age-results-1440.jpg
+-rw-r--r-- 1 runner runner 325391 Oct 12 12:06 how-to-read-biological-age-results-story.jpg
+-rw-r--r-- 1 runner runner 180642 Oct 12 12:06 how-to-read-biological-age-results.jpg
