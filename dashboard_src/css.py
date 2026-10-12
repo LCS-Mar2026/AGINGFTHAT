@@ -46,7 +46,7 @@ a{color:var(--cyan)}
 .chips{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:8px 0 0}
 .chip{background:#06263a;border:1px solid #103f59;border-radius:6px;padding:5px 2px;text-align:center;font-size:6.5px;letter-spacing:.03em;color:#9fc4d6;line-height:1.15}
 .chip i{display:block;font-style:normal;font-size:12px;color:var(--cyan);margin-bottom:3px}
-.figpair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.herofig{position:relative;margin:0 0 9px;border-radius:8px;overflow:hidden;border:1px solid #14415a;background:#02101a}.herofig img{display:block;width:100%;height:auto}.herofig:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,25,42,.10),rgba(4,25,42,.42))}.figpair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
 .figpair img{width:100%;height:auto;border-radius:7px;border:1px solid #0f3b57;display:block;background:#02101a}
 .sil{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px}
 .sil svg{width:100%;height:auto;display:block}
