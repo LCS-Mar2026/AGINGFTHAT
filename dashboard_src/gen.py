@@ -21,7 +21,7 @@ def ring(pct,col):
 def mini(rows):
     h=['<div class="mini">']
     for lbl,(val,pct),cls in rows:
-        h.append('<div class="minirow"><span>%s</span><span class="track"><i class="%s" style="width:%d%%"></i></span><b>%s</b></div>'%(lbl,cls,pct,val))
+        h.append('<div class="minirow"><span>%s</span><span class="track"><i style="background:%s;width:%d%%"></i></span><b>%s</b></div>'%(lbl,cls,pct,val))
     h.append('</div>')
     return "".join(h)
 
@@ -141,18 +141,18 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
    chips=["Segmental Analysis","Muscle Balance","Body Shape","Metabolic Age"],
    mini=[("Muscle",("52.0 kg",58),AMBER),("Body fat",("21.0%",74),RED),("Visceral",("11",82),RED),("BMI",("27.8",72),AMBER)],
    btn="VIEW FULL DEXA SCAN REPORT"),
- mp=dict(silo=[AMBER,RED,AMBER,RED],
+ mp=dict(silo=[AMBER,GREEN,GREEN,AMBER],
    bullets=["Forward head posture","Anterior pelvic tilt","Reduced spinal alignment","Postural imbalance detected","Personalised recommendations"],
-   mini=[("Head shift",("1.90cm L",78),RED),("Shoulders",("1.30cm R",62),AMBER),("Ribcage",("1.10cm L",55),AMBER),("Pelvis",("2.90cm L",86),RED)],
+   mini=[("Head shift",("1.40cm L",62),AMBER),("Shoulders",("0.77cm R",42),GREEN),("Ribcage",("0.44cm L",30),GREEN),("Pelvis",("2.46cm L",74),AMBER),("Knees",("0.60cm L",32),GREEN)],
    btn="FULL BIOMECHANICAL REPORT"),
  hh=dict(ecg=RED,
    tiles=[("Blood Pressure","140/98","mmHg","bad","ELEVATED"),("Resting Heart Rate","76","bpm","warn","ABOVE OPTIMAL")],
    bullets=["Blood pressure above optimal range","Resting heart rate elevated","May benefit from improved fitness","Supports cardiovascular health focus"],
    mini=[("Systolic",("140",78),RED),("Diastolic",("98",72),RED),("Resting HR",("76",58),AMBER)],
    btn="EDIT READINGS"),
- ba=dict(sub="YOUR ESTIMATED BIOLOGICAL AGE &#183; BASED ON LEVEL 1 METRICS",pct=88,col=RED,
+ ba=dict(sub="YOUR ESTIMATED BIOLOGICAL AGE &#183; PROVISIONAL",pct=88,col=RED,
    bio="77",chrono="62",strip="15 YEARS OLDER THAN YOUR ACTUAL AGE",
-   tiles=[("Marker Score","7/7","scored","ok","GOOD"),("Trend","Rising","vs last","bad","WATCH")],
+   tiles=[("Marker Score","7/7","measurements","ok","COMPLETE"),("Trend","Rising","vs last","bad","WATCH")],
    btn=None),
  blood=dict(name="AFT BESPOKE PANEL 2",sub="7 MARKERS SCORED IN THE MODEL &#183; PLUS CORTISOL, NOT SCORED",
    rows=[("<b>1. HbA1c</b> mmol/mol","41","&lt;42","warn","WATCH"),
@@ -182,7 +182,7 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
    btn="VIEW FULL DEXA SCAN REPORT"),
  mp=dict(silo=[AMBER,GREEN,GREEN,AMBER],
    bullets=["Forward head posture","Anterior pelvic tilt","Reduced spinal alignment","Measured against 25 Apr 2025","Personalised recommendations"],
-   mini=[("Head shift",("1.40cm L",62),AMBER),("Shoulders",("0.77cm R",42),GREEN),("Ribcage",("0.44cm L",30),GREEN),("Pelvis",("2.46cm L",74),AMBER)],
+   mini=[("Head shift",("1.40cm L",62),AMBER),("Shoulders",("0.77cm R",42),GREEN),("Ribcage",("0.44cm L",30),GREEN),("Pelvis",("2.46cm L",74),AMBER),("Knees",("0.60cm L",32),GREEN)],
    btn="FULL BIOMECHANICAL REPORT"),
  hh=dict(ecg=GREEN,
    tiles=[("Blood Pressure","120/78","mmHg","ok","GOOD"),("Resting Heart Rate","47","bpm","ok","EXCEPTIONAL")],
@@ -191,7 +191,7 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
    btn="EDIT READINGS"),
  ba=dict(sub="YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS",pct=75,col=GREEN,
    bio="47",chrono="63",strip="16 YEARS YOUNGER THAN YOUR ACTUAL AGE",
-   tiles=[("Marker Score","6/7","scored","warn","GOOD"),("Trend","Improving","vs last","ok","ON TRACK")],
+   tiles=[("Marker Score","6/7","measurements","warn","PROVISIONAL"),("Trend","Improving","vs last","ok","ON TRACK")],
    btn=None),
  blood=dict(name="AFT BESPOKE PANEL 2",sub="SUSSEX PATHOLOGY &#183; 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL",
    rows=[("<b>1. HbA1c</b> mmol/mol","32","&lt;42","ok","NORMAL"),
