@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """Build the dashboard pages from the shared template."""
-import json
+import math
 from css import CSS
 
-HERO_ART = "https://cdn.marblism.com/wNUCuEXFNct.webp"
+HERO_ART = "https://cdn.marblism.com/v87Uu3kUSV9.webp"
 BC_FIG   = "https://cdn.marblism.com/9J9277dyCCt.webp"
 HEART    = "https://cdn.marblism.com/zZxd4bJ1qSt.webp"
 POS_F    = "https://cdn.marblism.com/5BmFVv925aB.webp"
@@ -11,7 +11,6 @@ POS_S    = "https://cdn.marblism.com/QBo1eqeRDxl.webp"
 
 GREEN="#21c97a"; AMBER="#FF9F1C"; RED="#ff4b4b"; CYAN="#2BC7FF"; VIOLET="#A855F7"
 
-import math
 def ring(pct,col):
     r=64.0; circ=2*math.pi*r; dash=circ*pct/100.0
     return ('<svg viewBox="0 0 150 150">'
