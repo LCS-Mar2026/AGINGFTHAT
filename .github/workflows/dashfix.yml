@@ -1,0 +1,44 @@
+name: Rebuild dashboard pages with 3D posture visuals
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dashfix.yml', 'build_dashboard.py']
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Confirm the template has no photographs and has the Level 1 switch
+        run: |
+          set -e
+          echo "template bytes: $(wc -c < build_dashboard.py)"
+          echo "photograph refs in template: $(grep -c 'posture-view.jpg' build_dashboard.py || true)"
+          echo "level1 flag: $(grep -c 'level1=True' build_dashboard.py || true)"
+          echo "3D posture urls: $(grep -c 'P1lybjh9XT4' build_dashboard.py || true)"
+          grep -c 'posture-view.jpg' build_dashboard.py && exit 1 || echo "OK: no photographs in the template"
+      - name: Rebuild both pages from the template
+        run: |
+          python3 build_dashboard.py
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f photo refs: $(grep -c 'posture-view.jpg' $f || true)"
+            echo "$f 3D refs: $(grep -c 'P1lybjh9XT4' $f || true)"
+            echo "$f panels: $(grep -c 'class=\"panel ' $f)"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Rebuild dashboard pages: 3D posture visuals, Level 1 switch intact"
+          git push
