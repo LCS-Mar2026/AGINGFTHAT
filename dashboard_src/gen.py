@@ -20,6 +20,34 @@ def ring(pct,col):
             '<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="12" stroke-linecap="round" '
             'stroke-dasharray="%.1f %.1f"/></svg>')%(r,r,col,dash,circ-dash)
 
+def trend_chart(series, labels, note=""):
+    """Three-point trend chart. Series order matches the legend."""
+    W,H = 300,118; padL,padR,padT,padB = 30,10,10,20
+    iw=W-padL-padR; ih=H-padT-padB
+    lo=min(min(x['vals']) for x in series); hi=max(max(x['vals']) for x in series)
+    if hi==lo: hi=lo+1
+    pad=(hi-lo)*0.18; lo-=pad; hi+=pad
+    X=lambda i: padL+iw*(i/(len(labels)-1))
+    Y=lambda v: padT+ih*(1-(v-lo)/(hi-lo))
+    p=['<svg viewBox="0 0 %d %d">'%(W,H)]
+    for k in range(4):
+        y=padT+ih*k/3.0
+        p.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="#12405a" stroke-width="1"/>'%(padL,y,W-padR,y))
+    for i,lb in enumerate(labels):
+        p.append('<text x="%.1f" y="%d" text-anchor="middle" fill="#8fb8cc" font-size="8">%s</text>'%(X(i),H-3,lb))
+    for x in series:
+        pts=" ".join("%.1f,%.1f"%(X(i),Y(v)) for i,v in enumerate(x['vals']))
+        p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>'%(pts,x['c']))
+        for i,v in enumerate(x['vals']):
+            p.append('<circle cx="%.1f" cy="%.1f" r="3" fill="%s"/>'%(X(i),Y(v),x['c']))
+    p.append('</svg>')
+    return "".join(p)
+
+def trend_legend(series):
+    return '<div class="tlegend">'+"".join(
+        '<span><i style="background:%s"></i>%s <b>%s</b></span>'%(x['c'],x['n'],x['vals'][-1])
+        for x in series)+'</div>'
+
 def mini(rows):
     h=['<div class="mini">']
     for lbl,(val,pct),cls in rows:
@@ -102,10 +130,8 @@ def page(c):
     P('<section class="panel ba wide"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>%s</p></div></div>'%a['sub'])
     P('<div class="body"><div class="herofig"><img src="%s" alt="3D anatomical scan figure representing a biometric age assessment"></div>'%HERO_ART)
     P('<div class="gaugewrap"><div class="gauge">'+ring(a['pct'],a['col'])+'<div class="ctr"><small>Your Biometric Age</small><b>%s</b><em>years</em><u>Chronological Age %s</u></div></div></div>'%(a['bio'],a['chrono']))
-    P('<div class="strip %s">%s</div>'%('good' if a['col']==GREEN else ('bad' if a['col']==RED else 'warn'),a['strip']))
-    P('<p class="note">A healthier, stronger longer life is within your control.</p><div class="tiles">')
-    for lbl,val,unit,tagcls,tagt in a['tiles']:
-        P('<div class="tile"><small>%s</small><b>%s</b><small>%s</small><u class="tag %s">%s</u></div>'%(lbl,val,unit,tagcls,tagt))
+    P('</div><div class="ba-chart"><div class="chart">'+trend_chart(a["trend"],a["trend_labels"])+trend_legend(a["trend"])+'</div>')
+    if a.get("trend_note"): P('<p class="disc">%s</p>'%a["trend_note"])
     P('</div></div>')
     if a.get('btn'):
         P('<div class="pb"><a class="btn" href="#">%s</a></div>'%a['btn'])
@@ -154,8 +180,13 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
    mini=[("Systolic",("140",78),RED),("Diastolic",("98",72),RED),("Resting HR",("76",58),AMBER)],
    btn="EDIT READINGS"),
  ba=dict(sub="YOUR ESTIMATED BIOLOGICAL AGE &#183; PROVISIONAL",pct=88,col=RED,
-   bio="77",chrono="62",strip="15 YEARS OLDER THAN YOUR ACTUAL AGE",
-   tiles=[("Marker Score","7/7","measurements","ok","COMPLETE"),("Trend","Rising","vs last","bad","WATCH")],
+   trend=[dict(n="Body fat %",c="#ff4b4b",vals=[24.6,22.9,21.0]),
+          dict(n="Visceral fat",c="#FF9F1C",vals=[14,12.5,11]),
+          dict(n="Muscle mass kg",c="#2BC7FF",vals=[50.4,51.2,52.0]),
+          dict(n="Bone density",c="#A855F7",vals=[-0.4,-0.1,0.2])],
+   trend_labels=["2Y","1Y","NOW"],
+   trend_note="Illustrative. The NOW point matches the DEXA figures in Body Composition.",
+   bio="77",chrono="62",
    btn=None),
  blood=dict(name="BLOOD WORK",sub="7 MARKERS SCORED IN THE MODEL &#183; PLUS CORTISOL, NOT SCORED",
    rows=[("<b>1. HbA1c</b> mmol/mol","41","&lt;42","warn","WATCH"),
@@ -193,8 +224,12 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
    mini=[("Systolic",("120",95),GREEN),("Diastolic",("78",90),GREEN),("Resting HR",("47",98),GREEN)],
    btn="EDIT READINGS"),
  ba=dict(sub="YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS",pct=75,col=GREEN,
-   bio="47",chrono="63",strip="16 YEARS YOUNGER THAN YOUR ACTUAL AGE",
-   tiles=[("Marker Score","6/7","measurements","warn","PROVISIONAL"),("Trend","Improving","vs last","ok","ON TRACK")],
+   trend=[dict(n="Body fat %",c="#21c97a",vals=[13.4,11.5,9.6]),
+          dict(n="Visceral fat",c="#FF9F1C",vals=[72.0,63.0,54.6]),
+          dict(n="Muscle mass kg",c="#2BC7FF",vals=[71.2,72.9,74.6])],
+   trend_labels=["2Y","1Y","NOW"],
+   trend_note="The NOW point matches the DEXA figures in Body Composition. Bone density and BMI are not plotted here; they await the DEXA bone report.",
+   bio="47",chrono="63",
    btn=None),
  blood=dict(name="BLOOD WORK",sub="SUSSEX PATHOLOGY &#183; 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL",
    rows=[("<b>1. HbA1c</b> mmol/mol","32","&lt;42","ok","NORMAL"),

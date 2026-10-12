@@ -78,7 +78,7 @@ ul.li li:before{content:"\\2022";position:absolute;left:1px;color:var(--green);f
 .gauge .ctr u{text-decoration:none;display:block;font-size:8px;font-weight:800;color:#fff;margin-top:2px}
 .strip{text-align:center;font-size:9.5px;font-weight:900;letter-spacing:.04em;border-radius:6px;padding:6px;margin-bottom:7px}
 .strip.good{background:#0f3f2a;color:#5ff0a8}.strip.bad{background:#421c1c;color:#ffb3a8}.strip.warn{background:#42331a;color:#ffd479}
-.note{font-style:italic;font-size:8.5px;color:var(--muted);text-align:center;margin:0 0 8px;line-height:1.3}
+.note{font-style:italic;font-size:8.5px;color:var(--muted);text-align:center;margin:0;line-height:1.3}
 .mini{display:grid;gap:5px;margin:0 0 8px}
 .minirow{display:grid;grid-template-columns:1fr 48px;align-items:center;gap:6px;font-size:8.5px;color:var(--muted)}
 .minirow .track{height:7px;border-radius:99px;background:#0d2b3c;overflow:hidden}
@@ -89,10 +89,9 @@ ul.li li:before{content:"\\2022";position:absolute;left:1px;color:var(--green);f
 .bm small{display:block;font-size:7.5px;color:var(--muted);margin-top:1px}
 .bm b{font-size:12px;font-weight:900;text-align:right;white-space:nowrap}
 .panel.wide{grid-column:1/-1;margin-top:0}
-.panel.wide .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center}
-.panel.wide .herofig{margin:0}
-.panel.wide .gaugewrap{margin:0}
-.two{display:grid;gap:9px;margin-top:9px}
+.panel.wide .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;grid-template-areas:"fig gauge" "chart chart"}.panel.wide .herofig{grid-area:fig}.panel.wide .gaugewrap{grid-area:gauge}.panel.wide .ba-chart{grid-area:chart;margin-top:4px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px;align-items:start}
 .card{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;padding:10px}
 .card h2{margin:0 0 8px;font-size:10.5px;letter-spacing:.1em;font-weight:900;color:#fff}
 .steps{display:grid;grid-template-columns:1fr;gap:7px}
@@ -107,7 +106,7 @@ ul.li li:before{content:"\\2022";position:absolute;left:1px;color:var(--green);f
 footer{border-top:1px solid var(--line);padding:12px;text-align:center;font-size:9.5px;color:#7899a9;background:#020d16;margin-top:12px}
 footer .l{font-weight:900;letter-spacing:.07em;color:#cfe9f5}
 footer .r{margin-top:3px;letter-spacing:.09em}
-.disc{font-size:8.5px;color:#7899a9;margin:6px 0 0;line-height:1.4}
+.chart{background:#04202e;border:1px solid #14415a;border-radius:8px;padding:8px 8px 4px}.chart svg{display:block;width:100%;height:auto}.tlegend{display:flex;flex-wrap:wrap;gap:3px 12px;margin:6px 0 2px}.tlegend span{font-size:8.5px;color:var(--muted);display:flex;align-items:center;gap:5px}.tlegend i{width:11px;height:3px;border-radius:2px;display:inline-block}.tlegend b{color:#dff2fb}.disc{font-size:8.5px;color:#7899a9;margin:6px 0 0;line-height:1.4}
 @media(min-width:700px){
  .metabar{grid-template-columns:repeat(4,1fr)}
  .wrap{padding:14px 14px 28px}
