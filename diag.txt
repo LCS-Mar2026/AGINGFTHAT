@@ -5,13 +5,17 @@ artwork sha256: 738b6486895a5c0316d30ef55d641907e49527b57983253d53ada8bfa4166393
 == font ==
 font http=200 bytes=744936
 == render ==
-render OK (1440, 1800) 1080 file bytes 180642 sha256 4310d7e994860842693e583e1a44887837d67e68cd05ac1d27b6fd8baf1a7ec4
-content ends y: 1657 | pill top: 1762 | gap: 105 | fits: True
-story OK (1080, 1920) bytes 325391 sha256 e5be354cec043a528e4008f7a98713daf72bf6993d213772ea77e40aa2f64249
+render OK (1440, 1800) 1080 file bytes 180577 sha256 5a66151c96745d56dd99ad3ffce13a3014cb52f44331fe98a220b456541f0454
+content ends y: 1617 | pill top: 1646 | fits: True
+content ends y: 1515 | pill top: 1770 | gap: 255 | fits: True
+story OK (1080, 1920) bytes 306904 sha256 aae9c8669c669fcf28e6f2e240d9268c713bc0ec9ce07a0e56868a2df461bf93
 == result ==
-total 928
-drwxr-xr-x 2 runner runner   4096 Oct 12 12:06 .
-drwxr-xr-x 7 runner runner   4096 Oct 12 12:06 ..
--rw-r--r-- 1 runner runner 429774 Oct 12 12:06 how-to-read-biological-age-results-1440.jpg
--rw-r--r-- 1 runner runner 325391 Oct 12 12:06 how-to-read-biological-age-results-story.jpg
--rw-r--r-- 1 runner runner 180642 Oct 12 12:06 how-to-read-biological-age-results.jpg
+total 1832
+drwxr-xr-x 2 runner runner   4096 Oct 12 12:08 .
+drwxr-xr-x 7 runner runner   4096 Oct 12 12:08 ..
+-rw-r--r-- 1 runner runner 431189 Oct 12 12:08 balance-after-40-one-legged-stance-1440.jpg
+-rw-r--r-- 1 runner runner 306904 Oct 12 12:08 balance-after-40-one-legged-stance-story.jpg
+-rw-r--r-- 1 runner runner 180577 Oct 12 12:08 balance-after-40-one-legged-stance.jpg
+-rw-r--r-- 1 runner runner 429774 Oct 12 12:08 how-to-read-biological-age-results-1440.jpg
+-rw-r--r-- 1 runner runner 325391 Oct 12 12:08 how-to-read-biological-age-results-story.jpg
+-rw-r--r-- 1 runner runner 180642 Oct 12 12:08 how-to-read-biological-age-results.jpg
