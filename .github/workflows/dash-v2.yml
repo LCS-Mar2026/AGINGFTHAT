@@ -1,0 +1,42 @@
+name: Dashboard v2 layout
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-v2.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch the patch and apply it
+        run: |
+          set -e
+          curl -sSL -o patch_v2.py "https://cdn.marblism.com/qah5nEg7XEn.py"
+          echo "patch bytes: $(wc -c < patch_v2.py)"
+          head -3 patch_v2.py
+          python3 patch_v2.py
+          python3 build_dashboard.py
+          echo "=== result ==="
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f hero band: $(grep -c 'hero-band' $f)"
+            echo "$f silo icons: $(grep -c 'class=\"sil\"' $f)"
+            echo "$f panel order: $(grep -o 'class=\"panel [a-z ]*\"' $f | tr '\n' ' ')"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard_src/gen.py dashboard_src/css.py dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Dashboard v2: matched figure sizes, shorter panels, helix header band, blood panel into the row"
+          git push
