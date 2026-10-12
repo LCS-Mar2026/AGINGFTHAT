@@ -1,0 +1,38 @@
+name: Add blood and biometric age panel figures
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['patch_icons.py', '.github/workflows/dash-icons.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply the patch, rebuild both pages
+        run: |
+          set -e
+          python3 patch_icons.py
+          python3 build_dashboard.py
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f herofig: $(grep -c 'class=\"herofig\"' $f)"
+            echo "$f blood art: $(grep -c 'X-G7nSsrtUc' $f)"
+            echo "$f ba art: $(grep -c 'f4-1J604s_r' $f)"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard_src/gen.py dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Add strong iconography to the blood and biometric age panels"
+          git push
