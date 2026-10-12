@@ -8,6 +8,8 @@ BC_FIG   = "https://cdn.marblism.com/9J9277dyCCt.webp"
 HEART    = "https://cdn.marblism.com/zZxd4bJ1qSt.webp"
 POS_F    = "https://cdn.marblism.com/5BmFVv925aB.webp"
 POS_S    = "https://cdn.marblism.com/QBo1eqeRDxl.webp"
+BLOOD_ART = "https://cdn.marblism.com/X-G7nSsrtUc.webp"
+BA_ART    = "https://cdn.marblism.com/f4-1J604s_r.webp"
 
 GREEN="#21c97a"; AMBER="#FF9F1C"; RED="#ff4b4b"; CYAN="#2BC7FF"; VIOLET="#A855F7"
 
@@ -90,6 +92,7 @@ def page(c):
     P('</div><div class="pb"><a class="btn" href="#">%s</a></div></section>'%h['btn'])
     a=c['ba']
     P('<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>%s</p></div></div>'%a['sub'])
+    P('<div class="body"><div class="herofig"><img src="%s" alt="3D render of a DNA helix dissolving into an hourglass, representing biological age"></div>'%BA_ART)
     P('<div class="body"><div class="gaugewrap"><div class="gauge">'+ring(a['pct'],a['col'])+'<div class="ctr"><small>Your Biometric Age</small><b>%s</b><em>years</em><u>Chronological Age %s</u></div></div></div>'%(a['bio'],a['chrono']))
     P('<div class="strip %s">%s</div>'%('good' if a['col']==GREEN else ('bad' if a['col']==RED else 'warn'),a['strip']))
     P('<p class="note">A healthier, stronger longer life is within your control.</p><div class="tiles">')
@@ -103,6 +106,7 @@ def page(c):
     x=c['blood']
     P('<section class="panel" style="margin-top:9px;border-color:#0f3b57"><div class="ph" style="background:linear-gradient(90deg,#06324c,#061f31)">'
       '<span class="ic" style="color:var(--cyan)">&#129514;</span><div><h2>%s</h2><p>%s</p></div></div>'%(x['name'],x['sub']))
+    P('<div class="body"><div class="herofig"><img src="%s" alt="3D render of red blood cells, plasma and molecular chains representing a blood and hormone panel"></div>'%BLOOD_ART)
     P('<div class="body"><div class="bloodrow">')
     for lbl,val,ref,tagcls,tagt in x['rows']:
         P('<div class="bm"><span>%s<small>ref %s</small></span><b>%s<span class="tag %s">%s</span></b></div>'%(lbl,ref,val,tagcls,tagt))
