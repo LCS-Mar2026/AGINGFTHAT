@@ -21,10 +21,10 @@ jobs:
       - name: Fetch assets and render
         run: |
           {
-            echo "== article hero (must match the live article) =="
-            curl -sSL -o /tmp/hero.webp -w "hero http=%{http_code} bytes=%{size_download}\n" "https://cdn.marblism.com/l2j9ic1_upY.webp" || echo "hero fetch FAILED"
+            echo "== daily artwork (fresh graphic, never the article hero, never a human figure) =="
+            curl -sSL -o /tmp/hero.webp -w "artwork http=%{http_code} bytes=%{size_download}\n" "https://cdn.marblism.com/b3uhpkricQh.webp" || echo "artwork fetch FAILED"
             file /tmp/hero.webp 2>&1
-            echo "hero sha256: $(sha256sum /tmp/hero.webp | cut -d' ' -f1)"
+            echo "artwork sha256: $(sha256sum /tmp/hero.webp | cut -d' ' -f1)"
             echo "== font =="
             curl -sSL -o /tmp/Montserrat.ttf -w "font http=%{http_code} bytes=%{size_download}\n" "https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf" || echo "font fetch FAILED"
             echo "== render =="
@@ -40,5 +40,5 @@ jobs:
           git config user.name "Penny (Blog Writer)"
           git config user.email "penny@agingfthat.com"
           git add -A social/ diag.txt
-          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Social imagery uses the article hero image [automated]"
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Social imagery for the 11 October balance article [automated]"
           git push
