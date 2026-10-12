@@ -32,7 +32,7 @@
 </div>
 <script>
 (function(){
-  var H='c4f17ef9be49d1e3b89ccf606be7e555254dffc12459a693f203fc3e5934dccf';
+  var H='f29d7b120048b9344d52b30c9864a378ab9bee78ebc4e461fd07627d4bf844d8';
   var SESSION_KEY='agnf_admin_v2';
   var gate=document.getElementById('gate'),content=document.getElementById('content');
   function digest(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
@@ -61,13 +61,6 @@
         if(backlink)backlink.remove();
         var m=holder.querySelector('.mast');
         if(m)m.remove();
-        var h=holder.querySelector('.hero');
-        if(h)h.remove();
-        var idx=holder.querySelector('.idx');
-        if(idx)idx.remove();
-        var keep=holder.querySelectorAll('.legend-tier.boxed, .stats, section#blood');
-        holder.innerHTML='';
-        keep.forEach(function(el){holder.appendChild(el)});
         var target=document.getElementById('content');
         target.innerHTML='';
         target.appendChild(holder);
