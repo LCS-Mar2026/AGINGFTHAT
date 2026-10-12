@@ -46,7 +46,7 @@ def page(cfg):
 
     mp=cfg['mp']
     P.append('<section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2><p>CHIROPRACTIC ANALYSIS &#183; MOVEMENT &#183; ALIGNMENT &#183; POSTURE</p></div></div>')
-    P.append('<div class="shots"><img src="anterior-posture-view.jpg" alt="Anterior posture view from the chiropractic assessment" loading="lazy"><img src="lateral-posture-view.jpg" alt="Lateral posture view from the chiropractic assessment" loading="lazy"></div>')
+    P.append('<div class="shots"><img src="%s" alt="3D spinal alignment visualisation showing the vertical axis, offsets and tilt markers from the posture assessment" loading="lazy"><img src="%s" alt="3D biomechanical balance visualisation showing centre-of-gravity rings and joint-angle markers across hip, knee and ankle" loading="lazy"></div>'%(mp['img1'],mp['img2']))
     P.append('<ul class="li">'+''.join('<li>%s</li>'%x for x in mp['bullets'])+'</ul>')
     P.append(bars(mp['bars']))
     P.append('<div class="pb"><a class="btn" href="#">%s</a></div></section>'%mp['btn'])
@@ -62,7 +62,7 @@ def page(cfg):
     P.append('<div class="pb"><a class="btn" href="#">%s</a></div></section>'%hh['btn'])
 
     ba=cfg['ba']
-    P.append('<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>%s</p></div></div>'%ba['sub'])
+    P.append('<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p id="baSub">%s</p></div></div>'%ba['sub'])
     P.append('<div class="donutwrap"><div class="donut" style="background:%s"><div class="inner"><small>Your Biometric Age</small><b>%s</b><em>years</em><u>Chronological Age %s</u></div></div></div>'%(ba['gauge'],ba['bio'],ba['chrono']))
     P.append('<div class="strip %s">%s</div>'%('good' if ba['younger'] else 'bad', ba['strip']))
     P.append('<p class="note">A healthier, stronger longer life is within your control.</p>')
@@ -87,6 +87,8 @@ def page(cfg):
     P.append('</div><p class="disc">Documents are listed for reference. Source files are held securely and are not downloadable from this page.</p></section></div>')
     P.append('</div>')
     P.append('<footer><div class="l">AGING?F***THAT! &#124; LONGER. STRONGER. HEALTHIER.</div><div class="r">WWW.AGINGFTHAT.COM</div></footer>')
+    if cfg.get('level1'):
+        P.append('<script>(function(){var q=(location.search+"").toLowerCase();if(/level=1|level1|applicant/.test(q)){var b=document.querySelector(".bloods");if(b)b.classList.add("hide");var s=document.getElementById("baSub");if(s)s.textContent="YOUR BIOLOGICAL AGE \\u00b7 LEVEL 1 METRICS";}})();</script>')
     P.append('<script>(function(){document.querySelectorAll("a.btn[href=\\u0022#\\u0022]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();});});})();</script>')
     P.append('</body></html>')
     return "\n".join(P)
@@ -95,7 +97,7 @@ def page(cfg):
 FAKE = dict(
  title="Example Client Report — Biometric Age Assessment Dashboard | AGING?F***THAT!",
  desc="An example biometric age assessment dashboard: body composition, movement and posture, heart health, blood markers and estimated biological age in one view.",
- slug="dashboard.html", sub="BIOMETRIC AGE ASSESSMENT DASHBOARD",
+ slug="dashboard.html", sub="BIOMETRIC AGE ASSESSMENT DASHBOARD", level1=True,
  banner="<b>EXAMPLE ONLY.</b> Every figure on this page is illustrative sample data, not a real client record. It shows the format of an AFT assessment dashboard.",
  meta=("John Smith","12 OCT 2026","Level 1 Offer / Mailer","Applicant","w"),
  bc=dict(
@@ -105,6 +107,7 @@ FAKE = dict(
   bars=[("Muscle",58,"mid","52.0"),("Body Fat",74,"hot","21.0"),("Visceral",82,"hot","11"),("BMI",72,"mid","27.8")],
   btn="VIEW FULL MORPHO SCAN REPORT"),
  mp=dict(
+  img1="https://cdn.marblism.com/P1lybjh9XT4.webp", img2="https://cdn.marblism.com/gNuN7_s2_I_.webp",
   bullets=["Forward head posture","Anterior pelvic tilt","Reduced spinal alignment","Postural imbalance detected","Personalised recommendations"],
   bars=[("Head shift",70,"hot","1.40cm L"),("Shoulders",55,"mid","0.77cm R"),("Ribcage",38,"mid","0.44cm L"),("Hips",80,"hot","2.46cm L")],
   btn="VIEW FULL CHIROPRACTIC REPORT"),
@@ -153,6 +156,7 @@ REAL = dict(
   bars=[("Lean mass",92,"good","74.6 kg"),("Body fat",90,"good","9.6%"),("Visceral fat",95,"good","54.6"),("Muscle symm.",94,"good","5.58%")],
   btn="VIEW FULL MORPHO SCAN REPORT"),
  mp=dict(
+  img1="https://cdn.marblism.com/P1lybjh9XT4.webp", img2="https://cdn.marblism.com/gNuN7_s2_I_.webp",
   bullets=["Forward head posture","Anterior pelvic tilt","Reduced spinal alignment","Measured against the 25 Apr 2025 assessment","Personalised recommendations"],
   bars=[("Head shift",70,"mid","1.40cm L"),("Shoulders",55,"mid","0.77cm R"),("Ribcage",38,"good","0.44cm L"),("Hips",80,"mid","2.46cm L")],
   btn="VIEW FULL CHIROPRACTIC REPORT"),
