@@ -3,28 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Example Report | AGING?F***THAT!</title>
+<title>Example Client Report — Bio Age Assessment | AGING?F***THAT!</title>
 <link rel="canonical" href="https://agingfthat.com/example-report.html">
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <style>
-:root{--b:#3D1C02;--blue:#A9CDEA;--cyan:#2BC7FF;--muted:#8A7666}
+:root{--b:#3D1C02;--blue:#A9CDEA;--cyan:#2bc7ff;--muted:#8A7666;--good:#21c97a;--bad:#ff4b4b}
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--b);background:#f7f7f5}
-body::before{content:"";position:fixed;inset:0;z-index:-2;background-image:url('https://cdn.marblism.com/Xi8Ifi9FqM7.webp');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;opacity:.22}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background-image:url('https://cdn.marblism.com/GnjltkisXBd.webp');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;opacity:.22}
 body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(3,21,34,.18),rgba(2,11,18,.22))}
-.wrap{max-width:880px;margin:0 auto;padding:28px 18px 60px}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px}
 header{text-align:center;margin-bottom:26px}
 h1{margin:6px 0 4px;font-size:26px;letter-spacing:.5px}
 .tag{color:var(--muted);font-size:13px}
-.block{background:rgba(255,255,255,.94);border:1px solid #e2dedb;border-radius:14px;padding:20px 22px;margin:0 0 18px;box-shadow:0 8px 26px #00000010}
+.block{background:rgba(255,255,255,.95);border:1px solid #e2dedb;border-radius:14px;padding:20px 22px;margin:0 0 18px;box-shadow:0 8px 26px #00000010}
 h2{margin:0 0 14px;font-size:13px;letter-spacing:1.4px;text-transform:uppercase;color:#14213D}
 h3{margin:0 0 6px;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted)}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px}
 .metric{border:1px solid #e6e2df;border-radius:11px;padding:14px;background:#fff}
 .big{font-size:30px;font-weight:900;line-height:1.05}
 .delta{font-size:12px;color:var(--muted);margin-top:3px}
+.delta.up{color:var(--good);font-weight:700}
 .bar{height:6px;border-radius:99px;background:#eee9e6;margin-top:10px;overflow:hidden}
 .bar span{display:block;height:100%;background:linear-gradient(90deg,#2BC7FF,#21c97a)}
 table{width:100%;border-collapse:collapse;font-size:14px}
@@ -32,12 +35,13 @@ th,td{text-align:left;padding:9px 8px;border-bottom:1px solid #eee9e6}
 th{font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted)}
 td.num{font-weight:700}
 .flag{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.9px;padding:4px 9px;border-radius:99px;background:#e7f7ee;color:#127a45}
-.photo-row,.dexa-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
-.photo-card,.dexa-shot{background:#fff;border:1px solid #e6e2df;border-radius:11px;padding:10px;text-align:center}
-.photo-card img,.dexa-shot img{width:100%;height:auto;border-radius:7px;display:block}
-.photo-label{margin-top:8px;font-size:10.5px;letter-spacing:1.1px;font-weight:700;color:var(--muted)}
+.watch{background:#fff4e5;color:#9a5b00}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.shot{background:#fff;border:1px solid #e6e2df;border-radius:11px;padding:10px;text-align:center}
+.shot img{width:100%;height:auto;border-radius:7px;display:block}
+.shot .cap{margin-top:8px;font-size:10.5px;letter-spacing:1.1px;font-weight:700;color:var(--muted)}
 .footnote{font-size:12px;color:var(--muted);text-align:center;line-height:1.6}
-@media(max-width:600px){.wrap{padding:14px 10px 40px}h1{font-size:21px}.block{padding:16px}}
+@media(max-width:640px){.wrap{padding:14px 10px 40px}h1{font-size:21px}.block{padding:16px}.two{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -59,39 +63,59 @@ td.num{font-weight:700}
 
 <section class="block">
 <h2>BIO AGE 47 | CHRONOLOGICAL 63 | DIVERGENCE −16 YEARS</h2>
-<p style="margin:0;font-size:14px;line-height:1.7">A composite biological age is not one measurement. It is a weighted model across blood and hormone markers, fitness capacity and body composition. The example below shows how a single verified cycle presents in the client area.</p>
+<p style="margin:0;font-size:14px;line-height:1.7">A composite biological age is not one measurement. It is a weighted model across blood and hormone markers, fitness capacity and body composition. The example below shows how the model reads for a sample client, and how each domain is tracked over time.</p>
 </section>
 
 <section class="block">
-<h2>BIOMARKER PANEL</h2>
+<h2>Blood markers of longevity</h2>
 <table>
-<tr><th>MARKER</th><th>RESULT</th><th>RANGE</th><th>STATUS</th></tr>
+<tr><th>MARKER</th><th>RESULT</th><th>REFERENCE</th><th>STATUS</th></tr>
 <tr><td>HS-CRP</td><td class="num">0.4 mg/L</td><td>&lt;1.0</td><td><span class="flag">OPTIMAL</span></td></tr>
 <tr><td>HbA1c</td><td class="num">33 mmol/mol</td><td>&lt;42</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Total cholesterol</td><td class="num">4.6 mmol/L</td><td>&lt;5.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>LDL cholesterol</td><td class="num">2.5 mmol/L</td><td>&lt;3.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>HDL cholesterol</td><td class="num">1.6 mmol/L</td><td>&gt;1.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Triglycerides</td><td class="num">1.0 mmol/L</td><td>&lt;1.7</td><td><span class="flag">OPTIMAL</span></td></tr>
 <tr><td>ApoB</td><td class="num">0.68 g/L</td><td>&lt;0.80</td><td><span class="flag">OPTIMAL</span></td></tr>
 <tr><td>Testosterone</td><td class="num">25.8 nmol/L</td><td>8.6–29.0</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Free testosterone</td><td class="num">443 pmol/L</td><td>200–600</td><td><span class="flag">OPTIMAL</span></td></tr>
 <tr><td>Vitamin D</td><td class="num">145 nmol/L</td><td>75–150</td><td><span class="flag">OPTIMAL</span></td></tr>
 <tr><td>Fasting insulin</td><td class="num">22 pmol/L</td><td>14–42</td><td><span class="flag">OPTIMAL</span></td></tr>
+<tr><td>Ferritin</td><td class="num">148 µg/L</td><td>30–300</td><td><span class="flag">OPTIMAL</span></td></tr>
+</table>
+<p class="footnote" style="text-align:left;margin-top:12px">Sample figures shown to illustrate the report format. One reading is a snapshot; trends across repeat panels are what the programme tracks.</p>
+</section>
+
+<section class="block">
+<h2>DEXA body composition series</h2>
+<div class="two">
+<div class="shot"><img src="https://cdn.marblism.com/9GJv0nM71BJ.jpg" alt="DEXA scan, 21 December 2024, first measurement in the series"><div class="cap">21 DEC 2024</div></div>
+<div class="shot"><img src="https://cdn.marblism.com/fQNNPFsx8WA.jpg" alt="DEXA scan, 25 April 2025, second measurement in the series"><div class="cap">25 APR 2025 · LATEST</div></div>
+</div>
+<p class="footnote" style="text-align:left;margin-top:12px">Body composition is read region by region. Lean mass, fat mass and visceral fat move differently, which is why a single weight figure rarely tells the whole story.</p>
+</section>
+
+<section class="block">
+<h2>Posture assessment</h2>
+<div class="two">
+<div class="shot"><img src="anterior-posture-view.jpg" alt="Anterior posture view from the chiropractic assessment"><div class="cap">ANTERIOR VIEW</div></div>
+<div class="shot"><img src="lateral-posture-view.jpg" alt="Lateral posture view from the chiropractic assessment"><div class="cap">LATERAL VIEW</div></div>
+</div>
+</section>
+
+<section class="block">
+<h2>What the programme tracks</h2>
+<table>
+<tr><th>DOMAIN</th><th>MEASURED</th><th>WHY IT MATTERS</th></tr>
+<tr><td>Cardiometabolic</td><td>Blood pressure, fasting glucose, HbA1c, lipids</td><td>Drives most age-related risk</td></tr>
+<tr><td>Body composition</td><td>Lean mass, fat mass, visceral fat, waist</td><td>Separates weight from what the weight is made of</td></tr>
+<tr><td>Fitness</td><td>VO2max, grip strength, mobility</td><td>Predicts how well you age</td></tr>
+<tr><td>Inflammation</td><td>hs-CRP, homocysteine</td><td>Quietly accelerates decline</td></tr>
 </table>
 </section>
 
-<section class="block">
-<h2>SCAN RECORDS</h2>
-<div class="photo-row">
-<div class="photo-card"><img src="anterior-posture-view.jpg" alt="Anterior view" loading="lazy"/><div class="photo-label">ANTERIOR VIEW</div></div>
-<div class="photo-card"><img src="lateral-posture-view.jpg" alt="Lateral view" loading="lazy"/><div class="photo-label">LATERAL VIEW</div></div>
+<p class="footnote">Sample report for illustration only. Not medical advice. · AGING?F***THAT!</p>
+<p class="footnote"><a href="admin.html" style="color:#14213D;font-weight:700">← Private client area</a> · <a href="programs-offered.html" style="color:#14213D;font-weight:700">Programmes</a></p>
 </div>
-</section>
-
-<section class="block">
-<h2>DEXA SCAN HISTORY</h2>
-<div class="dexa-row">
-<div class="dexa-shot"><img src="dexa-scan-21-dec-2024.jpg" alt="DEXA 21 Dec 2024" loading="lazy"/><div class="photo-label">21 DEC 2024</div></div>
-<div class="dexa-shot"><img src="dexa-scan-25-apr-2025.jpg" alt="DEXA 25 Apr 2025 latest" loading="lazy"/><div class="photo-label">25 APR 2025 · LATEST</div></div>
-</div>
-</section>
-<p class="footnote">Illustrative example report. Figures are sample values, not medical advice. Live client reports use independent-lab verified biomarker data and follow the same format. · AGING?F***THAT! · Lee C. Stonehouse</p>
-</div>
-<script>/* second layer of the page-10 backdrop, paired with example-report page */</script>
 </body>
 </html>
