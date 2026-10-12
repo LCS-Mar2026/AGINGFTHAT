@@ -1,0 +1,5 @@
+HERO_ART = "https://cdn.marblism.com/v87Uu3kUSV9.webp"
+BC_FIG = "https://cdn.marblism.com/9J9277dyCCt.webp"
+HEART = "https://cdn.marblism.com/zZxd4bJ1qSt.webp"
+POS_F = "https://cdn.marblism.com/5BmFVv925aB.webp"
+POS_S = "https://cdn.marblism.com/QBo1eqeRDxl.webp"
