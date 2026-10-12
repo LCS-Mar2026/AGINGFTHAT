@@ -1,0 +1,42 @@
+name: Dashboard v3 layout
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-v3.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch the v3 patch and apply it
+        run: |
+          set -e
+          curl -sSL -o patch_v3.py "https://cdn.marblism.com/-UFrZLYjnjT.py"
+          echo "patch bytes: $(wc -c < patch_v3.py)"
+          python3 patch_v3.py
+          python3 build_dashboard.py
+          echo "=== result ==="
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f BLOOD WORK: $(grep -c 'BLOOD WORK' $f)"
+            echo "$f helix bg: $(grep -c 'f4-1J604s_r.webp' $f)"
+            echo "$f 9:16 figs: $(grep -c 'aspect-ratio:9/16' $f)"
+            echo "$f wide span: $(grep -c 'grid-column:1/-1' $f)"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard_src/gen.py dashboard_src/css.py dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Dashboard v3: equal panels, 9:16 figures, full-height helix header, blood panel renamed"
+          git push
