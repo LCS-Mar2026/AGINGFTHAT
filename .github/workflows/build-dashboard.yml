@@ -2,12 +2,9 @@ name: Build dashboard pages
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['build_dashboard.py', 'dashboard_src/**', '.github/workflows/build-dashboard.yml']
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -33,11 +30,3 @@ jobs:
             echo "$f blood rows: $(grep -c 'class=\"bm\"' $f)"
             echo "$f chips: $(grep -c 'class=\"chip\"' $f)"
           done
-      - name: Commit and push
-        run: |
-          set -e
-          git config user.name "Penny (Blog Writer)"
-          git config user.email "penny@agingfthat.com"
-          git add dashboard.html example-report.html
-          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Rebuild dashboard pages from the shared template"
-          git push
