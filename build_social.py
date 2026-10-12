@@ -1,5 +1,5 @@
-"""Rebuild the 7 Oct Instagram POST image inside CI, to avoid transporting a 275 KB binary.
-Artwork = THE ARTICLE'S OWN HERO so the social post matches the blog."""
+"""Rebuild the daily Instagram POST image inside CI, to avoid transporting a large binary.
+Artwork = the day's FRESH graphic, never the article hero, never a human figure."""
 import os, sys, hashlib
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 
@@ -25,11 +25,11 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-TITLE="How to Read Your Biological Age Results: Turning Blood Markers Into a Healthspan Plan"
-EYEBROW="BIO AGE \u00b7 BLOOD MARKERS"
+TITLE="The 10-Second Balance Test: What Standing on One Leg Tells You About How Long You Live"
+EYEBROW="BALANCE & HEALTHSPAN"
 LINE="New articles daily at agingfthat.com/blog"
 PILL="BLOG \u00b7 LINK IN BIO"
-OUT="social/how-to-read-biological-age-results"
+OUT="social/balance-after-40-one-legged-stance"
 
 art=Image.open("/tmp/hero.webp").convert("RGB")
 BAND=int(H*0.472)
@@ -90,3 +90,4 @@ small=c.resize((1080,1350), Image.LANCZOS).convert("RGB")
 small.save(OUT+".jpg", quality=88, subsampling=0, optimize=True, progressive=False)
 b=open(OUT+".jpg","rb").read()
 print("render OK", c.size, "1080 file bytes", len(b), "sha256", hashlib.sha256(b).hexdigest())
+print("content ends y:", y, "| pill top:", pill_y, "| fits:", y < pill_y-int(20*K))

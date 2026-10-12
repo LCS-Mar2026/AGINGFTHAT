@@ -1,6 +1,5 @@
 """9:16 Instagram story with the blog snapshot AND the caption baked in.
-Artwork = THE ARTICLE'S OWN HERO so the social post matches the blog.
-One image, nothing to copy. Lee adds music and posts."""
+Artwork = the day's FRESH graphic. One image, nothing to copy. Lee adds music and posts."""
 import os, hashlib
 from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 
@@ -25,18 +24,19 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-EYEBROW="BIO AGE \u00b7 BLOOD MARKERS"
-STATEMENT=("A biometric assessment brings biological signals together to create a "
-           "more useful picture of healthspan than chronological age alone.")
-CAPTION=("Chronological age tells you how many birthdays have passed. It does not tell you "
-         "how well you move, recover or regulate blood sugar. A biological age test turns "
-         "vague concern into a measurement you can act on.")
+EYEBROW="BALANCE & HEALTHSPAN"
+STATEMENT=("The 10-Second Balance Test: What Standing on One Leg Tells You About How Long You Live")
+CAPTION=("Everyone tracks strength. Almost nobody trains balance until a stumble makes the "
+         "decision for them. Balance is the fourth capacity after 40, next to strength, VO2max "
+         "and body composition. A new article breaks down what the 10-second one-leg stance "
+         "actually measures, how the vestibular system and proprioception change with age, "
+         "and three drills to train it deliberately.")
 FOOTER="New articles daily at agingfthat.com/blog"
 TAGS="#healthspan  #longevity"
 PILL="BLOG \u00b7 LINK IN BIO"
-OUT="social/how-to-read-biological-age-results-story"
+OUT="social/balance-after-40-one-legged-stance-story"
 
-ART_H=int(H*0.44)
+ART_H=int(H*0.40)
 art=Image.open("/tmp/hero.webp").convert("RGB")
 r=max(W/art.width,ART_H/art.height)
 art=art.resize((int(art.width*r),int(art.height*r)),Image.LANCZOS)
@@ -58,36 +58,36 @@ logo=Image.open("aft-logo.png").convert("RGBA")
 logo=logo.crop(logo.split()[-1].getbbox())
 LW=286; LH=int(logo.height*(LW/logo.width))
 logo=logo.resize((LW,LH),Image.LANCZOS)
-c.paste(logo,(PAD,ART_H+44),logo)
+c.paste(logo,(PAD,ART_H+40),logo)
 
-ry=ART_H+44+LH+30
+ry=ART_H+40+LH+28
 d.line([(PAD,ry),(W-PAD,ry)],fill=CYAN,width=3)
-d.text((PAD,ry+34),EYEBROW,font=font(25,700),fill=CYAN)
+d.text((PAD,ry+32),EYEBROW,font=font(24,700),fill=CYAN)
 
-f=font(50,900); lh=int(50*1.26)
+f=font(44,900); lh=int(44*1.24)
 lines=wrap(d,STATEMENT,f,W-2*PAD)
-y=ry+34+58
+y=ry+32+54
 for ln in lines:
     d.text((PAD,y),ln,font=f,fill=WHITE); y+=lh
 
-y+=18
-f2=font(32,500); lh2=int(32*1.52)
+y+=16
+f2=font(29,500); lh2=int(29*1.50)
 cap=wrap(d,CAPTION,f2,W-2*PAD)
 for ln in cap:
     d.text((PAD,y),ln,font=f2,fill=ICE); y+=lh2
 
-y+=30
-d.text((PAD,y),FOOTER,font=font(29,700),fill=CYAN)
-y+=44
-d.text((PAD,y),TAGS,font=font(28,700),fill=ICE)
+y+=24
+d.text((PAD,y),FOOTER,font=font(28,700),fill=CYAN)
+y+=42
+d.text((PAD,y),TAGS,font=font(27,700),fill=ICE)
 
 fp=font(30,800)
 tw=d.textlength(PILL,font=fp)
-pill_h=78; pill_y=H-158
+pill_h=78; pill_y=H-150
 d.rounded_rectangle([PAD,pill_y,PAD+tw+60,pill_y+pill_h],radius=pill_h//2,fill=CYAN)
 d.text((PAD+30,pill_y+(pill_h-int(fp.size*1.2))//2+2),PILL,font=fp,fill=NAVY)
 
-print("content ends y:",y,"| pill top:",pill_y,"| gap:",pill_y-y,"| fits:", y < pill_y-40)
+print("content ends y:",y,"| pill top:",pill_y,"| gap:",pill_y-y,"| fits:", y < pill_y-30)
 os.makedirs("social", exist_ok=True)
 c.convert("RGB").save(OUT+".jpg",quality=90,subsampling=0,optimize=True,progressive=False)
 b=open(OUT+".jpg","rb").read()
