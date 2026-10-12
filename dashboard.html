@@ -1,0 +1,157 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Biometric Age Assessment Dashboard | AGING?F***THAT!</title><meta name="description" content="The AFT biometric age assessment dashboard: body composition, movement and posture, heart health, blood markers and biological age in one view."><link rel="canonical" href="https://agingfthat.com/dashboard.html"><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest"><style>
+:root{--navy:#031522;--panel:#061d2c;--line:#123c52;--text:#edfaff;--muted:#a9c8d8;--cyan:#2BC7FF;--amber:#FF9F1C;--green:#21c97a;--red:#ff4b4b;--violet:#A855F7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--navy);color:var(--text);font:15px/1.5 Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--cyan)}
+.hero{position:relative;overflow:hidden;padding:18px 16px 14px;background:linear-gradient(120deg,#04243a,#031522 62%);border-bottom:1px solid var(--line)}
+.hero:after{content:"";position:absolute;right:-40px;top:-30px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,#1e8fd422,transparent 68%);pointer-events:none}
+.wm{font-size:clamp(20px,5.6vw,40px);font-weight:900;letter-spacing:-.02em;line-height:1;margin:0;text-shadow:0 0 14px #2bc7ff55}
+.wm em{font-style:normal;color:var(--cyan)}
+.sub{margin:8px 0 0;font-size:clamp(11px,2.6vw,15px);font-weight:900;letter-spacing:.18em;color:#dff4ff}
+.strap{margin:7px 0 0;font-size:clamp(9px,2.1vw,12px);font-weight:800;letter-spacing:.22em;color:var(--cyan)}
+.metabar{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.metabar div{background:#052030;padding:9px 12px;font-size:11.5px;color:var(--muted)}
+.metabar b{display:block;color:#fff;font-size:12.5px;margin-top:2px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-left:5px;vertical-align:middle}
+.wrap{padding:14px 12px 26px;max-width:1400px;margin:0 auto}
+.panels{display:grid;gap:12px;grid-template-columns:1fr}
+.panel{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--cyan);border-radius:12px;padding:13px 13px 0;display:flex;flex-direction:column}
+.panel.bc{border-top-color:var(--amber)}.panel.mp{border-top-color:var(--green)}.panel.hh{border-top-color:var(--red)}.panel.ba{border-top-color:var(--violet)}.panel.bx{border-top-color:var(--cyan)}
+.ph{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.ic{width:30px;height:30px;flex:0 0 30px;border-radius:8px;display:grid;place-items:center;font-size:15px;background:#0b2b3f}
+.panel.bc .ic{color:var(--amber)}.panel.mp .ic{color:var(--green)}.panel.hh .ic{color:var(--red)}.panel.ba .ic{color:var(--violet)}.panel.bx .ic{color:var(--cyan)}
+.ph h2{margin:0;font-size:12.5px;letter-spacing:.11em;font-weight:900}
+.ph p{margin:2px 0 0;font-size:9.5px;letter-spacing:.08em;color:var(--muted)}
+.rows{display:grid;gap:8px;margin-bottom:10px}
+.row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;border-bottom:1px solid #0f2f42;padding-bottom:6px}
+.row span{color:var(--muted);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+.row b{font-size:16px;font-weight:900}
+.tag{display:inline-block;font-size:9px;font-weight:900;letter-spacing:.07em;padding:2px 6px;border-radius:99px;margin-left:5px;vertical-align:middle}
+.ok{background:#0f3f2a;color:#5ff0a8}.bad{background:#42201c;color:#ff9b8f}.warn{background:#42331a;color:#ffd479}
+.railtxt{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 10px}
+.railtxt i{font-style:normal;font-size:9px;letter-spacing:.05em;color:#9fc4d6;border:1px solid #14415a;border-radius:99px;padding:3px 7px}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:9px}
+.shots img{width:100%;height:auto;border-radius:8px;border:1px solid #14415a;display:block;background:#02101a}
+ul.li{list-style:none;margin:0 0 10px;padding:0}
+ul.li li{position:relative;padding-left:15px;font-size:11.5px;color:#d6ecf7;margin-bottom:4px}
+ul.li li:before{content:"\2022";position:absolute;left:2px;color:var(--cyan);font-weight:900}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.tile{border:1px solid #14415a;border-radius:9px;padding:9px;background:#04222f;text-align:center}
+.tile small{display:block;font-size:9px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+.tile b{display:block;font-size:19px;font-weight:900;margin:3px 0 4px}
+.tile u{display:inline-block;text-decoration:none;font-size:8.5px;font-weight:900;letter-spacing:.07em;padding:2px 7px;border-radius:99px}
+.donutwrap{display:grid;place-items:center;margin-bottom:9px}
+.donut{width:150px;height:150px;border-radius:50%;background:conic-gradient(from 200deg,#2BC7FF 0deg,#7d5cf6 150deg,#e0409a 250deg,#2BC7FF 330deg);display:grid;place-items:center;position:relative}
+.donut:after{content:"";position:absolute;inset:11px;border-radius:50%;background:#04202e}
+.donut .inner{position:relative;text-align:center;z-index:2}
+.donut .inner small{display:block;font-size:8.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase}
+.donut .inner b{display:block;font-size:33px;font-weight:900;line-height:1;margin:2px 0}
+.donut .inner em{font-style:normal;font-size:9px;letter-spacing:.08em;color:var(--muted)}
+.donut .inner u{display:block;text-decoration:none;font-size:9.5px;font-weight:800;color:#fff;margin-top:3px}
+.strip{text-align:center;font-size:10.5px;font-weight:900;letter-spacing:.05em;border-radius:7px;padding:7px 8px;margin-bottom:9px}
+.strip.good{background:#0f3f2a;color:#5ff0a8}.strip.bad{background:#421c1c;color:#ffb3a8}
+.note{font-style:italic;font-size:10.5px;color:var(--muted);text-align:center;margin:0 0 10px}
+.pb{margin-top:auto;padding-bottom:13px}
+.btn{display:block;width:100%;border:1px solid #1a4f6b;border-radius:99px;background:#08283a;color:#fff;font-weight:900;font-size:10.5px;letter-spacing:.06em;padding:11px 10px;text-align:center;text-decoration:none;cursor:pointer;font-family:inherit}
+.panel.bc .btn{border-color:var(--amber);color:#ffdca8}.panel.mp .btn{border-color:var(--green);color:#b6f7d4}
+.panel.hh .btn{border-color:var(--red);color:#ffc9c2}.panel.ba .btn{border-color:var(--violet);color:#e3ccff}.panel.bx .btn{border-color:var(--cyan)}
+table.mk{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:10px}
+table.mk th{font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 5px;border-bottom:1px solid #0f2f42}
+table.mk td{padding:6px 5px;border-bottom:1px solid #0d2b3c}
+table.mk td.n{font-weight:900;white-space:nowrap}
+.two{display:grid;gap:12px;margin-top:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px}
+.card h2{margin:0 0 11px;font-size:12px;letter-spacing:.12em;font-weight:900;color:#fff}
+.steps{display:grid;gap:9px}
+.step{display:flex;gap:10px;align-items:flex-start}
+.step i{flex:0 0 26px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--cyan);color:var(--cyan);display:grid;place-items:center;font-style:normal;font-weight:900;font-size:11px}
+.step div b{display:block;font-size:12px}
+.step div span{font-size:10.5px;color:var(--muted)}
+.docs{display:grid;gap:7px}
+.doc{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid #123c52;border-radius:9px;padding:9px 10px;font-size:11.5px}
+.doc a,.doc b{font-size:10px;font-weight:900;letter-spacing:.05em;text-decoration:none;color:var(--cyan)}
+.doc b{color:var(--amber)}
+footer{border-top:1px solid var(--line);padding:16px 14px;text-align:center;font-size:10.5px;color:#7899a9;background:#020d16}
+footer .l{font-weight:900;letter-spacing:.09em;color:#cfe9f5}
+footer .r{margin-top:4px;letter-spacing:.11em}
+.hide{display:none!important}
+@media(min-width:640px){.metabar{grid-template-columns:repeat(4,1fr)}.wrap{padding:18px 16px 34px}.panels{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr 1fr}}
+@media(min-width:1080px){.panels{grid-template-columns:repeat(4,1fr);gap:14px}.wrap{padding:20px 22px 40px}.hero{padding:22px 22px 16px}}
+</style></head><body>
+<header class="hero"><h1 class="wm">AGING?<em>F***</em>THAT!</h1><p class="sub" id="hdrSub">BIOMETRIC AGE ASSESSMENT DASHBOARD</p><p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></header>
+<div class="metabar"><div>Name<b>Lee C. Stonehouse</b></div><div>Assessment Date<b id="md">12 OCT 2026</b></div><div>Source<b id="src">Level 1 Offer / Mailer</b></div><div>Status<b>Client<span class="dot"></span></b></div></div>
+<div class="wrap">
+<div class="panels">
+<section class="panel bc"><div class="ph"><span class="ic">&#128100;</span><div><h2>BODY COMPOSITION</h2><p>RENPHO MORPHO SCAN</p></div></div>
+<div class="rows">
+<div class="row"><span>Weight</span><b>78.4 kg</b></div>
+<div class="row"><span>Body Fat</span><b>9.6%<span class="tag ok">LEAN</span></b></div>
+<div class="row"><span>Muscle Mass</span><b>63.1 kg<span class="tag ok">GOOD</span></b></div>
+<div class="row"><span>Visceral Fat</span><b>6<span class="tag ok">LOW</span></b></div>
+<div class="row"><span>BMI</span><b>22.4<span class="tag ok">HEALTHY</span></b></div>
+</div>
+<div class="railtxt"><i>Segmental Analysis</i><i>Muscle Balance</i><i>Body Shape</i><i>Metabolic Age</i></div>
+<div class="pb"><a class="btn" href="client-scan-history.html">VIEW FULL MORPHO SCAN REPORT</a></div>
+</section>
+<section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2><p>CHIROPRACTIC ANALYSIS &#183; MOVEMENT &#183; ALIGNMENT &#183; POSTURE</p></div></div>
+<div class="shots"><img src="anterior-posture-view.jpg" alt="Anterior posture view from the chiropractic assessment" loading="lazy"><img src="lateral-posture-view.jpg" alt="Lateral posture view from the chiropractic assessment" loading="lazy"></div>
+<ul class="li"><li>Forward head posture</li><li>Anterior pelvic tilt</li><li>Reduced spinal alignment</li><li>Postural imbalance detected</li><li>Personalised recommendations</li></ul>
+<div class="pb"><a class="btn" href="client-scan-history.html">VIEW FULL CHIROPRACTIC REPORT</a></div>
+</section>
+<section class="panel hh"><div class="ph"><span class="ic">&#10084;&#65039;</span><div><h2>HEART HEALTH</h2><p>BLOOD PRESSURE &amp; RESTING HEART RATE &#183; CURRENT MEASUREMENTS</p></div></div>
+<div class="tiles">
+<div class="tile"><small>Blood Pressure</small><b>118/74</b><small>mmHg</small><u class="tag ok">OPTIMAL</u></div>
+<div class="tile"><small>Resting Heart Rate</small><b>49</b><small>bpm</small><u class="tag ok">OPTIMAL</u></div>
+</div>
+<ul class="li"><li>Blood pressure within optimal range</li><li>Resting heart rate indicates good fitness</li><li>Supports cardiovascular health focus</li><li>Track and monitor progress</li></ul>
+<div class="pb"><a class="btn" href="client-blood-panel.html">ADD / EDIT READINGS</a></div>
+</section>
+<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p id="baSub">YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS</p></div></div>
+<div class="donutwrap"><div class="donut"><div class="inner"><small>Your Biometric Age</small><b>47</b><em>years</em><u>Chronological Age 63</u></div></div></div>
+<div class="strip good">16 YEARS YOUNGER THAN YOUR ACTUAL AGE</div>
+<p class="note">A healthier, stronger longer life is within your control.</p>
+<div class="pb"><a class="btn" href="client-report.html">VIEW YOUR FULL REPORT</a></div>
+</section>
+</div>
+<section class="panel bx bloods"><div class="ph"><span class="ic">&#129514;</span><div><h2>BLOOD &amp; HORMONE MARKERS</h2><p>INDEPENDENT LAB VERIFIED &#183; BLOOD MARKERS OF LONGEVITY</p></div></div>
+<table class="mk"><tr><th>Marker</th><th>Result</th><th>Reference</th><th>Status</th></tr>
+<tr><td>HS-CRP</td><td class="n">0.4 mg/L</td><td>&lt;1.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>HbA1c</td><td class="n">33 mmol/mol</td><td>&lt;42</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>Total Cholesterol</td><td class="n">4.6 mmol/L</td><td>&lt;5.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>LDL Cholesterol</td><td class="n">2.5 mmol/L</td><td>&lt;3.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>HDL Cholesterol</td><td class="n">1.6 mmol/L</td><td>&gt;1.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>Triglycerides</td><td class="n">1.0 mmol/L</td><td>&lt;1.7</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>ApoB</td><td class="n">0.68 g/L</td><td>&lt;0.80</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>Testosterone</td><td class="n">25.8 nmol/L</td><td>8.6&#8211;29.0</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>Free Testosterone</td><td class="n">443 pmol/L</td><td>200&#8211;600</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>Vitamin D</td><td class="n">145 nmol/L</td><td>75&#8211;150</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>Fasting Insulin</td><td class="n">22 pmol/L</td><td>14&#8211;42</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+<tr><td>Ferritin</td><td class="n">148 &#181;g/L</td><td>30&#8211;300</td><td><span class="tag ok">OPTIMAL</span></td></tr>
+</table>
+<div class="pb"><a class="btn" href="client-blood-panel.html">VIEW FULL BLOOD &amp; HORMONE PANEL</a></div>
+</section>
+<div class="two">
+<section class="card"><h2>NEXT STEPS</h2><div class="steps">
+<div class="step"><i>1</i><div><b>Review Your Results</b><span>Read what each panel measures and what it means.</span></div></div>
+<div class="step"><i>2</i><div><b>Book a Consultation to Discuss</b><span>Go through the findings with Lee.</span></div></div>
+<div class="step"><i>3</i><div><b>Personalised Plan &amp; Recommendations</b><span>Interventions across the 10 tenets.</span></div></div>
+<div class="step"><i>4</i><div><b>Take Action &amp; Track Progress</b><span>Re-measure and confirm the change.</span></div></div>
+</div></section>
+<section class="card"><h2>SOURCE DOCUMENTS</h2><div class="docs">
+<div class="doc"><span>&#128196; Renpho Morpho Scan Report</span><a href="client-scan-history.html">VIEW</a></div>
+<div class="doc"><span>&#128196; Chiropractic Assessment Report</span><a href="client-scan-history.html">VIEW</a></div>
+<div class="doc"><span>&#128247; Posture Photos (Front &amp; Side)</span><a href="client-scan-history.html">VIEW</a></div>
+<div class="doc"><span>&#128147; Heart Rate &amp; Blood Pressure Log</span><a href="client-blood-panel.html">VIEW</a></div>
+<div class="doc"><span>&#128196; Full Assessment Summary (PDF)</span><b>GENERATE</b></div>
+</div></section>
+</div>
+</div>
+<footer><div class="l">AGING?F***THAT! &#124; LONGER. STRONGER. HEALTHIER.</div><div class="r">WWW.AGINGFTHAT.COM</div></footer>
+<script>
+(function(){var q=(location.search+"").toLowerCase();var lvl1=/level=1|level1|applicant/.test(q);
+if(lvl1){var b=document.querySelector(".bloods");if(b)b.classList.add("hide");
+var s=document.getElementById("hdrSub");if(s)s.textContent="LEVEL 1 BIOMETRIC AGE ASSESSMENT";
+var a=document.getElementById("baSub");if(a)a.textContent="YOUR ESTIMATED BIOLOGICAL AGE \u00b7 BASED ON LEVEL 1 METRICS";}
+document.querySelectorAll(".doc b, .doc a").forEach(function(el){el.addEventListener("click",function(e){if(el.tagName==="B")e.preventDefault();});});
+})();
+</script></body></html>
