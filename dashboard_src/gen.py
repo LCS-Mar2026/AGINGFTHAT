@@ -6,8 +6,8 @@ from css import CSS
 HERO_ART = "https://cdn.marblism.com/v87Uu3kUSV9.webp"
 BC_FIG   = "https://cdn.marblism.com/9J9277dyCCt.webp"
 HEART    = "https://cdn.marblism.com/zZxd4bJ1qSt.webp"
-POS_F    = "https://cdn.marblism.com/5BmFVv925aB.webp"
-POS_S    = "https://cdn.marblism.com/QBo1eqeRDxl.webp"
+POS_F    = "https://cdn.marblism.com/9J9277dyCCt.webp"
+POS_S    = "https://cdn.marblism.com/9J9277dyCCt.webp"
 BLOOD_ART = "https://cdn.marblism.com/X-G7nSsrtUc.webp"
 BA_ART    = "https://cdn.marblism.com/f4-1J604s_r.webp"
 
@@ -49,10 +49,11 @@ def page(c):
     P('<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon.svg" type="image/svg+xml">'
       '<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">')
     P('<style>%s</style></head><body>'%CSS)
-    P('<header class="hero"><div class="hero-txt"><h1>AGING?<em>F***</em>THAT!</h1>'
-      '<p>%s</p><p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></div>'
-      '<div class="hero-art"><img src="%s" alt="3D anatomical scan figure illustrating a biometric age assessment"></div></header>'
-      %(c['sub'],HERO_ART))
+    P('<header class="hero">'
+      '<div class="hero-band"><img src="%s" alt="3D render of a DNA helix running across the page header"></div>'
+      '<div class="hero-txt"><p>%s</p>'
+      '<p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></div></header>'
+      %(BA_ART,c['sub']))
     m=c['meta']
     P('<div class="metabar"><div>Name<b>%s</b></div><div>Assessment Date<b>%s</b></div>'
       '<div>Program<b>%s</b></div><div>Status<b>%s<span class="dot %s"></span></b></div></div>'
@@ -77,7 +78,6 @@ def page(c):
     P('<div class="body"><div class="figpair">'
       '<img src="%s" alt="Placeholder posture view, front, standing in for the chiropractic biomechanical report image">'
       '<img src="%s" alt="Placeholder posture view, side, standing in for the chiropractic biomechanical report image"></div>'%(POS_F,POS_S))
-    P(silo(mp['silo']))
     P('<ul class="li">'+''.join('<li>%s</li>'%x for x in mp['bullets'])+'</ul>'+mini(mp['mini']))
     P('</div><div class="pb"><a class="btn" href="#">%s</a></div></section>'%mp['btn'])
     h=c['hh']
@@ -90,10 +90,19 @@ def page(c):
         P('<div class="tile"><small>%s</small><b>%s</b><small>%s</small><u class="tag %s">%s</u></div>'%(lbl,val,unit,tagcls,tagt))
     P('</div><ul class="li">'+''.join('<li>%s</li>'%x for x in h['bullets'])+'</ul>'+mini(h['mini']))
     P('</div><div class="pb"><a class="btn" href="#">%s</a></div></section>'%h['btn'])
+    x=c['blood']
+    P('<section class="panel bx"><div class="ph"><span class="ic">&#129514;</span><div><h2>%s</h2><p>%s</p></div></div>'%(x['name'],x['sub']))
+    P('<div class="body"><div class="herofig"><img src="%s" alt="3D render of red blood cells, plasma and molecular chains representing a blood and hormone panel"></div>'%BLOOD_ART)
+    P('<div class="bloodrow">')
+    for lbl,val,ref,tagcls,tagt in x['rows']:
+        P('<div class="bm"><span>%s<small>ref %s</small></span><b>%s<span class="tag %s">%s</span></b></div>'%(lbl,ref,val,tagcls,tagt))
+    P('</div><p class="disc">%s</p></div>'%x['note'])
+    P('<div class="pb"><a class="btn" href="#">%s</a></div></section>'%x['btn'])
+
     a=c['ba']
-    P('<section class="panel ba"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>%s</p></div></div>'%a['sub'])
-    P('<div class="body"><div class="herofig"><img src="%s" alt="3D render of a DNA helix dissolving into an hourglass, representing biological age"></div>'%BA_ART)
-    P('<div class="body"><div class="gaugewrap"><div class="gauge">'+ring(a['pct'],a['col'])+'<div class="ctr"><small>Your Biometric Age</small><b>%s</b><em>years</em><u>Chronological Age %s</u></div></div></div>'%(a['bio'],a['chrono']))
+    P('<section class="panel ba wide"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>%s</p></div></div>'%a['sub'])
+    P('<div class="body"><div class="herofig"><img src="%s" alt="3D anatomical scan figure representing a biometric age assessment"></div>'%HERO_ART)
+    P('<div class="gaugewrap"><div class="gauge">'+ring(a['pct'],a['col'])+'<div class="ctr"><small>Your Biometric Age</small><b>%s</b><em>years</em><u>Chronological Age %s</u></div></div></div>'%(a['bio'],a['chrono']))
     P('<div class="strip %s">%s</div>'%('good' if a['col']==GREEN else ('bad' if a['col']==RED else 'warn'),a['strip']))
     P('<p class="note">A healthier, stronger longer life is within your control.</p><div class="tiles">')
     for lbl,val,unit,tagcls,tagt in a['tiles']:
@@ -102,16 +111,7 @@ def page(c):
     if a.get('btn'):
         P('<div class="pb"><a class="btn" href="#">%s</a></div>'%a['btn'])
     P('</section>')
-    P('</div>')
-    x=c['blood']
-    P('<section class="panel" style="margin-top:9px;border-color:#0f3b57"><div class="ph" style="background:linear-gradient(90deg,#06324c,#061f31)">'
-      '<span class="ic" style="color:var(--cyan)">&#129514;</span><div><h2>%s</h2><p>%s</p></div></div>'%(x['name'],x['sub']))
-    P('<div class="body"><div class="herofig"><img src="%s" alt="3D render of red blood cells, plasma and molecular chains representing a blood and hormone panel"></div>'%BLOOD_ART)
-    P('<div class="body"><div class="bloodrow">')
-    for lbl,val,ref,tagcls,tagt in x['rows']:
-        P('<div class="bm"><span>%s<small>ref %s</small></span><b>%s<span class="tag %s">%s</span></b></div>'%(lbl,ref,val,tagcls,tagt))
-    P('</div><p class="disc">%s</p></div>'%x['note'])
-    P('<div class="pb"><a class="btn" href="#">%s</a></div></section>'%x['btn'])
+
     P('<div class="two"><section class="card"><h2>NEXT STEPS</h2><div class="steps">')
     for i,(t,s) in enumerate(c['steps'],1):
         P('<div class="step"><i>%d</i><div><b>%s</b><small>%s</small></div></div>'%(i,t,s))
