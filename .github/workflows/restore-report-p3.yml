@@ -1,0 +1,44 @@
+name: Restore report-part-3
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Restore the file from history and repoint the DEXA images
+        run: |
+          set -e
+          echo "=== before ==="
+          wc -c report-part-3.html
+          git checkout 32bb2fe7e89b6b41e0289f3d1823cac43fb09945 -- report-part-3.html
+          echo "=== restored from 32bb2fe ==="
+          wc -c report-part-3.html
+          sha256sum report-part-3.html
+          sed -i 's|src="dexa-scan-21-dec-2024.jpg"|src="https://cdn.marblism.com/9GJv0nM71BJ.jpg"|g' report-part-3.html
+          sed -i 's|src="dexa-scan-25-apr-2025.jpg"|src="https://cdn.marblism.com/fQNNPFsx8WA.jpg"|g' report-part-3.html
+          echo "=== after repointing ==="
+          wc -c report-part-3.html
+          sha256sum report-part-3.html
+          echo "local dexa refs left: $(grep -c 'dexa-scan-2' report-part-3.html || true)"
+          echo "cdn refs: $(grep -c 'cdn.marblism.com' report-part-3.html)"
+          grep -c 'id="dexa"' report-part-3.html
+          grep -c 'id="chiro"' report-part-3.html
+          grep -c 'id="vo2"' report-part-3.html
+
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add report-part-3.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Restore report-part-3.html and point its DEXA images at the public copies"
+          git push
