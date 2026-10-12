@@ -152,7 +152,7 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
    btn="EDIT READINGS"),
  ba=dict(sub="YOUR ESTIMATED BIOLOGICAL AGE &#183; BASED ON LEVEL 1 METRICS",pct=88,col=RED,
    bio="77",chrono="62",strip="15 YEARS OLDER THAN YOUR ACTUAL AGE",
-   tiles=[("Marker Score","6/7","scored","warn","GOOD"),("Trend","Rising","vs last","bad","WATCH")],
+   tiles=[("Marker Score","7/7","scored","ok","GOOD"),("Trend","Rising","vs last","bad","WATCH")],
    btn=None),
  blood=dict(name="AFT BESPOKE PANEL 2",sub="7 MARKERS SCORED IN THE MODEL &#183; PLUS CORTISOL, NOT SCORED",
    rows=[("<b>1. HbA1c</b> mmol/mol","41","&lt;42","warn","WATCH"),
@@ -162,9 +162,9 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
          ("<b>5. SHBG</b>","36 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
          ("<b>6. Testosterone</b>","19.8 nmol/L","6.51&#8211;23.74","ok","WITHIN"),
          ("<b>7. Free Testosterone</b>","330 pmol/L","170&#8211;660","ok","WITHIN"),
-         ("<b>hs-CRP</b>","not tested","&lt;1.0","absent","NO RESULT"),
+         ("<b>hs-CRP</b>","1.8 mg/L","&lt;1.0","warn","SLIGHTLY HIGH"),
          ("<b>Cortisol</b> &#8212; not scored","398 nmol/L","145.4&#8211;619.4","ok","WITHIN")],
-   note="Illustrative sample figures in the Bespoke Panel 2 format. Markers 1 to 7 feed the model; cortisol is reported but not scored; hs-CRP is a model input this panel does not currently test for.",
+   note="Illustrative sample figures in the Bespoke Panel 2 format. Markers 1 to 7 feed the model; cortisol is reported but not scored; hs-CRP here is an illustrative figure; the laboratory does not currently test for it.",
    btn="EDIT READINGS"),
  steps=STEPS,docs=DOCS)
 
