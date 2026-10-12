@@ -73,8 +73,8 @@ def page(c):
     P('<section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2>'
       '<p>CHIROPRACTIC ANALYSIS &#183; MOVEMENT &#183; ALIGNMENT &#183; POSTURE</p></div></div>')
     P('<div class="body"><div class="figpair">'
-      '<img src="%s" alt="3D anatomical posture figure, front view, with a vertical alignment axis and offset markers">'
-      '<img src="%s" alt="3D anatomical posture figure, side view, with a vertical plumb line and angle markers"></div>'%(POS_F,POS_S))
+      '<img src="%s" alt="Placeholder posture view, front, standing in for the chiropractic biomechanical report image">'
+      '<img src="%s" alt="Placeholder posture view, side, standing in for the chiropractic biomechanical report image"></div>'%(POS_F,POS_S))
     P(silo(mp['silo']))
     P('<ul class="li">'+''.join('<li>%s</li>'%x for x in mp['bullets'])+'</ul>'+mini(mp['mini']))
     P('</div><div class="pb"><a class="btn" href="#">%s</a></div></section>'%mp['btn'])
@@ -95,7 +95,10 @@ def page(c):
     P('<p class="note">A healthier, stronger longer life is within your control.</p><div class="tiles">')
     for lbl,val,unit,tagcls,tagt in a['tiles']:
         P('<div class="tile"><small>%s</small><b>%s</b><small>%s</small><u class="tag %s">%s</u></div>'%(lbl,val,unit,tagcls,tagt))
-    P('</div></div><div class="pb"><a class="btn" href="#">%s</a></div></section>'%a['btn'])
+    P('</div></div>')
+    if a.get('btn'):
+        P('<div class="pb"><a class="btn" href="#">%s</a></div>'%a['btn'])
+    P('</section>')
     P('</div>')
     x=c['blood']
     P('<section class="panel" style="margin-top:9px;border-color:#0f3b57"><div class="ph" style="background:linear-gradient(90deg,#06324c,#061f31)">'
@@ -141,7 +144,7 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
  mp=dict(silo=[AMBER,RED,AMBER,RED],
    bullets=["Forward head posture","Anterior pelvic tilt","Reduced spinal alignment","Postural imbalance detected","Personalised recommendations"],
    mini=[("Head shift",("1.90cm L",78),RED),("Shoulders",("1.30cm R",62),AMBER),("Ribcage",("1.10cm L",55),AMBER),("Pelvis",("2.90cm L",86),RED)],
-   btn="EDIT READINGS"),
+   btn="FULL BIOMECHANICAL REPORT"),
  hh=dict(ecg=RED,
    tiles=[("Blood Pressure","140/98","mmHg","bad","ELEVATED"),("Resting Heart Rate","76","bpm","warn","ABOVE OPTIMAL")],
    bullets=["Blood pressure above optimal range","Resting heart rate elevated","May benefit from improved fitness","Supports cardiovascular health focus"],
@@ -150,18 +153,18 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
  ba=dict(sub="YOUR ESTIMATED BIOLOGICAL AGE &#183; BASED ON LEVEL 1 METRICS",pct=88,col=RED,
    bio="77",chrono="62",strip="15 YEARS OLDER THAN YOUR ACTUAL AGE",
    tiles=[("Marker Score","6/7","scored","warn","GOOD"),("Trend","Rising","vs last","bad","WATCH")],
-   btn="EDIT READINGS"),
+   btn=None),
  blood=dict(name="AFT BESPOKE PANEL 2",sub="7 MARKERS SCORED IN THE MODEL &#183; PLUS CORTISOL, NOT SCORED",
-   rows=[("<b>HbA1c</b> mmol/mol","41","&lt;42","warn","WATCH"),
-         ("<b>HbA1c</b> %HbA1c","5.9","&lt;6.0","warn","WATCH"),
-         ("<b>Homocysteine</b>","20.4 &#181;mol/L","3.7&#8211;13.9","bad","ELEVATED"),
-         ("<b>Albumin</b>","42 g/L","32&#8211;48","ok","WITHIN"),
-         ("<b>SHBG</b>","36 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
-         ("<b>Testosterone</b>","19.8 nmol/L","6.51&#8211;23.74","ok","WITHIN"),
-         ("<b>Free Testosterone</b>","330 pmol/L","170&#8211;660","ok","WITHIN"),
+   rows=[("<b>1. HbA1c</b> mmol/mol","41","&lt;42","warn","WATCH"),
+         ("<b>2. HbA1c</b> %HbA1c","5.9","&lt;6.0","warn","WATCH"),
+         ("<b>3. Homocysteine</b>","20.4 &#181;mol/L","3.7&#8211;13.9","bad","ELEVATED"),
+         ("<b>4. Albumin</b>","42 g/L","32&#8211;48","ok","WITHIN"),
+         ("<b>5. SHBG</b>","36 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
+         ("<b>6. Testosterone</b>","19.8 nmol/L","6.51&#8211;23.74","ok","WITHIN"),
+         ("<b>7. Free Testosterone</b>","330 pmol/L","170&#8211;660","ok","WITHIN"),
          ("<b>hs-CRP</b>","not tested","&lt;1.0","absent","NO RESULT"),
          ("<b>Cortisol</b> &#8212; not scored","398 nmol/L","145.4&#8211;619.4","ok","WITHIN")],
-   note="Illustrative sample figures in the Bespoke Panel 2 format. Seven markers feed the model; cortisol is reported but not scored; hs-CRP is a model input this panel does not currently test for.",
+   note="Illustrative sample figures in the Bespoke Panel 2 format. Markers 1 to 7 feed the model; cortisol is reported but not scored; hs-CRP is a model input this panel does not currently test for.",
    btn="EDIT READINGS"),
  steps=STEPS,docs=DOCS)
 
@@ -180,7 +183,7 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
  mp=dict(silo=[AMBER,GREEN,GREEN,AMBER],
    bullets=["Forward head posture","Anterior pelvic tilt","Reduced spinal alignment","Measured against 25 Apr 2025","Personalised recommendations"],
    mini=[("Head shift",("1.40cm L",62),AMBER),("Shoulders",("0.77cm R",42),GREEN),("Ribcage",("0.44cm L",30),GREEN),("Pelvis",("2.46cm L",74),AMBER)],
-   btn="EDIT READINGS"),
+   btn="FULL BIOMECHANICAL REPORT"),
  hh=dict(ecg=GREEN,
    tiles=[("Blood Pressure","120/78","mmHg","ok","GOOD"),("Resting Heart Rate","47","bpm","ok","EXCEPTIONAL")],
    bullets=["Blood pressure within range","Resting heart rate exceptional","Supports cardiovascular health focus","Track and monitor progress"],
@@ -189,18 +192,18 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
  ba=dict(sub="YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS",pct=75,col=GREEN,
    bio="47",chrono="63",strip="16 YEARS YOUNGER THAN YOUR ACTUAL AGE",
    tiles=[("Marker Score","6/7","scored","warn","GOOD"),("Trend","Improving","vs last","ok","ON TRACK")],
-   btn="EDIT READINGS"),
+   btn=None),
  blood=dict(name="AFT BESPOKE PANEL 2",sub="SUSSEX PATHOLOGY &#183; 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL",
-   rows=[("<b>HbA1c</b> mmol/mol","32","&lt;42","ok","NORMAL"),
-         ("<b>HbA1c</b> %HbA1c","5.08","&lt;6.0","ok","NORMAL"),
-         ("<b>Homocysteine</b>","22.46 &#181;mol/L","3.7&#8211;13.9","bad","FLAGGED"),
-         ("<b>Albumin</b>","45 g/L","32&#8211;48","ok","WITHIN"),
-         ("<b>SHBG</b>","48.41 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
-         ("<b>Testosterone</b>","43.58 nmol/L","6.51&#8211;23.74","bad","FLAGGED"),
-         ("<b>Free Testosterone</b>","976.35 pmol/L","170&#8211;660","bad","FLAGGED"),
+   rows=[("<b>1. HbA1c</b> mmol/mol","32","&lt;42","ok","NORMAL"),
+         ("<b>2. HbA1c</b> %HbA1c","5.08","&lt;6.0","ok","NORMAL"),
+         ("<b>3. Homocysteine</b>","22.46 &#181;mol/L","3.7&#8211;13.9","bad","FLAGGED"),
+         ("<b>4. Albumin</b>","45 g/L","32&#8211;48","ok","WITHIN"),
+         ("<b>5. SHBG</b>","48.41 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
+         ("<b>6. Testosterone</b>","43.58 nmol/L","6.51&#8211;23.74","bad","FLAGGED"),
+         ("<b>7. Free Testosterone</b>","976.35 pmol/L","170&#8211;660","bad","FLAGGED"),
          ("<b>hs-CRP</b>","not tested","&lt;1.0","absent","NO RESULT"),
          ("<b>Cortisol</b> &#8212; not scored","261.69 nmol/L","145.4&#8211;619.4","ok","WITHIN")],
-   note="Results as reported by Sussex Pathology, 08 Oct 2026. Seven markers feed the biometric age model; cortisol is reported but not scored; hs-CRP is a model input this panel does not currently test for, so it scores neutral. Automated report, not reviewed by a physician.",
+   note="Results as reported by Sussex Pathology, 08 Oct 2026. Markers 1 to 7 feed the biometric age model; cortisol is reported but not scored; hs-CRP is a model input this panel does not currently test for, so it scores neutral. Automated report, not reviewed by a physician.",
    btn="EDIT READINGS"),
  steps=STEPS,docs=DOCS)
 
