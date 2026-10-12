@@ -50,10 +50,9 @@ def page(c):
       '<link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">')
     P('<style>%s</style></head><body>'%CSS)
     P('<header class="hero">'
-      '<div class="hero-band"><img src="%s" alt="3D render of a DNA helix running across the page header"></div>'
       '<div class="hero-txt"><p>%s</p>'
       '<p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></div></header>'
-      %(BA_ART,c['sub']))
+      %c['sub'])
     m=c['meta']
     P('<div class="metabar"><div>Name<b>%s</b></div><div>Assessment Date<b>%s</b></div>'
       '<div>Program<b>%s</b></div><div>Status<b>%s<span class="dot %s"></span></b></div></div>'
@@ -158,7 +157,7 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
    bio="77",chrono="62",strip="15 YEARS OLDER THAN YOUR ACTUAL AGE",
    tiles=[("Marker Score","7/7","measurements","ok","COMPLETE"),("Trend","Rising","vs last","bad","WATCH")],
    btn=None),
- blood=dict(name="AFT BESPOKE PANEL 2",sub="7 MARKERS SCORED IN THE MODEL &#183; PLUS CORTISOL, NOT SCORED",
+ blood=dict(name="BLOOD WORK",sub="7 MARKERS SCORED IN THE MODEL &#183; PLUS CORTISOL, NOT SCORED",
    rows=[("<b>1. HbA1c</b> mmol/mol","41","&lt;42","warn","WATCH"),
          ("<b>2. HbA1c</b> %HbA1c","5.9","&lt;6.0","warn","WATCH"),
          ("<b>3. Homocysteine</b>","20.4 &#181;mol/L","3.7&#8211;13.9","bad","ELEVATED"),
@@ -197,7 +196,7 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
    bio="47",chrono="63",strip="16 YEARS YOUNGER THAN YOUR ACTUAL AGE",
    tiles=[("Marker Score","6/7","measurements","warn","PROVISIONAL"),("Trend","Improving","vs last","ok","ON TRACK")],
    btn=None),
- blood=dict(name="AFT BESPOKE PANEL 2",sub="SUSSEX PATHOLOGY &#183; 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL",
+ blood=dict(name="BLOOD WORK",sub="SUSSEX PATHOLOGY &#183; 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL",
    rows=[("<b>1. HbA1c</b> mmol/mol","32","&lt;42","ok","NORMAL"),
          ("<b>2. HbA1c</b> %HbA1c","5.08","&lt;6.0","ok","NORMAL"),
          ("<b>3. Homocysteine</b>","22.46 &#181;mol/L","3.7&#8211;13.9","bad","FLAGGED"),
