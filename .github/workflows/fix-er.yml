@@ -1,0 +1,39 @@
+name: Fix example report DEXA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/fix-er.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore the real example report and repoint its DEXA images
+        run: |
+          set -e
+          git checkout f2f2a6b -- example-report.html
+          echo "restored bytes: $(wc -c < example-report.html)"
+          sha256sum example-report.html
+          sed -i 's|src="dexa-scan-21-dec-2024.jpg"|src="https://cdn.marblism.com/9GJv0nM71BJ.jpg"|g' example-report.html
+          sed -i 's|src="dexa-scan-25-apr-2025.jpg"|src="https://cdn.marblism.com/fQNNPFsx8WA.jpg"|g' example-report.html
+          echo "after repoint bytes: $(wc -c < example-report.html)"
+          sha256sum example-report.html
+          echo "local dexa refs: $(grep -c 'dexa-scan-2' example-report.html || true)"
+          echo "cdn refs: $(grep -c 'cdn.marblism.com' example-report.html)"
+          grep -c '<h1>' example-report.html
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Restore example-report.html and point its DEXA images at the public copies"
+          git push
