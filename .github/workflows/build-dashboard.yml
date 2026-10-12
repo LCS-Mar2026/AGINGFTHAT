@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['build_dashboard.py', '.github/workflows/build-dashboard.yml']
+    paths: ['build_dashboard.py', 'dashboard_src/**', '.github/workflows/build-dashboard.yml']
 
 permissions:
   contents: write
@@ -17,17 +17,21 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Generate both dashboard pages from one template
+      - name: Generate both pages from the shared template
         run: |
-          python3 build_dashboard.py
+          set -e
+          cd dashboard_src
+          python3 gen.py
+          cd ..
+          cp dashboard_src/dashboard.html dashboard.html
+          cp dashboard_src/example-report.html example-report.html
           echo "=== result ==="
           for f in dashboard.html example-report.html; do
             echo "$f bytes: $(wc -c < $f)"
             echo "$f sha: $(sha256sum $f | cut -d' ' -f1)"
-            echo "$f panels: $(grep -c 'class=\"panel ' $f)"
-            echo "$f source-doc rows: $(grep -c 'class=\"doc\"' $f)"
-            echo "$f link-outs: $(grep -c 'href=\"report\|href=\"client\|\.\./' $f || true)"
-            echo "$f ageing: $(grep -ci ageing $f || true)"
+            echo "$f hero: $(grep -o 'hero-art\"><img src=\"[^\"]*' $f)"
+            echo "$f blood rows: $(grep -c 'class=\"bm\"' $f)"
+            echo "$f chips: $(grep -c 'class=\"chip\"' $f)"
           done
       - name: Commit and push
         run: |
@@ -35,5 +39,5 @@ jobs:
           git config user.name "Penny (Blog Writer)"
           git config user.email "penny@agingfthat.com"
           git add dashboard.html example-report.html
-          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Rebuild dashboard and example report from the shared template"
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Rebuild dashboard pages from the shared template"
           git push
