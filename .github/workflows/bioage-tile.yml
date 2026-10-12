@@ -1,0 +1,44 @@
+name: Point BIO AGE tiles at the dashboard
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/bioage-tile.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  point:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repoint the BIO AGE nav tile only
+        run: |
+          set -e
+          for f in index.html blog.html; do
+            [ -f "$f" ] || continue
+            echo "=== $f before ==="
+            grep -o '<a href="[^"]*"><span class="ico"[^>]*>[^<]*</span>BIO AGE</a>' "$f" || true
+            sed -i 's|<a href="new-bio-age-model.html"><span class="ico">🧬</span>BIO AGE</a>|<a href="dashboard.html"><span class="ico">🧬</span>BIO AGE</a>|g' "$f"
+            echo "=== $f after ==="
+            grep -o '<a href="[^"]*"><span class="ico"[^>]*>[^<]*</span>BIO AGE</a>' "$f" || true
+          done
+          echo "=== integrity ==="
+          for f in index.html blog.html; do
+            [ -f "$f" ] || continue
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f dashboard refs: $(grep -c 'href="dashboard.html"' $f)"
+            echo "$f h1 count: $(grep -c '<h1' $f)"
+            echo "$f old bio-age-model refs: $(grep -c 'new-bio-age-model.html' $f)"
+            grep -c 'sophie1"' "$f" || true
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add index.html blog.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Point the BIO AGE nav tiles at the dashboard"
+          git push
