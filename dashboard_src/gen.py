@@ -1,1 +1,1 @@
-PLACEHOLDER
+# restored dashboard generator
