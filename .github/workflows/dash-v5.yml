@@ -1,0 +1,40 @@
+name: Dashboard v5 layout
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-v5.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch the v5 patch and apply it
+        run: |
+          set -e
+          curl -sSL -o patch_v5.py "https://cdn.marblism.com/ErUx7EnAjC1.py"
+          python3 patch_v5.py
+          python3 build_dashboard.py
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f notice: $(grep -c 'mocknote\">ILLUSTRATION ONLY' $f || true)"
+            echo "$f chiropractic: $(grep -c 'CHIROPRACTIC' $f || true)"
+            echo "$f charts: $(grep -c '<div class=\"chart\">' $f || true)"
+            echo "$f buttons: $(grep -o 'class=\"btn\" href=\"#\">[^<]*' $f | sed 's/.*>//' | sort -u | tr '\n' ' ')"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard_src/gen.py dashboard_src/css.py dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Dashboard v5: header notice, model-only markers, delta chart plus three-year progression"
+          git push
