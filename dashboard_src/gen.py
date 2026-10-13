@@ -20,60 +20,73 @@ def ring(pct,col):
             '<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="12" stroke-linecap="round" '
             'stroke-dasharray="%.1f %.1f"/></svg>')%(r,r,col,dash,circ-dash)
 
+def _svg_open(W,H):
+    return '<svg viewBox="0 0 %d %d">'%(W,H)
+
+def _grid(p, W, H, padL, padR, padT, ih, lo, hi, ticks=4):
+    for k in range(ticks):
+        y = padT + ih*k/(ticks-1.0)
+        p.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="#12405a" stroke-width="1"/>'%(padL,y,W-padR,y))
+        p.append('<text x="%d" y="%.1f" text-anchor="end" fill="#9fc4d6" font-size="12">%.0f</text>'%(padL-6,y+4, hi-(hi-lo)*k/(ticks-1.0)))
+
+def _axis_labels(p, labels, X, H):
+    for i,lb in enumerate(labels):
+        p.append('<text x="%.1f" y="%d" text-anchor="middle" fill="#9fc4d6" font-size="12">%s</text>'%(X(i),H-6,lb))
+
 def trend_chart(series, labels, note="", top=None):
-    """Three-point trend chart. Series are right-aligned to the last label."""
-    W,H = 300,118; padL,padR,padT,padB = 30,10,10,20
+    """Three-point trend chart. Fixed viewBox so type stays legible. Series are right-aligned."""
+    W,H = 560,200; padL,padR,padT,padB = 40,66,14,30
     iw=W-padL-padR; ih=H-padT-padB
     flat=[v for x in series for v in x['vals']]
     lo=0 if top else min(flat); hi=top if top else max(flat)
     if hi==lo: hi=lo+1
-    pad=(hi-lo)*0.18; lo=(lo-pad) if not top else 0; hi=hi+pad
+    pad=(hi-lo)*0.16; lo=(lo-pad) if not top else 0; hi=hi+pad
     def X(i): return padL+iw*(i/(len(labels)-1))
     def Y(v): return padT+ih*(1-(v-lo)/(hi-lo))
-    p=['<svg viewBox="0 0 %d %d">'%(W,H)]
-    for k in range(4):
-        y=padT+ih*k/3.0
-        p.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="#12405a" stroke-width="1"/>'%(padL,y,W-padR,y))
-        p.append('<text x="2" y="%.1f" fill="#8fb8cc" font-size="7.5">%.0f</text>'%(y+3, hi-(hi-lo)*k/3.0))
-    for i,lb in enumerate(labels):
-        p.append('<text x="%.1f" y="%d" text-anchor="middle" fill="#8fb8cc" font-size="8">%s</text>'%(X(i),H-3,lb))
+    p=[_svg_open(W,H)]
+    _grid(p, W, H, padL, padR, padT, ih, lo, hi)
+    _axis_labels(p, labels, X, H)
     for x in series:
         vals=x['vals']; off=len(labels)-len(vals)
         idx=list(range(off,off+len(vals)))
         pts=" ".join("%.1f,%.1f"%(X(i),Y(v)) for i,v in zip(idx,vals))
-        p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>'%(pts,x['c']))
+        p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>'%(pts,x['c']))
         for i,v in zip(idx,vals):
-            p.append('<circle cx="%.1f" cy="%.1f" r="3" fill="%s"/>'%(X(i),Y(v),x['c']))
+            p.append('<circle cx="%.1f" cy="%.1f" r="3.6" fill="%s"/>'%(X(i),Y(v),x['c']))
+        p.append('<text x="%.1f" y="%.1f" fill="%s" font-size="12" font-weight="700">%s</text>'
+                 %(X(idx[-1])+9, Y(vals[-1])+4, x['c'], x.get('lbl', vals[-1])))
     p.append('</svg>')
     return "".join(p)
 
 def delta_chart(series, labels):
     """Chronological against biometric age. Solid history, dashed projection."""
-    W,H = 300,132; padL,padR,padT,padB = 30,10,12,22
+    W,H = 560,220; padL,padR,padT,padB = 40,66,14,32
     iw=W-padL-padR; ih=H-padT-padB
     flat=[v for x in series for v in x['vals']]
-    lo=min(flat); hi=max(flat); pad=(hi-lo)*0.16 or 1
+    lo=min(flat); hi=max(flat); pad=(hi-lo)*0.14 or 1
     lo-=pad; hi+=pad
     def X(i): return padL+iw*(i/(len(labels)-1))
     def Y(v): return padT+ih*(1-(v-lo)/(hi-lo))
-    p=['<svg viewBox="0 0 %d %d">'%(W,H)]
-    for k in range(4):
-        y=padT+ih*k/3.0
-        p.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="#12405a" stroke-width="1"/>'%(padL,y,W-padR,y))
-        p.append('<text x="2" y="%.1f" fill="#8fb8cc" font-size="7.5">%.0f</text>'%(y+3, hi-(hi-lo)*k/3.0))
-    p.append('<line x1="%.1f" y1="%d" x2="%.1f" y2="%d" stroke="#2b5f7a" stroke-width="1" stroke-dasharray="3 3"/>'%(X(0),Y(0) if False else H-padB,W-padR,H-padB))
+    p=[_svg_open(W,H)]
+    _grid(p, W, H, padL, padR, padT, ih, lo, hi)
     for i,lb in enumerate(labels):
-        p.append('<text x="%.1f" y="%d" text-anchor="middle" fill="#8fb8cc" font-size="8">%s</text>'%(X(i),H-5,lb))
+        dash = ' stroke-dasharray="4 4"' if i>=3 else ''
+        if i>=3:
+            p.append('<line x1="%.1f" y1="%d" x2="%.1f" y2="%d" stroke="#3d5c72" stroke-width="1" stroke-dasharray="4 4"/>'%(X(i),padT,X(i),H-padB))
+    _axis_labels(p, labels, X, H)
     for x in series:
         vals=x['vals']; nh=x.get('nh',len(vals))
         hist=vals[:nh]; proj=vals[nh-1:] if nh<len(vals) else []
         pts=" ".join("%.1f,%.1f"%(X(i),Y(v)) for i,v in enumerate(hist))
-        p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>'%(pts,x['c']))
+        p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/>'%(pts,x['c']))
         if proj:
             po=" ".join("%.1f,%.1f"%(X(nh-1+i),Y(v)) for i,v in enumerate(proj))
-            p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round" opacity="0.85"/>'%(po,x['c']))
+            p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.8" stroke-dasharray="7 5" stroke-linejoin="round" stroke-linecap="round"/>'%(po,x['c']))
         for i,v in enumerate(vals):
-            p.append('<circle cx="%.1f" cy="%.1f" r="2.8" fill="%s"%s/>'%(X(i),Y(v),x['c'],' stroke="#04202e" stroke-width="1.2"' if i>=nh else ''))
+            p.append('<circle cx="%.1f" cy="%.1f" r="3.4" fill="%s"%s/>'%(X(i),Y(v),x['c'],' stroke="#04202e" stroke-width="1.6"' if i>=nh else ''))
+        if x.get('lbl'):
+            p.append('<text x="%.1f" y="%.1f" fill="%s" font-size="12" font-weight="700">%s</text>'
+                     %(X(len(vals)-1)+9, Y(vals[-1])+4, x['c'], x['lbl']))
     p.append('</svg>')
     return "".join(p)
 
@@ -229,15 +242,15 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
    bio="72",chrono="62",delta="+10 yrs",dcls="bad",dlabel="OLDER THAN CHRONOLOGICAL",
    dsub="A composite of 72 gives a biometric age 10 years above chronological age.",
    delta_labels=["2Y AGO","1Y AGO","NOW","+1Y","+2Y"],
-   delta_series=[dict(n="Chronological",c="#8fb8cc",vals=[60,61,62,63,64]),
-                 dict(n="Biometric",c="#ff4b4b",vals=[77,75,72,68,64],nh=3)],
+   delta_series=[dict(n="Chronological",c="#8fb8cc",vals=[60,61,62,63,64],lbl="CHRONO 64"),
+                 dict(n="Biometric",c="#ff4b4b",vals=[77,75,72,68,64],nh=3,lbl="BIO 64")],
    delta_note="Solid lines are on file. The dashed section is an extrapolation from the recorded trend, not a measurement or a forecast, and it assumes the current lifestyle continues unchanged.",
    prog_head="THREE-YEAR PROGRESSION &#183; DEXA OUTPUTS AND BIOMETRIC AGE",
-   trend=[dict(n="Biometric age",c="#ff4b4b",vals=[77,75,72]),
-          dict(n="Body fat %",c="#FF9F1C",vals=[24.6,22.9,21.0]),
-          dict(n="Lean mass kg",c="#2BC7FF",vals=[50.4,51.2,52.0]),
-          dict(n="Visceral area cm&#178;",c="#A855F7",vals=[150,146,142]),
-          dict(n="Bone density T-score",c="#21c97a",vals=[-1.9,-1.65,-1.4])],
+   trend=[dict(n="Biometric age",c="#ff4b4b",vals=[77,75,72],lbl="Biometric age"),
+          dict(n="Body fat %",c="#FF9F1C",vals=[24.6,22.9,21.0],lbl="Body fat %"),
+          dict(n="Lean mass kg",c="#2BC7FF",vals=[50.4,51.2,52.0],lbl="Lean mass kg"),
+          dict(n="Visceral area cm&#178;",c="#A855F7",vals=[150,146,142],lbl="Visceral area cm&#178;"),
+          dict(n="Bone density T-score",c="#21c97a",vals=[-1.9,-1.65,-1.4],lbl="Bone density T-score")],
    trend_labels=["2Y AGO","1Y AGO","NOW"],
    trend_note="Illustrative. The NOW values match the DEXA figures in Body Composition. Bone density is plotted against its own scale.",
    btn=None),
@@ -281,14 +294,14 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
    bio="47",chrono="63",delta="&#8722;16 yrs",dcls="good",dlabel="YOUNGER THAN CHRONOLOGICAL",
    dsub="A composite of 75 gives a biometric age 16 years below chronological age.",
    delta_labels=["NOW","+1Y","+2Y"],
-   delta_series=[dict(n="Chronological",c="#8fb8cc",vals=[63,64,65]),
-                 dict(n="Biometric",c="#21c97a",vals=[47,45,43],nh=1)],
+   delta_series=[dict(n="Chronological",c="#8fb8cc",vals=[63,64,65],lbl="CHRONO 65"),
+                 dict(n="Biometric",c="#21c97a",vals=[47,45,43],nh=1,lbl="BIO 43")],
    delta_note="Real data at NOW. Earlier biometric ages are not on file, so nothing is drawn before the current assessment. The dashed section is an extrapolation, not a measurement or a forecast.",
    prog_head="THREE-YEAR PROGRESSION &#183; DEXA OUTPUTS AND BIOMETRIC AGE",
-   trend=[dict(n="Biometric age",c="#21c97a",vals=[47]),
-          dict(n="Body fat %",c="#FF9F1C",vals=[13.4,11.5,9.6]),
-          dict(n="Lean mass kg",c="#2BC7FF",vals=[71.2,72.9,74.6]),
-          dict(n="Visceral area cm&#178;",c="#A855F7",vals=[72.0,63.0,54.6])],
+   trend=[dict(n="Biometric age",c="#21c97a",vals=[47],lbl="Biometric age"),
+          dict(n="Body fat %",c="#FF9F1C",vals=[13.4,11.5,9.6],lbl="Body fat %"),
+          dict(n="Lean mass kg",c="#2BC7FF",vals=[71.2,72.9,74.6],lbl="Lean mass kg"),
+          dict(n="Visceral area cm&#178;",c="#A855F7",vals=[72.0,63.0,54.6],lbl="Visceral area cm&#178;")],
    trend_labels=["2Y AGO","1Y AGO","NOW"],
    trend_note="The NOW values match the DEXA figures in Body Composition. Bone density awaits the DEXA bone report. Only one biometric age is on file, so it is shown as a single point.",
    btn=None),
