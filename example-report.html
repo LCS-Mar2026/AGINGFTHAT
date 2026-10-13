@@ -13,6 +13,7 @@ a{color:var(--cyan)}
 .hero-txt h1{margin:0;font-size:clamp(19px,5vw,34px);font-weight:900;letter-spacing:-.02em;line-height:1;text-shadow:0 0 14px #2bc7ff55}
 .hero-txt h1 em{font-style:normal;color:var(--cyan)}
 .hero-txt p{margin:0;font-size:clamp(10px,2.3vw,14px);font-weight:900;letter-spacing:.16em;color:#dff4ff}
+.mocknote{float:right;color:var(--amber);font-weight:900;letter-spacing:.12em}
 .hero-txt .strap{margin:5px 0 0;font-size:clamp(8px,1.9vw,11px);font-weight:800;letter-spacing:.2em;color:var(--cyan)}
 
 .metabar{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
@@ -133,20 +134,19 @@ footer .r{margin-top:3px;letter-spacing:.09em}
 <div class="metabar"><div>Name<b>Lee C. Stonehouse</b></div><div>Assessment Date<b>08 OCT 2026</b></div><div>Program<b>Elite</b></div><div>Status<b>Client<span class="dot "></span></b></div></div>
 <div class="wrap">
 <div class="panels">
-<section class="panel bc"><div class="ph"><span class="ic">&#128100;</span><div><h2>BODY COMPOSITION</h2><p>DEXA SCAN &#183; T1 / T2 / T3</p></div></div>
+<section class="panel bc"><div class="ph"><span class="ic">&#128100;</span><div><h2>BODY COMPOSITION</h2><p>DEXA &#183; 4 MODEL INPUTS &#183; 34% OF THE SCORE</p></div></div>
 <div class="body"><div class="bcgrid"><div class="fig"><img src="https://cdn.marblism.com/9J9277dyCCt.webp" alt="3D anatomical body composition visualisation showing muscle volume in blue and visceral fat in amber"></div>
 <div class="stats">
-<div class="stat"><span>Weight</span><b>85.7 kg</b></div>
-<div class="stat"><span>Body Fat</span><b>9.6%<span class="tag ok">LEAN</span></b></div>
-<div class="stat"><span>Muscle Mass</span><b>74.6 kg<span class="tag ok">EXCEPTIONAL</span></b></div>
-<div class="stat"><span>Visceral Fat</span><b>54.6 cm&#178;<span class="tag ok">LOW</span></b></div>
-<div class="stat"><span>BMI</span><b>22.4<span class="tag ok">HEALTHY</span></b></div>
+<div class="stat"><span>Body fat %</span><b>9.6%<span class="tag ok">8% WT</span></b></div>
+<div class="stat"><span>Lean mass</span><b>74.6 kg<span class="tag ok">9% WT</span></b></div>
+<div class="stat"><span>Bone density T-score</span><b>awaiting report<span class="tag warn">8% WT</span></b></div>
+<div class="stat"><span>Visceral fat area</span><b>54.6 cm&#178;<span class="tag ok">9% WT</span></b></div>
 </div></div><div class="chips">
-<div class="chip"><i>1</i>Segmental Analysis</div>
-<div class="chip"><i>2</i>Muscle Balance</div>
-<div class="chip"><i>3</i>Body Shape</div>
-<div class="chip"><i>4</i>Metabolic Age</div>
-</div><div class="mini"><div class="minirow"><span>Muscle</span><span class="track"><i style="background:#21c97a;width:92%"></i></span><b>74.6 kg</b></div><div class="minirow"><span>Body fat</span><span class="track"><i style="background:#21c97a;width:90%"></i></span><b>9.6%</b></div><div class="minirow"><span>Visceral</span><span class="track"><i style="background:#21c97a;width:95%"></i></span><b>54.6</b></div><div class="minirow"><span>BMI</span><span class="track"><i style="background:#21c97a;width:88%"></i></span><b>22.4</b></div></div>
+<div class="chip"><i>1</i>Body fat</div>
+<div class="chip"><i>2</i>Lean mass</div>
+<div class="chip"><i>3</i>Bone density</div>
+<div class="chip"><i>4</i>Visceral area</div>
+</div><div class="mini"><div class="minirow"><span>Body fat</span><span class="track"><i style="background:#21c97a;width:90%"></i></span><b>9.6%</b></div><div class="minirow"><span>Lean mass</span><span class="track"><i style="background:#21c97a;width:92%"></i></span><b>74.6 kg</b></div><div class="minirow"><span>Visceral area</span><span class="track"><i style="background:#21c97a;width:95%"></i></span><b>54.6</b></div><div class="minirow"><span>Bone density</span><span class="track"><i style="background:#FF9F1C;width:50%"></i></span><b>&#8212;</b></div></div>
 </div><div class="pb"><a class="btn" href="#">VIEW FULL DEXA SCAN REPORT</a></div></section>
 <section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2><p>CHIROPRACTIC ANALYSIS &#183; MOVEMENT &#183; ALIGNMENT &#183; POSTURE</p></div></div>
 <div class="body"><div class="figpair"><img src="https://cdn.marblism.com/9J9277dyCCt.webp" alt="Placeholder posture view, front, standing in for the chiropractic biomechanical report image"><img src="https://cdn.marblism.com/9J9277dyCCt.webp" alt="Placeholder posture view, side, standing in for the chiropractic biomechanical report image"></div>
@@ -176,8 +176,8 @@ footer .r{margin-top:3px;letter-spacing:.09em}
 <section class="panel ba wide"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS</p></div></div>
 <div class="body"><div class="herofig"><img src="https://cdn.marblism.com/v87Uu3kUSV9.webp" alt="3D anatomical scan figure representing a biometric age assessment"></div>
 <div class="gaugewrap"><div class="gauge"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="64" fill="none" stroke="#0d2b3c" stroke-width="12"/><circle cx="75" cy="75" r="64" fill="none" stroke="#21c97a" stroke-width="12" stroke-linecap="round" stroke-dasharray="301.6 100.5"/></svg><div class="ctr"><small>Your Biometric Age</small><b>47</b><em>years</em><u>Chronological Age 63</u></div></div></div>
-</div><div class="ba-chart"><div class="chart"><svg viewBox="0 0 300 118"><line x1="30" y1="10.0" x2="290" y2="10.0" stroke="#12405a" stroke-width="1"/><line x1="30" y1="39.3" x2="290" y2="39.3" stroke="#12405a" stroke-width="1"/><line x1="30" y1="68.7" x2="290" y2="68.7" stroke="#12405a" stroke-width="1"/><line x1="30" y1="98.0" x2="290" y2="98.0" stroke="#12405a" stroke-width="1"/><text x="30.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">2Y</text><text x="160.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">1Y</text><text x="290.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">NOW</text><polyline points="30.0,82.6 160.0,84.5 290.0,86.4" fill="none" stroke="#21c97a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="82.6" r="3" fill="#21c97a"/><circle cx="160.0" cy="84.5" r="3" fill="#21c97a"/><circle cx="290.0" cy="86.4" r="3" fill="#21c97a"/><polyline points="30.0,24.2 160.0,33.2 290.0,41.6" fill="none" stroke="#FF9F1C" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="24.2" r="3" fill="#FF9F1C"/><circle cx="160.0" cy="33.2" r="3" fill="#FF9F1C"/><circle cx="290.0" cy="41.6" r="3" fill="#FF9F1C"/><polyline points="30.0,25.0 160.0,23.3 290.0,21.6" fill="none" stroke="#2BC7FF" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="25.0" r="3" fill="#2BC7FF"/><circle cx="160.0" cy="23.3" r="3" fill="#2BC7FF"/><circle cx="290.0" cy="21.6" r="3" fill="#2BC7FF"/></svg><div class="tlegend"><span><i style="background:#21c97a"></i>Body fat % <b>9.6</b></span><span><i style="background:#FF9F1C"></i>Visceral fat <b>54.6</b></span><span><i style="background:#2BC7FF"></i>Muscle mass kg <b>74.6</b></span></div></div>
-<p class="disc">The NOW point matches the DEXA figures in Body Composition. Bone density and BMI are not plotted here; they await the DEXA bone report.</p>
+</div><div class="ba-chart"><div class="chart"><svg viewBox="0 0 300 118"><line x1="30" y1="10.0" x2="290" y2="10.0" stroke="#12405a" stroke-width="1"/><line x1="30" y1="39.3" x2="290" y2="39.3" stroke="#12405a" stroke-width="1"/><line x1="30" y1="68.7" x2="290" y2="68.7" stroke="#12405a" stroke-width="1"/><line x1="30" y1="98.0" x2="290" y2="98.0" stroke="#12405a" stroke-width="1"/><text x="30.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">T1</text><text x="160.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">T2</text><text x="290.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">T3</text><polyline points="30.0,33.9 160.0,30.7 290.0,28.1" fill="none" stroke="#2BC7FF" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="33.9" r="3" fill="#2BC7FF"/><circle cx="160.0" cy="30.7" r="3" fill="#2BC7FF"/><circle cx="290.0" cy="28.1" r="3" fill="#2BC7FF"/><polyline points="30.0,29.4 160.0,26.8 290.0,24.9" fill="none" stroke="#21c97a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="29.4" r="3" fill="#21c97a"/><circle cx="160.0" cy="26.8" r="3" fill="#21c97a"/><circle cx="290.0" cy="24.9" r="3" fill="#21c97a"/><polyline points="30.0,42.4 160.0,38.5 290.0,35.2" fill="none" stroke="#FF9F1C" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="42.4" r="3" fill="#FF9F1C"/><circle cx="160.0" cy="38.5" r="3" fill="#FF9F1C"/><circle cx="290.0" cy="35.2" r="3" fill="#FF9F1C"/><polyline points="30.0,26.2 160.0,24.2 290.0,22.9" fill="none" stroke="#A855F7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="26.2" r="3" fill="#A855F7"/><circle cx="160.0" cy="24.2" r="3" fill="#A855F7"/><circle cx="290.0" cy="22.9" r="3" fill="#A855F7"/></svg><div class="tlegend"><span><i style="background:#2BC7FF"></i>DEXA domain <b>90</b></span><span><i style="background:#21c97a"></i>Fitness domain <b>95</b></span><span><i style="background:#FF9F1C"></i>Blood &amp; hormones <b>79</b></span><span><i style="background:#A855F7"></i>Vital signs domain <b>98</b></span></div></div>
+<p class="disc">Each line is one of the four model domains, scored out of its own points and scaled to 100. Together the four domains are the composite that sets the biometric age.</p>
 </div></div>
 </section>
 <div class="two"><section class="card"><h2>NEXT STEPS</h2><div class="steps">
