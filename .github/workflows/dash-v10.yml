@@ -1,0 +1,21 @@
+name: dashv10
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-v10.yml']
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sSL -o patch_v10.py https://cdn.marblism.com/fpSHxUJm6Gw.py
+      - run: python3 patch_v10.py
+      - run: python3 build_dashboard.py
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A
+      - run: git commit -m Dashboard-v10
+      - run: git push
