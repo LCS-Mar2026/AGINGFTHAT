@@ -1,1 +1,18 @@
-PLACEHOLDER
+name: tally2
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Write the four fixed files
+        run: |
+          set -e
+          python3 - <<'PY'
+          import base64, gzip, pathlib
+          pathlib.Path("dashboard.html").write_bytes(gzip.decompress(base64.b64decode("H4sIAAAAAAAE")))
+          print("ok")
+          PY
