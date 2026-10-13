@@ -1,0 +1,21 @@
+name: l1fold
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/l1-fold.yml']
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sSL -o bio-age-level-1-model.html https://cdn.marblism.com/a-MxbvTvo8Q.html
+      - run: curl -sSL -o level1-section05-mockup.html https://cdn.marblism.com/ebjJp1sxECc.html
+      - run: wc -c bio-age-level-1-model.html level1-section05-mockup.html
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A
+      - run: git commit -m Old-Man-Test-named-and-explained
+      - run: git push
