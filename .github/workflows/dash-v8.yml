@@ -1,0 +1,34 @@
+name: Dashboard v8 tiles
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-v8.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply v8
+        run: |
+          set -e
+          curl -sSL -o patch_v8.py "https://cdn.marblism.com/iHM-lWWBfFn.py"
+          python3 patch_v8.py
+          python3 build_dashboard.py
+          echo "dashboard.html bytes: $(wc -c < dashboard.html)"
+          echo "minmax tracks: $(grep -c minmax dashboard.html)"
+      - name: Push
+        run: |
+          git config user.name "Penny Blog Writer"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard_src/gen.py dashboard_src/css.py dashboard.html example-report.html
+          git diff --cached --quiet && echo none || git commit -m "Dashboard v8: four equal tiles with one shared typographic scale"
+          git push
