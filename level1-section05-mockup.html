@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Level 1 client report — section 05 mockup</title>
+<style>
+body{margin:0;background:#031522;color:#edfaff;font:14px/1.55 Arial,Helvetica,sans-serif}
+.mockbanner{background:#713000;color:#fff;font-weight:900;letter-spacing:.1em;font-size:11px;text-align:center;padding:9px}
+.wrap{max-width:900px;margin:0 auto;padding:20px 18px 60px}
+.sec-eyebrow{font-size:11px;letter-spacing:.16em;font-weight:900;color:#2bc7ff;margin:22px 0 4px}
+h2{margin:0 0 6px;font-size:clamp(22px,3.4vw,32px)}
+p.sub{color:#a9c8d8;margin:0 0 14px;font-size:13.5px}
+.prov{border:1.5px solid #ffb020;border-radius:12px;padding:12px 14px;background:rgba(255,176,32,.10);margin:0 0 18px;font-size:13px;color:#ffdca8}
+.prov b{color:#ffb020;letter-spacing:.08em}
+.l1-dom{border:1px solid #168cc0;border-radius:14px;padding:12px 14px;background:rgba(6,29,44,.62);margin-bottom:12px}
+.l1-domhead{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;border-bottom:1px solid #123c52;padding-bottom:8px;margin-bottom:10px}
+.l1-domhead b{font-size:15px}
+.l1-domhead span{font-size:11.5px;color:#a9c8d8;letter-spacing:.04em}
+.l1-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.l1-tile{border:1px solid #14415a;border-radius:10px;padding:9px 10px;background:#061d2c;min-width:0}
+.l1-name{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#a9c8d8;font-weight:900;line-height:1.25}
+.l1-name span{font-weight:400;text-transform:none;letter-spacing:0}
+.l1-read{font-size:22px;font-weight:900;line-height:1.15;margin:5px 0 4px;letter-spacing:-.01em}
+.l1-meta{display:flex;justify-content:space-between;gap:6px;font-size:10.5px;font-weight:900;border-top:1px solid #123c52;padding-top:5px}
+.l1-wt{color:#7fa3b5;font-weight:400}
+.l1-note{font-size:10.5px;color:#8fb8cc;margin-top:5px;line-height:1.35}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+.grid3 div{border:1px solid #168cc0;border-radius:12px;padding:12px;background:#061d2c;text-align:center}
+.grid3 strong{display:block;font-size:26px;color:#2bc7ff;line-height:1.1}
+.grid3 small{color:#a9c8d8;font-size:11px;letter-spacing:.06em}
+.formula{background:#04202e;border:1px solid #14415a;border-radius:10px;padding:11px;text-align:center;font-weight:700;color:#dff2fb;font-size:13.5px;margin:12px 0}
+.chart{border:1px solid #14415a;border-radius:12px;background:#04202e;padding:10px}
+.chart svg{display:block;width:100%;height:auto}
+.legend{display:flex;gap:18px;justify-content:center;margin-top:8px;font-size:11.5px;color:#a9c8d8;font-weight:700}
+.legend i{display:inline-block;width:16px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+@media(max-width:760px){.l1-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}.grid3{grid-template-columns:1fr}}
+</style></head><body>
+<div class="mockbanner">MOCKUP &#183; LEVEL 1 CLIENT &#183; NOT A REAL CLIENT RECORD</div>
+<div class="wrap">
+  <div class="sec-eyebrow">05 &#183; Model</div>
+  <h2>Composite Bio-Age Model</h2>
+  <p class="sub">The AFT Level 1 weighted algorithm across body composition from a Morpho scan, vital signs, and a biomechanical postural analysis. Thirteen markers, 100 weight points. Divergence capped at &plusmn;20 years.</p>
+
+  <div class="prov"><b>PROVISIONAL RESULT.</b> This is a Level 1 assessment. The fitness and blood and hormone domains are not measured at this tier, so the composite covers three domains rather than four. Adding a VO2max test and a blood panel completes the picture.</div>
+
+  <div class="l1-dom"><div class="l1-domhead"><b>Body composition</b><span>Morpho scan &#183; domain weight 40% &#183; domain score 62%</span></div><div class="l1-tiles"><div class="l1-tile"><div class="l1-name">Body fat <span>%</span></div><div class="l1-read">22.4</div><div class="l1-meta"><span class="l1-score" style="color:#ffb020">75 pts</span><span class="l1-wt">weight 14</span></div><div class="l1-note">Just above the target band</div></div><div class="l1-tile"><div class="l1-name">Muscle mass <span>kg</span></div><div class="l1-read">48.2</div><div class="l1-meta"><span class="l1-score" style="color:#00ff6a">75 pts</span><span class="l1-wt">weight 13</span></div><div class="l1-note">Within the reference band</div></div><div class="l1-tile"><div class="l1-name">Visceral fat <span>index</span></div><div class="l1-read">12</div><div class="l1-meta"><span class="l1-score" style="color:#ffb020">40 pts</span><span class="l1-wt">weight 13</span></div><div class="l1-note">Upper end of the fair band</div></div></div></div><div class="l1-dom"><div class="l1-domhead"><b>Vital signs</b><span>Clinic or home &#183; domain weight 40% &#183; domain score 55%</span></div><div class="l1-tiles"><div class="l1-tile"><div class="l1-name">Systolic blood pressure <span>mmHg</span></div><div class="l1-read">132</div><div class="l1-meta"><span class="l1-score" style="color:#00ff6a">75 pts</span><span class="l1-wt">weight 16</span></div><div class="l1-note">Slightly above optimal</div></div><div class="l1-tile"><div class="l1-name">Resting heart rate <span>bpm</span></div><div class="l1-read">68</div><div class="l1-meta"><span class="l1-score" style="color:#ffb020">40 pts</span><span class="l1-wt">weight 13</span></div><div class="l1-note">Fair band for age 52</div></div><div class="l1-tile"><div class="l1-name">Diastolic blood pressure <span>mmHg</span></div><div class="l1-read">84</div><div class="l1-meta"><span class="l1-score" style="color:#ffb020">40 pts</span><span class="l1-wt">weight 11</span></div><div class="l1-note">Just above optimal</div></div></div></div><div class="l1-dom"><div class="l1-domhead"><b>Biomechanical</b><span>Function test and posture analysis &#183; domain weight 20% &#183; domain score 55%</span></div><div class="l1-tiles"><div class="l1-tile"><div class="l1-name">Old Man Test <span>score / 10</span></div><div class="l1-read">6.5</div><div class="l1-meta"><span class="l1-score" style="color:#ffb020">40 pts</span><span class="l1-wt">weight 7</span></div><div class="l1-note">Two supports and a balance loss</div></div><div class="l1-tile"><div class="l1-name">Effective head weight <span>kg</span></div><div class="l1-read">11.8</div><div class="l1-meta"><span class="l1-score" style="color:#ffb020">40 pts</span><span class="l1-wt">weight 4</span></div><div class="l1-note">Forward head carriage present</div></div><div class="l1-tile"><div class="l1-name">Head vs ankle alignment <span>cm</span></div><div class="l1-read">4.6</div><div class="l1-meta"><span class="l1-score" style="color:#ffb020">40 pts</span><span class="l1-wt">weight 3</span></div><div class="l1-note">Forward of the vertical line</div></div><div class="l1-tile"><div class="l1-name">Hip shift, front <span>cm</span></div><div class="l1-read">1.9</div><div class="l1-meta"><span class="l1-score" style="color:#00ff6a">75 pts</span><span class="l1-wt">weight 2</span></div><div class="l1-note">Minor lateral shift</div></div><div class="l1-tile"><div class="l1-name">Knee shift, side <span>cm</span></div><div class="l1-read">2.4</div><div class="l1-meta"><span class="l1-score" style="color:#00ff6a">75 pts</span><span class="l1-wt">weight 2</span></div><div class="l1-note">Slight forward knee travel</div></div><div class="l1-tile"><div class="l1-name">Total shifts, front <span>cm</span></div><div class="l1-read">3.1</div><div class="l1-meta"><span class="l1-score" style="color:#00ff6a">75 pts</span><span class="l1-wt">weight 1</span></div><div class="l1-note">Aggregate of front view</div></div><div class="l1-tile"><div class="l1-name">Total shifts, side <span>cm</span></div><div class="l1-read">7.2</div><div class="l1-meta"><span class="l1-score" style="color:#ffb020">40 pts</span><span class="l1-wt">weight 1</span></div><div class="l1-note">Aggregate of side view</div></div></div></div>
+
+  <div class="grid3">
+    <div><strong>58%</strong><small>COMPOSITE LEVEL 1</small></div>
+    <div><strong>52</strong><small>CHRONOLOGICAL AGE</small></div>
+    <div><strong>49</strong><small>AGE 1</small></div>
+  </div>
+  <div class="formula">Age 1 = actual age &minus; [ (composite &minus; 50) &divide; 50 &times; 20 ] &nbsp;&#8594;&nbsp; 52 &minus; 3 = 49</div>
+
+  <div class="sec-eyebrow" style="margin-top:26px">Age 1 divergence</div>
+  <div class="chart"><svg viewBox="0 0 620 210" role="img" aria-label="Level 1 Age 1 divergence across three assessments">
+    <g stroke="#12405a" stroke-width="1">
+      <line x1="46" y1="20" x2="610" y2="20"/><line x1="46" y1="65" x2="610" y2="65"/>
+      <line x1="46" y1="110" x2="610" y2="110"/><line x1="46" y1="155" x2="610" y2="155"/><line x1="46" y1="200" x2="610" y2="200"/>
+    </g>
+    <g fill="#9fc4d6" font-family="Arial" font-size="12">
+      <text x="8" y="24">+12</text><text x="8" y="69">+6</text><text x="20" y="114">0</text>
+      <text x="8" y="159">&minus;6</text><text x="4" y="204">&minus;12</text>
+      <text x="120" y="196">T1 &#183; OCT 2026</text><text x="330" y="196">T2 &#183; APR 2027</text><text x="520" y="196">T3 &#183; OCT 2027</text>
+    </g>
+    <line x1="46" y1="110" x2="610" y2="110" stroke="#A9CDEA" stroke-width="3"/>
+    <polyline points="120,65 330,65 520,65" fill="none" stroke="#A9CDEA" stroke-width="2.6"/>
+    <g fill="#A9CDEA"><circle cx="120" cy="65" r="4"/><circle cx="330" cy="65" r="4"/><circle cx="520" cy="65" r="4"/></g>
+    <polyline points="120,87 330,87 520,109" fill="none" stroke="#00ff6a" stroke-width="3.4"/>
+    <g fill="#00ff6a"><circle cx="120" cy="87" r="5"/><circle cx="330" cy="87" r="5"/><circle cx="520" cy="109" r="5"/></g>
+    <g font-family="Arial" font-size="12" font-weight="700">
+      <text x="128" y="80" fill="#A9CDEA">CHRONO 52</text>
+      <text x="128" y="104" fill="#00ff6a">AGE 1 &#183; 49</text>
+      <text x="528" y="80" fill="#A9CDEA">52</text>
+      <text x="528" y="122" fill="#00ff6a">49</text>
+    </g>
+  </svg>
+  <div class="legend"><span><i style="background:#A9CDEA"></i>Chronological age</span><span><i style="background:#00ff6a"></i>Age 1</span></div>
+  </div>
+  <p style="color:#8fb8cc;font-size:11.5px;margin-top:10px">A Level 1 assessment cannot reach a complete score because it has no fitness or blood domain. It is labelled provisional at every point.</p>
+</div></body></html>
