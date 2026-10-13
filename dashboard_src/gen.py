@@ -11,7 +11,7 @@ POS_S    = "https://cdn.marblism.com/9J9277dyCCt.webp"
 BLOOD_ART = "https://cdn.marblism.com/X-G7nSsrtUc.webp"
 BA_ART    = "https://cdn.marblism.com/f4-1J604s_r.webp"
 
-GREEN="#21c97a"; AMBER="#FF9F1C"; RED="#ff4b4b"; CYAN="#2BC7FF"; VIOLET="#A855F7"
+GREEN="#7CFF1F"; AMBER="#FFB020"; RED="#FF1744"; CYAN="#2BC7FF"; VIOLET="#A855F7"
 
 def ring(pct,col):
     """Three-band arc. The score lands visibly inside red, neutral or green."""
@@ -19,14 +19,14 @@ def ring(pct,col):
     r=64.0; circ=2*math.pi*r
     bands=[(0,40,'#8a2b2b'),(40,70,'#7a5a1e'),(70,100,'#1d7a4e')]
     out=['<svg viewBox="0 0 150 150">']
-    out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="#0d2b3c" stroke-width="13"/>'%r)
+    out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="#0d2b3c" stroke-width="11"/>'%r)
     for lo,hi,c in bands:
         a0=circ*lo/100.0; a1=circ*(hi-lo)/100.0
-        out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="13" '
+        out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="11" '
                    'stroke-dasharray="%.1f %.1f" stroke-dashoffset="%.1f" opacity="0.85"/>'
                    %(r,c,a1,circ-a1,-a0))
     dash=circ*pct/100.0
-    out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="13" '
+    out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="11" '
                'stroke-linecap="round" stroke-dasharray="%.1f %.1f"/>'%(r,col,dash,circ-dash))
     ang=-90+360*pct/100.0; rad=math.radians(ang)
     out.append('<circle cx="%.1f" cy="%.1f" r="5" fill="%s" stroke="#04202e" stroke-width="2"/>'
@@ -49,7 +49,7 @@ def _axis_labels(p, labels, X, H):
 
 def trend_chart(series, labels, note="", top=None):
     """Three-point trend chart. Fixed viewBox so type stays legible. Series are right-aligned."""
-    W,H = 560,200; padL,padR,padT,padB = 40,66,14,30
+    W,H = 560,200; padL,padR,padT,padB = 40,14,14,30
     iw=W-padL-padR; ih=H-padT-padB
     flat=[v for x in series for v in x['vals']]
     lo=0 if top else min(flat); hi=top if top else max(flat)
@@ -67,14 +67,12 @@ def trend_chart(series, labels, note="", top=None):
         p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>'%(pts,x['c']))
         for i,v in zip(idx,vals):
             p.append('<circle cx="%.1f" cy="%.1f" r="3.6" fill="%s"/>'%(X(i),Y(v),x['c']))
-        p.append('<text x="%.1f" y="%.1f" fill="%s" font-size="12" font-weight="700">%s</text>'
-                 %(X(idx[-1])+9, Y(vals[-1])+4, x['c'], x.get('lbl', vals[-1])))
     p.append('</svg>')
     return "".join(p)
 
 def delta_chart(series, labels):
     """Chronological against biometric age. Solid history, dashed projection."""
-    W,H = 560,220; padL,padR,padT,padB = 40,66,14,32
+    W,H = 560,220; padL,padR,padT,padB = 40,14,14,32
     iw=W-padL-padR; ih=H-padT-padB
     flat=[v for x in series for v in x['vals']]
     lo=min(flat); hi=max(flat); pad=(hi-lo)*0.14 or 1
@@ -98,9 +96,6 @@ def delta_chart(series, labels):
             p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.8" stroke-dasharray="7 5" stroke-linejoin="round" stroke-linecap="round"/>'%(po,x['c']))
         for i,v in enumerate(vals):
             p.append('<circle cx="%.1f" cy="%.1f" r="3.4" fill="%s"%s/>'%(X(i),Y(v),x['c'],' stroke="#04202e" stroke-width="1.6"' if i>=nh else ''))
-        if x.get('lbl'):
-            p.append('<text x="%.1f" y="%.1f" fill="%s" font-size="12" font-weight="700">%s</text>'
-                     %(X(len(vals)-1)+9, Y(vals[-1])+4, x['c'], x['lbl']))
     p.append('</svg>')
     return "".join(p)
 
@@ -228,8 +223,8 @@ STEPS=[("Review Your Results","Read what each panel measures."),
        ("Personalised Plan","Interventions across the 10 tenets."),
        ("Track Progress","Re-measure and confirm the change.")]
 DOCS=[("DEXA Scan Report","14 Oct 2024, 21 Dec 2024, 25 Apr 2025"),
-      ("Chiropractic Assessment","Posture, alignment and movement"),
-      ("AFT Bespoke Panel 2","Sussex Pathology &#183; 7 markers scored"),
+      ("Biomechanical Assessment","Posture, alignment and movement"),
+      ("AFT Bespoke Blood Panel","Drawn 08 Oct 2026 &#183; 5 markers scored"),
       ("Blood Pressure Log","Home and in-clinic readings"),
       ("Biometric Age Summary","Composite model output")]
 
@@ -332,7 +327,7 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
           ("Albumin","45 g/L","32&#8211;48","ok","WITHIN"),
           ("SHBG","48.41 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
           ("Cortisol","261.69 nmol/L","145.4&#8211;619.4","ok","WITHIN")],
-   note="Results as reported by Sussex Pathology, 08 Oct 2026. The five model inputs are the blood and hormone markers the AFT Bio Age Model scores; hsCRP is a model input that this panel does not currently test for, so it scores neutral. Cortisol, SHBG, albumin and the percentage HbA1c are reported for context but carry no weight. Automated report, not reviewed by a physician.",
+   note="Results from the AFT Bespoke Blood Panel, drawn 08 Oct 2026. The five model inputs are the blood and hormone markers the AFT Bio Age Model scores; hsCRP is a model input that this panel does not currently test for, so it scores neutral. Cortisol, SHBG, albumin and the percentage HbA1c are reported for context but carry no weight. Automated report, not reviewed by a physician.",
    btn="EDIT READINGS"),
  steps=STEPS,docs=DOCS)
 
