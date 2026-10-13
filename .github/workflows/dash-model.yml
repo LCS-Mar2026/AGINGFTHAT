@@ -1,0 +1,39 @@
+name: Dashboard model alignment
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-model.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch the model-alignment patch and apply it
+        run: |
+          set -e
+          curl -sSL -o patch_model.py "https://cdn.marblism.com/rV4wOfjm760.py"
+          python3 patch_model.py
+          python3 build_dashboard.py
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f notice: $(grep -c 'ILLUSTRATION ONLY' $f || true)"
+            echo "$f dexainputs: $(grep -c 'Bone density T-score' $f || true)"
+            echo "$f domains: $(grep -c 'domain' $f || true)"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard_src/gen.py dashboard_src/css.py dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Dashboard: body composition tile shows the four DEXA model inputs; biometric age chart plots the four model domains"
+          git push
