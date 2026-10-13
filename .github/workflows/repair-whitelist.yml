@@ -1,0 +1,24 @@
+name: repair whitelist
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/repair-whitelist.yml']
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: git checkout 522bb69 -- scripts/build_public.py
+      - run: python3 scripts/repair_whitelist.py
+      - run: python3 scripts/build_public.py
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A
+      - run: git commit -m Repair-the-public-file-whitelist
+      - run: git push
