@@ -1,17 +1,11 @@
-# -*- coding: utf-8 -*-
-"""Build the dashboard pages from the shared template."""
-import math
-from css import CSS
 
-HERO_ART = "https://cdn.marblism.com/v87Uu3kUSV9.webp"
-BC_FIG   = "https://cdn.marblism.com/9J9277dyCCt.webp"
-HEART    = "https://cdn.marblism.com/zZxd4bJ1qSt.webp"
-POS_F    = "https://cdn.marblism.com/9J9277dyCCt.webp"
-POS_S    = "https://cdn.marblism.com/9J9277dyCCt.webp"
-BLOOD_ART = "https://cdn.marblism.com/X-G7nSsrtUc.webp"
-BA_ART    = "https://cdn.marblism.com/f4-1J604s_r.webp"
+def _grid(p, W, H, padL, padR, padT, ih, lo, hi, ticks=4):
+    for k in range(ticks):
+        y = padT + ih*k/(ticks-1.0)
+        p.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="#12405a" stroke-width="1"/>' % (padL,y,W-padR,y))
+        p.append('<text x="%d" y="%.1f" text-anchor="end" fill="#9fc4d6" font-size="12">%.0f</text>' % (padL-6,y+4,hi-(hi-lo)*k/(ticks-1.0)))
 
-GREEN="#7CFF1F"; AMBER="#FFB020"; RED="#FF1744"; CYAN="#2BC7FF"; VIOLET="#A855F7"
+def _axis_labels(p, labels, X, H):
+    for i, label in enumerate(labels):
+        p.append('<text x="%.1f" y="%d" text-anchor="middle" fill="#9fc4d6" font-size="12">%s</text>' % (X(i),H-6,label))
 
-def _svg_open(W,H):
-    return '<svg viewBox="0 0 %d %d">' % (W, H)
