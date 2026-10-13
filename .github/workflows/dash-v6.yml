@@ -1,0 +1,39 @@
+name: Dashboard v6 charts
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-v6.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch the v6 chart patch and apply it
+        run: |
+          set -e
+          curl -sSL -o patch_v6.py "https://cdn.marblism.com/aLNOoa1tp_q.py"
+          python3 patch_v6.py
+          python3 build_dashboard.py
+          for f in dashboard.html example-report.html; do
+            echo "$f bytes: $(wc -c < $f)"
+            echo "$f viewboxes: $(grep -o 'viewBox=\"0 0 [0-9]* [0-9]*\"' $f | sort -u | tr '\n' ' ')"
+            echo "$f font sizes: $(grep -o 'font-size=\"[0-9]*\"' $f | sort -u | tr '\n' ' ')"
+            echo "$f line labels: $(grep -o 'font-weight=\"700\">[^<]*' $f | sed 's/.*>//' | tr '\n' ' ')"
+          done
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add dashboard_src/gen.py dashboard_src/css.py dashboard.html example-report.html
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Dashboard v6: legible charts with value labels on every line"
+          git push
