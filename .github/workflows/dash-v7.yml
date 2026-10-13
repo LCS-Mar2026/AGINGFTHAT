@@ -1,0 +1,24 @@
+name: v7
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/dash-v7.yml']
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: curl -sSL -o patch_v7.py https://cdn.marblism.com/CncrWcYyJQ5.py
+      - run: python3 patch_v7.py
+      - run: python3 build_dashboard.py
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add dashboard_src/gen.py dashboard_src/css.py dashboard.html example-report.html
+      - run: git commit -m v7-dashboard-layout
+      - run: git push
