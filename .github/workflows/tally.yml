@@ -1,0 +1,18 @@
+name: tally
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sSL -o dashboard.html https://cdn.marblism.com/HhvuYwoj-L5.html
+      - run: curl -sSL -o example-report.html https://cdn.marblism.com/lr5f4SgLuQD.html
+      - run: wc -c dashboard.html example-report.html
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A
+      - run: git commit -m Biometric-charts-tally
+      - run: git push
