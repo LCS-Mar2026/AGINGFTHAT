@@ -14,11 +14,25 @@ BA_ART    = "https://cdn.marblism.com/f4-1J604s_r.webp"
 GREEN="#21c97a"; AMBER="#FF9F1C"; RED="#ff4b4b"; CYAN="#2BC7FF"; VIOLET="#A855F7"
 
 def ring(pct,col):
-    r=64.0; circ=2*math.pi*r; dash=circ*pct/100.0
-    return ('<svg viewBox="0 0 150 150">'
-            '<circle cx="75" cy="75" r="%.0f" fill="none" stroke="#0d2b3c" stroke-width="12"/>'
-            '<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="12" stroke-linecap="round" '
-            'stroke-dasharray="%.1f %.1f"/></svg>')%(r,r,col,dash,circ-dash)
+    """Three-band arc. The score lands visibly inside red, neutral or green."""
+    import math
+    r=64.0; circ=2*math.pi*r
+    bands=[(0,40,'#8a2b2b'),(40,70,'#7a5a1e'),(70,100,'#1d7a4e')]
+    out=['<svg viewBox="0 0 150 150">']
+    out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="#0d2b3c" stroke-width="13"/>'%r)
+    for lo,hi,c in bands:
+        a0=circ*lo/100.0; a1=circ*(hi-lo)/100.0
+        out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="13" '
+                   'stroke-dasharray="%.1f %.1f" stroke-dashoffset="%.1f" opacity="0.85"/>'
+                   %(r,c,a1,circ-a1,-a0))
+    dash=circ*pct/100.0
+    out.append('<circle cx="75" cy="75" r="%.0f" fill="none" stroke="%s" stroke-width="13" '
+               'stroke-linecap="round" stroke-dasharray="%.1f %.1f"/>'%(r,col,dash,circ-dash))
+    ang=-90+360*pct/100.0; rad=math.radians(ang)
+    out.append('<circle cx="%.1f" cy="%.1f" r="5" fill="%s" stroke="#04202e" stroke-width="2"/>'
+               %(75+(r-0)*math.cos(rad),75+(r-0)*math.sin(rad),col))
+    out.append('</svg>')
+    return "".join(out)
 
 def _svg_open(W,H):
     return '<svg viewBox="0 0 %d %d">'%(W,H)
@@ -184,7 +198,7 @@ def page(c):
     P('<div class="body">')
     P('<div class="ba-top">')
     P('<div class="gaugewrap"><div class="gauge">'+ring(a['pct'],a['col'])+'<div class="ctr"><small>BIOMETRIC AGE</small><b>%s</b><em>years</em></div></div></div>')
-    P('<div class="deltapane %s"><u>CHRONOLOGICAL %s</u><b>%s</b><u>%s</u><span>%s</span></div>'%(a['dcls'],a['chrono'],a['delta'],a['dlabel'],a['dsub']))
+    P('<div class="deltapane %s"><u>CHRONOLOGICAL %s</u><b>%s</b><u>%s</u><span>%s</span><i>%s</i></div>'%(a['dcls'],a['chrono'],a['delta'],a['dlabel'],a['dsub'],c['meta']['date']))
     P('</div>')
     P('<h3 class="ch-h">BIOMETRIC AGE AGAINST CHRONOLOGICAL AGE</h3>')
     P('<div class="chart">'+delta_chart(a['delta_series'],a['delta_labels'])+trend_legend(a['delta_series'])+'</div>')
@@ -192,16 +206,19 @@ def page(c):
     P('<h3 class="ch-h">%s</h3>'%a['prog_head'])
     P('<div class="chart">'+trend_chart(a['trend'],a['trend_labels'])+trend_legend(a['trend'])+'</div>')
     if a.get('trend_note'): P('<p class="disc">%s</p>'%a['trend_note'])
+    P('<h3 class="ch-h">SOURCE DOCUMENTS ON FILE</h3>')
+    P('<div class="docs">')
+    for n,d in c['docs']:
+        P('<div class="doc"><span>%s<small>%s</small></span><em>ON FILE</em></div>'%(n,d))
+    P('</div><p class="disc">Documents are listed for reference. Source files are held securely and are not downloadable from this page.</p>')
     P('</div>')
     P('</section>')
 
-    P('<div class="two"><section class="card"><h2>NEXT STEPS</h2><div class="steps">')
-    for i,(t,s) in enumerate(c['steps'],1):
-        P('<div class="step"><i>%d</i><div><b>%s</b><small>%s</small></div></div>'%(i,t,s))
-    P('</div></section><section class="card"><h2>SOURCE DOCUMENTS</h2><div class="docs">')
-    for n,d in c['docs']:
-        P('<div class="doc"><span>%s<small>%s</small></span><em>ON FILE</em></div>'%(n,d))
-    P('</div><p class="disc">Documents are listed for reference. Source files are held securely and not downloadable from this page.</p></section></div>')
+    P('<div class="two two-single"><section class="card"><h2>NEXT STEPS</h2><div class="steps">')
+    for i,(t,s2) in enumerate(c['steps'],1):
+        P('<div class="step"><i>%d</i><div><b>%s</b><small>%s</small></div></div>'%(i,t,s2))
+    P('</div></section>')
+
     P('</div><footer><div class="l">AGING?F***THAT! &#124; LONGER. STRONGER. HEALTHIER.</div><div class="r">WWW.AGINGFTHAT.COM</div></footer>')
     P('<script>(function(){document.querySelectorAll("a.btn[href=\\u0022#\\u0022]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();});});})();</script></body></html>')
     return "\n".join(A)
