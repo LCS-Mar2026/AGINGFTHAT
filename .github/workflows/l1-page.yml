@@ -1,0 +1,17 @@
+name: l1 pages
+on: workflow_dispatch
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sSL -o bio-age-level-1-model.html https://cdn.marblism.com/uAshCEDVzhE.html
+      - run: curl -sSL -o level1-section05-mockup.html https://cdn.marblism.com/OgXK6T-RM0_.html
+      - run: python3 scripts/l1_wire.py
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A
+      - run: git commit -m Add-Level-1-model-and-mockup
+      - run: git push
