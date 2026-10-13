@@ -13,7 +13,7 @@ a{color:var(--cyan)}
 .hero-txt h1{margin:0;font-size:clamp(19px,5vw,34px);font-weight:900;letter-spacing:-.02em;line-height:1;text-shadow:0 0 14px #2bc7ff55}
 .hero-txt h1 em{font-style:normal;color:var(--cyan)}
 .hero-txt p{margin:0;font-size:clamp(10px,2.3vw,14px);font-weight:900;letter-spacing:.16em;color:#dff4ff}
-.mocknote{float:right;color:var(--amber);font-weight:900;letter-spacing:.12em}
+.mocknote{float:right;color:#ffffff;font-weight:900;letter-spacing:.12em}
 .hero-txt .strap{margin:5px 0 0;font-size:clamp(8px,1.9vw,11px);font-weight:800;letter-spacing:.2em;color:var(--cyan)}
 
 .metabar{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
@@ -45,7 +45,7 @@ a{color:var(--cyan)}
 .panel.bc .btn{border-color:#1c5d8a;color:#a8e4ff}.panel.mp .btn{border-color:#1d7a4e;color:#a8f7cf}
 .panel.hh .btn{border-color:#8a2b2b;color:#ffc9c2}.panel.ba .btn{border-color:#6a3a9e;color:#e3ccff}
 .bcgrid{display:grid;grid-template-columns:1fr;gap:8px}
-.fig{position:relative;border-radius:8px;overflow:hidden;background:#02101a;border:1px solid #0f3b57}
+.fig{position:relative;border-radius:8px;overflow:hidden;background:transparent;border:0}
 .fig{display:grid;place-items:center}
 .fig img{display:block;height:clamp(150px,44vw,300px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center}
 .stats{display:grid;gap:5px}
@@ -58,7 +58,7 @@ a{color:var(--cyan)}
 .chip{background:#06263a;border:1px solid #103f59;border-radius:6px;padding:5px 2px;text-align:center;font-size:6.5px;letter-spacing:.03em;color:#9fc4d6;line-height:1.15}
 .chip i{display:block;font-style:normal;font-size:12px;color:var(--cyan);margin-bottom:3px}
 .herofig{position:relative;height:clamp(72px,10.2vw,136px);margin:0 0 9px;border-radius:8px;overflow:hidden;border:1px solid #14415a;background:#02101a}.herofig img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}.herofig:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,25,42,.10),rgba(4,25,42,.42))}.figpair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;justify-items:center}
-.figpair img{height:clamp(150px,44vw,300px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center;border-radius:7px;margin:0 auto;border:1px solid #0f3b57;display:block;background:#02101a}
+.figpair img{height:clamp(150px,44vw,300px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center;border-radius:7px;margin:0 auto;background:transparent;border:0;border:1px solid #0f3b57;display:block;background:#02101a}
 .sil{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px}
 .sil svg{width:100%;height:auto;display:block}
 ul.li{list-style:none;margin:0 0 8px;padding:0}
@@ -77,9 +77,9 @@ ul.li li:before{content:"\2022";position:absolute;left:1px;color:var(--green);fo
 .gaugewrap{display:grid;place-items:center;margin:2px 0 8px}
 .gauge{position:relative;width:min(124px,100%);aspect-ratio:1}
 .gauge svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
-.gauge .ctr{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:0 16px}
-.gauge .ctr small{font-size:7px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;line-height:1.2}
-.gauge .ctr b{font-size:26px;font-weight:900;line-height:1;display:block;margin:2px 0 1px}
+.gauge .ctr{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:0 22px}
+.gauge .ctr small{font-size:8px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;line-height:1.2}
+.gauge .ctr b{font-size:30px;font-weight:900;line-height:1;display:block;margin:3px 0 2px;letter-spacing:-.02em}
 .gauge .ctr em{font-style:normal;font-size:7.5px;letter-spacing:.05em;color:var(--muted);display:block}
 .gauge .ctr u{text-decoration:none;display:block;font-size:8px;font-weight:800;color:#fff;margin-top:2px}
 .strip{text-align:center;font-size:9.5px;font-weight:900;letter-spacing:.04em;border-radius:6px;padding:6px;margin-bottom:7px}
@@ -95,7 +95,7 @@ ul.li li:before{content:"\2022";position:absolute;left:1px;color:var(--green);fo
 .bm small{display:block;font-size:7.5px;color:var(--muted);margin-top:1px}
 .bm b{font-size:12px;font-weight:900;text-align:right;white-space:nowrap}
 .panel.wide{grid-column:1/-1;margin-top:0}
-.panel.wide .body{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:center;grid-template-areas:"fig gauge" "chart chart"}.panel.wide .herofig{grid-area:fig}.panel.wide .gaugewrap{grid-area:gauge}.panel.wide .ba-chart{grid-area:chart;margin-top:4px}
+.panel.wide .body{display:block}.panel.wide .herofig{grid-area:fig}.panel.wide .gaugewrap{grid-area:gauge}.ba-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;margin-bottom:6px}.deltapane{border:1px solid #6a3a9e;border-radius:10px;padding:12px 10px;background:rgba(58,26,86,.30);text-align:center}.deltapane u{display:block;text-decoration:none;font-size:8.5px;letter-spacing:.12em;color:var(--muted)}.deltapane b{display:block;font-size:32px;font-weight:900;line-height:1.05;margin:5px 0 3px;color:#fff}.deltapane span{display:block;font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.35}.deltapane.good{border-color:#1d7a4e;background:rgba(15,63,42,.30)}.deltapane.good b{color:#5ff0a8}.deltapane.bad{border-color:#8a2b2b;background:rgba(66,28,28,.30)}.deltapane.bad b{color:#ffb3a8}.ch-h{margin:10px 0 6px;font-size:9px;letter-spacing:.12em;color:var(--muted);font-weight:900}
 
 .two{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px;align-items:start}
 .card{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;padding:10px}
@@ -148,37 +148,48 @@ footer .r{margin-top:3px;letter-spacing:.09em}
 <div class="chip"><i>4</i>Visceral area</div>
 </div><div class="mini"><div class="minirow"><span>Body fat</span><span class="track"><i style="background:#21c97a;width:90%"></i></span><b>9.6%</b></div><div class="minirow"><span>Lean mass</span><span class="track"><i style="background:#21c97a;width:92%"></i></span><b>74.6 kg</b></div><div class="minirow"><span>Visceral area</span><span class="track"><i style="background:#21c97a;width:95%"></i></span><b>54.6</b></div><div class="minirow"><span>Bone density</span><span class="track"><i style="background:#FF9F1C;width:50%"></i></span><b>&#8212;</b></div></div>
 </div><div class="pb"><a class="btn" href="#">VIEW FULL DEXA SCAN REPORT</a></div></section>
-<section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2><p>CHIROPRACTIC ANALYSIS &#183; MOVEMENT &#183; ALIGNMENT &#183; POSTURE</p></div></div>
+<section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2><p>MOVEMENT &#183; ALIGNMENT &#183; POSTURE ANALYSIS</p></div></div>
 <div class="body"><div class="figpair"><img src="https://cdn.marblism.com/9J9277dyCCt.webp" alt="Placeholder posture view, front, standing in for the chiropractic biomechanical report image"><img src="https://cdn.marblism.com/9J9277dyCCt.webp" alt="Placeholder posture view, side, standing in for the chiropractic biomechanical report image"></div>
 <ul class="li"><li>Forward head posture</li><li>Anterior pelvic tilt</li><li>Reduced spinal alignment</li><li>Measured against 25 Apr 2025</li><li>Personalised recommendations</li></ul><div class="mini"><div class="minirow"><span>Head shift</span><span class="track"><i style="background:#FF9F1C;width:62%"></i></span><b>1.40cm L</b></div><div class="minirow"><span>Shoulders</span><span class="track"><i style="background:#21c97a;width:42%"></i></span><b>0.77cm R</b></div><div class="minirow"><span>Ribcage</span><span class="track"><i style="background:#21c97a;width:30%"></i></span><b>0.44cm L</b></div><div class="minirow"><span>Pelvis</span><span class="track"><i style="background:#FF9F1C;width:74%"></i></span><b>2.46cm L</b></div><div class="minirow"><span>Knees</span><span class="track"><i style="background:#21c97a;width:32%"></i></span><b>0.60cm L</b></div></div>
-</div><div class="pb"><a class="btn" href="#">FULL BIOMECHANICAL REPORT</a></div></section>
+</div><div class="pb"><a class="btn" href="#">FULL REPORT</a></div></section>
 <section class="panel hh"><div class="ph"><span class="ic">&#10084;&#65039;</span><div><h2>HEART HEALTH</h2><p>BLOOD PRESSURE &amp; RESTING HEART RATE &#183; CURRENT MEASUREMENTS</p></div></div>
 <div class="body"><div class="heartwrap"><img src="https://cdn.marblism.com/zZxd4bJ1qSt.webp" alt="3D anatomical heart with an ECG trace"><svg class="ecg" viewBox="0 0 300 34" preserveAspectRatio="none"><polyline points="0,19 30,19 38,19 42,7 46,29 50,14 54,19 90,19 98,19 102,8 106,28 110,15 114,19 165,19 173,19 177,7 181,29 185,14 189,19 235,19 243,19 247,8 251,28 255,15 259,19 300,19" stroke="#21c97a"/></svg></div>
 <div class="tiles">
 <div class="tile"><small>Blood Pressure</small><b>120/78</b><small>mmHg</small><u class="tag ok">GOOD</u></div>
 <div class="tile"><small>Resting Heart Rate</small><b>47</b><small>bpm</small><u class="tag ok">EXCEPTIONAL</u></div>
 </div><ul class="li"><li>Blood pressure within range</li><li>Resting heart rate exceptional</li><li>Supports cardiovascular health focus</li><li>Track and monitor progress</li></ul><div class="mini"><div class="minirow"><span>Systolic</span><span class="track"><i style="background:#21c97a;width:95%"></i></span><b>120</b></div><div class="minirow"><span>Diastolic</span><span class="track"><i style="background:#21c97a;width:90%"></i></span><b>78</b></div><div class="minirow"><span>Resting HR</span><span class="track"><i style="background:#21c97a;width:98%"></i></span><b>47</b></div></div>
-</div><div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
-<section class="panel bx"><div class="ph"><span class="ic">&#129514;</span><div><h2>BLOOD WORK</h2><p>SUSSEX PATHOLOGY &#183; 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL</p></div></div>
-<div class="body"><div class="herofig"><img src="https://cdn.marblism.com/X-G7nSsrtUc.webp" alt="3D render of red blood cells, plasma and molecular chains representing a blood and hormone panel"></div>
+</div><div class="pb"><a class="btn" href="#">FULL REPORT</a></div></section>
+<section class="panel bx"><div class="ph"><span class="ic">&#129514;</span><div><h2>BLOOD WORK</h2><p>THE BLOOD &amp; HORMONE DOMAIN &#183; 42% OF THE MODEL &#183; 08 OCT 2026</p></div></div>
+<div class="body"><div class="herofig"><img src="https://cdn.marblism.com/X-G7nSsrtUc.webp" alt="3D render of red blood cells, plasma and molecular chains representing the blood and hormone panel"></div>
+<h3 class="ch-h">MODEL INPUTS &#183; 5 MARKERS</h3>
 <div class="bloodrow">
-<div class="bm"><span><b>1. HbA1c</b> mmol/mol<small>ref &lt;42</small></span><b>32<span class="tag ok">NORMAL</span></b></div>
-<div class="bm"><span><b>2. HbA1c</b> %HbA1c<small>ref &lt;6.0</small></span><b>5.08<span class="tag ok">NORMAL</span></b></div>
-<div class="bm"><span><b>3. Homocysteine</b><small>ref 3.7&#8211;13.9</small></span><b>22.46 &#181;mol/L<span class="tag bad">FLAGGED</span></b></div>
-<div class="bm"><span><b>4. Albumin</b><small>ref 32&#8211;48</small></span><b>45 g/L<span class="tag ok">WITHIN</span></b></div>
-<div class="bm"><span><b>5. SHBG</b><small>ref 17.33&#8211;71.5</small></span><b>48.41 nmol/L<span class="tag ok">WITHIN</span></b></div>
-<div class="bm"><span><b>6. Testosterone</b><small>ref 6.51&#8211;23.74</small></span><b>43.58 nmol/L<span class="tag bad">FLAGGED</span></b></div>
-<div class="bm"><span><b>7. Free Testosterone</b><small>ref 170&#8211;660</small></span><b>976.35 pmol/L<span class="tag bad">FLAGGED</span></b></div>
-<div class="bm"><span><b>hs-CRP</b><small>ref &lt;1.0</small></span><b>not tested<span class="tag absent">NO RESULT</span></b></div>
-<div class="bm"><span><b>Cortisol</b> &#8212; not scored<small>ref 145.4&#8211;619.4</small></span><b>261.69 nmol/L<span class="tag ok">WITHIN</span></b></div>
-</div><p class="disc">Results as reported by Sussex Pathology, 08 Oct 2026. Markers 1 to 7 feed the biometric age model; cortisol is reported but not scored; hs-CRP is a model input this panel does not currently test for, so it scores neutral. Automated report, not reviewed by a physician.</p></div>
+<div class="bm"><span><b>HbA1c</b> mmol/mol<small>ref &lt;42</small></span><b>32<span class="tag ok">NORMAL</span></b></div>
+<div class="bm"><span><b>hsCRP</b><small>ref &lt;1.0</small></span><b>not tested<span class="tag absent">NO RESULT</span></b></div>
+<div class="bm"><span><b>Homocysteine</b><small>ref 3.7&#8211;13.9</small></span><b>22.46 &#181;mol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span><b>Total testosterone</b><small>ref 6.51&#8211;23.74</small></span><b>43.58 nmol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span><b>Free testosterone</b><small>ref 170&#8211;660</small></span><b>976.35 pmol/L<span class="tag bad">FLAGGED</span></b></div>
+</div>
+<h3 class="ch-h">REPORTED, NOT SCORED</h3>
+<div class="bloodrow">
+<div class="bm"><span><b>HbA1c</b> %HbA1c<small>ref &lt;6.0</small></span><b>5.08<span class="tag ok">NORMAL</span></b></div>
+<div class="bm"><span><b>Albumin</b><small>ref 32&#8211;48</small></span><b>45 g/L<span class="tag ok">WITHIN</span></b></div>
+<div class="bm"><span><b>SHBG</b><small>ref 17.33&#8211;71.5</small></span><b>48.41 nmol/L<span class="tag ok">WITHIN</span></b></div>
+<div class="bm"><span><b>Cortisol</b><small>ref 145.4&#8211;619.4</small></span><b>261.69 nmol/L<span class="tag ok">WITHIN</span></b></div>
+</div><p class="disc">Results as reported by Sussex Pathology, 08 Oct 2026. The five model inputs are the blood and hormone markers the AFT Bio Age Model scores; hsCRP is a model input that this panel does not currently test for, so it scores neutral. Cortisol, SHBG, albumin and the percentage HbA1c are reported for context but carry no weight. Automated report, not reviewed by a physician.</p></div>
 <div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
-<section class="panel ba wide"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS</p></div></div>
-<div class="body"><div class="herofig"><img src="https://cdn.marblism.com/v87Uu3kUSV9.webp" alt="3D anatomical scan figure representing a biometric age assessment"></div>
-<div class="gaugewrap"><div class="gauge"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="64" fill="none" stroke="#0d2b3c" stroke-width="12"/><circle cx="75" cy="75" r="64" fill="none" stroke="#21c97a" stroke-width="12" stroke-linecap="round" stroke-dasharray="301.6 100.5"/></svg><div class="ctr"><small>Your Biometric Age</small><b>47</b><em>years</em><u>Chronological Age 63</u></div></div></div>
-</div><div class="ba-chart"><div class="chart"><svg viewBox="0 0 300 118"><line x1="30" y1="10.0" x2="290" y2="10.0" stroke="#12405a" stroke-width="1"/><line x1="30" y1="39.3" x2="290" y2="39.3" stroke="#12405a" stroke-width="1"/><line x1="30" y1="68.7" x2="290" y2="68.7" stroke="#12405a" stroke-width="1"/><line x1="30" y1="98.0" x2="290" y2="98.0" stroke="#12405a" stroke-width="1"/><text x="30.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">T1</text><text x="160.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">T2</text><text x="290.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">T3</text><polyline points="30.0,33.9 160.0,30.7 290.0,28.1" fill="none" stroke="#2BC7FF" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="33.9" r="3" fill="#2BC7FF"/><circle cx="160.0" cy="30.7" r="3" fill="#2BC7FF"/><circle cx="290.0" cy="28.1" r="3" fill="#2BC7FF"/><polyline points="30.0,29.4 160.0,26.8 290.0,24.9" fill="none" stroke="#21c97a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="29.4" r="3" fill="#21c97a"/><circle cx="160.0" cy="26.8" r="3" fill="#21c97a"/><circle cx="290.0" cy="24.9" r="3" fill="#21c97a"/><polyline points="30.0,42.4 160.0,38.5 290.0,35.2" fill="none" stroke="#FF9F1C" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="42.4" r="3" fill="#FF9F1C"/><circle cx="160.0" cy="38.5" r="3" fill="#FF9F1C"/><circle cx="290.0" cy="35.2" r="3" fill="#FF9F1C"/><polyline points="30.0,26.2 160.0,24.2 290.0,22.9" fill="none" stroke="#A855F7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="26.2" r="3" fill="#A855F7"/><circle cx="160.0" cy="24.2" r="3" fill="#A855F7"/><circle cx="290.0" cy="22.9" r="3" fill="#A855F7"/></svg><div class="tlegend"><span><i style="background:#2BC7FF"></i>DEXA domain <b>90</b></span><span><i style="background:#21c97a"></i>Fitness domain <b>95</b></span><span><i style="background:#FF9F1C"></i>Blood &amp; hormones <b>79</b></span><span><i style="background:#A855F7"></i>Vital signs domain <b>98</b></span></div></div>
-<p class="disc">Each line is one of the four model domains, scored out of its own points and scaled to 100. Together the four domains are the composite that sets the biometric age.</p>
-</div></div>
+<section class="panel ba wide"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>BIOLOGICAL AGE &#183; COMPOSITE OF 12 WEIGHTED MARKERS</p></div></div>
+<div class="body">
+<div class="ba-top">
+<div class="gaugewrap"><div class="gauge"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="64" fill="none" stroke="#0d2b3c" stroke-width="12"/><circle cx="75" cy="75" r="64" fill="none" stroke="#21c97a" stroke-width="12" stroke-linecap="round" stroke-dasharray="301.6 100.5"/></svg><div class="ctr"><small>BIOMETRIC AGE</small><b>%s</b><em>years</em></div></div></div>
+<div class="deltapane good"><u>CHRONOLOGICAL 63</u><b>&#8722;16 yrs</b><u>YOUNGER THAN CHRONOLOGICAL</u><span>A composite of 75 gives a biometric age 16 years below chronological age.</span></div>
+</div>
+<h3 class="ch-h">BIOMETRIC AGE AGAINST CHRONOLOGICAL AGE</h3>
+<div class="chart"><svg viewBox="0 0 300 132"><line x1="30" y1="12.0" x2="290" y2="12.0" stroke="#12405a" stroke-width="1"/><text x="2" y="15.0" fill="#8fb8cc" font-size="7.5">69</text><line x1="30" y1="44.7" x2="290" y2="44.7" stroke="#12405a" stroke-width="1"/><text x="2" y="47.7" fill="#8fb8cc" font-size="7.5">59</text><line x1="30" y1="77.3" x2="290" y2="77.3" stroke="#12405a" stroke-width="1"/><text x="2" y="80.3" fill="#8fb8cc" font-size="7.5">49</text><line x1="30" y1="110.0" x2="290" y2="110.0" stroke="#12405a" stroke-width="1"/><text x="2" y="113.0" fill="#8fb8cc" font-size="7.5">39</text><line x1="30.0" y1="110" x2="290.0" y2="110" stroke="#2b5f7a" stroke-width="1" stroke-dasharray="3 3"/><text x="30.0" y="127" text-anchor="middle" fill="#8fb8cc" font-size="8">NOW</text><text x="160.0" y="127" text-anchor="middle" fill="#8fb8cc" font-size="8">+1Y</text><text x="290.0" y="127" text-anchor="middle" fill="#8fb8cc" font-size="8">+2Y</text><polyline points="30.0,30.6 160.0,27.3 290.0,23.9" fill="none" stroke="#8fb8cc" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="30.6" r="2.8" fill="#8fb8cc"/><circle cx="160.0" cy="27.3" r="2.8" fill="#8fb8cc"/><circle cx="290.0" cy="23.9" r="2.8" fill="#8fb8cc"/><polyline points="30.0,84.6" fill="none" stroke="#21c97a" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/><polyline points="30.0,84.6 160.0,91.4 290.0,98.1" fill="none" stroke="#21c97a" stroke-width="2.4" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round" opacity="0.85"/><circle cx="30.0" cy="84.6" r="2.8" fill="#21c97a"/><circle cx="160.0" cy="91.4" r="2.8" fill="#21c97a" stroke="#04202e" stroke-width="1.2"/><circle cx="290.0" cy="98.1" r="2.8" fill="#21c97a" stroke="#04202e" stroke-width="1.2"/></svg><div class="tlegend"><span><i style="background:#8fb8cc"></i>Chronological <b>65</b></span><span><i style="background:#21c97a"></i>Biometric <b>43</b></span></div></div>
+<p class="disc">Real data at NOW. Earlier biometric ages are not on file, so nothing is drawn before the current assessment. The dashed section is an extrapolation, not a measurement or a forecast.</p>
+<h3 class="ch-h">THREE-YEAR PROGRESSION &#183; DEXA OUTPUTS AND BIOMETRIC AGE</h3>
+<div class="chart"><svg viewBox="0 0 300 118"><line x1="30" y1="10.0" x2="290" y2="10.0" stroke="#12405a" stroke-width="1"/><text x="2" y="13.0" fill="#8fb8cc" font-size="7.5">86</text><line x1="30" y1="39.3" x2="290" y2="39.3" stroke="#12405a" stroke-width="1"/><text x="2" y="42.3" fill="#8fb8cc" font-size="7.5">57</text><line x1="30" y1="68.7" x2="290" y2="68.7" stroke="#12405a" stroke-width="1"/><text x="2" y="71.7" fill="#8fb8cc" font-size="7.5">27</text><line x1="30" y1="98.0" x2="290" y2="98.0" stroke="#12405a" stroke-width="1"/><text x="2" y="101.0" fill="#8fb8cc" font-size="7.5">-2</text><text x="30.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">2Y AGO</text><text x="160.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">1Y AGO</text><text x="290.0" y="115" text-anchor="middle" fill="#8fb8cc" font-size="8">NOW</text><polyline points="290.0,49.1" fill="none" stroke="#21c97a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="290.0" cy="49.1" r="3" fill="#21c97a"/><polyline points="30.0,82.6 160.0,84.5 290.0,86.4" fill="none" stroke="#FF9F1C" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="82.6" r="3" fill="#FF9F1C"/><circle cx="160.0" cy="84.5" r="3" fill="#FF9F1C"/><circle cx="290.0" cy="86.4" r="3" fill="#FF9F1C"/><polyline points="30.0,25.0 160.0,23.3 290.0,21.6" fill="none" stroke="#2BC7FF" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="25.0" r="3" fill="#2BC7FF"/><circle cx="160.0" cy="23.3" r="3" fill="#2BC7FF"/><circle cx="290.0" cy="21.6" r="3" fill="#2BC7FF"/><polyline points="30.0,24.2 160.0,33.2 290.0,41.6" fill="none" stroke="#A855F7" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/><circle cx="30.0" cy="24.2" r="3" fill="#A855F7"/><circle cx="160.0" cy="33.2" r="3" fill="#A855F7"/><circle cx="290.0" cy="41.6" r="3" fill="#A855F7"/></svg><div class="tlegend"><span><i style="background:#21c97a"></i>Biometric age <b>47</b></span><span><i style="background:#FF9F1C"></i>Body fat % <b>9.6</b></span><span><i style="background:#2BC7FF"></i>Lean mass kg <b>74.6</b></span><span><i style="background:#A855F7"></i>Visceral area cm&#178; <b>54.6</b></span></div></div>
+<p class="disc">The NOW values match the DEXA figures in Body Composition. Bone density awaits the DEXA bone report. Only one biometric age is on file, so it is shown as a single point.</p>
+</div>
 </section>
 <div class="two"><section class="card"><h2>NEXT STEPS</h2><div class="steps">
 <div class="step"><i>1</i><div><b>Review Your Results</b><small>Read what each panel measures.</small></div></div>

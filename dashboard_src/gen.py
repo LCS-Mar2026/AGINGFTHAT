@@ -21,25 +21,59 @@ def ring(pct,col):
             'stroke-dasharray="%.1f %.1f"/></svg>')%(r,r,col,dash,circ-dash)
 
 def trend_chart(series, labels, note="", top=None):
-    """Three-point trend chart. Series order matches the legend."""
+    """Three-point trend chart. Series are right-aligned to the last label."""
     W,H = 300,118; padL,padR,padT,padB = 30,10,10,20
     iw=W-padL-padR; ih=H-padT-padB
-    lo=min(min(x['vals']) for x in series) if not top else 0; hi=max(max(x['vals']) for x in series) if not top else top
+    flat=[v for x in series for v in x['vals']]
+    lo=0 if top else min(flat); hi=top if top else max(flat)
     if hi==lo: hi=lo+1
-    pad=(hi-lo)*0.18; lo-=pad; hi+=pad
-    X=lambda i: padL+iw*(i/(len(labels)-1))
-    Y=lambda v: padT+ih*(1-(v-lo)/(hi-lo))
+    pad=(hi-lo)*0.18; lo=(lo-pad) if not top else 0; hi=hi+pad
+    def X(i): return padL+iw*(i/(len(labels)-1))
+    def Y(v): return padT+ih*(1-(v-lo)/(hi-lo))
     p=['<svg viewBox="0 0 %d %d">'%(W,H)]
     for k in range(4):
         y=padT+ih*k/3.0
         p.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="#12405a" stroke-width="1"/>'%(padL,y,W-padR,y))
+        p.append('<text x="2" y="%.1f" fill="#8fb8cc" font-size="7.5">%.0f</text>'%(y+3, hi-(hi-lo)*k/3.0))
     for i,lb in enumerate(labels):
         p.append('<text x="%.1f" y="%d" text-anchor="middle" fill="#8fb8cc" font-size="8">%s</text>'%(X(i),H-3,lb))
     for x in series:
-        pts=" ".join("%.1f,%.1f"%(X(i),Y(v)) for i,v in enumerate(x['vals']))
+        vals=x['vals']; off=len(labels)-len(vals)
+        idx=list(range(off,off+len(vals)))
+        pts=" ".join("%.1f,%.1f"%(X(i),Y(v)) for i,v in zip(idx,vals))
         p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>'%(pts,x['c']))
-        for i,v in enumerate(x['vals']):
+        for i,v in zip(idx,vals):
             p.append('<circle cx="%.1f" cy="%.1f" r="3" fill="%s"/>'%(X(i),Y(v),x['c']))
+    p.append('</svg>')
+    return "".join(p)
+
+def delta_chart(series, labels):
+    """Chronological against biometric age. Solid history, dashed projection."""
+    W,H = 300,132; padL,padR,padT,padB = 30,10,12,22
+    iw=W-padL-padR; ih=H-padT-padB
+    flat=[v for x in series for v in x['vals']]
+    lo=min(flat); hi=max(flat); pad=(hi-lo)*0.16 or 1
+    lo-=pad; hi+=pad
+    def X(i): return padL+iw*(i/(len(labels)-1))
+    def Y(v): return padT+ih*(1-(v-lo)/(hi-lo))
+    p=['<svg viewBox="0 0 %d %d">'%(W,H)]
+    for k in range(4):
+        y=padT+ih*k/3.0
+        p.append('<line x1="%d" y1="%.1f" x2="%d" y2="%.1f" stroke="#12405a" stroke-width="1"/>'%(padL,y,W-padR,y))
+        p.append('<text x="2" y="%.1f" fill="#8fb8cc" font-size="7.5">%.0f</text>'%(y+3, hi-(hi-lo)*k/3.0))
+    p.append('<line x1="%.1f" y1="%d" x2="%.1f" y2="%d" stroke="#2b5f7a" stroke-width="1" stroke-dasharray="3 3"/>'%(X(0),Y(0) if False else H-padB,W-padR,H-padB))
+    for i,lb in enumerate(labels):
+        p.append('<text x="%.1f" y="%d" text-anchor="middle" fill="#8fb8cc" font-size="8">%s</text>'%(X(i),H-5,lb))
+    for x in series:
+        vals=x['vals']; nh=x.get('nh',len(vals))
+        hist=vals[:nh]; proj=vals[nh-1:] if nh<len(vals) else []
+        pts=" ".join("%.1f,%.1f"%(X(i),Y(v)) for i,v in enumerate(hist))
+        p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>'%(pts,x['c']))
+        if proj:
+            po=" ".join("%.1f,%.1f"%(X(nh-1+i),Y(v)) for i,v in enumerate(proj))
+            p.append('<polyline points="%s" fill="none" stroke="%s" stroke-width="2.4" stroke-dasharray="5 4" stroke-linejoin="round" stroke-linecap="round" opacity="0.85"/>'%(po,x['c']))
+        for i,v in enumerate(vals):
+            p.append('<circle cx="%.1f" cy="%.1f" r="2.8" fill="%s"%s/>'%(X(i),Y(v),x['c'],' stroke="#04202e" stroke-width="1.2"' if i>=nh else ''))
     p.append('</svg>')
     return "".join(p)
 
@@ -101,7 +135,7 @@ def page(c):
     P('</div><div class="pb"><a class="btn" href="#">%s</a></div></section>'%b['btn'])
     mp=c['mp']
     P('<section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2>'
-      '<p>CHIROPRACTIC ANALYSIS &#183; MOVEMENT &#183; ALIGNMENT &#183; POSTURE</p></div></div>')
+      '<p>MOVEMENT &#183; ALIGNMENT &#183; POSTURE ANALYSIS</p></div></div>')
     P('<div class="body"><div class="figpair">'
       '<img src="%s" alt="Placeholder posture view, front, standing in for the chiropractic biomechanical report image">'
       '<img src="%s" alt="Placeholder posture view, side, standing in for the chiropractic biomechanical report image"></div>'%(POS_F,POS_S))
@@ -119,22 +153,33 @@ def page(c):
     P('</div><div class="pb"><a class="btn" href="#">%s</a></div></section>'%h['btn'])
     x=c['blood']
     P('<section class="panel bx"><div class="ph"><span class="ic">&#129514;</span><div><h2>%s</h2><p>%s</p></div></div>'%(x['name'],x['sub']))
-    P('<div class="body"><div class="herofig"><img src="%s" alt="3D render of red blood cells, plasma and molecular chains representing a blood and hormone panel"></div>'%BLOOD_ART)
+    P('<div class="body"><div class="herofig"><img src="%s" alt="3D render of red blood cells, plasma and molecular chains representing the blood and hormone panel"></div>'%BLOOD_ART)
+    P('<h3 class="ch-h">MODEL INPUTS &#183; %d MARKERS</h3>'%len(x['model']))
     P('<div class="bloodrow">')
-    for lbl,val,ref,tagcls,tagt in x['rows']:
+    for lbl,val,ref,tagcls,tagt in x['model']:
+        P('<div class="bm"><span>%s<small>ref %s</small></span><b>%s<span class="tag %s">%s</span></b></div>'%(lbl,ref,val,tagcls,tagt))
+    P('</div>')
+    P('<h3 class="ch-h">REPORTED, NOT SCORED</h3>')
+    P('<div class="bloodrow">')
+    for lbl,val,ref,tagcls,tagt in x['extra']:
         P('<div class="bm"><span>%s<small>ref %s</small></span><b>%s<span class="tag %s">%s</span></b></div>'%(lbl,ref,val,tagcls,tagt))
     P('</div><p class="disc">%s</p></div>'%x['note'])
     P('<div class="pb"><a class="btn" href="#">%s</a></div></section>'%x['btn'])
 
     a=c['ba']
     P('<section class="panel ba wide"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>%s</p></div></div>'%a['sub'])
-    P('<div class="body"><div class="herofig"><img src="%s" alt="3D anatomical scan figure representing a biometric age assessment"></div>'%HERO_ART)
-    P('<div class="gaugewrap"><div class="gauge">'+ring(a['pct'],a['col'])+'<div class="ctr"><small>Your Biometric Age</small><b>%s</b><em>years</em><u>Chronological Age %s</u></div></div></div>'%(a['bio'],a['chrono']))
-    P('</div><div class="ba-chart"><div class="chart">'+trend_chart(a["trend"],a["trend_labels"],top=a.get("trend_max"))+trend_legend(a["trend"])+'</div>')
-    if a.get("trend_note"): P('<p class="disc">%s</p>'%a["trend_note"])
-    P('</div></div>')
-    if a.get('btn'):
-        P('<div class="pb"><a class="btn" href="#">%s</a></div>'%a['btn'])
+    P('<div class="body">')
+    P('<div class="ba-top">')
+    P('<div class="gaugewrap"><div class="gauge">'+ring(a['pct'],a['col'])+'<div class="ctr"><small>BIOMETRIC AGE</small><b>%s</b><em>years</em></div></div></div>')
+    P('<div class="deltapane %s"><u>CHRONOLOGICAL %s</u><b>%s</b><u>%s</u><span>%s</span></div>'%(a['dcls'],a['chrono'],a['delta'],a['dlabel'],a['dsub']))
+    P('</div>')
+    P('<h3 class="ch-h">BIOMETRIC AGE AGAINST CHRONOLOGICAL AGE</h3>')
+    P('<div class="chart">'+delta_chart(a['delta_series'],a['delta_labels'])+trend_legend(a['delta_series'])+'</div>')
+    if a.get('delta_note'): P('<p class="disc">%s</p>'%a['delta_note'])
+    P('<h3 class="ch-h">%s</h3>'%a['prog_head'])
+    P('<div class="chart">'+trend_chart(a['trend'],a['trend_labels'])+trend_legend(a['trend'])+'</div>')
+    if a.get('trend_note'): P('<p class="disc">%s</p>'%a['trend_note'])
+    P('</div>')
     P('</section>')
 
     P('<div class="two"><section class="card"><h2>NEXT STEPS</h2><div class="steps">')
@@ -174,34 +219,40 @@ ex=dict(title="Example Client Report — Biometric Age Assessment | AGING?F***TH
  mp=dict(silo=[AMBER,GREEN,GREEN,AMBER],
    bullets=["Forward head posture","Anterior pelvic tilt","Reduced spinal alignment","Postural imbalance detected","Personalised recommendations"],
    mini=[("Head shift",("1.40cm L",62),AMBER),("Shoulders",("0.77cm R",42),GREEN),("Ribcage",("0.44cm L",30),GREEN),("Pelvis",("2.46cm L",74),AMBER),("Knees",("0.60cm L",32),GREEN)],
-   btn="FULL BIOMECHANICAL REPORT"),
+   btn="FULL REPORT"),
  hh=dict(ecg=RED,
    tiles=[("Blood Pressure","140/98","mmHg","bad","ELEVATED"),("Resting Heart Rate","76","bpm","warn","ABOVE OPTIMAL")],
    bullets=["Blood pressure above optimal range","Resting heart rate elevated","May benefit from improved fitness","Supports cardiovascular health focus"],
    mini=[("Systolic",("140",78),RED),("Diastolic",("98",72),RED),("Resting HR",("76",58),AMBER)],
-   btn="EDIT READINGS"),
- ba=dict(sub="YOUR ESTIMATED BIOLOGICAL AGE &#183; PROVISIONAL",pct=88,col=RED,
-   trend=[dict(n="DEXA domain",c="#2BC7FF",vals=[52,57,61]),
-          dict(n="Fitness domain",c="#21c97a",vals=[40,45,48]),
-          dict(n="Blood &amp; hormones",c="#FF9F1C",vals=[58,61,64]),
-          dict(n="Vital signs domain",c="#A855F7",vals=[30,35,38])],
-   trend_labels=["T1","T2","T3"],
-   trend_max=100,
-   trend_note="Each line is one of the four model domains, scored out of its own points and scaled to 100. Together the four domains are the composite that sets the biometric age.",
-   bio="77",chrono="62",
+   btn="FULL REPORT"),
+ ba=dict(sub="BIOMETRIC AGE &#183; COMPOSITE OF 12 WEIGHTED MARKERS",pct=72,col=RED,
+   bio="72",chrono="62",delta="+10 yrs",dcls="bad",dlabel="OLDER THAN CHRONOLOGICAL",
+   dsub="A composite of 72 gives a biometric age 10 years above chronological age.",
+   delta_labels=["2Y AGO","1Y AGO","NOW","+1Y","+2Y"],
+   delta_series=[dict(n="Chronological",c="#8fb8cc",vals=[60,61,62,63,64]),
+                 dict(n="Biometric",c="#ff4b4b",vals=[77,75,72,68,64],nh=3)],
+   delta_note="Solid lines are on file. The dashed section is an extrapolation from the recorded trend, not a measurement or a forecast, and it assumes the current lifestyle continues unchanged.",
+   prog_head="THREE-YEAR PROGRESSION &#183; DEXA OUTPUTS AND BIOMETRIC AGE",
+   trend=[dict(n="Biometric age",c="#ff4b4b",vals=[77,75,72]),
+          dict(n="Body fat %",c="#FF9F1C",vals=[24.6,22.9,21.0]),
+          dict(n="Lean mass kg",c="#2BC7FF",vals=[50.4,51.2,52.0]),
+          dict(n="Visceral area cm&#178;",c="#A855F7",vals=[150,146,142]),
+          dict(n="Bone density T-score",c="#21c97a",vals=[-1.9,-1.65,-1.4])],
+   trend_labels=["2Y AGO","1Y AGO","NOW"],
+   trend_note="Illustrative. The NOW values match the DEXA figures in Body Composition. Bone density is plotted against its own scale.",
    btn=None),
- blood=dict(name="BLOOD WORK",sub="7 MARKERS SCORED IN THE MODEL &#183; PLUS CORTISOL, NOT SCORED",
-   rows=[("<b>1. HbA1c</b> mmol/mol","41","&lt;42","warn","WATCH"),
-         ("<b>2. HbA1c</b> %HbA1c","5.9","&lt;6.0","warn","WATCH"),
-         ("<b>3. Homocysteine</b>","20.4 &#181;mol/L","3.7&#8211;13.9","bad","ELEVATED"),
-         ("<b>4. Albumin</b>","42 g/L","32&#8211;48","ok","WITHIN"),
-         ("<b>5. SHBG</b>","36 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
-         ("<b>6. Testosterone</b>","19.8 nmol/L","6.51&#8211;23.74","ok","WITHIN"),
-         ("<b>7. Free Testosterone</b>","330 pmol/L","170&#8211;660","ok","WITHIN"),
-         ("<b>hs-CRP</b>","1.8 mg/L","&lt;1.0","warn","SLIGHTLY HIGH"),
-         ("<b>Cortisol</b> &#8212; not scored","398 nmol/L","145.4&#8211;619.4","ok","WITHIN")],
-   note="Illustrative sample figures in the Bespoke Panel 2 format. Markers 1 to 7 feed the model; cortisol is reported but not scored; hs-CRP here is an illustrative figure; the laboratory does not currently test for it.",
-   btn="EDIT READINGS"),
+ blood=dict(name="BLOOD WORK",sub="THE BLOOD &amp; HORMONE DOMAIN &#183; 42% OF THE MODEL",
+   model=[("<b>HbA1c</b> mmol/mol","41","&lt;42","warn","WATCH"),
+          ("<b>hsCRP</b>","1.8 mg/L","&lt;1.0","warn","SLIGHTLY HIGH"),
+          ("<b>Homocysteine</b>","20.4 &#181;mol/L","3.7&#8211;13.9","bad","ELEVATED"),
+          ("<b>Total testosterone</b>","19.8 nmol/L","6.51&#8211;23.74","ok","WITHIN"),
+          ("<b>Free testosterone</b>","330 pmol/L","170&#8211;660","ok","WITHIN")],
+   extra=[("<b>HbA1c</b> %HbA1c","5.9","&lt;6.0","warn","WATCH"),
+          ("<b>Albumin</b>","42 g/L","32&#8211;48","ok","WITHIN"),
+          ("<b>SHBG</b>","36 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
+          ("<b>Cortisol</b>","398 nmol/L","145.4&#8211;619.4","ok","WITHIN")],
+   note="Illustrative sample figures. The five model inputs above are the blood and hormone markers the AFT Bio Age Model scores. Cortisol, SHBG, albumin and the percentage HbA1c are reported for context but carry no weight in the model.",
+   btn="FULL REPORT"),
  steps=STEPS,docs=DOCS)
 
 rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
@@ -220,33 +271,38 @@ rl=dict(title="Client Report — Biometric Age Assessment | AGING?F***THAT!",
  mp=dict(silo=[AMBER,GREEN,GREEN,AMBER],
    bullets=["Forward head posture","Anterior pelvic tilt","Reduced spinal alignment","Measured against 25 Apr 2025","Personalised recommendations"],
    mini=[("Head shift",("1.40cm L",62),AMBER),("Shoulders",("0.77cm R",42),GREEN),("Ribcage",("0.44cm L",30),GREEN),("Pelvis",("2.46cm L",74),AMBER),("Knees",("0.60cm L",32),GREEN)],
-   btn="FULL BIOMECHANICAL REPORT"),
+   btn="FULL REPORT"),
  hh=dict(ecg=GREEN,
    tiles=[("Blood Pressure","120/78","mmHg","ok","GOOD"),("Resting Heart Rate","47","bpm","ok","EXCEPTIONAL")],
    bullets=["Blood pressure within range","Resting heart rate exceptional","Supports cardiovascular health focus","Track and monitor progress"],
    mini=[("Systolic",("120",95),GREEN),("Diastolic",("78",90),GREEN),("Resting HR",("47",98),GREEN)],
-   btn="EDIT READINGS"),
- ba=dict(sub="YOUR BIOLOGICAL AGE &#183; BASED ON ASSESSMENT METRICS",pct=75,col=GREEN,
-   trend=[dict(n="DEXA domain",c="#2BC7FF",vals=[81,86,90]),
-          dict(n="Fitness domain",c="#21c97a",vals=[88,92,95]),
-          dict(n="Blood &amp; hormones",c="#FF9F1C",vals=[68,74,79]),
-          dict(n="Vital signs domain",c="#A855F7",vals=[93,96,98])],
-   trend_labels=["T1","T2","T3"],
-   trend_max=100,
-   trend_note="Each line is one of the four model domains, scored out of its own points and scaled to 100. Together the four domains are the composite that sets the biometric age.",
-   bio="47",chrono="63",
+   btn="FULL REPORT"),
+ ba=dict(sub="BIOLOGICAL AGE &#183; COMPOSITE OF 12 WEIGHTED MARKERS",pct=75,col=GREEN,
+   bio="47",chrono="63",delta="&#8722;16 yrs",dcls="good",dlabel="YOUNGER THAN CHRONOLOGICAL",
+   dsub="A composite of 75 gives a biometric age 16 years below chronological age.",
+   delta_labels=["NOW","+1Y","+2Y"],
+   delta_series=[dict(n="Chronological",c="#8fb8cc",vals=[63,64,65]),
+                 dict(n="Biometric",c="#21c97a",vals=[47,45,43],nh=1)],
+   delta_note="Real data at NOW. Earlier biometric ages are not on file, so nothing is drawn before the current assessment. The dashed section is an extrapolation, not a measurement or a forecast.",
+   prog_head="THREE-YEAR PROGRESSION &#183; DEXA OUTPUTS AND BIOMETRIC AGE",
+   trend=[dict(n="Biometric age",c="#21c97a",vals=[47]),
+          dict(n="Body fat %",c="#FF9F1C",vals=[13.4,11.5,9.6]),
+          dict(n="Lean mass kg",c="#2BC7FF",vals=[71.2,72.9,74.6]),
+          dict(n="Visceral area cm&#178;",c="#A855F7",vals=[72.0,63.0,54.6])],
+   trend_labels=["2Y AGO","1Y AGO","NOW"],
+   trend_note="The NOW values match the DEXA figures in Body Composition. Bone density awaits the DEXA bone report. Only one biometric age is on file, so it is shown as a single point.",
    btn=None),
- blood=dict(name="BLOOD WORK",sub="SUSSEX PATHOLOGY &#183; 08 OCT 2026 &#183; 7 MARKERS SCORED, PLUS CORTISOL",
-   rows=[("<b>1. HbA1c</b> mmol/mol","32","&lt;42","ok","NORMAL"),
-         ("<b>2. HbA1c</b> %HbA1c","5.08","&lt;6.0","ok","NORMAL"),
-         ("<b>3. Homocysteine</b>","22.46 &#181;mol/L","3.7&#8211;13.9","bad","FLAGGED"),
-         ("<b>4. Albumin</b>","45 g/L","32&#8211;48","ok","WITHIN"),
-         ("<b>5. SHBG</b>","48.41 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
-         ("<b>6. Testosterone</b>","43.58 nmol/L","6.51&#8211;23.74","bad","FLAGGED"),
-         ("<b>7. Free Testosterone</b>","976.35 pmol/L","170&#8211;660","bad","FLAGGED"),
-         ("<b>hs-CRP</b>","not tested","&lt;1.0","absent","NO RESULT"),
-         ("<b>Cortisol</b> &#8212; not scored","261.69 nmol/L","145.4&#8211;619.4","ok","WITHIN")],
-   note="Results as reported by Sussex Pathology, 08 Oct 2026. Markers 1 to 7 feed the biometric age model; cortisol is reported but not scored; hs-CRP is a model input this panel does not currently test for, so it scores neutral. Automated report, not reviewed by a physician.",
+ blood=dict(name="BLOOD WORK",sub="THE BLOOD &amp; HORMONE DOMAIN &#183; 42% OF THE MODEL &#183; 08 OCT 2026",
+   model=[("<b>HbA1c</b> mmol/mol","32","&lt;42","ok","NORMAL"),
+          ("<b>hsCRP</b>","not tested","&lt;1.0","absent","NO RESULT"),
+          ("<b>Homocysteine</b>","22.46 &#181;mol/L","3.7&#8211;13.9","bad","FLAGGED"),
+          ("<b>Total testosterone</b>","43.58 nmol/L","6.51&#8211;23.74","bad","FLAGGED"),
+          ("<b>Free testosterone</b>","976.35 pmol/L","170&#8211;660","bad","FLAGGED")],
+   extra=[("<b>HbA1c</b> %HbA1c","5.08","&lt;6.0","ok","NORMAL"),
+          ("<b>Albumin</b>","45 g/L","32&#8211;48","ok","WITHIN"),
+          ("<b>SHBG</b>","48.41 nmol/L","17.33&#8211;71.5","ok","WITHIN"),
+          ("<b>Cortisol</b>","261.69 nmol/L","145.4&#8211;619.4","ok","WITHIN")],
+   note="Results as reported by Sussex Pathology, 08 Oct 2026. The five model inputs are the blood and hormone markers the AFT Bio Age Model scores; hsCRP is a model input that this panel does not currently test for, so it scores neutral. Cortisol, SHBG, albumin and the percentage HbA1c are reported for context but carry no weight. Automated report, not reviewed by a physician.",
    btn="EDIT READINGS"),
  steps=STEPS,docs=DOCS)
 
