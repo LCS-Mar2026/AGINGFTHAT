@@ -12,27 +12,26 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <link rel="manifest" href="/site.webmanifest"/>
 <link rel="stylesheet" href="report.css"/>
-<style>body::before{background-image:url(https://cdn.marblism.com/y3qYRB37I2n.webp)}</style>
+<style>body::before{background-image:url(https://cdn.marblism.com/ScXkpYPuTPu.webp);background-position:center}</style>
 </head>
 <body>
 <a href="admin.html" style="display:inline-block;color:var(--cyan);font-weight:900;text-decoration:none;font-size:12px;letter-spacing:.05em;padding:14px 20px 0">&larr; PRIVATE CLIENT AREA</a>
-<div class="mast"><img class="logo" alt="AGING?F***THAT!" src="aft-logo.png"/><div class="tagline">PRIVATE CLIENT AREA</div></div>
-<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 6px"><a href="client-report.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">FULL REPORT</a><a href="client-blood-panel.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">BLOOD &amp; HORMONE PANEL</a><a href="client-scan-history.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">SCAN &amp; ASSESSMENT HISTORY</a><a href="client-progress.html" style="padding:9px 14px;border:1px solid #168cc0;border-radius:999px;color:#bff0ff;font-size:10.5px;font-weight:900;letter-spacing:.05em;text-decoration:none;background:rgba(6,29,44,.6)">PROGRESS OVER TIME</a></div>
+<div class="mast"><img class="logo" alt="AGING?F***THAT!" src="aft-logo.png"/><div class="tagline">SCAN &amp; ASSESSMENT HISTORY</div></div>
 <div id="content" style="display:none"></div>
 <div id="gate" style="max-width:420px;margin:14vh auto 0;padding:0 18px;text-align:center">
   <img src="aft-logo.png" alt="AGING?F***THAT!" style="width:78%;max-width:340px;height:auto;margin:0 auto 10px;filter:drop-shadow(0 0 8px #21c7ff66);display:block"/>
-  <div style="font-weight:900;letter-spacing:.14em;font-size:12px;color:#e9fbff;padding:6px 0 16px">PRIVATE CLIENT AREA</div>
+  <div style="font-weight:900;letter-spacing:.14em;font-size:12px;color:#e9fbff;padding:6px 0 16px">SCAN &amp; ASSESSMENT HISTORY</div>
   <div style="border:1px solid #168cc0;border-radius:18px;padding:26px 22px;background:rgba(6,29,44,.72);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);box-shadow:0 0 22px #16bfff33">
     <label for="pw" style="display:block;font-size:9.5px;letter-spacing:.12em;color:#a9c8d8;text-transform:uppercase;margin-bottom:9px">Admin password</label>
     <input id="pw" type="password" autocomplete="current-password" style="width:100%;padding:12px 14px;border:1px solid #168cc0;border-radius:9px;background:#031522;color:#edfaff;font-size:15px;box-sizing:border-box"/>
-    <button id="btn" style="display:block;width:100%;margin-top:12px;padding:12px 14px;border:0;border-radius:9px;background:var(--cyan);color:#031522;font-family:Arial,sans-serif;font-weight:900;letter-spacing:.06em;cursor:pointer;font-size:13px">OPEN REPORT</button>
+    <button id="btn" style="display:block;width:100%;margin-top:12px;padding:12px 14px;border:0;border-radius:9px;background:var(--cyan);color:#031522;font-family:Arial,sans-serif;font-weight:900;letter-spacing:.06em;cursor:pointer;font-size:13px">OPEN</button>
     <div id="err" style="color:#ff4b4b;font-size:12px;margin-top:10px;min-height:16px"></div>
   </div>
-  <p style="color:#7899a9;font-size:11px;margin-top:18px;line-height:1.6">Authorised clients only. Enter the admin password issued by AGING?F***THAT! to view this report.</p>
+  <p style="color:#7899a9;font-size:11px;margin-top:18px;line-height:1.6">Authorised clients only. Enter the admin password issued by AGING?F***THAT! to view this section.</p>
 </div>
 <script>
 (function(){
-  var H='f29d7b120048b9344d52b30c9864a378ab9bee78ebc4e461fd07627d4bf844d8';
+  var H='88fd5b3c36c67f85583f1ca1b411c84351a4890e887b2d7b9e8fec304550201e';
   var SESSION_KEY='agnf_admin_v2';
   var gate=document.getElementById('gate'),content=document.getElementById('content');
   function digest(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
@@ -47,9 +46,7 @@
   function wire(root){
     root.querySelectorAll('[data-w]').forEach(function(el){setTimeout(function(){el.style.width=el.dataset.w;},200)});
     document.body.setAttribute('data-sex','male');
-    window.toggleBlurb=function(slug){var b=document.getElementById('blurb_'+slug);if(!b)return;var c=b.closest('.rng-card');if(c)c.classList.toggle('open');};
     window.setSex=function(sex,btn){document.body.setAttribute('data-sex',sex);var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
-    window.setToggle=function(btn){var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
   }
   function load(){
     var parts=['report-part-1.html','report-part-2.html','report-part-3.html'];
@@ -65,7 +62,7 @@
         target.appendChild(holder);
         wire(target);
       })
-      .catch(function(e){document.getElementById('content').innerHTML='<div class="wrap"><div class="card"><h3>Report could not be loaded. Please refresh the page.</h3></div></div>';});
+      .catch(function(e){document.getElementById('content').innerHTML='<div class="wrap"><div class="card"><h3>Section could not be loaded. Please refresh.</h3></div></div>';});
   }
 })();
 </script>
