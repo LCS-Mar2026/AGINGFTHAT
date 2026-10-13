@@ -22,8 +22,8 @@ a{color:var(--cyan)}
 .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:5px;vertical-align:middle}
 .dot.w{background:var(--amber)}
 .wrap{padding:11px 10px 22px;max-width:1500px;margin:0 auto}
-.panels{display:grid;gap:9px;grid-template-columns:repeat(2,1fr);align-items:stretch}
-.panel{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;display:flex;flex-direction:column;overflow:hidden}
+.panels{display:grid;gap:9px;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.panel{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;display:flex;flex-direction:column;overflow:hidden;min-width:0;width:100%}
 .panel.bc{border-color:#1c5d8a}.panel.mp{border-color:#1d7a4e}.panel.hh{border-color:#8a2b2b}.panel.ba{border-color:#6a3a9e}
 .ph{display:grid;grid-template-columns:auto 1fr;gap:7px;align-items:center;padding:7px 9px;border-bottom:1px solid var(--line)}
 .panel.bc .ph{background:linear-gradient(90deg,#08324d,#061f31)}
@@ -38,27 +38,27 @@ a{color:var(--cyan)}
 .panel.bx .ic{color:var(--cyan);background:#0d3d5c}
 .panel.bx .btn{border-color:#2b7fa8;color:#a8e4ff}
 .ph h2{margin:0;font-size:11px;letter-spacing:.1em;font-weight:900;line-height:1.15}
-.ph p{margin:2px 0 0;font-size:7.5px;letter-spacing:.07em;color:var(--muted);line-height:1.25}
-.body{padding:8px;flex:1;display:flex;flex-direction:column}
+.ph p{margin:2px 0 0;font-size:7.5px;letter-spacing:.07em;color:var(--muted);line-height:1.25;text-transform:uppercase}
+.body{padding:8px;flex:1;display:flex;flex-direction:column;min-width:0}
 .pb{padding:0 8px 8px}
 .btn{display:block;width:100%;border:1px solid #1a4f6b;border-radius:7px;background:#08283a;color:#fff;font-weight:900;font-size:9px;letter-spacing:.05em;padding:9px 8px;text-align:center;text-decoration:none;cursor:pointer;font-family:inherit}
 .panel.bc .btn{border-color:#1c5d8a;color:#a8e4ff}.panel.mp .btn{border-color:#1d7a4e;color:#a8f7cf}
 .panel.hh .btn{border-color:#8a2b2b;color:#ffc9c2}.panel.ba .btn{border-color:#6a3a9e;color:#e3ccff}
-.bcgrid{display:grid;grid-template-columns:1fr;gap:8px}
+.bcgrid{display:grid;grid-template-columns:1fr;gap:8px;min-width:0}
 .fig{position:relative;border-radius:8px;overflow:hidden;background:transparent;border:0}
 .fig{display:grid;place-items:center}
-.fig img{display:block;height:clamp(150px,44vw,300px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center}
+.fig img{display:block;height:clamp(132px,13.5vw,196px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center}
 .stats{display:grid;gap:5px}
 .stat{display:flex;align-items:baseline;justify-content:space-between;gap:6px;border-bottom:1px solid #0d2f42;padding-bottom:4px}
-.stat span{color:var(--muted);font-size:8.5px;letter-spacing:.05em;text-transform:uppercase}
-.stat b{font-size:14px;font-weight:900;line-height:1.1}
-.tag{display:inline-block;font-size:8px;font-weight:900;letter-spacing:.05em;padding:1px 5px;border-radius:99px;margin-left:4px;vertical-align:middle}
+.stat span{color:var(--muted);font-size:9px;letter-spacing:.07em;text-transform:uppercase;font-weight:700}
+.stat b{font-size:15px;font-weight:900;line-height:1.1;letter-spacing:-.01em}
+.tag{display:inline-block;font-size:7.5px;font-weight:900;letter-spacing:.06em;padding:2px 6px;border-radius:99px;margin-left:5px;vertical-align:middle;text-transform:uppercase}
 .ok{background:#0f3f2a;color:#5ff0a8}.bad{background:#42201c;color:#ff9b8f}.warn{background:#42331a;color:#ffd479}.absent{background:#152a3a;color:#8fb8cc}
 .chips{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:8px 0 0}
 .chip{background:#06263a;border:1px solid #103f59;border-radius:6px;padding:5px 2px;text-align:center;font-size:6.5px;letter-spacing:.03em;color:#9fc4d6;line-height:1.15}
 .chip i{display:block;font-style:normal;font-size:12px;color:var(--cyan);margin-bottom:3px}
-.herofig{position:relative;height:clamp(72px,10.2vw,136px);margin:0 0 9px;border-radius:8px;overflow:hidden;border:1px solid #14415a;background:#02101a}.herofig img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}.herofig:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,25,42,.10),rgba(4,25,42,.42))}.figpair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;justify-items:center}
-.figpair img{height:clamp(150px,44vw,300px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center;border-radius:7px;margin:0 auto;background:transparent;border:0;border:1px solid #0f3b57;display:block;background:#02101a}
+.herofig{position:relative;height:clamp(56px,6.4vw,92px);margin:0 0 9px;border-radius:8px;overflow:hidden;border:1px solid #14415a;background:#02101a}.herofig img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}.herofig:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,25,42,.10),rgba(4,25,42,.42))}.figpair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;justify-items:center;min-width:0}
+.figpair img{height:clamp(132px,13.5vw,196px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center;border-radius:7px;margin:0 auto;background:transparent;border:0;border:1px solid #0f3b57;display:block;background:#02101a}
 .sil{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px}
 .sil svg{width:100%;height:auto;display:block}
 ul.li{list-style:none;margin:0 0 8px;padding:0}
@@ -66,14 +66,14 @@ ul.li li{position:relative;padding-left:12px;font-size:9.5px;color:#d6ecf7;margi
 ul.li li:before{content:"\2022";position:absolute;left:1px;color:var(--green);font-weight:900}
 .panel.hh ul.li li:before{color:var(--red)}
 .heartwrap{position:relative;margin-bottom:8px}
-.heartwrap img{display:block;width:100%;height:clamp(64px,9vw,118px);object-fit:cover;object-position:center;border-radius:7px}
+.heartwrap img{display:block;width:100%;height:clamp(56px,6.4vw,92px);object-fit:cover;object-position:center;border-radius:7px}
 .ecg{position:absolute;left:0;right:0;top:50%;height:34px;transform:translateY(-50%);width:100%}
 .ecg polyline{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
 .tile{border:1px solid #14415a;border-radius:7px;padding:7px 5px;background:#062028;text-align:center}
-.tile small{display:block;font-size:7.5px;letter-spacing:.05em;color:var(--muted);text-transform:uppercase}
-.tile b{display:block;font-size:15px;font-weight:900;margin:2px 0 3px;line-height:1}
-.tile u{display:inline-block;text-decoration:none;font-size:7.5px;font-weight:900;letter-spacing:.04em;padding:2px 6px;border-radius:99px}
+.tile small{display:block;font-size:9px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;font-weight:700}
+.tile b{display:block;font-size:15px;font-weight:900;margin:2px 0 3px;line-height:1.1;letter-spacing:-.01em;text-transform:none}
+.tile u{display:inline-block;text-decoration:none;font-size:7.5px;font-weight:900;letter-spacing:.06em;padding:2px 6px;border-radius:99px;text-transform:uppercase}
 .gaugewrap{display:grid;place-items:center;margin:2px 0 8px}
 .gauge{position:relative;width:min(124px,100%);aspect-ratio:1}
 .gauge svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
@@ -86,16 +86,16 @@ ul.li li:before{content:"\2022";position:absolute;left:1px;color:var(--green);fo
 .strip.good{background:#0f3f2a;color:#5ff0a8}.strip.bad{background:#421c1c;color:#ffb3a8}.strip.warn{background:#42331a;color:#ffd479}
 .note{font-style:italic;font-size:8.5px;color:var(--muted);text-align:center;margin:0;line-height:1.3}
 .mini{display:grid;gap:5px;margin:0 0 8px}
-.minirow{display:grid;grid-template-columns:1fr 48px;align-items:center;gap:6px;font-size:8.5px;color:var(--muted)}
+.minirow{display:grid;grid-template-columns:1fr 48px;align-items:center;gap:6px;font-size:9px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;font-weight:700}
 .minirow .track{height:7px;border-radius:99px;background:#0d2b3c;overflow:hidden}
-.minirow b{font-size:9px;text-align:right;color:#dff2fb}
+.minirow b{font-size:15px;font-weight:900;text-align:right;color:#dff2fb;letter-spacing:-.01em;text-transform:none}
 .bloodrow{display:grid;gap:6px}
 .bm{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;border:1px solid #0f3b57;border-radius:7px;padding:6px 8px;background:#062028}
-.bm span{font-size:9.5px;color:#dff2fb}
-.bm small{display:block;font-size:7.5px;color:var(--muted);margin-top:1px}
-.bm b{font-size:12px;font-weight:900;text-align:right;white-space:nowrap}
+.bm span{font-size:9px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;font-weight:700}
+.bm small{display:block;font-size:7.5px;letter-spacing:.04em;color:#7fa3b5;margin-top:2px;font-weight:400;text-transform:none}
+.bm b{font-size:15px;font-weight:900;text-align:right;white-space:nowrap;letter-spacing:-.01em;text-transform:none}
 .panel.wide{grid-column:1/-1;margin-top:0}
-.panel.wide .body{display:block}.panel.wide .herofig{grid-area:fig}.panel.wide .gaugewrap{grid-area:gauge}.ba-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;margin-bottom:6px}.deltapane{border:1px solid #6a3a9e;border-radius:10px;padding:12px 10px;background:rgba(58,26,86,.30);text-align:center}.deltapane u{display:block;text-decoration:none;font-size:8.5px;letter-spacing:.12em;color:var(--muted)}.deltapane b{display:block;font-size:32px;font-weight:900;line-height:1.05;margin:5px 0 3px;color:#fff}.deltapane span{display:block;font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.35}.deltapane.good{border-color:#1d7a4e;background:rgba(15,63,42,.30)}.deltapane.good b{color:#5ff0a8}.deltapane.bad{border-color:#8a2b2b;background:rgba(66,28,28,.30)}.deltapane.bad b{color:#ffb3a8}.ch-h{margin:12px 0 7px;font-size:10.5px;letter-spacing:.12em;color:var(--muted);font-weight:900}
+.panel.wide .body{display:block}.panel.wide .herofig{grid-area:fig}.panel.wide .gaugewrap{grid-area:gauge}.ba-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;margin-bottom:6px}.deltapane{border:1px solid #6a3a9e;border-radius:10px;padding:12px 10px;background:rgba(58,26,86,.30);text-align:center}.deltapane u{display:block;text-decoration:none;font-size:8.5px;letter-spacing:.12em;color:var(--muted)}.deltapane b{display:block;font-size:32px;font-weight:900;line-height:1.05;margin:5px 0 3px;color:#fff}.deltapane span{display:block;font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.35}.deltapane.good{border-color:#1d7a4e;background:rgba(15,63,42,.30)}.deltapane.good b{color:#5ff0a8}.deltapane.bad{border-color:#8a2b2b;background:rgba(66,28,28,.30)}.deltapane.bad b{color:#ffb3a8}.ch-h{margin:12px 0 7px;font-size:8.5px;letter-spacing:.1em;color:var(--muted);font-weight:900;text-transform:uppercase}
 
 .two{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px;align-items:start}
 .card{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;padding:10px}
@@ -122,7 +122,7 @@ footer .r{margin-top:3px;letter-spacing:.09em}
  .fig{max-width:270px;margin:0 auto}
 }
 @media(min-width:1080px){
- .panels{grid-template-columns:repeat(4,1fr);gap:11px}
+ .panels{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
  .wrap{padding:16px 18px 34px}
  .ph h2{font-size:11.5px}
  .stat b{font-size:15px}
@@ -163,18 +163,18 @@ footer .r{margin-top:3px;letter-spacing:.09em}
 <div class="body"><div class="herofig"><img src="https://cdn.marblism.com/X-G7nSsrtUc.webp" alt="3D render of red blood cells, plasma and molecular chains representing the blood and hormone panel"></div>
 <h3 class="ch-h">MODEL INPUTS &#183; 5 MARKERS</h3>
 <div class="bloodrow">
-<div class="bm"><span><b>HbA1c</b> mmol/mol<small>ref &lt;42</small></span><b>32<span class="tag ok">NORMAL</span></b></div>
-<div class="bm"><span><b>hsCRP</b><small>ref &lt;1.0</small></span><b>not tested<span class="tag absent">NO RESULT</span></b></div>
-<div class="bm"><span><b>Homocysteine</b><small>ref 3.7&#8211;13.9</small></span><b>22.46 &#181;mol/L<span class="tag bad">FLAGGED</span></b></div>
-<div class="bm"><span><b>Total testosterone</b><small>ref 6.51&#8211;23.74</small></span><b>43.58 nmol/L<span class="tag bad">FLAGGED</span></b></div>
-<div class="bm"><span><b>Free testosterone</b><small>ref 170&#8211;660</small></span><b>976.35 pmol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span>HbA1c mmol/mol<small>ref &lt;42</small></span><b>32<span class="tag ok">NORMAL</span></b></div>
+<div class="bm"><span>hsCRP<small>ref &lt;1.0</small></span><b>not tested<span class="tag absent">NO RESULT</span></b></div>
+<div class="bm"><span>Homocysteine<small>ref 3.7&#8211;13.9</small></span><b>22.46 &#181;mol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span>Total testosterone<small>ref 6.51&#8211;23.74</small></span><b>43.58 nmol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span>Free testosterone<small>ref 170&#8211;660</small></span><b>976.35 pmol/L<span class="tag bad">FLAGGED</span></b></div>
 </div>
 <h3 class="ch-h">REPORTED, NOT SCORED</h3>
 <div class="bloodrow">
-<div class="bm"><span><b>HbA1c</b> %HbA1c<small>ref &lt;6.0</small></span><b>5.08<span class="tag ok">NORMAL</span></b></div>
-<div class="bm"><span><b>Albumin</b><small>ref 32&#8211;48</small></span><b>45 g/L<span class="tag ok">WITHIN</span></b></div>
-<div class="bm"><span><b>SHBG</b><small>ref 17.33&#8211;71.5</small></span><b>48.41 nmol/L<span class="tag ok">WITHIN</span></b></div>
-<div class="bm"><span><b>Cortisol</b><small>ref 145.4&#8211;619.4</small></span><b>261.69 nmol/L<span class="tag ok">WITHIN</span></b></div>
+<div class="bm"><span>HbA1c %HbA1c<small>ref &lt;6.0</small></span><b>5.08<span class="tag ok">NORMAL</span></b></div>
+<div class="bm"><span>Albumin<small>ref 32&#8211;48</small></span><b>45 g/L<span class="tag ok">WITHIN</span></b></div>
+<div class="bm"><span>SHBG<small>ref 17.33&#8211;71.5</small></span><b>48.41 nmol/L<span class="tag ok">WITHIN</span></b></div>
+<div class="bm"><span>Cortisol<small>ref 145.4&#8211;619.4</small></span><b>261.69 nmol/L<span class="tag ok">WITHIN</span></b></div>
 </div><p class="disc">Results as reported by Sussex Pathology, 08 Oct 2026. The five model inputs are the blood and hormone markers the AFT Bio Age Model scores; hsCRP is a model input that this panel does not currently test for, so it scores neutral. Cortisol, SHBG, albumin and the percentage HbA1c are reported for context but carry no weight. Automated report, not reviewed by a physician.</p></div>
 <div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
 <section class="panel ba wide"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>BIOLOGICAL AGE &#183; COMPOSITE OF 12 WEIGHTED MARKERS</p></div></div>
