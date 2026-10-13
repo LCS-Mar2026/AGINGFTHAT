@@ -12,3 +12,8 @@ BLOOD_ART = "https://cdn.marblism.com/X-G7nSsrtUc.webp"
 BA_ART    = "https://cdn.marblism.com/f4-1J604s_r.webp"
 
 GREEN="#7CFF1F"; AMBER="#FFB020"; RED="#FF1744"; CYAN="#2BC7FF"; VIOLET="#A855F7"
+
+def ring(pct,col):
+    """Three-band arc. The score lands visibly inside red, neutral or green."""
+    r=64.0; circ=2*3.14159*r
+    return "svg"
