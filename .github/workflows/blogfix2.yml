@@ -1,9 +1,18 @@
-bmFtZTogYmxvZ2ZpeDIKb246CiAgd29ya2Zsb3dfZGlzcGF0Y2g6CnBlcm1pc3Npb25zOgogIGNvbnRlbnRzOiB3cml0ZQpq
-b2JzOgogIHA6CiAgICBydW5zLW9uOiB1YnVudHUtbGF0ZXN0CiAgICBzdGVwczoKICAgICAgLSB1c2VzOiBhY3Rpb25z
-L2NoZWNrb3V0QHY0CiAgICAgIC0gcnVuOiBjdXJsIC1zU0wgLW8gYmxvZy5iNjQgaHR0cHM6Ly9jZG4ubWFyYmxpc20u
-Y29tL0VycGpYbk9LS1BJSy5odG1sCiAgICAgIC0gcnVuOiBweXRob24zIC1jICJpbXBvcnQgYmFzZTY0LHBhdGhsaWI7
-cGF0aGxpYi5QYXRoKCdibG9nLmh0bWwnKS53cml0ZV9ieXRlcyhiYXNlNjQuYjY0ZGVjb2RlKHBhdGhsaWIuUGF0aCgn
-YmxvZy5iNjQnKS5yZWFkX3RleHQoKSkpO3ByaW50KCd3cml0dGVuJykiCiAgICAgIC0gcnVuOiB3YyAtYyBibG9nLmh0
-bWwKICAgICAgLSBydW46IGdpdCBjb25maWcgdXNlci5lbWFpbCBwZW5ueUBhZ2luZ2Z0aGF0LmNvbQogICAgICAtIHJ1
-bjogZ2l0IGNvbmZpZyB1c2VyLm5hbWUgUGVubnkKICAgICAgLSBydW46IGdpdCBhZGQgLUEKICAgICAgLSBydW46IGdp
-dCBjb21taXQgLW0gIlJlc3RvcmUgYmxvZyBsaXN0aW5nIgogICAgICAtIHJ1bjogZ2l0IHB1c2gK
+name: blogfix2
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sSL -o blog.b64 https://cdn.marblism.com/ErpjXnOKPIK.html
+      - run: python3 -c "import base64,pathlib;pathlib.Path('blog.html').write_bytes(base64.b64decode(pathlib.Path('blog.b64').read_text()));print('written')"
+      - run: wc -c blog.html
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A
+      - run: git commit -m Restore blog listing
+      - run: git push
