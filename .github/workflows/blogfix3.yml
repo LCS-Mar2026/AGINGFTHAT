@@ -1,0 +1,29 @@
+name: blogfix3
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and write blog listing
+        run: |
+          curl -sSL -o /tmp/blog.html https://cdn.marblism.com/ErpjXnOKPIK.html
+          wc -c /tmp/blog.html
+          cp /tmp/blog.html blog.html
+      - name: Verify
+        run: |
+          wc -c blog.html
+          grep -c blog/ blog.html
+      - name: Commit and push
+        run: |
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A
+          git commit -m Restore blog listing
+          git push
