@@ -24,17 +24,13 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-EYEBROW="BALANCE & HEALTHSPAN"
-STATEMENT=("The 10-Second Balance Test: What Standing on One Leg Tells You About How Long You Live")
-CAPTION=("Everyone tracks strength. Almost nobody trains balance until a stumble makes the "
-         "decision for them. Balance is the fourth capacity after 40, next to strength, VO2max "
-         "and body composition. A new article breaks down what the 10-second one-leg stance "
-         "actually measures, how the vestibular system and proprioception change with age, "
-         "and three drills to train it deliberately.")
+EYEBROW="NUTRITION & HEALTHSPAN"
+STATEMENT=("Butyrate and Biological Age: The Molecule Your Gut Bacteria Make From Fibre")
+CAPTION=("Your gut bacteria ferment fibre into butyrate. Colon cells use it as fuel and researchers study it for effects on inflammation, the gut barrier and gene regulation. A new article separates the credible science from the hype, explains why the UK averages 16.4 grams of fibre a day against a 30-gram recommendation, and gives a five-step protocol to build the fibre habit properly.")
 FOOTER="New articles daily at agingfthat.com/blog"
 TAGS="#healthspan  #longevity"
 PILL="BLOG \u00b7 LINK IN BIO"
-OUT="social/balance-after-40-one-legged-stance-story"
+OUT="social/butyrate-fibre-biological-age-story"
 
 ART_H=int(H*0.40)
 art=Image.open("/tmp/hero.webp").convert("RGB")

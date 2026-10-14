@@ -1,21 +1,4 @@
-== daily artwork (fresh graphic, never the article hero, never a human figure) ==
-artwork http=200 bytes=364422
-/tmp/hero.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1792x1008, Scaling: [none]x[none], YUV color, decoders should clamp
-artwork sha256: 738b6486895a5c0316d30ef55d641907e49527b57983253d53ada8bfa4166393
-== font ==
-font http=200 bytes=744936
-== render ==
-render OK (1440, 1800) 1080 file bytes 180577 sha256 5a66151c96745d56dd99ad3ffce13a3014cb52f44331fe98a220b456541f0454
+render OK (1440, 1800) 1080 file bytes 293914 sha256 55218b8aae3d37f94e7bc4b7ea6b277c50935e33f4125cb951582f415ddb9c1d
 content ends y: 1617 | pill top: 1646 | fits: True
-content ends y: 1515 | pill top: 1770 | gap: 255 | fits: True
-story OK (1080, 1920) bytes 306904 sha256 aae9c8669c669fcf28e6f2e240d9268c713bc0ec9ce07a0e56868a2df461bf93
-== result ==
-total 1832
-drwxr-xr-x 2 runner runner   4096 Oct 12 12:08 .
-drwxr-xr-x 7 runner runner   4096 Oct 12 12:08 ..
--rw-r--r-- 1 runner runner 431189 Oct 12 12:08 balance-after-40-one-legged-stance-1440.jpg
--rw-r--r-- 1 runner runner 306904 Oct 12 12:08 balance-after-40-one-legged-stance-story.jpg
--rw-r--r-- 1 runner runner 180577 Oct 12 12:08 balance-after-40-one-legged-stance.jpg
--rw-r--r-- 1 runner runner 429774 Oct 12 12:08 how-to-read-biological-age-results-1440.jpg
--rw-r--r-- 1 runner runner 325391 Oct 12 12:08 how-to-read-biological-age-results-story.jpg
--rw-r--r-- 1 runner runner 180642 Oct 12 12:08 how-to-read-biological-age-results.jpg
+content ends y: 1472 | pill top: 1770 | gap: 298 | fits: True
+story OK (1080, 1920) bytes 442752 sha256 ecc89b4588cce011c4ac3ada7a5d6e51b22a9bd18854c0d5c10f9ddc1f82e579

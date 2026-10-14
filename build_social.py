@@ -25,11 +25,11 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-TITLE="The 10-Second Balance Test: What Standing on One Leg Tells You About How Long You Live"
-EYEBROW="BALANCE & HEALTHSPAN"
+TITLE="Butyrate and Biological Age: The Molecule Your Gut Bacteria Make From Fibre"
+EYEBROW="NUTRITION & HEALTHSPAN"
 LINE="New articles daily at agingfthat.com/blog"
 PILL="BLOG \u00b7 LINK IN BIO"
-OUT="social/balance-after-40-one-legged-stance"
+OUT="social/butyrate-fibre-biological-age"
 
 art=Image.open("/tmp/hero.webp").convert("RGB")
 BAND=int(H*0.472)
