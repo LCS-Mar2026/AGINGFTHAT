@@ -1,0 +1,44 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {mkdtempSync,rmSync,readFileSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
+import {randomBytes} from 'node:crypto';
+import {DatabaseSync} from 'node:sqlite';
+const directory=mkdtempSync(path.join(tmpdir(),'aft-portal-test-'));
+const adminPassword=randomBytes(24).toString('base64url');
+const child=spawn(process.execPath,['server.mjs'],{cwd:import.meta.dirname,env:{...process.env,AFT_DATA_DIR:directory,AFT_ADMIN_PASSWORD:adminPassword,AFT_COOKIE_SECURE:'false',PORT:'0'}});
+let errors='';child.stderr.on('data',c=>errors+=c);
+const port=await new Promise((resolve,reject)=>{child.stdout.on('data',c=>{const m=String(c).match(/listening on (\d+)/);if(m)resolve(m[1])});child.on('exit',code=>reject(Error('Server exited '+code+' '+errors)));setTimeout(()=>reject(Error('Server startup timed out')),10000).unref()});
+const base='http://127.0.0.1:'+port;
+async function request(p,{method='GET',body,auth,headers={}}={}){const r=await fetch(base+p,{method,headers:{...(auth?{Cookie:auth.cookie,'X-CSRF-Token':auth.csrf}:{}),...(body&&typeof body==='object'&&!Buffer.isBuffer(body)?{'Content-Type':'application/json'}:{}),...headers},body:body&&typeof body==='object'&&!Buffer.isBuffer(body)?JSON.stringify(body):body});return r}
+async function login(username,password){const r=await request('/api/login',{method:'POST',body:{username,password}});assert.equal(r.status,200);const d=await r.json();return {...d,cookie:r.headers.get('set-cookie').split(';')[0]}}
+test('Admin can onboard prospects without logins; raw files stay isolated between clients',async()=>{
+ const admin=await login('lee',adminPassword);
+ assert.equal((await request('/api/admin/clients')).status,401);
+ assert.equal((await request('/api/admin/clients',{method:'POST',auth:{cookie:admin.cookie},body:{name:'Rejected'}})).status,403);
+ const create=async(name,programme)=>{const r=await request('/api/admin/clients',{method:'POST',auth:admin,body:{name,programme,start_date:'2026-10-14'}});assert.equal(r.status,201);const d=await r.json();assert.equal(d.accessEnabled,false);assert.equal(d.temporaryPassword,undefined);return d.id};
+ const c1=await create('Sample One','elite'),c2=await create('Sample Two','level1');
+ const get=async id=>(await request('/api/admin/clients/'+id,{auth:admin})).json();
+ let one=await get(c1),two=await get(c2);assert.equal(one.assessments.length,3);assert.equal(two.assessments.length,1);assert.equal(one.client.access_enabled,false);
+ const ff=await request('/api/admin/clients/'+c1+'/fact-find',{method:'PUT',auth:admin,body:{full_name:'Sample One',email:'sample@example.invalid',goal1:'<script>alert(1)</script>'}});assert.equal(ff.status,200);one=await get(c1);assert.equal(one.files[0].name,'Sample_One_Fact_Find.html');
+ const ffContent=await(await request('/api/files/'+one.files[0].id,{auth:admin})).text();assert.ok(ffContent.includes('&lt;script&gt;'));assert.ok(!ffContent.includes('<script>alert(1)</script>'));
+ const upload=async(a,name)=>{const r=await request('/api/admin/uploads?'+new URLSearchParams({assessment:a,category:'Blood report',name}),{method:'POST',auth:admin,body:Buffer.from('%PDF-1.4\nSample report\n'),headers:{'Content-Type':'application/pdf'}});assert.equal(r.status,201);return (await r.json()).id};
+ const f1=await upload(one.assessments[0].id,'one.pdf'),f2=await upload(two.assessments[0].id,'two.pdf');
+ const issue=async(id,username)=>{const r=await request('/api/admin/clients/'+id+'/access',{method:'POST',auth:admin,body:{username}});assert.equal(r.status,201);return r.json()};
+ const credentials1=await issue(c1,'sample-one'),credentials2=await issue(c2,'sample-two');
+ const complete=async(c)=>{const initial=await login(c.username,c.temporaryPassword);assert.equal(initial.changePassword,true);assert.equal((await request('/api/client/files',{auth:initial})).status,403);const pw=randomBytes(20).toString('base64url');assert.equal((await request('/api/password',{method:'POST',auth:initial,body:{current:c.temporaryPassword,password:pw}})).status,200);assert.equal((await request('/api/session',{auth:initial})).status,401);return login(c.username,pw)};
+ const user1=await complete(credentials1),user2=await complete(credentials2);
+ assert.equal((await request('/api/admin/clients',{auth:user1})).status,403);
+ assert.equal((await request('/api/files/'+f2,{auth:user1})).status,404);assert.equal((await request('/api/files/'+f1,{auth:user2})).status,404);
+ assert.equal((await request('/api/files/'+f1,{auth:user1})).status,200);assert.equal((await request('/api/files/'+f2,{auth:admin})).status,200);
+ const clientData=await(await request('/api/client/files',{auth:user1})).json();assert.equal(clientData.client.id,c1);assert.equal(clientData.client.fact_find,undefined);assert.equal(clientData.assessments[0].measurements,undefined);assert.equal(clientData.assessments[0].bio_age,undefined);assert.ok(clientData.files.every(f=>f.client_id===c1));
+ assert.equal((await request('/private-data/portal.sqlite',{auth:admin})).status,404);
+ assert.equal((await request('/api/admin/clients',{method:'POST',auth:admin,body:{name:'Invalid',programme:'bad',start_date:'2026-10-14'}})).status,400);
+ const a=one.assessments[0];assert.equal((await request('/api/admin/assessments/'+a.id,{method:'PUT',auth:admin,body:{date:null,status:'Complete',measurements:{},bio_age:50}})).status,400);
+ assert.equal((await request('/api/admin/assessments/'+a.id,{method:'PUT',auth:admin,body:{date:'2026-10-14',status:'Complete',measurements:{chronologicalAge:60},bio_age:55}})).status,200);
+ assert.equal((await get(c1)).assessments[0].bio_age,55);
+ const database=new DatabaseSync(path.join(directory,'portal.sqlite'));assert.ok(database.prepare('SELECT password FROM users').all().every(u=>!u.password.includes(adminPassword)));database.close();
+});
+test.after(async()=>{child.kill();await new Promise(r=>child.once('exit',r));rmSync(directory,{recursive:true,force:true})});

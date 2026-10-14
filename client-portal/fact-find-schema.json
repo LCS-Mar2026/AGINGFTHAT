@@ -1,0 +1,837 @@
+[
+  {
+    "title": "1. Personal Details",
+    "fields": [
+      {
+        "name": "full_name",
+        "label": "Full name",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "preferred_name",
+        "label": "Preferred name",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "dob",
+        "label": "Date of birth",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "sex",
+        "label": "Sex",
+        "type": "select",
+        "options": [
+          "",
+          "Male",
+          "Female",
+          "Prefer not to say",
+          "Other"
+        ]
+      },
+      {
+        "name": "occupation",
+        "label": "Occupation / business",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "email",
+        "label": "Email",
+        "type": "email",
+        "options": []
+      },
+      {
+        "name": "mobile",
+        "label": "Mobile",
+        "type": "tel",
+        "options": []
+      },
+      {
+        "name": "address",
+        "label": "Home address",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "emergency_contact",
+        "label": "Emergency contact",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "emergency_number",
+        "label": "Emergency contact number",
+        "type": "tel",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "2. Current Physical Data",
+    "fields": [
+      {
+        "name": "height",
+        "label": "Height (cm)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "weight",
+        "label": "Weight (kg)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "waist",
+        "label": "Waist (cm)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "rhr",
+        "label": "Resting heart rate (bpm)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "bp",
+        "label": "Blood pressure",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "steps",
+        "label": "Average daily steps",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "sleep",
+        "label": "Average sleep (hours)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "bodyfat",
+        "label": "Body fat % (if known)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "vo2_current",
+        "label": "VO₂ max (if known)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "other_metrics",
+        "label": "Other measurements currently tracked",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "3. Health & Medical Background",
+    "fields": [
+      {
+        "name": "mental_age",
+        "label": "How old are you inside your head in terms of mentality & approach to life?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "appearance_age",
+        "label": "How old do you think you look?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "overall_score_now",
+        "label": "X. Rate your overall fitness, energy, vitality, appearance and health out of 10",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "overall_score_10yr",
+        "label": "Y. What score would you give yourself 10 years ago out of 10?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "aged_most_10yr",
+        "label": "In what way have you most aged in the past ten years?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "bowel_frequency_day",
+        "label": "What is your bowel movement frequency per day?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "lovemaking_frequency_month",
+        "label": "What is your lovemaking frequency per month?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "drive_frequency_month",
+        "label": "And your drive frequency per month?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "desired_lifespan",
+        "label": "What age would you like to live to?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "desired_self_sufficient_age",
+        "label": "What age would you like to be self-sufficient to?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "testosterone_checked",
+        "label": "Have you had your testosterone levels checked in the past 10 years?",
+        "type": "select",
+        "options": [
+          "",
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "name": "testosterone_check_date",
+        "label": "Date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "testosterone_total_nmol",
+        "label": "Result — total testosterone (nmol/L)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "oldman_sock_shoe",
+        "label": "Do you think you could put on a sock & shoe and tie the laces standing on one foot right now?",
+        "type": "select",
+        "options": [
+          "",
+          "Yes",
+          "No",
+          "Not sure"
+        ]
+      },
+      {
+        "name": "oldman_touch_toes",
+        "label": "Can you touch your toes?",
+        "type": "select",
+        "options": [
+          "",
+          "Yes",
+          "No"
+        ]
+      },
+      {
+        "name": "oldman_situps",
+        "label": "How many sit-ups can you do now without rest?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "oldman_squats",
+        "label": "How many squats can you do now without rest?",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "oldman_jog_distance",
+        "label": "How far could you jog on flat ground at a slow pace without rest?",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "overall_health",
+        "label": "How would you describe your overall health today?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "conditions_yesno",
+        "label": "No",
+        "type": "radio",
+        "options": []
+      },
+      {
+        "name": "conditions_details",
+        "label": "How would you describe your overall health today?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "history_yesno",
+        "label": "No",
+        "type": "radio",
+        "options": []
+      },
+      {
+        "name": "history_details",
+        "label": "How would you describe your overall health today?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "limitations_yesno",
+        "label": "No",
+        "type": "radio",
+        "options": []
+      },
+      {
+        "name": "limitations_details",
+        "label": "How would you describe your overall health today?",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "4. Medication, Treatment & Supplements",
+    "fields": [
+      {
+        "name": "medications",
+        "label": "Medications",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "medical_treatments",
+        "label": "Medical Treatments",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "supplements",
+        "label": "Supplements",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "5. Previous Testing & Existing Data",
+    "fields": [
+      {
+        "name": "previous_dexa_date",
+        "label": "Previous DEXA date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "previous_dexa",
+        "label": "Key DEXA results",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "previous_vo2_date",
+        "label": "Previous VO₂ max date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "previous_vo2",
+        "label": "VO₂ max / key results",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "previous_bloods",
+        "label": "Previous comprehensive blood work — date/provider/key information",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "other_testing",
+        "label": "Other biological-age, cardiovascular, metabolic, genetic, epigenetic, fitness, mobility or health assessments",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "6. Lifestyle: Exercise, Nutrition, Sleep & Stress",
+    "fields": [
+      {
+        "name": "exercise_week",
+        "label": "Describe a typical week's exercise",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "exercise_sessions",
+        "label": "Exercise sessions/week",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "avg_steps",
+        "label": "Average daily steps",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "diet_description",
+        "label": "How would you describe your current diet?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "breakfast",
+        "label": "Typical breakfast",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "lunch",
+        "label": "Typical lunch",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "dinner",
+        "label": "Typical dinner",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "snacks",
+        "label": "Typical snacks",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "alcohol",
+        "label": "Alcohol — typical weekly consumption",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "smoking",
+        "label": "Smoking / nicotine",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "sleep_hours",
+        "label": "Average sleep (hours)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "sleep_quality",
+        "label": "Sleep quality",
+        "type": "select",
+        "options": [
+          "",
+          "Excellent",
+          "Good",
+          "Average",
+          "Poor",
+          "Very poor"
+        ]
+      },
+      {
+        "name": "bedtime",
+        "label": "Typical bedtime",
+        "type": "time",
+        "options": []
+      },
+      {
+        "name": "waketime",
+        "label": "Typical wake time",
+        "type": "time",
+        "options": []
+      },
+      {
+        "name": "stress",
+        "label": "Current stress (1–10)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "stress_sources",
+        "label": "Main sources of stress",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "recovery",
+        "label": "Current recovery / relaxation practices",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "7. Goals & Your Why",
+    "fields": [
+      {
+        "name": "goal1",
+        "label": "Goal 1",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "goal2",
+        "label": "Goal 2",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "goal3",
+        "label": "Goal 3",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "success12",
+        "label": "What would a successful 12 months look and feel like?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "photo1_notes",
+        "label": "Tony's words about this photograph",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "photo2_notes",
+        "label": "Tony's words about this photograph",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "photo3_notes",
+        "label": "Tony's words about this photograph",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "why_now",
+        "label": "Why does changing your biological trajectory matter now?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "future10",
+        "label": "What do you want to be physically capable of doing 10 years from now?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "future20",
+        "label": "What do you want to be physically capable of doing 20 years from now?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "who_benefits",
+        "label": "Who else benefits if you succeed?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "if_nothing_changes",
+        "label": "What might you lose if nothing changes?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "core_why",
+        "label": "I want to reverse my biological age because...",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "8. Readiness & Commitment",
+    "fields": [
+      {
+        "name": "commitment",
+        "label": "Commitment level (1–10)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "barriers",
+        "label": "What could prevent you from following the Program?",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "planning_constraints",
+        "label": "Travel, work, family, operations or other periods we should plan around",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "testing_commit",
+        "label": "I am willing to undertake agreed baseline and follow-up testing and provide results for my Bio-Age Dashboard.",
+        "type": "checkbox",
+        "options": []
+      },
+      {
+        "name": "change_commit",
+        "label": "I am willing to make and maintain the agreed changes to exercise, nutrition, sleep, recovery and lifestyle behaviours required by my Program.",
+        "type": "checkbox",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "9. Baseline Testing — DEXA",
+    "fields": [
+      {
+        "name": "dexa_date",
+        "label": "Test date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "dexa_provider",
+        "label": "Provider / location",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "dexa_weight",
+        "label": "Weight (kg)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "dexa_bf",
+        "label": "Total body fat %",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "dexa_fatmass",
+        "label": "Total fat mass (kg)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "dexa_lbm",
+        "label": "Lean body mass (kg)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "dexa_vat",
+        "label": "Visceral adipose tissue / VAT",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "dexa_bmd",
+        "label": "Bone mineral density",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "dexa_notes",
+        "label": "Other relevant DEXA findings",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "10. Baseline Testing — VO₂ Max",
+    "fields": [
+      {
+        "name": "vo2_date",
+        "label": "Test date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "vo2_provider",
+        "label": "Provider / location",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "vo2_protocol",
+        "label": "Protocol / method",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "vo2_result",
+        "label": "VO₂ max (ml/kg/min)",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "vo2_rhr",
+        "label": "Resting HR",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "vo2_maxhr",
+        "label": "Maximum HR achieved",
+        "type": "number",
+        "options": []
+      },
+      {
+        "name": "vo2_notes",
+        "label": "Other cardiovascular / fitness findings",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "11. Baseline Testing — Mobility & Function",
+    "fields": [
+      {
+        "name": "mobility_date",
+        "label": "Assessment date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "mobility_provider",
+        "label": "Provider",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "mobility_results",
+        "label": "Agreed mobility / functional measures and results",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "mobility_limitations",
+        "label": "Restrictions, asymmetries, pain or limitations identified",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "mobility_notes",
+        "label": "Additional observations",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "12. Baseline Testing — Blood Work",
+    "fields": [
+      {
+        "name": "blood_date",
+        "label": "Blood draw date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "blood_provider",
+        "label": "Laboratory / provider",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "blood_report_date",
+        "label": "Report date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "blood_results",
+        "label": "Relevant baseline markers / notes",
+        "type": "textarea",
+        "options": []
+      },
+      {
+        "name": "blood_additional",
+        "label": "Additional tests required",
+        "type": "textarea",
+        "options": []
+      }
+    ]
+  },
+  {
+    "title": "13. Recording, Data & GDPR Consent",
+    "fields": [
+      {
+        "name": "consent_audio",
+        "label": "I consent to audio recording for Program purposes.",
+        "type": "checkbox",
+        "options": []
+      },
+      {
+        "name": "consent_video",
+        "label": "I consent to video recording for Program purposes.",
+        "type": "checkbox",
+        "options": []
+      },
+      {
+        "name": "consent_photo",
+        "label": "I consent to photography for Program purposes.",
+        "type": "checkbox",
+        "options": []
+      },
+      {
+        "name": "explicit_health_consent",
+        "label": "I explicitly consent  to the processing of my health and biometric information for administering, delivering, monitoring and evaluating my Program and maintaining my Bio-Age Dashboard.",
+        "type": "checkbox",
+        "options": []
+      },
+      {
+        "name": "practitioner_share_consent",
+        "label": "I consent to relevant information being shared confidentially with practitioners supporting my Program where reasonably necessary.",
+        "type": "checkbox",
+        "options": []
+      },
+      {
+        "name": "aggregate_ack",
+        "label": "I understand that genuinely anonymised and/or aggregated Program outcome data may be used for analytical and promotional purposes.",
+        "type": "checkbox",
+        "options": []
+      },
+      {
+        "name": "consent_name",
+        "label": "Client consent name",
+        "type": "text",
+        "options": []
+      },
+      {
+        "name": "consent_date",
+        "label": "Date",
+        "type": "date",
+        "options": []
+      },
+      {
+        "name": "consent_signature",
+        "label": "Electronic signature (type full legal name)",
+        "type": "text",
+        "options": []
+      }
+    ]
+  }
+]
