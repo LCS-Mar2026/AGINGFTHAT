@@ -1,0 +1,39 @@
+name: social14v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/social14v2.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pillow
+        run: pip install --quiet pillow
+      - name: Fetch artwork, font and build scripts
+        run: |
+          curl -sSL https://cdn.marblism.com/af5AvXSWjk0.webp -o /tmp/hero.webp
+          curl -sSL https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf -o /tmp/Montserrat.ttf
+          curl -sSL https://cdn.marblism.com/P6mAb-BNbJV.py -o build_social.py
+          curl -sSL https://cdn.marblism.com/mZ_cpZV7uKw.py -o build_story.py
+      - name: Rebuild the POST and STORY images with the new pill
+        run: |
+          python3 build_social.py 2>&1 | tee diag.txt
+          python3 build_story.py 2>&1 | tee -a diag.txt
+          ls -la social/
+      - name: Commit and push
+        run: |
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A social/ diag.txt build_social.py build_story.py
+          git commit -m "Rebuild social images with SEE CAPTION FOR MORE pill"
+          git push
