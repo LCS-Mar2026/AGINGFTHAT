@@ -1,0 +1,25 @@
+name: social16
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - run: curl -sSL -o /tmp/hero.webp https://cdn.marblism.com/npieiSh7qh-.webp
+      - run: curl -sSL -o /tmp/Montserrat.ttf https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf
+      - run: curl -sSL -o build_social.py https://cdn.marblism.com/ZG2NYQebS2h.py
+      - run: curl -sSL -o build_story.py https://cdn.marblism.com/xHpU0uMj2Vt.py
+      - run: python3 build_social.py 2>&1 | tee diag.txt
+      - run: python3 build_story.py 2>&1 | tee -a diag.txt
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A social/ diag.txt build_social.py build_story.py
+      - run: git commit -m Social-imagery-for-the-14-October-butyrate-article
+      - run: git push

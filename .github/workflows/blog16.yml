@@ -1,0 +1,17 @@
+name: blog16
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sSL -o blog.b64 https://cdn.marblism.com/HTWBTyKBONW.txt
+      - run: python3 -c "import base64,pathlib,gzip;pathlib.Path('blog.html').write_bytes(gzip.decompress(base64.b64decode(pathlib.Path('blog.b64').read_text())));print('blog.html written')"
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A
+      - run: git commit -m Blog-listing-butyrate-card
+      - run: git push
