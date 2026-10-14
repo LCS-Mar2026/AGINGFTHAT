@@ -1,24 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<meta name="robots" content="noindex,nofollow"/>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Private Client Report | AGING?F***THAT!</title>
-<meta name="description" content="Private consolidated client report: bio age model, blood and hormone panel, VO2 Max, DEXA body composition and posture."/>
-<link rel="canonical" href="https://agingfthat.com/client-report.html"/>
-<link rel="icon" href="/favicon.ico" sizes="any"/>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
-<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
-<link rel="manifest" href="/site.webmanifest"/>
-<link rel="stylesheet" href="report.css"/>
-<style>body::before{background-image:url(https://cdn.marblism.com/ScXkpYPuTPu.webp);background-position:center}</style>
-</head>
-<body>
-<a href="admin.html" style="display:inline-block;color:var(--cyan);font-weight:900;text-decoration:none;font-size:12px;letter-spacing:.05em;padding:14px 20px 0">&larr; PRIVATE CLIENT AREA</a>
-<div class="mast"><img class="logo" alt="AGING?F***THAT!" src="aft-logo.png"/><div class="tagline">CLIENT REPORT &middot; CONSOLIDATED BIOMETRIC ANALYSIS</div></div>
-<div id="content" style="display:none"></div>
-<div id="gate" style="max-width:420px;margin:14vh auto 0;padding:0 18px;text-align:center">
+<meta name="description" content="An AFT biometric age assessment dashboard: body composition, movement and posture, heart health, blood markers and biological age.">
+<link rel="canonical" href="https://agingfthat.com/client-report.html">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
+<style>
+:root{--navy:#031522;--panel:#04192a;--panel2:#062033;--line:#0f3b57;--text:#edfaff;--muted:#9fc4d6;--cyan:#2BC7FF;--green:#21c97a;--red:#ff4b4b;--violet:#A855F7;--amber:#FF9F1C}
+*{box-sizing:border-box}
+body{margin:0;background:var(--navy);color:var(--text);font:13px/1.45 Arial,Helvetica,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--cyan)}
+.hero{position:relative;display:block;padding:0;overflow:hidden;background:#04243a url("https://cdn.marblism.com/f4-1J604s_r.webp") center 42%/cover no-repeat;border-bottom:1px solid var(--line)}.hero:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,36,58,.42),rgba(3,21,34,.80))}.hero-txt{position:relative;padding:clamp(74px,26vw,150px) 14px 11px}
+.hero-txt h1{margin:0;font-size:clamp(19px,5vw,34px);font-weight:900;letter-spacing:-.02em;line-height:1;text-shadow:0 0 14px #2bc7ff55}
+.hero-txt h1 em{font-style:normal;color:var(--cyan)}
+.hero-txt p{margin:0;font-size:clamp(10px,2.3vw,14px);font-weight:900;letter-spacing:.16em;color:#dff4ff}
+.mocknote{float:right;color:#ffffff;font-weight:900;letter-spacing:.12em}
+.hero-txt .strap{margin:5px 0 0;font-size:clamp(8px,1.9vw,11px);font-weight:800;letter-spacing:.2em;color:var(--cyan)}
+
+.metabar{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.metabar div{background:#041c2c;padding:7px 11px;font-size:10px;color:var(--muted)}
+.metabar b{display:block;color:#fff;font-size:11.5px;margin-top:1px}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-left:5px;vertical-align:middle}
+.dot.w{background:var(--amber)}
+.wrap{padding:11px 10px 22px;max-width:1500px;margin:0 auto}
+.panels{display:grid;gap:9px;grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+.panel{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;display:flex;flex-direction:column;overflow:hidden;min-width:0;width:100%}
+.panel.bc{border-color:#1c5d8a}.panel.mp{border-color:#1d7a4e}.panel.hh{border-color:#8a2b2b}.panel.ba{border-color:#6a3a9e}
+.ph{display:grid;grid-template-columns:auto 1fr;gap:7px;align-items:center;padding:7px 9px;border-bottom:1px solid var(--line)}
+.panel.bc .ph{background:linear-gradient(90deg,#08324d,#061f31)}
+.panel.mp .ph{background:linear-gradient(90deg,#073d29,#061f31)}
+.panel.hh .ph{background:linear-gradient(90deg,#4a1414,#061f31)}
+.panel.ba .ph{background:linear-gradient(90deg,#3a1a56,#061f31)}
+.ic{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:14px;background:#0b2b3f}
+.panel.bc .ic{color:var(--cyan);background:#0d3d5c}.panel.mp .ic{color:var(--green);background:#0d4530}
+.panel.hh .ic{color:var(--red);background:#4d1414}.panel.ba .ic{color:#d8b4fe;background:#3d1a5c}
+.panel.bx{border-color:#2b7fa8}
+.panel.bx .ph{background:linear-gradient(90deg,#06324c,#061f31)}
+.panel.bx .ic{color:var(--cyan);background:#0d3d5c}
+.panel.bx .btn{border-color:#2b7fa8;color:#a8e4ff}
+.ph h2{margin:0;font-size:11px;letter-spacing:.1em;font-weight:900;line-height:1.15}
+.ph p{margin:2px 0 0;font-size:7.5px;letter-spacing:.07em;color:var(--muted);line-height:1.25;text-transform:uppercase}
+.body{padding:8px;flex:1;display:flex;flex-direction:column;min-width:0}
+.pb{padding:0 8px 8px}
+.btn{display:block;width:100%;border:1px solid #1a4f6b;border-radius:7px;background:#08283a;color:#fff;font-weight:900;font-size:9px;letter-spacing:.05em;padding:9px 8px;text-align:center;text-decoration:none;cursor:pointer;font-family:inherit}
+.panel.bc .btn{border-color:#1c5d8a;color:#a8e4ff}.panel.mp .btn{border-color:#1d7a4e;color:#a8f7cf}
+.panel.hh .btn{border-color:#8a2b2b;color:#ffc9c2}.panel.ba .btn{border-color:#6a3a9e;color:#e3ccff}
+.bcgrid{display:grid;grid-template-columns:1fr;gap:8px;min-width:0}
+.fig{position:relative;border-radius:8px;overflow:hidden;background:transparent;border:0}
+.fig{display:grid;place-items:center}
+.fig img{display:block;height:clamp(132px,13.5vw,196px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center}
+.stats{display:grid;gap:5px}
+.stat{display:flex;align-items:baseline;justify-content:space-between;gap:6px;border-bottom:1px solid #0d2f42;padding-bottom:4px}
+.stat span{color:var(--muted);font-size:9px;letter-spacing:.07em;text-transform:uppercase;font-weight:700}
+.stat b{font-size:15px;font-weight:900;line-height:1.1;letter-spacing:-.01em}
+.tag{display:inline-block;font-size:7.5px;font-weight:900;letter-spacing:.06em;padding:2px 6px;border-radius:99px;margin-left:5px;vertical-align:middle;text-transform:uppercase}
+.ok{background:#0f3f2a;color:#5ff0a8}.bad{background:#42201c;color:#ff9b8f}.warn{background:#42331a;color:#ffd479}.absent{background:#152a3a;color:#8fb8cc}
+.chips{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:8px 0 0}
+.chip{background:#06263a;border:1px solid #103f59;border-radius:6px;padding:5px 2px;text-align:center;font-size:6.5px;letter-spacing:.03em;color:#9fc4d6;line-height:1.15}
+.chip i{display:block;font-style:normal;font-size:12px;color:var(--cyan);margin-bottom:3px}
+.herofig{position:relative;height:clamp(56px,6.4vw,92px);margin:0 0 9px;border-radius:8px;overflow:hidden;border:1px solid #14415a;background:#02101a}.herofig img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}.herofig:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(4,25,42,.10),rgba(4,25,42,.42))}.figpair{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px;justify-items:center;min-width:0}
+.figpair img{height:clamp(132px,13.5vw,196px);width:auto;aspect-ratio:9/16;object-fit:cover;object-position:center;border-radius:7px;margin:0 auto;background:transparent;border:0;border:1px solid #0f3b57;display:block;background:#02101a}
+.sil{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px}
+.sil svg{width:100%;height:auto;display:block}
+ul.li{list-style:none;margin:0 0 8px;padding:0}
+ul.li li{position:relative;padding-left:12px;font-size:9.5px;color:#d6ecf7;margin-bottom:3px;line-height:1.3}
+ul.li li:before{content:"\2022";position:absolute;left:1px;color:var(--green);font-weight:900}
+.panel.hh ul.li li:before{color:var(--red)}
+.heartwrap{position:relative;margin-bottom:8px}
+.heartwrap img{display:block;width:100%;height:clamp(56px,6.4vw,92px);object-fit:cover;object-position:center;border-radius:7px}
+.ecg{position:absolute;left:0;right:0;top:50%;height:34px;transform:translateY(-50%);width:100%}
+.ecg polyline{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.tile{border:1px solid #14415a;border-radius:7px;padding:7px 5px;background:#062028;text-align:center}
+.tile small{display:block;font-size:9px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;font-weight:700}
+.tile b{display:block;font-size:15px;font-weight:900;margin:2px 0 3px;line-height:1.1;letter-spacing:-.01em;text-transform:none}
+.tile u{display:inline-block;text-decoration:none;font-size:7.5px;font-weight:900;letter-spacing:.06em;padding:2px 6px;border-radius:99px;text-transform:uppercase}
+.gaugewrap{display:grid;place-items:center;margin:2px 0 8px}
+.gauge{position:relative;width:min(124px,100%);aspect-ratio:1}
+.gauge svg{display:block;width:100%;height:100%;transform:rotate(-90deg)}
+.gauge .ctr{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:0 22px}
+.gauge .ctr small{font-size:8px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;line-height:1.2}
+.gauge .ctr b{font-size:30px;font-weight:900;line-height:1;display:block;margin:3px 0 2px;letter-spacing:-.02em}
+.gauge .ctr em{font-style:normal;font-size:7.5px;letter-spacing:.05em;color:var(--muted);display:block}
+.gauge .ctr u{text-decoration:none;display:block;font-size:8px;font-weight:800;color:#fff;margin-top:2px}
+.strip{text-align:center;font-size:9.5px;font-weight:900;letter-spacing:.04em;border-radius:6px;padding:6px;margin-bottom:7px}
+.strip.good{background:#0f3f2a;color:#5ff0a8}.strip.bad{background:#421c1c;color:#ffb3a8}.strip.warn{background:#42331a;color:#ffd479}
+.note{font-style:italic;font-size:8.5px;color:var(--muted);text-align:center;margin:0;line-height:1.3}
+.mini{display:grid;gap:5px;margin:0 0 8px}
+.minirow{display:grid;grid-template-columns:1fr 48px;align-items:center;gap:6px;font-size:9px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;font-weight:700}
+.minirow .track{height:7px;border-radius:99px;background:#0d2b3c;overflow:hidden}
+.minirow b{font-size:15px;font-weight:900;text-align:right;color:#dff2fb;letter-spacing:-.01em;text-transform:none}
+.bloodrow{display:grid;gap:6px}
+.bm{display:grid;grid-template-columns:1fr auto;gap:6px;align-items:center;border:1px solid #0f3b57;border-radius:7px;padding:6px 8px;background:#062028}
+.bm span{font-size:9px;letter-spacing:.07em;color:var(--muted);text-transform:uppercase;font-weight:700}
+.bm small{display:block;font-size:7.5px;letter-spacing:.04em;color:#7fa3b5;margin-top:2px;font-weight:400;text-transform:none}
+.bm b{font-size:15px;font-weight:900;text-align:right;white-space:nowrap;letter-spacing:-.01em;text-transform:none}
+.panel.wide{grid-column:1/-1;margin-top:0}
+.panel.wide .body{display:block}.panel.wide .herofig{grid-area:fig}.panel.wide .gaugewrap{grid-area:gauge}.ba-top{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;margin-bottom:6px}.deltapane{border:1px solid #6a3a9e;border-radius:10px;padding:12px 10px;background:rgba(58,26,86,.30);text-align:center}.deltapane u{display:block;text-decoration:none;font-size:8.5px;letter-spacing:.12em;color:var(--muted)}.deltapane b{display:block;font-size:32px;font-weight:900;line-height:1.05;margin:5px 0 3px;color:#fff}.deltapane span{display:block;font-size:9.5px;color:var(--muted);margin-top:5px;line-height:1.35}.deltapane i{display:block;font-style:normal;font-size:8.5px;letter-spacing:.1em;color:#cfe9f5;margin-top:6px}.deltapane.good{border-color:#1d7a4e;background:rgba(15,63,42,.30)}.deltapane.good b{color:#5ff0a8}.deltapane.bad{border-color:#8a2b2b;background:rgba(66,28,28,.30)}.deltapane.bad b{color:#ffb3a8}.ch-h{margin:12px 0 7px;font-size:8.5px;letter-spacing:.1em;color:var(--muted);font-weight:900;text-transform:uppercase}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:9px;align-items:start}.two-single{grid-template-columns:1fr}
+.card{background:var(--panel);border:1.5px solid var(--line);border-radius:11px;padding:10px}
+.card h2{margin:0 0 8px;font-size:10.5px;letter-spacing:.1em;font-weight:900;color:#fff}
+.steps{display:grid;grid-template-columns:1fr;gap:7px}
+.step{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center}
+.step i{width:24px;height:24px;border-radius:50%;border:1.5px solid var(--cyan);color:var(--cyan);display:grid;place-items:center;font-style:normal;font-weight:900;font-size:10px}
+.step b{display:block;font-size:9.5px}
+.step small{font-size:8.5px;color:var(--muted)}
+.docs{display:grid;gap:5px;margin-bottom:6px}
+.doc{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;border:1px solid #0f3b57;border-radius:7px;padding:6px 8px;font-size:9.5px;background:#062028}
+.doc small{display:block;color:var(--muted);font-size:7.5px;margin-top:1px}
+.doc em{font-style:normal;font-size:7.5px;font-weight:900;letter-spacing:.04em;color:#8fb8cc;border:1px solid #1a4f6b;border-radius:99px;padding:2px 7px;white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:12px;text-align:center;font-size:9.5px;color:#7899a9;background:#020d16;margin-top:12px}
+footer .l{font-weight:900;letter-spacing:.07em;color:#cfe9f5}
+footer .r{margin-top:3px;letter-spacing:.09em}
+.chart{background:#04202e;border:1px solid #14415a;border-radius:8px;padding:10px 10px 6px}.chart svg{display:block;width:100%;max-width:620px;height:auto;margin:0 auto}.tlegend{display:flex;flex-wrap:wrap;gap:3px 12px;margin:6px 0 2px}.tlegend span{font-size:11.5px;color:#dff2fb;display:flex;align-items:center;gap:6px;font-weight:700}.tlegend i{width:16px;height:4px;border-radius:2px;display:inline-block}.tlegend b{color:#dff2fb}.disc{font-size:8.5px;color:#7899a9;margin:6px 0 0;line-height:1.4}
+@media(min-width:700px){
+ .metabar{grid-template-columns:repeat(4,1fr)}
+ .wrap{padding:14px 14px 28px}
+ .steps{grid-template-columns:repeat(4,1fr)}
+ .bloodrow{grid-template-columns:1fr 1fr}
+ .two{grid-template-columns:1.35fr 1fr}
+ .fig{max-width:270px;margin:0 auto}
+}
+@media(min-width:1080px){
+ .panels{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+ .wrap{padding:16px 18px 34px}
+ .ph h2{font-size:11.5px}
+ .stat b{font-size:15px}
+ .bloodrow{grid-template-columns:repeat(3,1fr)}
+ .two{grid-template-columns:1.4fr 1fr}
+}
+
+/* AFT dashboard layout revision 2026-10-14 */
+.panels > *, .bloodrow > *, .bm > *, .stats > * {min-width:0}
+.panel.bx .bloodrow{grid-template-columns:minmax(0,1fr)}
+.bm{grid-template-columns:minmax(0,1fr);gap:4px}
+.bm b{white-space:normal;overflow-wrap:anywhere;text-align:left;line-height:1.35}
+.bm .tag{margin-left:0;margin-right:5px}
+.bm b .tag{display:inline-block;margin-left:5px}
+.tiles{grid-template-columns:minmax(0,1fr)}
+.tile{padding:10px}
+.minirow{grid-template-columns:minmax(0,1fr) 48px auto;gap:8px}
+.minirow b{font-size:13px;overflow-wrap:anywhere}
+.stat{flex-wrap:wrap;align-items:center}
+.stat b{overflow-wrap:anywhere;line-height:1.35}
+.panel.wide .gaugewrap{grid-area:auto}
+.ba-top{grid-template-columns:160px minmax(0,1fr);gap:18px;max-width:720px;margin:6px auto 18px}
+.gauge{width:150px}
+.gauge .ctr b{font-size:36px}
+.chart{overflow:visible}
+.chart svg{max-width:760px}
+.site-footer{width:100%;padding:22px 16px;margin:0;text-align:center;font-size:12px;line-height:1.7}
+.site-footer a{display:inline-block;margin:0 8px}
+@media(min-width:1080px){.panels{grid-template-columns:minmax(0,.9fr) minmax(0,1.05fr) minmax(0,.85fr) minmax(0,1.2fr)}}
+@media(max-width:699px){.minirow{grid-template-columns:minmax(0,1fr) auto}.minirow .track{display:none}.ba-top{grid-template-columns:minmax(0,1fr);gap:12px}.gaugewrap{margin:8px 0}.bloodrow{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:480px){.panels{grid-template-columns:minmax(0,1fr)}.ph h2{font-size:14px}.stat span,.bm span,.tile small{font-size:11px}.stat b,.bm b,.tile b{font-size:18px}.ph p{font-size:9px}.body{padding:12px}.li li,ul.li li{font-size:12px}.minirow{font-size:11px}.disc{font-size:11px}.btn{font-size:11px}.ch-h{font-size:11px}.fig img,.figpair img{height:196px}.note{font-size:11px}}
+
+
+.additional-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:8px}.tier-selector{display:flex;gap:8px;margin-bottom:8px}.tier-selector button{padding:10px 24px;border:1px solid #2bc7ff;border-radius:7px;background:#08283a;color:#edfaff;font:700 14px Arial;cursor:pointer}.tier-selector button[aria-pressed=true]{background:#2bc7ff;color:#031522}.private-back{display:block;padding:12px 16px;font-weight:700}[hidden]{display:none!important}.level1-only{margin:12px 0;padding:14px;border:1px solid #1d7a4e;border-radius:8px;line-height:1.6}
+</style></head><body>
+<a class="private-back" href="admin.html">← PRIVATE CLIENT AREA</a><div id="gate" style="max-width:420px;margin:14vh auto 0;padding:0 18px;text-align:center">
   <img src="aft-logo.png" alt="AGING?F***THAT!" style="width:78%;max-width:340px;height:auto;margin:0 auto 10px;filter:drop-shadow(0 0 8px #21c7ff66);display:block"/>
   <div style="font-weight:900;letter-spacing:.14em;font-size:12px;color:#e9fbff;padding:6px 0 16px">CLIENT REPORT</div>
   <div style="border:1px solid #168cc0;border-radius:18px;padding:26px 22px;background:rgba(6,29,44,.72);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);box-shadow:0 0 22px #16bfff33">
@@ -29,8 +169,73 @@
   </div>
   <p style="color:#7899a9;font-size:11px;margin-top:18px;line-height:1.6">Authorised clients only. Enter the admin password issued by AGING?F***THAT! to view this report.</p>
 </div>
-<script>
-(function(){
+<main id="content" style="display:none"><header class="hero"><div class="hero-txt"><img class="dashboard-logo" src="https://raw.githubusercontent.com/LCS-Mar2026/AGINGFTHAT/1e6ee909f40d7167eefa156d7d1684b6f339f245/logo_stacked_primary.png" alt="AGING?F***THAT!" width="320" style="display:block;width:min(320px,90%);height:auto;margin-bottom:12px"><p>BIOMETRIC AGE ASSESSMENT DASHBOARD</p><p class="strap">MEASURE &#124; ANALYSE &#124; OPTIMISE &#124; TRACK STATUS</p></div></header>
+<div class="metabar"><div>Name<b>Lee C. Stonehouse</b></div><div>Assessment Date<b>08 OCT 2026</b></div><div>Program<b>Elite</b></div><div>Status<b>Client<span class="dot "></span></b></div></div>
+<div class="wrap"><div class="tier-selector" role="group" aria-label="Assessment tier"><button type="button" id="elite-tier" aria-pressed="true">Elite</button><button type="button" id="level1-tier" aria-pressed="false">Level 1</button></div><p id="tier-note" class="disc">Elite assessment · current report figures retained.</p>
+<div class="panels">
+<section class="panel bc"><div class="ph"><span class="ic">&#128100;</span><div><h2>BODY COMPOSITION</h2><p>DEXA &#183; 4 MODEL INPUTS &#183; 34% OF THE SCORE</p></div></div>
+<div class="body"><div class="bcgrid"><div class="fig"><img src="https://cdn.marblism.com/9J9277dyCCt.webp" alt="3D anatomical body composition visualisation showing muscle volume in blue and visceral fat in amber"></div>
+<div class="stats">
+<div class="stat"><span>Body fat %</span><b>9.6%<span class="tag ok">8% WT</span></b></div>
+<div class="stat"><span>Lean mass</span><b>74.6 kg<span class="tag ok">9% WT</span></b></div>
+<div class="stat"><span>Bone density T-score</span><b>awaiting report<span class="tag warn">8% WT</span></b></div>
+<div class="stat"><span>Visceral fat area</span><b>54.6 cm&#178;<span class="tag ok">9% WT</span></b></div>
+</div></div><div class="chips">
+<div class="chip"><i>1</i>Body fat</div>
+<div class="chip"><i>2</i>Lean mass</div>
+<div class="chip"><i>3</i>Bone density</div>
+<div class="chip"><i>4</i>Visceral area</div>
+</div><div class="mini"><div class="minirow"><span>Body fat</span><span class="track"><i style="background:#21c97a;width:90%"></i></span><b>9.6%</b></div><div class="minirow"><span>Lean mass</span><span class="track"><i style="background:#21c97a;width:92%"></i></span><b>74.6 kg</b></div><div class="minirow"><span>Visceral area</span><span class="track"><i style="background:#21c97a;width:95%"></i></span><b>54.6</b></div><div class="minirow"><span>Bone density</span><span class="track"><i style="background:#FF9F1C;width:50%"></i></span><b>&#8212;</b></div></div>
+</div><div class="pb"><a class="btn" href="#">VIEW FULL DEXA SCAN REPORT</a></div></section>
+<section class="panel mp"><div class="ph"><span class="ic">&#128694;</span><div><h2>MOVEMENT &amp; POSTURE</h2><p>MOVEMENT &#183; ALIGNMENT &#183; POSTURE ANALYSIS</p></div></div>
+<div class="body"><div class="figpair"><img src="anterior-posture-view.jpg" alt="Chiropractic posture photograph, front"><img src="lateral-posture-view.jpg" alt="Chiropractic posture photograph, side"></div>
+<ul class="li"><li>Forward head posture</li><li>Anterior pelvic tilt</li><li>Reduced spinal alignment</li><li>Measured against 25 Apr 2025</li><li>Personalised recommendations</li></ul><div class="mini"><div class="minirow"><span>Head shift</span><span class="track"><i style="background:#FF9F1C;width:62%"></i></span><b>1.40cm L</b></div><div class="minirow"><span>Shoulders</span><span class="track"><i style="background:#21c97a;width:42%"></i></span><b>0.77cm R</b></div><div class="minirow"><span>Ribcage</span><span class="track"><i style="background:#21c97a;width:30%"></i></span><b>0.44cm L</b></div><div class="minirow"><span>Pelvis</span><span class="track"><i style="background:#FF9F1C;width:74%"></i></span><b>2.46cm L</b></div><div class="minirow"><span>Knees</span><span class="track"><i style="background:#21c97a;width:32%"></i></span><b>0.60cm L</b></div></div>
+</div><div class="pb"><a class="btn" href="#">FULL REPORT</a></div></section>
+<section class="panel hh"><div class="ph"><span class="ic">&#10084;&#65039;</span><div><h2>HEART HEALTH</h2><p>BLOOD PRESSURE &amp; RESTING HEART RATE &#183; CURRENT MEASUREMENTS</p></div></div>
+<div class="body"><div class="heartwrap"><img src="https://cdn.marblism.com/zZxd4bJ1qSt.webp" alt="3D anatomical heart with an ECG trace"><svg class="ecg" viewBox="0 0 300 34" preserveAspectRatio="none"><polyline points="0,19 30,19 38,19 42,7 46,29 50,14 54,19 90,19 98,19 102,8 106,28 110,15 114,19 165,19 173,19 177,7 181,29 185,14 189,19 235,19 243,19 247,8 251,28 255,15 259,19 300,19" stroke="#21c97a"/></svg></div>
+<div class="tiles">
+<div class="tile"><small>Blood Pressure</small><b>120/78</b><small>mmHg</small><u class="tag ok">GOOD</u></div>
+<div class="tile"><small>Resting Heart Rate</small><b>47</b><small>bpm</small><u class="tag ok">EXCEPTIONAL</u></div>
+</div><ul class="li"><li>Blood pressure within range</li><li>Resting heart rate exceptional</li><li>Supports cardiovascular health focus</li><li>Track and monitor progress</li></ul><div class="mini"><div class="minirow"><span>Systolic</span><span class="track"><i style="background:#21c97a;width:95%"></i></span><b>120</b></div><div class="minirow"><span>Diastolic</span><span class="track"><i style="background:#21c97a;width:90%"></i></span><b>78</b></div><div class="minirow"><span>Resting HR</span><span class="track"><i style="background:#21c97a;width:98%"></i></span><b>47</b></div></div>
+</div><div class="pb"><a class="btn" href="#">FULL REPORT</a></div></section>
+<section class="panel bx"><div class="ph"><span class="ic">&#129514;</span><div><h2>BLOOD WORK</h2><p>THE BLOOD &amp; HORMONE DOMAIN &#183; 42% OF THE MODEL &#183; 08 OCT 2026</p></div></div>
+<div class="body"><div class="herofig"><img src="https://cdn.marblism.com/X-G7nSsrtUc.webp" alt="3D render of red blood cells, plasma and molecular chains representing the blood and hormone panel"></div>
+<h3 class="ch-h">MODEL INPUTS &#183; 5 MARKERS</h3>
+<div class="bloodrow">
+<div class="bm"><span>HbA1c mmol/mol<small>ref &lt;42</small></span><b>32<span class="tag ok">NORMAL</span></b></div>
+<div class="bm"><span>hsCRP<small>ref &lt;1.0</small></span><b>not tested<span class="tag absent">NO RESULT</span></b></div>
+<div class="bm"><span>Homocysteine<small>ref 3.7&#8211;13.9</small></span><b>22.46 &#181;mol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span>Total testosterone<small>ref 6.51&#8211;23.74</small></span><b>43.58 nmol/L<span class="tag bad">FLAGGED</span></b></div>
+<div class="bm"><span>Free testosterone<small>ref 170&#8211;660</small></span><b>976.35 pmol/L<span class="tag bad">FLAGGED</span></b></div>
+</div>
+<p class="disc">Results as reported by Sussex Pathology, 08 Oct 2026. The five model inputs are the blood and hormone markers the AFT Bio Age Model scores; hsCRP is a model input that this panel does not currently test for, so it scores neutral. Additional blood results are available in the private client report and carry no model weight. Automated report, not reviewed by a physician.</p></div>
+<div class="pb"><a class="btn" href="#">EDIT READINGS</a></div></section>
+<section class="panel bx wide elite-only" id="additional-blood"><div class="ph"><span class="ic">🧪</span><div><h2>ADDITIONAL BLOOD RESULTS — NOT SCORED</h2><p>Selected tests outside the biometric model</p></div></div><div class="body"><h3 class="ch-h">08 OCT 2026 · SUSSEX PATHOLOGY</h3><div class="additional-grid"><div class="bm"><span>Albumin<small>Not scored</small></span><b>45 g/L</b></div><div class="bm"><span>SHBG<small>Not scored</small></span><b>48.41 nmol/L</b></div><div class="bm"><span>Cortisol<small>Not scored</small></span><b>261.69 nmol/L</b></div><div class="bm"><span>HbA1c alternate units<small>Not scored</small></span><b>5.08%</b></div></div><h3 class="ch-h">EARLIER RESULTS · ORIGINAL SOURCE LABELS RETAINED</h3><p class="disc">These historical readings are separate from the latest model inputs. Exact collection dates are not provided in the original report tiles. Reference-range interpretation remains available in the original detailed report.</p><div class="additional-grid"><div class="bm"><span>Total Cholesterol<small>Historical source: NHS · not scored</small></span><b>6.2 mmol/L</b></div><div class="bm"><span>Non-HDL Cholesterol<small>Historical source: NHS · not scored</small></span><b>4.6 mmol/L</b></div><div class="bm"><span>HDL Cholesterol<small>Historical source: NHS · not scored</small></span><b>1.6 mmol/L</b></div><div class="bm"><span>LDL Cholesterol<small>Historical source: NHS · not scored</small></span><b>4.0 mmol/L</b></div><div class="bm"><span>Cholesterol:HDL Ratio<small>Historical source: NHS · not scored</small></span><b>3.9</b></div><div class="bm"><span>Triglycerides<small>Historical source: NHS · not scored</small></span><b>1.6 mmol/L</b></div><div class="bm"><span>Creatinine<small>Historical source: NHS · not scored</small></span><b>113 umol/L</b></div><div class="bm"><span>eGFR (MDRD)<small>Historical source: NHS · not scored</small></span><b>57 mL/min</b></div><div class="bm"><span>Sodium<small>Historical source: NHS · not scored</small></span><b>142 mmol/L</b></div><div class="bm"><span>Potassium<small>Historical source: NHS · not scored</small></span><b>4.7 mmol/L</b></div><div class="bm"><span>Urea<small>Historical source: NHS · not scored</small></span><b>6.2 mmol/L</b></div><div class="bm"><span>Total Bilirubin<small>Historical source: NHS · not scored</small></span><b>6 umol/L</b></div><div class="bm"><span>Total Protein<small>Historical source: NHS · not scored</small></span><b>68 g/L</b></div><div class="bm"><span>Albumin<small>Historical source: NHS · not scored</small></span><b>48 g/L</b></div><div class="bm"><span>ALT<small>Historical source: NHS · not scored</small></span><b>37 IU/L</b></div><div class="bm"><span>ALP<small>Historical source: NHS · not scored</small></span><b>44 IU/L</b></div><div class="bm"><span>Haemoglobin<small>Historical source: NHS · not scored</small></span><b>156 g/L</b></div><div class="bm"><span>Haematocrit<small>Historical source: NHS · not scored</small></span><b>0.47 L/L</b></div><div class="bm"><span>RBC<small>Historical source: NHS · not scored</small></span><b>4.79 x10¹²/L</b></div><div class="bm"><span>WBC<small>Historical source: NHS · not scored</small></span><b>5.2 x10⁹/L</b></div><div class="bm"><span>Platelets<small>Historical source: NHS · not scored</small></span><b>261 x10⁹/L</b></div><div class="bm"><span>MCV<small>Historical source: NHS · not scored</small></span><b>98.1 fL</b></div><div class="bm"><span>MCH<small>Historical source: NHS · not scored</small></span><b>32.6 pg</b></div><div class="bm"><span>SHBG<small>Historical source: NHS · not scored</small></span><b>66 nmol/L</b></div><div class="bm"><span>PSA<small>Historical source: NHS · not scored</small></span><b>3.08 ug/L</b></div><div class="bm"><span>Adjusted Calcium<small>Historical source: NHS · not scored</small></span><b>2.38 mmol/L</b></div><div class="bm"><span>Phosphate<small>Historical source: NHS · not scored</small></span><b>0.77 mmol/L</b></div></div><div class="pb"><a class="btn" href="client-blood-panel.html">VIEW DETAILED BLOOD PANEL</a></div></div></section><section class="panel ba wide"><div class="ph"><span class="ic">&#128202;</span><div><h2>BIOMETRIC AGE</h2><p>BIOLOGICAL AGE &#183; COMPOSITE OF 12 WEIGHTED MARKERS</p></div></div>
+<div class="body">
+<div class="ba-top">
+<div class="gaugewrap"><div class="gauge"><svg viewBox="0 0 150 150"><circle cx="75" cy="75" r="64" fill="none" stroke="#0d2b3c" stroke-width="13"/><circle cx="75" cy="75" r="64" fill="none" stroke="#8a2b2b" stroke-width="13" stroke-dasharray="160.8 241.3" stroke-dashoffset="-0.0" opacity="0.85"/><circle cx="75" cy="75" r="64" fill="none" stroke="#7a5a1e" stroke-width="13" stroke-dasharray="120.6 281.5" stroke-dashoffset="-160.8" opacity="0.85"/><circle cx="75" cy="75" r="64" fill="none" stroke="#1d7a4e" stroke-width="13" stroke-dasharray="120.6 281.5" stroke-dashoffset="-281.5" opacity="0.85"/><circle cx="75" cy="75" r="64" fill="none" stroke="#21c97a" stroke-width="13" stroke-linecap="round" stroke-dasharray="301.6 100.5"/><circle cx="11.0" cy="75.0" r="5" fill="#21c97a" stroke="#04202e" stroke-width="2"/></svg><div class="ctr"><small>BIOMETRIC AGE</small><b>47</b><em>years</em></div></div></div>
+<div class="deltapane good"><u>CHRONOLOGICAL 63</u><b>&#8722;16 yrs</b><u>YOUNGER THAN CHRONOLOGICAL</u><span>A composite of 75 gives a biometric age 16 years below chronological age.</span><i>08 OCT 2026</i></div>
+</div>
+<h3 class="ch-h">BIOMETRIC AGE AGAINST CHRONOLOGICAL AGE</h3>
+<div class="chart"><svg viewBox="0 0 680 220"><line x1="40" y1="14.0" x2="494" y2="14.0" stroke="#12405a" stroke-width="1"/><text x="34" y="18.0" text-anchor="end" fill="#9fc4d6" font-size="12">68</text><line x1="40" y1="72.0" x2="494" y2="72.0" stroke="#12405a" stroke-width="1"/><text x="34" y="76.0" text-anchor="end" fill="#9fc4d6" font-size="12">59</text><line x1="40" y1="130.0" x2="494" y2="130.0" stroke="#12405a" stroke-width="1"/><text x="34" y="134.0" text-anchor="end" fill="#9fc4d6" font-size="12">49</text><line x1="40" y1="188.0" x2="494" y2="188.0" stroke="#12405a" stroke-width="1"/><text x="34" y="192.0" text-anchor="end" fill="#9fc4d6" font-size="12">40</text><text x="40.0" y="214" text-anchor="middle" fill="#9fc4d6" font-size="12">NOW</text><text x="267.0" y="214" text-anchor="middle" fill="#9fc4d6" font-size="12">+1Y</text><text x="494.0" y="214" text-anchor="middle" fill="#9fc4d6" font-size="12">+2Y</text><polyline points="40.0,45.4 267.0,39.2 494.0,33.0" fill="none" stroke="#8fb8cc" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><circle cx="40.0" cy="45.4" r="3.4" fill="#8fb8cc"/><circle cx="267.0" cy="39.2" r="3.4" fill="#8fb8cc"/><circle cx="494.0" cy="33.0" r="3.4" fill="#8fb8cc"/><text x="503.0" y="37.0" fill="#8fb8cc" font-size="12" font-weight="700">CHRONO 65</text><polyline points="40.0,144.3" fill="none" stroke="#21c97a" stroke-width="2.8" stroke-linejoin="round" stroke-linecap="round"/><polyline points="40.0,144.3 267.0,156.6 494.0,169.0" fill="none" stroke="#21c97a" stroke-width="2.8" stroke-dasharray="7 5" stroke-linejoin="round" stroke-linecap="round"/><circle cx="40.0" cy="144.3" r="3.4" fill="#21c97a"/><circle cx="267.0" cy="156.6" r="3.4" fill="#21c97a" stroke="#04202e" stroke-width="1.6"/><circle cx="494.0" cy="169.0" r="3.4" fill="#21c97a" stroke="#04202e" stroke-width="1.6"/><text x="503.0" y="173.0" fill="#21c97a" font-size="12" font-weight="700">BIO 43</text></svg><div class="tlegend"><span><i style="background:#8fb8cc"></i>Chronological <b>65</b></span><span><i style="background:#21c97a"></i>Biometric <b>43</b></span></div></div>
+<p class="disc">Real data at NOW. Earlier biometric ages are not on file, so nothing is drawn before the current assessment. The dashed section is an extrapolation, not a measurement or a forecast.</p>
+<h3 class="ch-h">THREE-YEAR PROGRESSION &#183; DEXA OUTPUTS AND BIOMETRIC AGE</h3>
+<div class="chart"><svg viewBox="0 0 680 200"><line x1="40" y1="14.0" x2="494" y2="14.0" stroke="#12405a" stroke-width="1"/><text x="34" y="18.0" text-anchor="end" fill="#9fc4d6" font-size="12">85</text><line x1="40" y1="66.0" x2="494" y2="66.0" stroke="#12405a" stroke-width="1"/><text x="34" y="70.0" text-anchor="end" fill="#9fc4d6" font-size="12">56</text><line x1="40" y1="118.0" x2="494" y2="118.0" stroke="#12405a" stroke-width="1"/><text x="34" y="122.0" text-anchor="end" fill="#9fc4d6" font-size="12">28</text><line x1="40" y1="170.0" x2="494" y2="170.0" stroke="#12405a" stroke-width="1"/><text x="34" y="174.0" text-anchor="end" fill="#9fc4d6" font-size="12">-1</text><text x="40.0" y="194" text-anchor="middle" fill="#9fc4d6" font-size="12">2Y AGO</text><text x="267.0" y="194" text-anchor="middle" fill="#9fc4d6" font-size="12">1Y AGO</text><text x="494.0" y="194" text-anchor="middle" fill="#9fc4d6" font-size="12">NOW</text><polyline points="494.0,83.1" fill="none" stroke="#21c97a" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="494.0" cy="83.1" r="3.6" fill="#21c97a"/><text x="503.0" y="87.1" fill="#21c97a" font-size="12" font-weight="700">Biometric age</text><polyline points="40.0,144.2 267.0,147.6 494.0,151.1" fill="none" stroke="#FF9F1C" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="40.0" cy="144.2" r="3.6" fill="#FF9F1C"/><circle cx="267.0" cy="147.6" r="3.6" fill="#FF9F1C"/><circle cx="494.0" cy="151.1" r="3.6" fill="#FF9F1C"/><text x="503.0" y="155.1" fill="#FF9F1C" font-size="12" font-weight="700">Body fat %</text><polyline points="40.0,39.1 267.0,36.0 494.0,32.9" fill="none" stroke="#2BC7FF" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="40.0" cy="39.1" r="3.6" fill="#2BC7FF"/><circle cx="267.0" cy="36.0" r="3.6" fill="#2BC7FF"/><circle cx="494.0" cy="32.9" r="3.6" fill="#2BC7FF"/><text x="503.0" y="36.9" fill="#2BC7FF" font-size="12" font-weight="700">Lean mass kg</text><polyline points="40.0,37.6 267.0,54.0 494.0,69.3" fill="none" stroke="#A855F7" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="40.0" cy="37.6" r="3.6" fill="#A855F7"/><circle cx="267.0" cy="54.0" r="3.6" fill="#A855F7"/><circle cx="494.0" cy="69.3" r="3.6" fill="#A855F7"/><text x="503.0" y="73.3" fill="#A855F7" font-size="12" font-weight="700">Visceral area cm&#178;</text></svg><div class="tlegend"><span><i style="background:#21c97a"></i>Biometric age <b>47</b></span><span><i style="background:#FF9F1C"></i>Body fat % <b>9.6</b></span><span><i style="background:#2BC7FF"></i>Lean mass kg <b>74.6</b></span><span><i style="background:#A855F7"></i>Visceral area cm&#178; <b>54.6</b></span></div></div>
+<p class="disc">The NOW values match the DEXA figures in Body Composition. Bone density awaits the DEXA bone report. Only one biometric age is on file, so it is shown as a single point.</p>
+<h3 class="ch-h">SOURCE DOCUMENTS ON FILE</h3>
+<div class="docs">
+<div class="doc"><span>DEXA Scan Report<small>14 Oct 2024, 21 Dec 2024, 25 Apr 2025</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Chiropractic Assessment<small>Posture, alignment and movement</small></span><em>ON FILE</em></div>
+<div class="doc"><span>AFT Bespoke Panel 2<small>Sussex Pathology &#183; 7 markers scored</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Blood Pressure Log<small>Home and in-clinic readings</small></span><em>ON FILE</em></div>
+<div class="doc"><span>Biometric Age Summary<small>Composite model output</small></span><em>ON FILE</em></div>
+</div><p class="disc">Documents are listed for reference. Source files are held securely and are not downloadable from this page.</p>
+</div>
+</section>
+</div>
+</div>
+</main><footer class="site-footer"><div class="l">AGING?F***THAT! | LONGER. STRONGER. HEALTHIER.</div><div>© Lee C. Stonehouse · Information only, not medical advice</div><nav aria-label="Footer"><a href="index.html">Home</a><a href="programs-offered.html">Programmes</a><a href="index.html#contact">Contact</a><a href="admin.html">Admin</a></nav><div class="r">WWW.AGINGFTHAT.COM</div></footer>
+<script>(function(){document.querySelectorAll("a.btn[href=\u0022#\u0022]").forEach(function(a){a.addEventListener("click",function(e){e.preventDefault();});});})();</script><script>(function(){
   var H='88fd5b3c36c67f85583f1ca1b411c84351a4890e887b2d7b9e8fec304550201e';
   var SESSION_KEY='agnf_admin_v2';
   var gate=document.getElementById('gate'),content=document.getElementById('content');
@@ -38,37 +243,28 @@
   var NINETY_DAYS=90*24*60*60*1000;
   function stillValid(){try{return Number(localStorage.getItem(SESSION_KEY)||0)>Date.now()}catch(e){return false}}
   function grant(){try{localStorage.setItem(SESSION_KEY,String(Date.now()+NINETY_DAYS))}catch(e){}}
-  function unlock(){gate.style.display='none';content.style.display='block';window.scrollTo(0,0);load()}
+  function unlock(){gate.style.display='none';content.style.display='block';window.scrollTo(0,0);}
   function go(){digest(document.getElementById('pw').value).then(function(h){if(h===H){grant();unlock();}else{document.getElementById('err').textContent='Password not recognised.';}})}
   document.getElementById('btn').addEventListener('click',go);
   document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
   if(stillValid())unlock();
-  function wire(root){
-    root.querySelectorAll('[data-w]').forEach(function(el){setTimeout(function(){el.style.width=el.dataset.w;},200)});
-    document.body.setAttribute('data-sex','male');
-    window.toggleBlurb=function(slug){var b=document.getElementById('blurb_'+slug);if(!b)return;var c=b.closest('.rng-card');if(c)c.classList.toggle('open');};
-    window.setSex=function(sex,btn){document.body.setAttribute('data-sex',sex);var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
-    window.setToggle=function(btn){var g=btn.closest('.pill-toggle');g.querySelectorAll('button').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');};
-  }
-  function load(){
-    var parts=['report-part-1.html','report-part-2.html','report-part-3.html','report-part-4.html','report-part-5.html'];
-    Promise.all(parts.map(function(p){return fetch(p,{cache:'no-cache'}).then(function(r){return r.text();})}))
-      .then(function(chunks){
-        var holder=document.createElement('div');
-        holder.innerHTML=chunks.join('');
-        var backlink=holder.querySelector('a[href="index.html"]');
-        if(backlink)backlink.remove();
-        var m=holder.querySelector('.mast');
-        if(m)m.remove();
-        var target=document.getElementById('content');
-        target.innerHTML='';
-        target.appendChild(holder);
-        wire(target);
-      })
-      .catch(function(e){document.getElementById('content').innerHTML='<div class="wrap"><div class="card"><h3>Report could not be loaded. Please refresh the page.</h3></div></div>';});
-  }
 })();
-</script>
-<footer style="border-top:1px solid #17435a;margin-top:48px;padding:20px 0 34px;text-align:center;color:#7899a9;font-size:11.5px">&copy; Lee C. Stonehouse &middot; AGING?F***THAT! &middot; Private client area &middot; Information only, not medical advice</footer>
-</body>
-</html>
+
+(function(){
+var elite=document.getElementById('elite-tier'),l1=document.getElementById('level1-tier');
+var bc=document.querySelector('.panel.bc'),mp=document.querySelector('.panel.mp'),hh=document.querySelector('.panel.hh'),blood=document.querySelector('.panels > .panel.bx'),age=document.querySelector('.panel.ba');
+var saved={bc:bc.innerHTML,mp:mp.innerHTML,age:age.innerHTML};
+function setTier(level1){
+ elite.setAttribute('aria-pressed',String(!level1));l1.setAttribute('aria-pressed',String(level1));
+ document.querySelector('.metabar div:nth-child(3) b').textContent=level1?'Level 1':'Elite';
+ document.querySelectorAll('.elite-only').forEach(function(e){e.hidden=level1});blood.hidden=level1;
+ if(!level1){bc.innerHTML=saved.bc;mp.innerHTML=saved.mp;age.innerHTML=saved.age;document.getElementById('tier-note').textContent='Elite assessment · current report figures retained.';return}
+ document.getElementById('tier-note').textContent='Level 1 assessment · 30% body composition, 40% vital signs, 30% functional ability. Separate source readings are required; Elite DEXA values are not substituted.';
+ bc.innerHTML='<div class="ph"><span class="ic">👤</span><div><h2>BODY COMPOSITION</h2><p>RENPHO MORPHOSCAN · 30% WEIGHT</p></div></div><div class="body"><div class="bm"><span>Body fat · 15%</span><b>Awaiting MorphoScan result</b></div><div class="bm"><span>Muscle mass · 10%</span><b>Awaiting MorphoScan result</b></div><div class="bm"><span>Visceral fat index · 5%</span><b>Awaiting MorphoScan result</b></div><p class="disc">Metabolic age is excluded. Scale measurements are estimates.</p></div>';
+ mp.innerHTML=saved.mp;mp.querySelector('.body').insertAdjacentHTML('afterbegin','<div class="level1-only"><b>Sitting-rising test · 30% weight</b><br>Awaiting assessment · score out of 10<br><small>Posture findings are reported separately and carry no age-model weight.</small></div>');
+ age.innerHTML='<div class="ph"><span class="ic">📊</span><div><h2>LEVEL 1 BIO-AGE ESTIMATE</h2><p>PROVISIONAL · ASSESSMENT INCOMPLETE</p></div></div><div class="body"><p>Awaiting MorphoScan readings, sitting-rising assessment and agreed age-reference scoring. No Level 1 age has been calculated.</p><a class="btn" href="bio-age-level-1-model.html">VIEW LEVEL 1 MODEL</a></div>';
+}
+elite.addEventListener('click',function(){setTier(false)});l1.addEventListener('click',function(){setTier(true)});
+})();
+</script></body></html>
+
