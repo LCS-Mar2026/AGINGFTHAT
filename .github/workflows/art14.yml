@@ -1,0 +1,18 @@
+name: art14
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -sSL -o art.b64 https://cdn.marblism.com/bK9Wsm2EU9W.txt
+      - run: python3 -c "import base64,pathlib,gzip;pathlib.Path('blog/butyrate-fibre-biological-age.html').write_bytes(gzip.decompress(base64.b64decode(pathlib.Path('art.b64').read_text())));print('article written')"
+      - run: wc -c blog/butyrate-fibre-biological-age.html
+      - run: git config user.email penny@agingfthat.com
+      - run: git config user.name Penny
+      - run: git add -A
+      - run: git commit -m Butyrate-article-full-content
+      - run: git push
