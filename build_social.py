@@ -27,8 +27,8 @@ def wrap(d,t,f,maxw):
 
 TITLE="Butyrate and Biological Age: The Molecule Your Gut Bacteria Make From Fibre"
 EYEBROW="NUTRITION & HEALTHSPAN"
-LINE="New articles daily at agingfthat.com/blog"
-PILL="BLOG \u00b7 LINK IN BIO"
+LINE="Read the full blog at www.agingfthat.com!"
+PILL="SEE CAPTION FOR MORE"
 OUT="social/butyrate-fibre-biological-age"
 
 art=Image.open("/tmp/hero.webp").convert("RGB")

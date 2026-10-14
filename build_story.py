@@ -27,9 +27,9 @@ def wrap(d,t,f,maxw):
 EYEBROW="NUTRITION & HEALTHSPAN"
 STATEMENT=("Butyrate and Biological Age: The Molecule Your Gut Bacteria Make From Fibre")
 CAPTION=("Your gut bacteria ferment fibre into butyrate. Colon cells use it as fuel and researchers study it for effects on inflammation, the gut barrier and gene regulation. A new article separates the credible science from the hype, explains why the UK averages 16.4 grams of fibre a day against a 30-gram recommendation, and gives a five-step protocol to build the fibre habit properly.")
-FOOTER="New articles daily at agingfthat.com/blog"
+FOOTER="Read the full blog at www.agingfthat.com!"
 TAGS="#healthspan  #longevity"
-PILL="BLOG \u00b7 LINK IN BIO"
+PILL="SEE CAPTION FOR MORE"
 OUT="social/butyrate-fibre-biological-age-story"
 
 ART_H=int(H*0.40)
