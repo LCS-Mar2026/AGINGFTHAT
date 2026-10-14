@@ -1,0 +1,33 @@
+name: blogfix4
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/blogfix4.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch and write blog listing
+        run: |
+          curl -sSL -o /tmp/blog.html https://cdn.marblism.com/ErpjXnOKPIK.html
+          cp /tmp/blog.html blog.html
+          wc -c blog.html
+      - name: Write article page from fetched file
+        run: |
+          curl -sSL -o /tmp/art.html https://cdn.marblism.com/5rg_ASp_7tJ.html
+          cp /tmp/art.html blog/butyrate-fibre-biological-age.html
+          wc -c blog/butyrate-fibre-biological-age.html
+      - name: Commit and push
+        run: |
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A
+          git commit -m Restore blog listing and article page
+          git push
