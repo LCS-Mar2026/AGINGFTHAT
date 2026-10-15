@@ -123,7 +123,7 @@
     var refNode=labelNode.querySelector('small');
     var ref=refNode ? refNode.textContent.trim() : '';
     var scoredRef=/^ref\s/i.test(ref);
-    var raw=valueNode.textContent.trim();
+    var raw=(valueNode.firstChild && valueNode.firstChild.nodeType===3 ? valueNode.firstChild.textContent : valueNode.textContent).trim();
     var numeric=parseFloat(raw.replace(/,/g,''));
     var hasResult=isFinite(numeric) && !/not tested|no result|awaiting/i.test(raw);
     var current='NO RESULT',category='missing';
