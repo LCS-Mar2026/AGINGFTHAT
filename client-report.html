@@ -268,5 +268,34 @@ function setTier(level1){
 }
 elite.addEventListener('click',function(){setTier(false)});l1.addEventListener('click',function(){setTier(true)});
 })();
-</script><script src="blood-marker-explainers.js"></script></body></html>
+</script><script src="blood-marker-explainers.js"></script><script>
+(()=>{
+const entries=[
+[/hba1c/i,'HbA1c reflects average blood glucose over roughly two to three months. mmol/mol and % are two reporting units for the same test.','https://medlineplus.gov/lab-tests/hemoglobin-a1c-hba1c-test/'],
+[/hs.?crp|c.reactive/i,'High-sensitivity CRP measures low concentrations of C-reactive protein, an inflammation marker. It is not specific to one cause. A missing result is not a measured normal result.','https://medlineplus.gov/lab-tests/c-reactive-protein-crp-test/'],
+[/homocysteine/i,'Homocysteine is an amino acid. Its processing depends on B vitamins; raised values need interpretation alongside the rest of the clinical picture.','https://medlineplus.gov/lab-tests/homocysteine-test/'],
+[/free testosterone/i,'Free testosterone is the portion not bound to blood proteins. Results may be measured or calculated; use the laboratory method and reference interval.','https://medlineplus.gov/lab-tests/testosterone-levels-test/'],
+[/total testosterone|^testosterone/i,'Total testosterone includes both protein-bound and free hormone. Interpretation depends on the laboratory range, sampling time and any prescribed hormone treatment.','https://medlineplus.gov/lab-tests/testosterone-levels-test/'],
+[/vo.?₂?2?\s*max|vo₂/i,'VO₂ max measures the maximum oxygen used during intense exercise, expressed here in millilitres per kilogram per minute. This is separate from resting heart rate.','https://medlineplus.gov/ency/article/007459.htm'],
+[/heart.rate recovery|recovery.*minute/i,'The fall in heart rate after exercise. The timing and recovery protocol must match when comparing results.',''],
+[/resting.*(heart|hr)|resting hr/i,'Heart beats per minute while rested. Compare measurements taken under similar conditions; exercise-test starting heart rate is recorded separately.',''],
+[/blood pressure|systolic|diastolic/i,'Blood pressure is reported in mmHg: systolic is the pressure as the heart contracts; diastolic is the pressure between beats.','https://medlineplus.gov/lab-tests/measuring-blood-pressure/'],
+[/body fat|fat %/i,'The proportion of total body mass measured as fat. DEXA and smart-scale estimates use different methods and should be tracked separately.',''],
+[/lean mass|muscle mass/i,'DEXA lean mass includes non-fat soft tissues, not only skeletal muscle. A smart-scale muscle estimate is a different measurement.',''],
+[/visceral/i,'Fat around the abdominal organs. DEXA area in cm² and a smart-scale visceral-fat index are different measures and are not interchangeable.',''],
+[/bone density|t.score/i,'The T-score compares bone density with a young-adult reference. Whole-body DEXA results are distinct from a diagnostic hip-and-spine assessment.','https://medlineplus.gov/lab-tests/bone-density-scan/'],
+[/sitting.rising/i,'A functional test of sitting down on the floor and rising again. Assistance and loss of balance affect the score; the assessment protocol must be recorded.',''],
+[/shbg/i,'Sex hormone-binding globulin is a protein that binds sex hormones. It helps interpret total and free testosterone.','https://medlineplus.gov/lab-tests/shbg-blood-test/'],
+[/albumin/i,'Albumin is a blood protein made by the liver. Interpret it with the laboratory range and other findings.','https://medlineplus.gov/lab-tests/albumin-blood-test/'],
+[/cortisol/i,'Cortisol is a hormone with a daily rhythm. Sampling time and test method matter when interpreting the result.','https://medlineplus.gov/lab-tests/cortisol-test/']
+];
+const css=document.createElement('style');css.textContent='[data-aft-help]{cursor:help}[data-aft-help]:focus-visible{outline:2px solid #2bc7ff;outline-offset:3px}[data-aft-help]::after{content:" ⓘ";color:#63dcff;font-size:13px}#aftMetricHelp{position:fixed;z-index:2147483647;width:min(380px,calc(100vw - 24px));box-sizing:border-box;padding:18px;background:#07283b;color:#edfaff;border:2px solid #2bc7ff;border-radius:10px;box-shadow:0 8px 32px #0009;font:17px/1.5 Arial,sans-serif}#aftMetricHelp[hidden]{display:none}#aftMetricHelp a{color:#72ddff;display:block;margin-top:9px}#aftMetricHelp button{float:right;color:white;background:transparent;border:0;font-size:24px;cursor:pointer}';document.head.append(css);
+const tip=document.createElement('div');tip.id='aftMetricHelp';tip.hidden=true;tip.setAttribute('role','tooltip');document.body.append(tip);let active=null,timer;
+function close(){tip.hidden=true;if(active){active.setAttribute('aria-expanded','false');active.removeAttribute('aria-describedby')}active=null}
+function open(el){clearTimeout(timer);active=el;const e=entries[Number(el.dataset.aftHelp)];tip.replaceChildren();const x=document.createElement('button');x.textContent='×';x.setAttribute('aria-label','Close explanation');x.onclick=close;tip.append(x,document.createTextNode(e[1]));if(e[2]){const a=document.createElement('a');a.href=e[2];a.target='_blank';a.rel='noopener noreferrer';a.textContent='Read source';tip.append(a)}tip.hidden=false;el.setAttribute('aria-expanded','true');el.setAttribute('aria-describedby',tip.id);const r=el.getBoundingClientRect();tip.style.left=Math.max(12,Math.min(r.left,innerWidth-tip.offsetWidth-12))+'px';tip.style.top=Math.max(12,Math.min(r.bottom+8,innerHeight-tip.offsetHeight-12))+'px'}
+function scan(){document.querySelectorAll('.metric,.bm,.stat,.minirow,.tile').forEach(el=>{if(el.dataset.aftHelp!==undefined||el.querySelector('input,select'))return;const label=(el.querySelector('span,small')?.textContent||el.firstChild?.textContent||'').trim();const i=entries.findIndex(e=>e[0].test(label));if(i<0)return;el.dataset.aftHelp=i;el.tabIndex=0;el.setAttribute('aria-expanded','false')})}
+document.addEventListener('pointerover',e=>{const el=e.target.closest('[data-aft-help]');if(el)open(el)});document.addEventListener('pointerout',e=>{if(e.target.closest('[data-aft-help]')&&!e.relatedTarget?.closest('[data-aft-help],#aftMetricHelp'))timer=setTimeout(close,300)});tip.addEventListener('pointerenter',()=>clearTimeout(timer));tip.addEventListener('pointerleave',close);document.addEventListener('focusin',e=>{const el=e.target.closest('[data-aft-help]');if(el)open(el)});document.addEventListener('click',e=>{const el=e.target.closest('[data-aft-help]');if(el)open(el);else if(!e.target.closest('#aftMetricHelp'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close();if((e.key==='Enter'||e.key===' ')&&e.target.matches('[data-aft-help]')){e.preventDefault();open(e.target)}});window.addEventListener('scroll',close,true);window.addEventListener('resize',close);scan();new MutationObserver(ms=>{if(ms.some(m=>m.target!==tip&&!tip.contains(m.target)&&m.addedNodes.length))scan()}).observe(document.body,{childList:true,subtree:true});
+})();
+
+</script></body></html>
 
