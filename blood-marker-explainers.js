@@ -127,11 +127,22 @@
     var numeric=parseFloat(raw.replace(/,/g,''));
     var hasResult=isFinite(numeric) && !/not tested|no result|awaiting/i.test(raw);
     var current='NO RESULT',category='missing';
-    if (hasResult && !scoredRef) {current='REFERENCE RANGE NOT SHOWN';category='missing';}
-    if (hasResult && scoredRef) {
-      if (def.low!=null && numeric<def.low){current='LOW · Below the displayed reference range';category='low';}
-      else if(def.high!=null && (def.oneSided ? numeric>=def.high : numeric>def.high)){current='HIGH · Above the displayed reference range';category='high';}
-      else {current='WITHIN · Meets the displayed reference range/target';category='within';}
+    if(hasResult){
+      current='RANGE NOT PROVIDED';
+      if(scoredRef){
+        var interval=ref.match(/(-?\d+(?:\.\d+)?)\s*[-–—]\s*(-?\d+(?:\.\d+)?)/);
+        var bound=ref.match(/(<=|>=|<|>|≤|≥)\s*(-?\d+(?:\.\d+)?)/);
+        if(interval){
+          var low=Number(interval[1]),high=Number(interval[2]);
+          category=numeric<low?'low':numeric>high?'high':'within';
+        }else if(bound){
+          var op=bound[1],n=Number(bound[2]);
+          var inside=op==='<'?numeric<n:op==='>'?numeric>n:
+            (op==='≤'||op==='<=')?numeric<=n:numeric>=n;
+          category=inside?'within':(op==='<'||op==='≤'||op==='<=')?'high':'low';
+        }
+        if(category!=='missing')current=category==='within'?'IN RANGE':category==='high'?'ABOVE RANGE':'BELOW RANGE';
+      }
     }
     var button=document.createElement('button');
     button.type='button';button.className='bm-help-toggle';
