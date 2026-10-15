@@ -165,7 +165,7 @@
     '.metric-card.aft-metric-row,.method-card.aft-metric-row{align-content:start}'
   ].join('');
   window.AFTInitMetricHelp=function(){
-    document.querySelectorAll('.stats .stat,.mini .minirow,.tiles .tile,.metric-grid .metric-card,.method-grid .method-card,.l1-tiles .l1-tile,[data-aft-metric]').forEach(function(row){
+    document.querySelectorAll('.stats .stat,.mini .minirow,.tiles .tile,.panel.bc .body > .bm,.metric-grid .metric-card,.method-grid .method-card,.l1-tiles .l1-tile,[data-aft-metric]').forEach(function(row){
       if(row.classList.contains('aft-metric-row'))return;
       var labelNode=row.querySelector('.metric-label,.method-title,.l1-name,:scope > span,:scope > small');
       if(!labelNode && row.hasAttribute('data-aft-metric'))labelNode=row;
