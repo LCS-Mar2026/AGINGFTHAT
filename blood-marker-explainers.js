@@ -105,6 +105,22 @@
     '@media(max-width:700px){.bm-explainer{margin-right:-30px;font-size:12px}.bm.bm-explainable{padding-right:38px}}'
   ].join('\n');
   document.head.appendChild(style);
+  // The public Bio Age model explains marker names, never clinical reference intervals.
+  document.querySelectorAll('[data-blood-marker]').forEach(function(row){
+    var def=definitions[row.getAttribute('data-blood-marker').toLowerCase()];
+    var button=row.querySelector('button'),description=row.querySelector('.marker-description');
+    if(!def||!button||!description)return;
+    description.textContent=def.what;
+    var pinned=false,hovered=false;
+    function sync(){var opened=pinned||hovered;description.hidden=!opened;button.setAttribute('aria-expanded',String(opened));}
+    button.setAttribute('aria-expanded','false');
+    row.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){hovered=true;sync();}});
+    row.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){hovered=false;sync();}});
+    button.addEventListener('click',function(){pinned=!pinned;sync();});
+    button.addEventListener('keydown',function(e){if(e.key==='Escape'){pinned=false;hovered=false;sync();button.blur();}});
+    button.addEventListener('focus',function(){hovered=true;sync();});
+    button.addEventListener('blur',function(){hovered=false;sync();});
+  });
   var tiles = document.querySelectorAll('.bloodrow .bm, #additional-blood .additional-grid .bm');
   function addLine(parent,label,value,className){
     var p=document.createElement('p'); if(className)p.className=className;
