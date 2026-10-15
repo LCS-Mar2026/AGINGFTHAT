@@ -1,1 +1,42 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><title>AFT Client Workspace — Prototype</title><body><h1>AFT Client Workspace</h1><p>Demonstration only. Do not enter real client health information.</p></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>AFT Client Workspace — Interactive Prototype</title>
+<link rel="stylesheet" href="aft-workspace-demo.css"></head>
+<body><div class="layout"><aside><h1>AGING?F***THAT!<br><small>CLIENT OPERATIONS · DEMONSTRATION</small></h1>
+<nav><button data-view="home" class="active">Overview</button><button data-view="new">+ New client</button>
+<button data-view="records">Client folders</button><button id="own-file">My Elite file</button>
+<button data-view="signin">Client sign-in preview</button><a href="admin.html">← Admin page</a><a href="index.html">Public website</a></nav>
+<p style="font-size:11px;color:#c4e5ed;margin-top:25px">DESIGN PREVIEW ONLY<br>No backend, account access, or medical records storage. Do not enter identifiable or real health information.</p></aside>
+<main><div class="stamp">AFT · ADMIN EXPERIENCE</div><div class="notice"><b>PROTOTYPE — USE FICTIONAL DETAILS ONLY.</b> Data exists in this browser tab temporarily. “Save” creates a demonstration client folder and downloads a local JSON snapshot, not a secure online account. No password authentication, clinician uploads or automatic BioAge calculations are connected.</div>
+<section id="home" class="view"><h2>A clear route through every client</h2><p class="muted">Three primary administrator actions: create a client, open a client file, or open your own Elite file.</p>
+<div class="grid"><article class="card"><h3>1 · Establish a new client</h3><p>Use the same fact-find and signature for Level 1, Elite A, Virtual B, and Programme C.</p><button class="btn" data-view="new">Start intake →</button></article>
+<article class="card"><h3>2 · Open an existing file</h3><p>Keep the fact-find, clinician documents, each assessment round, and BioAge trends together.</p><button class="btn" data-view="records">Browse clients →</button></article>
+<article class="card"><h3>3 · My own file</h3><p>Open Lee Stonehouse as a standard Elite A client, without requiring a fact-find.</p><button class="btn" id="own-file-2">Open my report →</button></article></div>
+<div class="card"><h3>How the assessments connect</h3><div class="grid">
+<div><b>Level 1</b><p>RENPHO MorphoScan + sitting-rising test + chiropractic posture report. No bloods, DEXA or VO₂ max.</p></div>
+<div><b>Elite A / Virtual B</b><p>Two initial assessment visits combined into baseline; reports at months 0, 6 and 12.</p></div>
+<div><b>Programme C</b><p>Short three-month programme with baseline and end-of-programme measurements.</p></div>
+</div></div></section>
+<section id="new" class="view" hidden><h2>New client · same fact-find for everyone</h2><p class="muted">The intake fields follow the AFT Fact-Find, Consent & Baseline document, version 1.9. Paid programme agreements remain separate and require an approved contract.</p>
+<div class="card"><div class="form-grid"><label class="field">Full name*<input id="new-name" placeholder="Demo: Tom Smith" autocomplete="off"></label>
+<label class="field">Email address<input id="new-email" type="email" placeholder="demo@example.invalid" autocomplete="off"></label>
+<label class="field">Programme*<select id="new-program"><option value="level1">Level 1 · complimentary biometric assessment</option><option value="elite">Elite A · 12 months</option><option value="virtual">Virtual B · 12 months</option><option value="three">Programme C · 3 months</option></select></label>
+<label class="field">Start date<input id="new-start" type="date"></label></div></div>
+<div id="intake" aria-label="AFT fact-find"><h3>Client fact-find</h3><div id="fact-sections"></div>
+<div class="card"><h3>Consent & client signature</h3><p class="muted">The client signs with a finger, stylus or mouse. This prototype does not constitute secure record keeping or an independently verified signature.</p>
+<label style="display:block"><input type="checkbox" id="sign-confirm"> I confirm I am completing this fictional demonstration and consent to creating its temporary sample record.</label>
+<p class="muted">Signed by client · clear the panel if necessary</p><canvas id="signature" class="signature" width="760" height="170" aria-label="Signature drawing canvas"></canvas>
+<button class="btn alt" id="clear-sign">Clear signature</button><label class="field">Date signed<input id="sign-date" type="date"></label>
+<button class="btn" id="save-client">Save demo client folder & download copy</button><p class="muted">A client record is created in the on-screen folder list; your browser also downloads a JSON snapshot. Nothing is uploaded to GitHub.</p></div></div></section>
+<section id="records" class="view" hidden><h2>Client folders</h2><p class="muted">Demonstration records to show how administrator navigation and tier-specific assessments work.</p><div id="client-list" class="card"></div></section>
+<section id="detail" class="view" hidden><div class="stamp">CLIENT FOLDER</div><h2 id="detail-title"></h2><div id="detail-summary"></div>
+<div class="tabs"><button data-tab="dashboard" class="active">Dashboard</button><button data-tab="assessments">Assessment rounds</button><button data-tab="documents">Documents</button><button data-tab="factfind">Fact-find</button></div>
+<div class="subview" id="tab-dashboard"></div><div class="subview" id="tab-assessments" hidden></div><div class="subview" id="tab-documents" hidden></div><div class="subview" id="tab-factfind" hidden></div></section>
+<section id="signin" class="view" hidden><h2>Client sign-in</h2><div class="card login"><p class="muted">This is the future client sign-in design. No passwords are accepted, emailed, stored or verified by the public GitHub site.</p>
+<label class="field">Email<input type="email" placeholder="name@example.com" autocomplete="off"></label>
+<label class="field">Password<input type="password" placeholder="Password (disabled in prototype)" autocomplete="off" disabled></label>
+<button class="btn" id="sign-in-preview">Sign in (backend required)</button><button class="btn alt" id="reset-preview">Forgot password?</button>
+<div id="signin-message" class="info" hidden></div></div></section>
+<footer style="font-size:12px;color:#607580;margin-top:30px">AFT workspace structure demo · Not a clinical tool · No real client records · <a href="admin.html">Back to admin</a></footer>
+</main></div><div id="toast" class="toast" role="status" hidden></div>
+<script src="aft-workspace-demo.js"></script></body></html>
