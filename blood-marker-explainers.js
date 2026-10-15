@@ -152,6 +152,52 @@
     button.addEventListener('focus',function(){hovered=true;sync();});
     button.addEventListener('blur',function(){hovered=false;sync();});
   });
+  style.textContent += [
+    '.aft-metric-row{position:relative;cursor:help}',
+    '.aft-metric-info-button{margin-left:6px;display:inline-block;min-width:23px;min-height:23px;border:1px solid #24759a;border-radius:50%;background:#092f44;color:#d9f5ff;font:700 14px Arial;cursor:pointer;vertical-align:middle;text-transform:none;letter-spacing:normal}',
+    '.aft-metric-info-button:focus-visible{outline:2px solid #2bc7ff;outline-offset:2px}',
+    '.aft-metric-detail{box-sizing:border-box;order:99;grid-column:1/-1;flex-basis:100%;width:100%;min-width:0;margin:8px 0 0;padding:10px;border:1px solid #24617b;border-radius:7px;background:#041b2b;color:#e1f1f9;font:13px/1.5 Arial,sans-serif;text-align:left;letter-spacing:normal;text-transform:none;overflow-wrap:anywhere}',
+    '.aft-metric-detail[hidden]{display:none!important}',
+    '.aft-metric-detail p{margin:0 0 8px;font:13px/1.5 Arial,sans-serif;color:#e1f1f9;text-align:left;text-transform:none}',
+    '.aft-metric-detail a{color:#96e4ff;text-decoration:underline}',
+    '.stat.aft-metric-row{flex-wrap:wrap}',
+    '.minirow.aft-metric-row .aft-metric-detail{grid-column:1/-1}',
+    '.metric-card.aft-metric-row,.method-card.aft-metric-row{align-content:start}'
+  ].join('');
+  window.AFTInitMetricHelp=function(){
+    document.querySelectorAll('.stats .stat,.mini .minirow,.tiles .tile,.metric-grid .metric-card,.method-grid .method-card,.l1-tiles .l1-tile,[data-aft-metric]').forEach(function(row){
+      if(row.classList.contains('aft-metric-row'))return;
+      var labelNode=row.querySelector('.metric-label,.method-title,.l1-name,:scope > span,:scope > small');
+      if(!labelNode)return;
+      var name=row.getAttribute('data-aft-metric')||labelNode.textContent.trim();
+      if(row.closest('#vo2')&&row.classList.contains('method-card'))name='vo2max';
+      var key=metricKey(name),def=metricGuide[key];
+      if(!def)return;
+      var publicOnly=!!row.closest('#metric-public-guide');
+      var button=document.createElement('button');
+      button.className='aft-metric-info-button';button.type='button';button.textContent='ⓘ';
+      button.setAttribute('aria-label','Explain '+def[0]);button.setAttribute('aria-expanded','false');
+      labelNode.appendChild(button);
+      var detail=document.createElement('div');detail.className='aft-metric-detail';detail.hidden=true;
+      var id='aft-metric-info-'+document.querySelectorAll('.aft-metric-row').length;
+      detail.id=id;button.setAttribute('aria-controls',id);
+      var p=document.createElement('p');p.textContent=def[1];detail.appendChild(p);
+      if(!publicOnly){
+        var b=document.createElement('p');b.textContent='Published reference information: '+def[2];detail.appendChild(b);
+        if(def[3]){var link=document.createElement('a');link.href=def[3];link.target='_blank';link.rel='noopener noreferrer';link.textContent='Read the independent source';detail.appendChild(link);}
+      }
+      row.classList.add('aft-metric-row');row.appendChild(detail);
+      var pinned=false,hovered=false,focused=false;
+      function sync(){var opened=pinned||hovered||focused;detail.hidden=!opened;button.setAttribute('aria-expanded',String(opened));}
+      row.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse'){hovered=true;sync();}});
+      row.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){hovered=false;sync();}});
+      row.addEventListener('click',function(e){if(e.target.closest('a'))return;pinned=!pinned;sync();});
+      button.addEventListener('focus',function(){focused=true;sync();});
+      button.addEventListener('blur',function(){focused=false;sync();});
+      button.addEventListener('keydown',function(e){if(e.key==='Escape'){e.preventDefault();pinned=false;hovered=false;focused=false;sync();button.blur();}});
+    });
+  };
+  window.AFTInitMetricHelp();
   var tiles = document.querySelectorAll('.bloodrow .bm, #additional-blood .additional-grid .bm');
   function addLine(parent,label,value,className){
     var p=document.createElement('p'); if(className)p.className=className;
