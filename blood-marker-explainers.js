@@ -168,6 +168,7 @@
     document.querySelectorAll('.stats .stat,.mini .minirow,.tiles .tile,.metric-grid .metric-card,.method-grid .method-card,.l1-tiles .l1-tile,[data-aft-metric]').forEach(function(row){
       if(row.classList.contains('aft-metric-row'))return;
       var labelNode=row.querySelector('.metric-label,.method-title,.l1-name,:scope > span,:scope > small');
+      if(!labelNode && row.hasAttribute('data-aft-metric'))labelNode=row;
       if(!labelNode)return;
       var name=row.getAttribute('data-aft-metric')||labelNode.textContent.trim();
       if(row.closest('#vo2')&&row.classList.contains('method-card'))name='vo2max';
