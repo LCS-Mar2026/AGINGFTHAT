@@ -15,6 +15,7 @@
 <body style="margin:0">
 <div id="report-root"></div>
 <noscript><p style="color:#edfaff;font-family:Arial;padding:24px">This report needs JavaScript enabled to display.</p></noscript>
+<script src="blood-marker-explainers.js"></script>
 <script>
 (function(){
   var parts=['report-part-1.html','report-part-2.html','report-part-3.html','report-part-4.html','report-part-5.html'];
@@ -22,6 +23,7 @@
   Promise.all(parts.map(function(p){return fetch(p,{cache:'no-cache'}).then(function(r){return r.text();});}))
     .then(function(chunks){
       root.innerHTML=chunks.join('');
+      if(window.AFTInitMetricHelp)window.AFTInitMetricHelp();
       document.querySelectorAll('[data-w]').forEach(function(el){ setTimeout(function(){ el.style.width=el.dataset.w; },200); });
       document.body.setAttribute('data-sex','male');
       window.toggleBlurb=function(slug){var b=document.getElementById('blurb_'+slug);if(!b)return;var c=b.closest('.rng-card');if(c)c.classList.toggle('open');};
