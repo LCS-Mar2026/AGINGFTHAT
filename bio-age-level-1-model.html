@@ -84,7 +84,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 <section class="card">
   <h2>Level 1 weightings</h2>
   <div class="tier"><b>WEIGHTS APPROVED · 14 OCT 2026.</b> 30% body composition, 40% vital signs, 30% functional ability. Age-reference scoring remains under review.</div>
-<table><tr><th>Domain</th><th>Marker</th><th>Weight</th></tr><tr><td>Body composition</td><td>Body fat %</td><td>15%</td></tr><tr><td>Body composition</td><td>Muscle mass estimate</td><td>10%</td></tr><tr><td>Body composition</td><td>Visceral fat index</td><td>5%</td></tr><tr><td>Vital signs</td><td>Systolic BP</td><td>20%</td></tr><tr><td>Vital signs</td><td>Diastolic BP</td><td>10%</td></tr><tr><td>Vital signs</td><td>Resting heart rate</td><td>10%</td></tr><tr><td>Functional ability</td><td>Sitting-rising test /10</td><td>30%</td></tr><tr><td colspan="2">Total</td><td>100%</td></tr></table><p>Posture measurements remain in the report but are not scored.</p>
+<table><tr><th>Domain</th><th>Marker</th><th>Weight</th></tr><tr><td>Body composition</td><td data-aft-metric="body fat">Body fat %</td><td>15%</td></tr><tr><td>Body composition</td><td data-aft-metric="lean mass">Muscle mass estimate</td><td>10%</td></tr><tr><td>Body composition</td><td data-aft-metric="visceral fat">Visceral fat index</td><td>5%</td></tr><tr><td>Vital signs</td><td data-aft-metric="systolic">Systolic BP</td><td>20%</td></tr><tr><td>Vital signs</td><td data-aft-metric="diastolic">Diastolic BP</td><td>10%</td></tr><tr><td>Vital signs</td><td data-aft-metric="resting heart rate">Resting heart rate</td><td>10%</td></tr><tr><td>Functional ability</td><td data-aft-metric="sitting rising">Sitting-rising test /10</td><td>30%</td></tr><tr><td colspan="2">Total</td><td>100%</td></tr></table><p>Posture measurements remain in the report but are not scored.</p>
   <p class="small"><b style="color:#dff2fb">The Old Man Test is the sitting-rising test.</b> The client sits down on the floor and stands back up, and the whole movement is scored out of 10. It is not the chair sit-to-stand test: this version is done from the floor, which is why it is a stronger signal. Full scoring is set out below.</p>
   <p class="small">Static posture findings are reported separately and carry zero age-model weight.</p>
 </section>
@@ -173,4 +173,4 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
   if(valid())show();
 })();
 </script>
-</body></html>
+<script src="blood-marker-explainers.js"></script></body></html>
