@@ -259,11 +259,12 @@ function setTier(level1){
  elite.setAttribute('aria-pressed',String(!level1));l1.setAttribute('aria-pressed',String(level1));
  document.querySelector('.metabar div:nth-child(3) b').textContent=level1?'Level 1':'Elite';
  document.querySelectorAll('.elite-only').forEach(function(e){e.hidden=level1});blood.hidden=level1;
- if(!level1){bc.innerHTML=saved.bc;mp.innerHTML=saved.mp;age.innerHTML=saved.age;document.getElementById('tier-note').textContent='Elite assessment · current report figures retained.';return}
+ if(!level1){bc.innerHTML=saved.bc;mp.innerHTML=saved.mp;age.innerHTML=saved.age;document.getElementById('tier-note').textContent='Elite assessment · current report figures retained.';if(window.AFTInitMetricHelp)window.AFTInitMetricHelp();return}
  document.getElementById('tier-note').textContent='Level 1 assessment · 30% body composition, 40% vital signs, 30% functional ability. Separate source readings are required; Elite DEXA values are not substituted.';
  bc.innerHTML='<div class="ph"><span class="ic">👤</span><div><h2>BODY COMPOSITION</h2><p>RENPHO MORPHOSCAN · 30% WEIGHT</p></div></div><div class="body"><div class="bm"><span>Body fat · 15%</span><b>Awaiting MorphoScan result</b></div><div class="bm"><span>Muscle mass · 10%</span><b>Awaiting MorphoScan result</b></div><div class="bm"><span>Visceral fat index · 5%</span><b>Awaiting MorphoScan result</b></div><p class="disc">Metabolic age is excluded. Scale measurements are estimates.</p></div>';
- mp.innerHTML=saved.mp;mp.querySelector('.body').insertAdjacentHTML('afterbegin','<div class="level1-only"><b>Sitting-rising test · 30% weight</b><br>Awaiting assessment · score out of 10<br><small>Posture findings are reported separately and carry no age-model weight.</small></div>');
+ mp.innerHTML=saved.mp;mp.querySelector('.body').insertAdjacentHTML('afterbegin','<div class="level1-only" data-aft-metric="sitting rising"><b>Sitting-rising test · 30% weight</b><br>Awaiting assessment · score out of 10<br><small>Posture findings are reported separately and carry no age-model weight.</small></div>');
  age.innerHTML='<div class="ph"><span class="ic">📊</span><div><h2>LEVEL 1 BIO-AGE ESTIMATE</h2><p>PROVISIONAL · ASSESSMENT INCOMPLETE</p></div></div><div class="body"><p>Awaiting MorphoScan readings, sitting-rising assessment and agreed age-reference scoring. No Level 1 age has been calculated.</p><a class="btn" href="bio-age-level-1-model.html">VIEW LEVEL 1 MODEL</a></div>';
+ if(window.AFTInitMetricHelp)window.AFTInitMetricHelp();
 }
 elite.addEventListener('click',function(){setTier(false)});l1.addEventListener('click',function(){setTier(true)});
 })();
