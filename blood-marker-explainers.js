@@ -140,7 +140,9 @@
     var info=document.createElement('div');
     info.className='bm-explainer';info.hidden=true;
     var id='bm-explainer-'+index;info.id=id;button.setAttribute('aria-controls',id);
-    addLine(info,'Current reading:',current,'bm-current '+category);
+    addLine(info,'Your reading:',raw,'bm-reading');
+    addLine(info,'Displayed laboratory reference:',scoredRef ? ref.replace(/^ref\s*/i,'') : 'Not supplied');
+    addLine(info,'Range status:',current,'bm-current '+category);
     addLine(info,'What it measures:',def.what);
     addLine(info,'If high:',def.highText);
     addLine(info,'If low:',def.lowText);
