@@ -1,0 +1,69 @@
+name: Blog thumbnails into the repo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/blog-thumbs.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow requests
+      - name: Fetch the 13 thumbnail images and store them in blog/images
+        run: |
+          set -e
+          python3 - <<'PY'
+          import requests, pathlib
+          imgs = {
+            'sodium-to-potassium-ratio-healthspan': 'https://cdn.marblism.com/9Wbm0Qo_SMB.jpg',
+            'butyrate-fibre-biological-age': 'https://cdn.marblism.com/46cPYKcsDZz.jpg',
+            'fibre-the-most-ignored-number-in-healthspan': 'https://cdn.marblism.com/8kt6oX9AboP.jpg',
+            'balance-after-40-one-legged-stance': 'https://cdn.marblism.com/PXPnCEY84tB.jpg',
+            'how-to-read-biological-age-results': 'https://cdn.marblism.com/Stw3txK6o4X.jpg',
+            'biological-age-test-vs-calculator': 'https://cdn.marblism.com/7A5bCFcWxtX.jpg',
+            'how-to-reverse-biological-age-5-steps': 'https://cdn.marblism.com/4LhTkVnEVF4.jpg',
+            'heart-rate-variability-after-40-vagal-tone': 'https://cdn.marblism.com/8BSicrJq_Ql.jpg',
+            'muscle-as-an-endocrine-organ-myokines-strength-training-over-50': 'https://cdn.marblism.com/3lCXDo-MG1i.jpg',
+            'healthspan-after-40': 'https://cdn.marblism.com/Vn4rSiLtILG.jpg',
+            'vo2max-after-40': 'https://cdn.marblism.com/_VY9cHjPTfb.jpg',
+            'age-reversal-brighton-hove': 'https://cdn.marblism.com/04cJsb7a_u1.jpg',
+            'healthspan-vs-lifespan': 'https://cdn.marblism.com/Vtu2PjP707U.jpg',
+          }
+          out = pathlib.Path('blog/images'); out.mkdir(parents=True, exist_ok=True)
+          for slug, url in imgs.items():
+              data = requests.get(url, timeout=60).content
+              (out / f'{slug}.jpg').write_bytes(data)
+              print(slug, len(data), 'bytes')
+          PY
+          ls -la blog/images/
+      - name: Point blog.html at the in-repo images
+        run: |
+          set -e
+          python3 - <<'PY'
+          import pathlib
+          p = pathlib.Path('blog.html'); s = p.read_text(encoding='utf-8')
+          import re
+          s = re.sub(r'(<a href="blog/[^"]+"><img class="thumb" src=")[^"]+(")',
+                     lambda m: m.group(1) + 'images/' + re.search(r'blog/([^.]+)\.html', m.group(0)).group(1) + '.jpg' + m.group(2),
+                     s)
+          p.write_text(s, encoding='utf-8')
+          print('thumbs:', s.count('src="images/'))
+          PY
+          grep -c 'src="images/' blog.html || true
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog/images/ blog.html
+          git commit -m "Blog thumbnails stored in repo, blog.html updated"
+          git push
