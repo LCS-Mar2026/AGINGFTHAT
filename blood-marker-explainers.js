@@ -116,7 +116,7 @@
     if(k==='blood pressure')return 'blood pressure';
     if(k.indexOf('sitting rising')>=0 || k.indexOf('old man test')>=0)return 'sitting rising';
     if(k.indexOf('almi')>=0)return 'almi';
-    if(['head shift','shoulders','ribcage','pelvis','knees'].indexOf(k)>=0)return 'posture';
+    if(k.indexOf('posture')>=0||k.indexOf('alignment')>=0||k.indexOf('effective head weight')>=0||['head shift','shoulders','ribcage','pelvis','knees'].indexOf(k)>=0)return 'posture';
     return null;
   }
   var style = document.createElement('style');
