@@ -88,6 +88,37 @@
     'phosphate': { what: 'A mineral important for bone, cell energy and kidney function.', highText: 'High levels can occur with reduced kidney excretion or other conditions.', lowText: 'Low levels can relate to nutrition, redistribution or certain medicines.' }
   };
   var aliases = { 'sex hormone binding globulin':'shbg','haemoglobin a1c':'hba1c mmol/mol' };
+  // Non-blood measures: explanations and sourced reference context, never AFT-created cut-offs.
+  var metricGuide={
+    'vo2max': ['VO₂ max','The maximum amount of oxygen the body can use during intense exercise, expressed in mL/kg/min. It is a measure of aerobic fitness. Laboratory gas analysis measures it; watches and field tests estimate it.','Comparison depends on age, sex and test method; no universal normal number.','https://health.clevelandclinic.org/what-is-vo2-max-and-how-to-calculate-it'],
+    'body fat': ['Body fat percentage','The percentage of body weight made up of fat tissue. DEXA and smart scales estimate this differently.','Healthy comparisons depend on age, sex and measurement method; no single universal range.',''],
+    'lean mass': ['Lean mass','The mass of the body that is not fat, including muscle, organs and body water. It is not identical to skeletal muscle mass.','Interpret using the measurement method, body size and age/sex-specific reference data when available.',''],
+    'bone density': ['Bone density T-score','The number of standard deviations a bone-density measurement differs from a young-adult reference. A clinical T-score depends on the bone site tested.','At appropriate central DEXA sites, T-score above −1 is generally normal; −1 to above −2.5 is low bone mass; −2.5 or lower meets the densitometric osteoporosis threshold. These classifications are for appropriate patient groups and sites, not every body-composition scan.','https://iscd.org/official-positions-2023/'],
+    'visceral fat': ['Visceral fat','Fat carried around internal abdominal organs. Some DEXA methods estimate its cross-sectional area; scale-derived visceral-fat indices are device-specific.','Reference interpretations vary by measurement technique, age and sex; no universal cross-device cut-off.',''],
+    'resting heart rate': ['Resting heart rate','The number of heartbeats per minute while resting. It is influenced by conditioning, medicines, stress, sleep and illness.','The British Heart Foundation gives about 60–100 bpm as typical for adults; trained people may be below this without it necessarily being abnormal.','https://www.bhf.org.uk/informationsupport/how-a-healthy-heart-works/your-heart-rate'],
+    'blood pressure': ['Blood pressure','The force of blood on artery walls, reported as systolic pressure over diastolic pressure in mmHg.','NHS: readings are generally considered high at 140/90 or above in a clinic, or 135/85 or above at home. Both numbers and the testing setting matter.','https://www.nhs.uk/tests-and-treatments/blood-pressure-test/'],
+    'systolic': ['Systolic blood pressure','The top blood-pressure number: arterial pressure when the heart contracts to pump blood.','Interpret together with diastolic pressure and whether the reading was taken at home or in a clinic. NHS high-BP thresholds are 140/90 (clinic) or 135/85 (home).','https://www.nhs.uk/tests-and-treatments/blood-pressure-test/'],
+    'diastolic': ['Diastolic blood pressure','The bottom blood-pressure number: arterial pressure between heartbeats as the heart relaxes.','Interpret together with systolic pressure and whether the reading was taken at home or in a clinic. NHS high-BP thresholds are 140/90 (clinic) or 135/85 (home).','https://www.nhs.uk/tests-and-treatments/blood-pressure-test/'],
+    'sitting rising': ['Sitting-rising test','A functional test of sitting on the floor and rising again, reflecting mobility, lower-body strength, balance and coordination.','The score uses a defined test protocol; do not infer a clinical normal range from an AFT model band.',''],
+    'posture': ['Posture / body alignment','Measurements of relative head, shoulder, ribcage, pelvis or knee position in a posture assessment.','These describe alignment and asymmetry; no universal diagnostic threshold applies to each displacement.',''],
+    'almi': ['Appendicular lean mass index','Lean mass in arms and legs, divided by height squared. It is used to describe relative limb lean mass.','Comparisons depend on measurement and age/sex-specific reference population.','']
+  };
+  function metricKey(name){
+    var k=(name||'').toLowerCase().replace(/₂/g,'2').replace(/[^a-z0-9]+/g,' ').trim();
+    if(k.indexOf('vo2')>=0)return 'vo2max';
+    if(k.indexOf('body fat')>=0)return 'body fat';
+    if(k.indexOf('lean mass')>=0 || k.indexOf('muscle mass')>=0)return 'lean mass';
+    if(k.indexOf('bone density')>=0 || k.indexOf('bone t score')>=0)return 'bone density';
+    if(k.indexOf('visceral')>=0)return 'visceral fat';
+    if(k.indexOf('resting heart')>=0 || k==='resting hr')return 'resting heart rate';
+    if(k.indexOf('systolic')>=0)return 'systolic';
+    if(k.indexOf('diastolic')>=0)return 'diastolic';
+    if(k==='blood pressure')return 'blood pressure';
+    if(k.indexOf('sitting rising')>=0 || k.indexOf('old man test')>=0)return 'sitting rising';
+    if(k.indexOf('almi')>=0)return 'almi';
+    if(['head shift','shoulders','ribcage','pelvis','knees'].indexOf(k)>=0)return 'posture';
+    return null;
+  }
   var style = document.createElement('style');
   style.textContent = [
     '.bm.bm-explainable{position:relative;cursor:help;padding-right:38px}',
