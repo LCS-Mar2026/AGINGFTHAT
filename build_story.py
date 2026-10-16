@@ -24,13 +24,13 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-EYEBROW="GUT & HEALTHSPAN"
-STATEMENT=("Butyrate and Biological Age: The Molecule Your Gut Bacteria Make From Fibre")
-CAPTION=("Fibre is more than roughage: gut microbes ferment some fibres into butyrate, a molecule studied for its effects on colon cells, the gut barrier and gene regulation. The evidence supports fibre as a healthspan priority, but does not prove butyrate reverses biological age. Start with a varied, gradual, measurable fibre habit.")
+EYEBROW="NUTRITION & HEALTHSPAN"
+STATEMENT=("The Sodium-to-Potassium Ratio: The Number That Decides What Salt Actually Does to You")
+CAPTION=("Salt is not the problem. The ratio is. Ancestral diets ran near 1:10 sodium to potassium, the modern western diet runs close to 1:0.5, and the PURE study found the ratio predicts cardiovascular risk better than either mineral alone. Chase potassium, keep sodium moderate, and let plants do most of the work.")
 FOOTER="New articles daily at agingfthat.com/blog"
 TAGS="#healthspan #longevity"
 PILL="BLOG · LINK IN BIO"
-OUT="social/butyrate-fibre-biological-age-story"
+OUT="social/sodium-to-potassium-ratio-healthspan-story"
 
 ART_H=int(H*0.40)
 art=Image.open("/tmp/hero.webp").convert("RGB")

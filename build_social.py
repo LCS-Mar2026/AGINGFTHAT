@@ -25,11 +25,11 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-TITLE="Butyrate and Biological Age: The Molecule Your Gut Bacteria Make From Fibre"
-EYEBROW="GUT & HEALTHSPAN"
+TITLE="The Sodium-to-Potassium Ratio: The Number That Decides What Salt Actually Does to You"
+EYEBROW="NUTRITION & HEALTHSPAN"
 LINE="New articles daily at agingfthat.com/blog"
 PILL="BLOG · LINK IN BIO"
-OUT="social/butyrate-fibre-biological-age"
+OUT="social/sodium-to-potassium-ratio-healthspan"
 
 art=Image.open("/tmp/hero.webp").convert("RGB")
 BAND=int(H*0.472)

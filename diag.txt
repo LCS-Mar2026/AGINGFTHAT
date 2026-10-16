@@ -1,4 +1,4 @@
-render OK (1440, 1800) 1080 file bytes 268385 sha256 419fdd65a3040a1303854c8261a94b7eb0c98f4943c142976197ecc6b0854e63
+render OK (1440, 1800) 1080 file bytes 276191 sha256 846471be8f82d8894af268f7289368d084156f5eca9a8ce14fdebff5faff3dd6
 content ends y: 1617 | pill top: 1646 | fits: True
 content ends y: 1472 | pill top: 1770 | gap: 298 | fits: True
-story OK (1080, 1920) bytes 384876 sha256 a2237be48ad82e39cf28140e2093b028cd771eb6ab4acd63c9bf0c2fadf87ad8
+story OK (1080, 1920) bytes 388355 sha256 db4c320966f718fa4fa8c6985a661c998bdc0ccb49e8b0521b96cd4d00fc782c
