@@ -1,8 +1,16 @@
 name: social16
+
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "build_social.py"
+      - "build_story.py"
+      - ".github/workflows/social16.yml"
+
 permissions:
   contents: write
+
 jobs:
   p:
     runs-on: ubuntu-latest
@@ -12,14 +20,23 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install --quiet pillow
-      - run: curl -sSL -o /tmp/hero.webp https://cdn.marblism.com/npieiSh7qh-.webp
-      - run: curl -sSL -o /tmp/Montserrat.ttf https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf
-      - run: curl -sSL -o build_social.py https://cdn.marblism.com/ZG2NYQebS2h.py
-      - run: curl -sSL -o build_story.py https://cdn.marblism.com/xHpU0uMj2Vt.py
-      - run: python3 build_social.py 2>&1 | tee diag.txt
-      - run: python3 build_story.py 2>&1 | tee -a diag.txt
-      - run: git config user.email penny@agingfthat.com
-      - run: git config user.name Penny
-      - run: git add -A social/ diag.txt build_social.py build_story.py
-      - run: git commit -m Social-imagery-for-the-14-October-butyrate-article
-      - run: git push
+      - name: Fetch today's artwork, font and render scripts
+        run: |
+          set -e
+          curl -sSL -o /tmp/hero.webp https://cdn.marblism.com/V8p8BiAdbld.webp
+          file /tmp/hero.webp
+          curl -sSL -o /tmp/Montserrat.ttf https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf
+      - name: Render POST and STORY
+        run: |
+          set -e
+          python3 build_social.py 2>&1 | tee diag.txt
+          python3 build_story.py 2>&1 | tee -a diag.txt
+          ls -la social/
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A social/ diag.txt
+          git commit -m "Social imagery for the 16 October sodium-to-potassium article [automated]"
+          git push
