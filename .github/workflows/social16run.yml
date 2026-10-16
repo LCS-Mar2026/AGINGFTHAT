@@ -1,0 +1,42 @@
+name: social16run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/social16run.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - name: Fetch scripts, artwork, logo and font
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/WU_qegqlqPA.py -o build_social.py
+          curl -sSL https://cdn.marblism.com/dhxRuCDNE-8.py -o build_story.py
+          curl -sSL https://cdn.marblism.com/V8p8BiAdbld.webp -o /tmp/hero.webp
+          curl -sSL https://raw.githubusercontent.com/LCS-Mar2026/AGINGFTHAT/main/aft-logo.png -o aft-logo.png
+          curl -sSL https://raw.githubusercontent.com/google/fonts/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf -o /tmp/Montserrat.ttf
+      - name: Render POST and STORY
+        run: |
+          set -e
+          python3 build_social.py 2>&1 | tee diag.txt
+          python3 build_story.py 2>&1 | tee -a diag.txt
+          ls -la social/
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A social/ diag.txt build_social.py build_story.py
+          git commit -m "Build the 16 October social images [automated]"
+          git push
