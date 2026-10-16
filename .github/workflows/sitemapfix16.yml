@@ -1,0 +1,30 @@
+name: sitemapfix16
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/sitemapfix16.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the updated sitemap from the CDN
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/p2m9qg8f_We.xml -o sitemap.xml
+          grep -q 'sodium-to-potassium-ratio-healthspan' sitemap.xml
+          grep -q '<urlset' sitemap.xml
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A sitemap.xml
+          git commit -m "Add the 16 October article to the sitemap"
+          git push
