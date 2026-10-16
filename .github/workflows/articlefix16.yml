@@ -1,0 +1,32 @@
+name: articlefix16
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/articlefix16.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the full 16 October article from the CDN
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/s5Fji0cskGT.html -o blog/sodium-to-potassium-ratio-healthspan.html
+          wc -c blog/sodium-to-potassium-ratio-healthspan.html
+          grep -q 'application/ld+json' blog/sodium-to-potassium-ratio-healthspan.html
+          grep -q 'within a 10 mile radius of Brighton' blog/sodium-to-potassium-ratio-healthspan.html
+          test $(grep -c 'href="https://agingfthat.com/blog/' blog/sodium-to-potassium-ratio-healthspan.html) -ge 3
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog/sodium-to-potassium-ratio-healthspan.html
+          git commit -m "Restore the full 16 October article with structured data"
+          git push
