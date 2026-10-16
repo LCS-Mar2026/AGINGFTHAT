@@ -1,24 +1,4 @@
-== daily artwork (fresh graphic, never the article hero, never a human figure) ==
-artwork http=200 bytes=800198
-/tmp/hero.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1024x1024, Scaling: [none]x[none], YUV color, decoders should clamp
-artwork sha256: 8ebaf9bd8df525639714a85dbfc926044cf4dfdfa456d89ef4e8bada9147399f
-== font ==
-font http=200 bytes=744936
-== render ==
-render OK (1440, 1800) 1080 file bytes 353166 sha256 d3e9a231a96ce59c95a9431c6c2999eeec7ca5eba1d2323f0803f43f20428048
+render OK (1440, 1800) 1080 file bytes 268385 sha256 419fdd65a3040a1303854c8261a94b7eb0c98f4943c142976197ecc6b0854e63
 content ends y: 1617 | pill top: 1646 | fits: True
 content ends y: 1472 | pill top: 1770 | gap: 298 | fits: True
-story OK (1080, 1920) bytes 501397 sha256 2520338c703ed8e45088e629d252a671a5e655f933886bbdf8cfc1767f21368c
-== result ==
-total 3436
-drwxr-xr-x 2 runner runner   4096 Oct 15 06:24 .
-drwxr-xr-x 8 runner runner   4096 Oct 15 06:24 ..
--rw-r--r-- 1 runner runner 431189 Oct 15 06:24 balance-after-40-one-legged-stance-1440.jpg
--rw-r--r-- 1 runner runner 306904 Oct 15 06:24 balance-after-40-one-legged-stance-story.jpg
--rw-r--r-- 1 runner runner 180577 Oct 15 06:24 balance-after-40-one-legged-stance.jpg
--rw-r--r-- 1 runner runner 780153 Oct 15 06:24 butyrate-fibre-biological-age-1440.jpg
--rw-r--r-- 1 runner runner 501397 Oct 15 06:24 butyrate-fibre-biological-age-story.jpg
--rw-r--r-- 1 runner runner 353166 Oct 15 06:24 butyrate-fibre-biological-age.jpg
--rw-r--r-- 1 runner runner 429774 Oct 15 06:24 how-to-read-biological-age-results-1440.jpg
--rw-r--r-- 1 runner runner 325391 Oct 15 06:24 how-to-read-biological-age-results-story.jpg
--rw-r--r-- 1 runner runner 180642 Oct 15 06:24 how-to-read-biological-age-results.jpg
+story OK (1080, 1920) bytes 384876 sha256 a2237be48ad82e39cf28140e2093b028cd771eb6ab4acd63c9bf0c2fadf87ad8
