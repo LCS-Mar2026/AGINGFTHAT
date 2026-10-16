@@ -1,4 +1,27 @@
-render OK (1440, 1800) 1080 file bytes 276191 sha256 846471be8f82d8894af268f7289368d084156f5eca9a8ce14fdebff5faff3dd6
+== daily artwork (fresh graphic, never the article hero, never a human figure) ==
+artwork http=200 bytes=800198
+/tmp/hero.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1024x1024, Scaling: [none]x[none], YUV color, decoders should clamp
+artwork sha256: 8ebaf9bd8df525639714a85dbfc926044cf4dfdfa456d89ef4e8bada9147399f
+== font ==
+font http=200 bytes=744936
+== render ==
+render OK (1440, 1800) 1080 file bytes 360882 sha256 0164c690c1b2289efe77245b3b1c078d41fe6258ab376bddaa226b2c1da18425
 content ends y: 1617 | pill top: 1646 | fits: True
 content ends y: 1472 | pill top: 1770 | gap: 298 | fits: True
-story OK (1080, 1920) bytes 388355 sha256 db4c320966f718fa4fa8c6985a661c998bdc0ccb49e8b0521b96cd4d00fc782c
+story OK (1080, 1920) bytes 504827 sha256 131347cf1d53ae763b226e86dc4cf995578ff936f72a3a0aeb5d542ef49a7b4c
+== result ==
+total 4696
+drwxr-xr-x 2 runner runner   4096 Oct 16 14:50 .
+drwxr-xr-x 9 runner runner   4096 Oct 16 14:50 ..
+-rw-r--r-- 1 runner runner 431189 Oct 16 14:50 balance-after-40-one-legged-stance-1440.jpg
+-rw-r--r-- 1 runner runner 306904 Oct 16 14:50 balance-after-40-one-legged-stance-story.jpg
+-rw-r--r-- 1 runner runner 180577 Oct 16 14:50 balance-after-40-one-legged-stance.jpg
+-rw-r--r-- 1 runner runner 604488 Oct 16 14:50 butyrate-fibre-biological-age-1440.jpg
+-rw-r--r-- 1 runner runner 384876 Oct 16 14:50 butyrate-fibre-biological-age-story.jpg
+-rw-r--r-- 1 runner runner 268385 Oct 16 14:50 butyrate-fibre-biological-age.jpg
+-rw-r--r-- 1 runner runner 429774 Oct 16 14:50 how-to-read-biological-age-results-1440.jpg
+-rw-r--r-- 1 runner runner 325391 Oct 16 14:50 how-to-read-biological-age-results-story.jpg
+-rw-r--r-- 1 runner runner 180642 Oct 16 14:50 how-to-read-biological-age-results.jpg
+-rw-r--r-- 1 runner runner 796297 Oct 16 14:50 sodium-to-potassium-ratio-healthspan-1440.jpg
+-rw-r--r-- 1 runner runner 504827 Oct 16 14:50 sodium-to-potassium-ratio-healthspan-story.jpg
+-rw-r--r-- 1 runner runner 360882 Oct 16 14:50 sodium-to-potassium-ratio-healthspan.jpg
