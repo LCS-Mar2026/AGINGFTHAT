@@ -1,0 +1,31 @@
+name: blogfix16
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/blogfix16.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the verified listing from the CDN
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/AkteTB8IpTz.html -o blog.html
+          wc -c blog.html
+          grep -c 'src="blog/images/' blog.html || true
+          ! grep -q ' srs="' blog.html
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog.html
+          git commit -m "Fix the last srs typo on the blog listing via CI"
+          git push
