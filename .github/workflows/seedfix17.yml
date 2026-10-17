@@ -1,0 +1,33 @@
+name: seedfix17
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/seedfix17.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the seed-oils article and repair the placeholder
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/XsxRC1SBVXQ.html -o blog/seed-oils-food-supply-healthspan.html
+          wc -c blog/seed-oils-food-supply-healthspan.html
+          ! grep -q 'PLACEHOLDER' blog/seed-oils-food-supply-healthspan.html
+          grep -q 'application/ld+json' blog/seed-oils-food-supply-healthspan.html
+          grep -q 'within a 10 mile radius of Brighton' blog/seed-oils-food-supply-healthspan.html
+          test $(grep -c 'href="https://agingfthat.com/blog/' blog/seed-oils-food-supply-healthspan.html) -ge 3
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog/seed-oils-food-supply-healthspan.html
+          git commit -m "Restore the full 17 October seed-oils article"
+          git push
