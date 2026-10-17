@@ -1,0 +1,37 @@
+name: promopurge17
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/promopurge17.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the de-promoted articles and verify the promotional blocks are gone
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/VjRIhz1kEPf.html -o blog/sodium-to-potassium-ratio-healthspan.html
+          curl -sSL https://cdn.marblism.com/WkuD9SOPBz5.html -o blog/butyrate-fibre-biological-age.html
+          ! grep -q 'wa.me' blog/sodium-to-potassium-ratio-healthspan.html
+          ! grep -q 'wa.me' blog/butyrate-fibre-biological-age.html
+          ! grep -qi 'Elite Age Reversal' blog/sodium-to-potassium-ratio-healthspan.html
+          ! grep -qi 'Elite Age Reversal' blog/butyrate-fibre-biological-age.html
+          ! grep -q 'METHOD IN PRACTICE' blog/butyrate-fibre-biological-age.html
+          ! grep -q 'became a personal trainer' blog/butyrate-fibre-biological-age.html
+          grep -q 'application/ld+json' blog/sodium-to-potassium-ratio-healthspan.html
+          grep -q 'application/ld+json' blog/butyrate-fibre-biological-age.html
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog/sodium-to-potassium-ratio-healthspan.html blog/butyrate-fibre-biological-age.html
+          git commit -m "Remove promotional author blocks from articles per Lee 17 Oct"
+          git push
