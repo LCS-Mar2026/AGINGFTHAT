@@ -1,0 +1,35 @@
+name: seedoils17
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/seedoils17.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the verified 17 October seed-oils files from the CDN
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/MBOoqcRycOB.html -o blog/seed-oils-food-supply-healthspan.html
+          curl -sSL https://cdn.marblism.com/l4whyTKm_18.html -o blog.html
+          curl -sSL https://cdn.marblism.com/Tn50Bd4sIGn.xml -o sitemap.xml
+          curl -sSL https://cdn.marblism.com/Oh3xu-TqeA0.py -o scripts/build_public.py
+          grep -q 'The Hidden Fats' blog/seed-oils-food-supply-healthspan.html
+          grep -q 'seed-oils-food-supply-healthspan' blog.html
+          grep -q 'seed-oils-food-supply-healthspan' sitemap.xml
+          grep -q 'seed-oils-food-supply-healthspan' scripts/build_public.py
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog/seed-oils-food-supply-healthspan.html blog.html sitemap.xml scripts/build_public.py
+          git commit -m "Publish the 17 October seed oils article with listing, sitemap and whitelist"
+          git push
