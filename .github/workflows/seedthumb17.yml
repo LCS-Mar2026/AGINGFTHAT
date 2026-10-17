@@ -1,0 +1,46 @@
+name: seedthumb17
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/seedthumb17.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow requests
+      - name: Fetch the seed-oils hero and store it as the listing thumbnail
+        run: |
+          set -e
+          python3 - <<'PY'
+          import requests, io
+          from PIL import Image
+          r = requests.get('https://cdn.marblism.com/KwizQuc3ZPz.webp', timeout=60)
+          im = Image.open(io.BytesIO(r.content)).convert('RGB')
+          if im.width > 1200:
+              im = im.resize((1200, int(im.height*1200/im.width)), Image.LANCZOS)
+          import pathlib
+          out = pathlib.Path('blog/images'); out.mkdir(parents=True, exist_ok=True)
+          b = io.BytesIO()
+          im.save(b, 'JPEG', quality=82, subsampling=0, optimize=True)
+          (out / 'seed-oils-food-supply-healthspan.jpg').write_bytes(b.getvalue())
+          print('thumb bytes:', len(b.getvalue()), im.size)
+          PY
+          ls -la blog/images/seed-oils-food-supply-healthspan.jpg
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog/images/seed-oils-food-supply-healthspan.jpg
+          git commit -m "Store the seed-oils listing thumbnail in the repo"
+          git push
