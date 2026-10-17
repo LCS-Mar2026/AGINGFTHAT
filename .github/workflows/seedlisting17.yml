@@ -1,0 +1,36 @@
+name: seedlisting17
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/seedlisting17.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the updated listing, sitemap and whitelist
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/b4gEb3ksrqn.html -o blog.html
+          curl -sSL https://cdn.marblism.com/c_5-jSzSCvy.xml -o sitemap.xml
+          curl -sSL https://cdn.marblism.com/U0_ps-CvSxQ.py -o scripts/build_public.py
+          grep -q 'seed-oils-food-supply-healthspan' blog.html
+          grep -q 'seed-oils-food-supply-healthspan' sitemap.xml
+          grep -q 'seed-oils-food-supply-healthspan' scripts/build_public.py
+          ! grep -q 'PLACEHOLDER' blog.html sitemap.xml scripts/build_public.py
+          python3 -m py_compile scripts/build_public.py
+          python3 -c "import xml.dom.minidom,sys; xml.dom.minidom.parse('sitemap.xml')"
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog.html sitemap.xml scripts/build_public.py
+          git commit -m "Add the 17 October seed-oils article to listing, sitemap and whitelist"
+          git push
