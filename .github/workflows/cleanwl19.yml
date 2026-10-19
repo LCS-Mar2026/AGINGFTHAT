@@ -1,0 +1,31 @@
+name: Clean deploy whitelist 19 Oct
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/cleanwl19.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  wl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove never-built seed-oils social entries from whitelist and dry-run the build
+        run: |
+          echo 'aW1wb3J0IHJlCnAgPSAic2NyaXB0cy9idWlsZF9wdWJsaWMucHkiCncgPSBvcGVuKHAsIGVuY29kaW5nPSJ1dGYtOCIpLnJlYWQoKQpmb3IgbmFtZSBpbiBbInNvY2lhbC9zZWVkLW9pbHMtZm9vZC1zdXBwbHktaGVhbHRoc3Bhbi5qcGciLCAic29jaWFsL3NlZWQtb2lscy1mb29kLXN1cHBseS1oZWFsdGhzcGFuLTE0NDAuanBnIiwgInNvY2lhbC9zZWVkLW9pbHMtZm9vZC1zdXBwbHktaGVhbHRoc3Bhbi1zdG9yeS5qcGciXToKICAgIGZvciBwYXQgaW4gKCciJyArIG5hbWUgKyAnIiwgJywgJywgIicgKyBuYW1lICsgJyInLCAnIicgKyBuYW1lICsgJyInKToKICAgICAgICB3ID0gdy5yZXBsYWNlKHBhdCwgIiIsIDEpCm9wZW4ocCwgInciLCBlbmNvZGluZz0idXRmLTgiKS53cml0ZSh3KQpwcmludCgid2hpdGVsaXN0IGNsZWFuZWQiKQo=' | base64 -d > clean_whitelist.py
+          python3 clean_whitelist.py
+          python3 -m py_compile scripts/build_public.py
+          python3 scripts/build_public.py
+      - name: Commit cleaned whitelist
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A scripts/build_public.py clean_whitelist.py
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Remove never-built seed-oils social entries from deploy whitelist"
+          git push
