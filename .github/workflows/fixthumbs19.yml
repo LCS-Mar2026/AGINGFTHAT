@@ -19,27 +19,15 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install --quiet pillow requests
-      - name: Fetch artwork and convert to card thumbnails with Pillow
+      - name: Write generator script and run it
         run: |
-          set -e
-          python3 -c "import requests, io
-from PIL import Image
-out = 'blog/images'
-for slug, url in [('creatine-brain-phosphate-buffer','https://cdn.marblism.com/VCezZc1RB9N.webp'),('multivitamin-myth-blood-test-first','https://cdn.marblism.com/KwizQuc3ZPz.webp')]:
-    r = requests.get(url, timeout=60)
-    im = Image.open(io.BytesIO(r.content)).convert('RGB')
-    if im.width > 1200:
-        im = im.resize((1200, int(im.height*1200/im.width)), Image.LANCZOS)
-    im.save(out + '/' + slug + '.jpg', 'JPEG', quality=92)
-    print(slug, im.size)
-"
-          file blog/images/creatine-brain-phosphate-buffer.jpg
-          file blog/images/multivitamin-myth-blood-test-first.jpg
+          echo 'aW1wb3J0IHJlcXVlc3RzLCBpbywgb3MKZnJvbSBQSUwgaW1wb3J0IEltYWdlCnBhaXJzID0gWwogICAgKCJjcmVhdGluZS1icmFpbi1waG9zcGhhdGUtYnVmZmVyIiwgImh0dHBzOi8vY2RuLm1hcmJsaXNtLmNvbS9WQ2V6WmMxUkI5Ti53ZWJwIiksCiAgICAoIm11bHRpdml0YW1pbi1teXRoLWJsb29kLXRlc3QtZmlyc3QiLCAiaHR0cHM6Ly9jZG4ubWFyYmxpc20uY29tL0t3aXpRdWMzWlB6LndlYnAiKSwKXQpvcy5tYWtlZGlycygiYmxvZy9pbWFnZXMiLCBleGlzdF9vaz1UcnVlKQpmb3Igc2x1ZywgdXJsIGluIHBhaXJzOgogICAgciA9IHJlcXVlc3RzLmdldCh1cmwsIHRpbWVvdXQ9NjApCiAgICByLnJhaXNlX2Zvcl9zdGF0dXMoKQogICAgaW0gPSBJbWFnZS5vcGVuKGlvLkJ5dGVzSU8oci5jb250ZW50KSkuY29udmVydCgiUkdCIikKICAgIGlmIGltLndpZHRoID4gMTIwMDoKICAgICAgICBpbSA9IGltLnJlc2l6ZSgoMTIwMCwgaW50KGltLmhlaWdodCAqIDEyMDAgLyBpbS53aWR0aCkpLCBJbWFnZS5MQU5DWk9TKQogICAgcGF0aCA9ICJibG9nL2ltYWdlcy8iICsgc2x1ZyArICIuanBnIgogICAgaW0uc2F2ZShwYXRoLCAiSlBFRyIsIHF1YWxpdHk9OTIpCiAgICBwcmludChzbHVnLCBpbS5zaXplLCBvcy5wYXRoLmdldHNpemUocGF0aCkpCg==' | base64 -d > gen_thumbs.py
+          python3 gen_thumbs.py
       - name: Commit thumbnails
         run: |
           set -e
           git config user.email penny@agingfthat.com
           git config user.name Penny
-          git add -A blog/images/creatine-brain-phosphate-buffer.jpg blog/images/multivitamin-myth-blood-test-first.jpg
-          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Fix creatine and multivitamin card thumbnails via CI (Pillow)"
+          git add -A blog/images/creatine-brain-phosphate-buffer.jpg blog/images/multivitamin-myth-blood-test-first.jpg gen_thumbs.py
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Fix creatine and multivitamin card thumbnails via CI generator"
           git push
