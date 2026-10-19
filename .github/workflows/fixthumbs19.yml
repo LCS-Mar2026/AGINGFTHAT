@@ -15,16 +15,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fetch artwork and convert to card thumbnails
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow requests
+      - name: Fetch artwork and convert to card thumbnails with Pillow
         run: |
           set -e
-          curl -sSL https://cdn.marblism.com/VCezZc1RB9N.webp -o /tmp/creatine.webp
-          file /tmp/creatine.webp
-          convert /tmp/creatine.webp -resize 1200x -quality 92 blog/images/creatine-brain-phosphate-buffer.jpg
+          python3 -c "import requests, io
+from PIL import Image
+out = 'blog/images'
+for slug, url in [('creatine-brain-phosphate-buffer','https://cdn.marblism.com/VCezZc1RB9N.webp'),('multivitamin-myth-blood-test-first','https://cdn.marblism.com/KwizQuc3ZPz.webp')]:
+    r = requests.get(url, timeout=60)
+    im = Image.open(io.BytesIO(r.content)).convert('RGB')
+    if im.width > 1200:
+        im = im.resize((1200, int(im.height*1200/im.width)), Image.LANCZOS)
+    im.save(out + '/' + slug + '.jpg', 'JPEG', quality=92)
+    print(slug, im.size)
+"
           file blog/images/creatine-brain-phosphate-buffer.jpg
-          curl -sSL https://cdn.marblism.com/KwizQuc3ZPz.webp -o /tmp/multivit.webp
-          file /tmp/multivit.webp
-          convert /tmp/multivit.webp -resize 1200x -quality 92 blog/images/multivitamin-myth-blood-test-first.jpg
           file blog/images/multivitamin-myth-blood-test-first.jpg
       - name: Commit thumbnails
         run: |
@@ -32,5 +41,5 @@ jobs:
           git config user.email penny@agingfthat.com
           git config user.name Penny
           git add -A blog/images/creatine-brain-phosphate-buffer.jpg blog/images/multivitamin-myth-blood-test-first.jpg
-          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Fix creatine and multivitamin card thumbnails via CI"
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Fix creatine and multivitamin card thumbnails via CI (Pillow)"
           git push
