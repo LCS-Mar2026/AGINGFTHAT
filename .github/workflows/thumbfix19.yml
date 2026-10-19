@@ -1,0 +1,35 @@
+name: thumbfix19
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/thumbfix19.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch the fixed multivitamin hero thumbnail and write it into the repo
+        run: |
+          set -e
+          curl -sSL https://cdn.marblism.com/i9NlNjeKTgi.jpg -o blog/images/multivitamin-myth-blood-test-first.jpg
+          file blog/images/multivitamin-myth-blood-test-first.jpg
+          python3 - <<'PY'
+          from PIL import Image
+          im = Image.open('blog/images/multivitamin-myth-blood-test-first.jpg')
+          im.verify()
+          print('thumb verified:', im.size, im.format)
+          PY
+      - name: Commit and push
+        run: |
+          set -e
+          git config user.email penny@agingfthat.com
+          git config user.name Penny
+          git add -A blog/images/multivitamin-myth-blood-test-first.jpg
+          git commit -m "Fix corrupt multivitamin hero thumbnail via CI"
+          git push
