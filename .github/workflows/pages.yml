@@ -11,13 +11,25 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: python3 -m pip install 'Pillow>=11,<13'
       - run: python3 build_dashboard.py
       - run: python3 scripts/build_public.py
+      - name: Preserve imported artwork in the website repository
+        run: |
+          git config user.name "AFT website publisher"
+          git config user.email "penny@agingfthat.com"
+          git add -- '*.html' '*.css' assets/site-images
+          if ! git diff --cached --quiet; then
+            git commit -m "Store verified website artwork on AFT hosting"
+            git push origin HEAD:main
+          fi
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
