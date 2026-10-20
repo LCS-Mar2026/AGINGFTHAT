@@ -1,27 +1,4 @@
-== daily artwork (fresh graphic, never the article hero, never a human figure) ==
-artwork http=200 bytes=800198
-/tmp/hero.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1024x1024, Scaling: [none]x[none], YUV color, decoders should clamp
-artwork sha256: 8ebaf9bd8df525639714a85dbfc926044cf4dfdfa456d89ef4e8bada9147399f
-== font ==
-font http=200 bytes=744936
-== render ==
-render OK (1440, 1800) 1080 file bytes 360882 sha256 0164c690c1b2289efe77245b3b1c078d41fe6258ab376bddaa226b2c1da18425
+render OK (1440, 1800) 1080 file bytes 270389 sha256 991142c563dec50fb30a460f0a2576717e7dec85fe6dcf22a97b2686e3657a64
 content ends y: 1617 | pill top: 1646 | fits: True
 content ends y: 1472 | pill top: 1770 | gap: 298 | fits: True
-story OK (1080, 1920) bytes 504827 sha256 131347cf1d53ae763b226e86dc4cf995578ff936f72a3a0aeb5d542ef49a7b4c
-== result ==
-total 4696
-drwxr-xr-x 2 runner runner   4096 Oct 17 06:01 .
-drwxr-xr-x 9 runner runner   4096 Oct 17 06:01 ..
--rw-r--r-- 1 runner runner 431189 Oct 17 06:01 balance-after-40-one-legged-stance-1440.jpg
--rw-r--r-- 1 runner runner 306904 Oct 17 06:01 balance-after-40-one-legged-stance-story.jpg
--rw-r--r-- 1 runner runner 180577 Oct 17 06:01 balance-after-40-one-legged-stance.jpg
--rw-r--r-- 1 runner runner 604488 Oct 17 06:01 butyrate-fibre-biological-age-1440.jpg
--rw-r--r-- 1 runner runner 384876 Oct 17 06:01 butyrate-fibre-biological-age-story.jpg
--rw-r--r-- 1 runner runner 268385 Oct 17 06:01 butyrate-fibre-biological-age.jpg
--rw-r--r-- 1 runner runner 429774 Oct 17 06:01 how-to-read-biological-age-results-1440.jpg
--rw-r--r-- 1 runner runner 325391 Oct 17 06:01 how-to-read-biological-age-results-story.jpg
--rw-r--r-- 1 runner runner 180642 Oct 17 06:01 how-to-read-biological-age-results.jpg
--rw-r--r-- 1 runner runner 796297 Oct 17 06:02 sodium-to-potassium-ratio-healthspan-1440.jpg
--rw-r--r-- 1 runner runner 504827 Oct 17 06:02 sodium-to-potassium-ratio-healthspan-story.jpg
--rw-r--r-- 1 runner runner 360882 Oct 17 06:02 sodium-to-potassium-ratio-healthspan.jpg
+story OK (1080, 1920) bytes 382794 sha256 cecdf048608cd7a663b1a11998be65e23d1fcd365875be7bee74817066f5eb9c
