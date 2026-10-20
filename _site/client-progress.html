@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Progress Over Time | AGING?F***THAT!</title>
+<meta name="description" content="Private client progress over time: body composition trend lines and donut gauges across the 12-month three-point assessment cycle."/>
+<link rel="canonical" href="https://agingfthat.com/client-progress.html"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<link rel="stylesheet" href="report.css"/>
+<style>body::before{background-image:url(https://agingfthat.com/assets/site-images/artwork-47e2fefd93c2b1b4e9cb.webp);background-position:center}</style>
+</head>
+<body>
+<a href="admin.html" style="display:inline-block;color:var(--cyan);font-weight:900;text-decoration:none;font-size:12px;letter-spacing:.05em;padding:14px 20px 0">&larr; PRIVATE CLIENT AREA</a>
+<div class="mast"><img class="logo" alt="AGING?F***THAT!" src="aft-logo.png"/><div class="tagline">PROGRESS OVER TIME</div></div>
+<div id="content" style="display:none"></div>
+<div id="gate" style="max-width:420px;margin:14vh auto 0;padding:0 18px;text-align:center">
+  <img src="aft-logo.png" alt="AGING?F***THAT!" style="width:78%;max-width:340px;height:auto;margin:0 auto 10px;display:block"/>
+  <div style="font-weight:900;letter-spacing:.14em;font-size:12px;color:#e9fbff;padding:6px 0 16px">PROGRESS OVER TIME</div>
+  <div style="border:1px solid #168cc0;border-radius:18px;padding:22px;background:rgba(6,29,44,.72)">
+    <label for="pw" style="display:block;font-size:9.5px;letter-spacing:.12em;color:#a9c8d8;text-transform:uppercase;margin-bottom:9px">Admin password</label>
+    <input id="pw" type="password" autocomplete="current-password" style="width:100%;padding:12px 14px;border:1px solid #168cc0;border-radius:9px;background:#031522;color:#edfaff;font-size:15px;box-sizing:border-box"/>
+    <button id="btn" style="display:block;width:100%;margin-top:12px;padding:12px 14px;border:0;border-radius:9px;background:#2bc7ff;color:#031522;font-weight:900;letter-spacing:.06em;cursor:pointer;font-size:13px">OPEN</button>
+    <div id="err" style="color:#ff4b4b;font-size:12px;margin-top:10px;min-height:16px"></div>
+  </div>
+</div>
+<script>
+(function(){
+  var H='88fd5b3c36c67f85583f1ca1b411c84351a4890e887b2d7b9e8fec304550201e';
+  var SESSION_KEY='agnf_admin_v2';
+  var gate=document.getElementById('gate'),content=document.getElementById('content');
+  function digest(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
+  var NINETY_DAYS=90*24*60*60*1000;
+  function stillValid(){try{return Number(localStorage.getItem(SESSION_KEY)||0)>Date.now()}catch(e){return false}}
+  function grant(){try{localStorage.setItem(SESSION_KEY,String(Date.now()+NINETY_DAYS))}catch(e){}}
+  function unlock(){gate.style.display='none';content.style.display='block';window.scrollTo(0,0)}
+  function go(){digest(document.getElementById('pw').value).then(function(h){if(h===H){grant();unlock();}else{document.getElementById('err').textContent='Password not recognised.';}})}
+  document.getElementById('btn').addEventListener('click',go);
+  document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+  if(stillValid())unlock();
+})();
+</script>
+<footer style="border-top:1px solid #17435a;margin-top:48px;padding:20px 0 34px;text-align:center;color:#7899a9;font-size:11.5px">&copy; Lee C. Stonehouse &middot; AGING?F***THAT! &middot; Private client area</footer>
+</body>
+</html>

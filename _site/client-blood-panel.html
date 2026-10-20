@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Blood &amp; Hormone Panel | AGING?F***THAT!</title>
+<link rel="canonical" href="https://agingfthat.com/client-blood-panel.html"/>
+<link rel="icon" href="/favicon.ico" sizes="any"/>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/site.webmanifest"/>
+<style>
+:root{--bg:#031522;--panel:#061d2c;--line:#123c52;--text:#edfaff;--muted:#a9c8d8;--cyan:#2bc7ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Arial,Helvetica,sans-serif;min-height:100vh}
+a{color:var(--cyan)}
+body::before{content:"";position:fixed;inset:0;z-index:-2;background-image:url('https://agingfthat.com/assets/site-images/artwork-75ee62417209eec2bc15.webp');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;opacity:.22}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(3,21,34,.78),rgba(2,11,18,.9))}
+</style></head><body>
+<div id="gate" style="max-width:420px;margin:14vh auto 0;padding:0 18px;text-align:center">
+  <div style="font-weight:900;letter-spacing:.14em;font-size:12px;color:#e9fbff;padding:6px 0 16px">PRIVATE CLIENT AREA</div>
+  <div style="border:1px solid #168cc0;border-radius:18px;padding:26px 22px;background:rgba(6,29,44,.78)">
+    <label for="pw" style="display:block;font-size:9.5px;letter-spacing:.12em;color:#a9c8d8;text-transform:uppercase;margin-bottom:9px">Admin password</label>
+    <input id="pw" type="password" autocomplete="current-password" style="width:100%;padding:12px 14px;border:1px solid #168cc0;border-radius:9px;background:#031522;color:#edfaff;font-size:15px;box-sizing:border-box"/>
+    <button id="btn" style="display:block;width:100%;margin-top:12px;padding:12px 14px;border:0;border-radius:9px;background:#2bc7ff;color:#031522;font-weight:900;letter-spacing:.06em;cursor:pointer;font-size:13px">OPEN</button>
+    <div id="err" style="color:#ff4b4b;font-size:12px;margin-top:10px;min-height:16px"></div>
+  </div>
+</div>
+<div id="content" style="display:none">
+<iframe src="client-report.html" style="width:100%;height:92vh;border:0;display:block"></iframe>
+</div>
+<script>
+(function(){
+  var H='88fd5b3c36c67f85583f1ca1b411c84351a4890e887b2d7b9e8fec304550201e';
+  var SESSION_KEY='agnf_admin_v2';
+  var g=document.getElementById('gate'), c=document.getElementById('content');
+  function digest(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(b){return [...new Uint8Array(b)].map(function(x){return x.toString(16).padStart(2,'0')}).join('')})}
+  function valid(){try{return Number(localStorage.getItem(SESSION_KEY)||0)>Date.now()}catch(e){return false}}
+  function grant(){try{localStorage.setItem(SESSION_KEY,String(Date.now()+90*24*60*60*1000))}catch(e){}}
+  function show(){g.style.display='none';c.style.display='block'}
+  function go(){digest(document.getElementById('pw').value).then(function(h){if(h===H){grant();show()}else{document.getElementById('err').textContent='Password not recognised.'}})}
+  document.getElementById('btn').addEventListener('click',go);
+  document.getElementById('pw').addEventListener('keydown',function(e){if(e.key==='Enter')go()});
+  if(valid())show();
+})();
+</script></body></html>
