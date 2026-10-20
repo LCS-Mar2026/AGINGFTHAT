@@ -9,6 +9,7 @@ from hashlib import sha256
 from io import BytesIO
 from pathlib import Path
 from urllib.request import Request, urlopen
+from urllib.parse import unquote, urlsplit
 import re
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -16,6 +17,28 @@ URL = re.compile(r"https?://cdn\.marblism\.com/[^\s\"'<>\\)]+")
 MAX_BYTES = 20 * 1024 * 1024
 PORTAL_ARTWORK = ["https://cdn.marblism.com/f4-1J604s_r.webp",
                   "https://cdn.marblism.com/9J9277dyCCt.webp"]
+
+
+def normalize_root_assets(text, page):
+    """Repair shared root assets referenced relatively from article subfolders."""
+    def replacement(match):
+        value = match.group("asset")
+        parsed = urlsplit(value)
+        if parsed.scheme or parsed.netloc or not parsed.path or parsed.path.startswith("/"):
+            return match.group(0)
+        path = unquote(parsed.path)
+        if (page.parent / path).is_file():
+            return match.group(0)
+        candidate = (ROOT / path).resolve()
+        if not candidate.is_relative_to(ROOT.resolve()) or not candidate.is_file():
+            return match.group(0)
+        # Preserve any query string or fragment attached to the asset.
+        start, end = match.span("asset")
+        offset = match.start()
+        return match.group(0)[:start-offset] + "/" + value + match.group(0)[end-offset:]
+
+    text = re.sub(r"url\(\s*['\"]?(?P<asset>[^\s)'\"]+)['\"]?\s*\)", replacement, text)
+    return re.sub(r"\bsrc\s*=\s*['\"](?P<asset>[^'\"]+)['\"]", replacement, text)
 
 
 def localize(pages=None) -> int:
@@ -68,6 +91,7 @@ def localize(pages=None) -> int:
     for page, text in contents.items():
         for source, path in replacements.items():
             text = text.replace(source, "https://agingfthat.com" + path)
+        text = normalize_root_assets(text, page)
         page.write_text(text, encoding="utf-8")
     print("Verified", len(replacements), "artwork images on this site's own hosting")
     return len(replacements)
