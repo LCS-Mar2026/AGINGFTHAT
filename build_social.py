@@ -25,11 +25,11 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-TITLE="The Sodium-to-Potassium Ratio: The Number That Decides What Salt Actually Does to You"
-EYEBROW="NUTRITION & HEALTHSPAN"
+TITLE="Creatine Is a Brain Supplement: The Phosphate Buffer Your Head Runs Out of First"
+EYEBROW="BRAIN & HEALTHSPAN"
 LINE="New articles daily at agingfthat.com/blog"
 PILL="BLOG · LINK IN BIO"
-OUT="social/sodium-to-potassium-ratio-healthspan"
+OUT="social/creatine-brain-phosphate-buffer"
 
 art=Image.open("/tmp/hero.webp").convert("RGB")
 BAND=int(H*0.472)

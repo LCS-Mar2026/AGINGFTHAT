@@ -24,13 +24,13 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-EYEBROW="NUTRITION & HEALTHSPAN"
-STATEMENT=("The Sodium-to-Potassium Ratio: The Number That Decides What Salt Actually Does to You")
-CAPTION=("Salt is not the problem. The ratio is. Ancestral diets ran near 1:10 sodium to potassium, the modern western diet runs close to 1:0.5, and the PURE study found the ratio predicts cardiovascular risk better than either mineral alone. Chase potassium, keep sodium moderate, and let plants do most of the work.")
+EYEBROW="BRAIN & HEALTHSPAN"
+STATEMENT=("Creatine Is a Brain Supplement: The Phosphate Buffer Your Head Runs Out of First")
+CAPTION=("Creatine is famous for the gym, but its real job is energy buffering, and the brain leans on that buffer hardest. Supplementation raises brain phosphocreatine measurably, and the clearest cognitive benefits appear under stress: sleep loss, fatigue, heavy load. Creatine raises the floor, not the ceiling.")
 FOOTER="New articles daily at agingfthat.com/blog"
 TAGS="#healthspan #longevity"
 PILL="BLOG · LINK IN BIO"
-OUT="social/sodium-to-potassium-ratio-healthspan-story"
+OUT="social/creatine-brain-phosphate-buffer-story"
 
 ART_H=int(H*0.40)
 art=Image.open("/tmp/hero.webp").convert("RGB")
