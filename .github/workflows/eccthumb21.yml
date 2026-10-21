@@ -1,0 +1,34 @@
+name: Rebuild eccentric thumbnail 21 Oct
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/eccthumb21.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  thumb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow requests
+      - name: Render the eccentric thumbnail from the day's fresh artwork
+        run: |
+          echo 'aW1wb3J0IHJlcXVlc3RzLCBpbywgb3MsIGhhc2hsaWIKZnJvbSBQSUwgaW1wb3J0IEltYWdlCnJzID0gcmVxdWVzdHMuZ2V0KCJodHRwczovL2Nkbi5tYXJibGlzbS5jb20vNkwtUXVzTjdlcXEuMDAiLCB0aW1lb3V0PTYwKQpycy5yYWlzZV9mb3Jfc3RhdHVzKCkKaW0gPSBJbWFnZS5vcGVuKGlvLkJ5dGVzSU8ocnMuY29udGVudCkpLmNvbnZlcnQoIlJHQiIpCmlmIGltLndpZHRoID4gMTIwMDoKICAgIGltID0gaW0ucmVzaXplKCgxMjAwLCBpbnQoaW0uaGVpZ2h0KjEyMDAvaW0ud2lkdGgpKSwgSW1hZ2UuTEFOQ1pPUykKIyBjZW50ci1jcm9wIHRvIDM6MgpyYXRpbyA9IDMvMgpoaWcgPSBpbnQoaW0ud2lkdGggLyByYXRpbykKaWYgaGlnZyA8IGltLmhlaWdodDoKICAgIHl0ID0gKCBpbS5oZWlnaHQgLSBoaWcgKSAvIC8yIC0gMlswL3E6e2V4cHJ9Om5vbmVdCiAgICBpbSA9IGltLmNyb3AoKDAuIHl0LCBpbS53aWR0aCwgeXQgKyBoaWcpKQppbSA9IGltLnJlc2l6ZSggKDEyMDAsIDY3NSApLEltYWdlLkxBTkNaT1MpCnBhdGggPSAiYmxvZy9pbWFnZXMvZWNjZW50cmljLWxvd2VyaW5nLXN0cmVuZ3RoLXRyYWluaW5nLW92ZXItNTAuanBnIgppbS5zYXZlKHBhdGgsICJKUEVHIiwgcXVhbGl0eT05MikKYiA9IG9wZW4ocGF0aCwgInJiIikucmVhZCgpCnByaW50KCJ0aHVtYiB3cml0dGVuIiwgbGVuKGIpLCAiaGFzaGxpYiIsIGhhc2hsaWIuc2hhMjU2KGIpLmhleGRpZ2VzdCgpKQo=' | base64 -d > render_ecc_thumb.py
+          python3 render_ecc_thumb.py
+          file blog/images/eccentric-lowering-strength-training-over-50.jpg
+      - name: Commit the rebuilt thumbnail
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add -A blog/images/eccentric-lowering-strength-training-over-50.jpg render_ecc_thumb.py
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Rebuild the eccentric lowering card thumbnail from full artwork"
+          git push
