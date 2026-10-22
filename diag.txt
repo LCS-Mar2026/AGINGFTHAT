@@ -1,4 +1,32 @@
-render OK (1440, 1800) 1080 file bytes 270997 sha256 e379191fba76eb476229d1fbe3e98eb7be13ac2639e35956105aa2b05c50f8f6
+== daily artwork ==
+artwork http=200 bytes=789320
+/tmp/hero.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1008x1792, Scaling: [none]x[none], YUV color, decoders should clamp
+== font ==
+font http=200 bytes=744936
+== render ==
+render OK (1440, 1800) 1080 file bytes 268707 sha256 6c57b8e2d46f1178db3c0a62beabbf61ce80e28e4c4587ddb668b9ad16411aaa
 content ends y: 1617 | pill top: 1646 | fits: True
 content ends y: 1472 | pill top: 1770 | gap: 298 | fits: True
-story OK (1080, 1920) bytes 388807 sha256 9c36442b5683d0b05b677fe9abee62b95feb24417353f9934a4daa150c16696b
+story OK (1080, 1920) bytes 407559 sha256 ad4a9aa1b6db3bb2a0ebdda80a463f84a819bb2dbfa1d2c9378183acd289c707
+== result ==
+total 7416
+drwxr-xr-x  2 runner runner   4096 Oct 22 16:39 .
+drwxr-xr-x 10 runner runner   4096 Oct 22 16:39 ..
+-rw-r--r--  1 runner runner 431189 Oct 22 16:39 balance-after-40-one-legged-stance-1440.jpg
+-rw-r--r--  1 runner runner 306904 Oct 22 16:39 balance-after-40-one-legged-stance-story.jpg
+-rw-r--r--  1 runner runner 180577 Oct 22 16:39 balance-after-40-one-legged-stance.jpg
+-rw-r--r--  1 runner runner 604488 Oct 22 16:39 butyrate-fibre-biological-age-1440.jpg
+-rw-r--r--  1 runner runner 384876 Oct 22 16:39 butyrate-fibre-biological-age-story.jpg
+-rw-r--r--  1 runner runner 268385 Oct 22 16:39 butyrate-fibre-biological-age.jpg
+-rw-r--r--  1 runner runner 728852 Oct 22 16:39 creatine-brain-phosphate-buffer-1440.jpg
+-rw-r--r--  1 runner runner 449186 Oct 22 16:39 creatine-brain-phosphate-buffer-story.jpg
+-rw-r--r--  1 runner runner 323370 Oct 22 16:39 creatine-brain-phosphate-buffer.jpg
+-rw-r--r--  1 runner runner 601628 Oct 22 16:40 eccentric-lowering-strength-training-over-50-1440.jpg
+-rw-r--r--  1 runner runner 407559 Oct 22 16:40 eccentric-lowering-strength-training-over-50-story.jpg
+-rw-r--r--  1 runner runner 268707 Oct 22 16:40 eccentric-lowering-strength-training-over-50.jpg
+-rw-r--r--  1 runner runner 429774 Oct 22 16:39 how-to-read-biological-age-results-1440.jpg
+-rw-r--r--  1 runner runner 325391 Oct 22 16:39 how-to-read-biological-age-results-story.jpg
+-rw-r--r--  1 runner runner 180642 Oct 22 16:39 how-to-read-biological-age-results.jpg
+-rw-r--r--  1 runner runner 796297 Oct 22 16:39 sodium-to-potassium-ratio-healthspan-1440.jpg
+-rw-r--r--  1 runner runner 504827 Oct 22 16:39 sodium-to-potassium-ratio-healthspan-story.jpg
+-rw-r--r--  1 runner runner 360882 Oct 22 16:39 sodium-to-potassium-ratio-healthspan.jpg
