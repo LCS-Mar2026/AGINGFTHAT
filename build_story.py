@@ -24,13 +24,13 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-EYEBROW="BRAIN & HEALTHSPAN"
-STATEMENT=("Creatine Is a Brain Supplement: The Phosphate Buffer Your Head Runs Out of First")
-CAPTION=("Creatine is famous for the gym, but its real job is energy buffering, and the brain leans on that buffer hardest. Supplementation raises brain phosphocreatine measurably, and the clearest cognitive benefits appear under stress: sleep loss, fatigue, heavy load. Creatine raises the floor, not the ceiling.")
+EYEBROW="STRENGTH & HEALTHSPAN"
+STATEMENT=("The Lowering Half: Why the Way You Put a Weight Down Predicts How You Age")
+CAPTION=("Most people train the lift and rush the descent. The lowering half is a distinct muscle action, eccentric, where force is produced while the muscle lengthens. In older adults, supervised eccentric training has been linked with gains in strength, balance and everyday function. Control the way down and you train the whole repetition.")
 FOOTER="New articles daily at agingfthat.com/blog"
 TAGS="#healthspan #longevity"
 PILL="BLOG · LINK IN BIO"
-OUT="social/creatine-brain-phosphate-buffer-story"
+OUT="social/eccentric-lowering-strength-training-over-50-story"
 
 ART_H=int(H*0.40)
 art=Image.open("/tmp/hero.webp").convert("RGB")

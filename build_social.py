@@ -25,11 +25,11 @@ def wrap(d,t,f,maxw):
     if cur: out.append(cur)
     return out
 
-TITLE="Creatine Is a Brain Supplement: The Phosphate Buffer Your Head Runs Out of First"
-EYEBROW="BRAIN & HEALTHSPAN"
+TITLE="The Lowering Half: Why the Way You Put a Weight Down Predicts How You Age"
+EYEBROW="STRENGTH & HEALTHSPAN"
 LINE="New articles daily at agingfthat.com/blog"
 PILL="BLOG · LINK IN BIO"
-OUT="social/creatine-brain-phosphate-buffer"
+OUT="social/eccentric-lowering-strength-training-over-50"
 
 art=Image.open("/tmp/hero.webp").convert("RGB")
 BAND=int(H*0.472)
