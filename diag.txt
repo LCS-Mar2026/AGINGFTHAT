@@ -1,30 +1,4 @@
-== daily artwork (fresh graphic, never the article hero, never a human figure) ==
-artwork http=200 bytes=883104
-/tmp/hero.webp: RIFF (little-endian) data, Web/P image, VP8 encoding, 1792x1008, Scaling: [none]x[none], YUV color, decoders should clamp
-artwork sha256: cf10716d5d407003fa9cef5e505cd476ef23db1389d362f109986fef2f07e9bc
-== font ==
-font http=200 bytes=744936
-== render ==
-render OK (1440, 1800) 1080 file bytes 323370 sha256 5e50b279b09a5890940a434296c21d4042e596630fb5d7ef9f612003df14b82b
+render OK (1440, 1800) 1080 file bytes 270997 sha256 e379191fba76eb476229d1fbe3e98eb7be13ac2639e35956105aa2b05c50f8f6
 content ends y: 1617 | pill top: 1646 | fits: True
 content ends y: 1472 | pill top: 1770 | gap: 298 | fits: True
-story OK (1080, 1920) bytes 449186 sha256 7fdd467dc48097a59a9d131c4eb9c743f2e0cdc4ad362699e4baca484a686570
-== result ==
-total 6164
-drwxr-xr-x  2 runner runner   4096 Oct 21 14:15 .
-drwxr-xr-x 10 runner runner   4096 Oct 21 14:15 ..
--rw-r--r--  1 runner runner 431189 Oct 21 14:15 balance-after-40-one-legged-stance-1440.jpg
--rw-r--r--  1 runner runner 306904 Oct 21 14:15 balance-after-40-one-legged-stance-story.jpg
--rw-r--r--  1 runner runner 180577 Oct 21 14:15 balance-after-40-one-legged-stance.jpg
--rw-r--r--  1 runner runner 604488 Oct 21 14:15 butyrate-fibre-biological-age-1440.jpg
--rw-r--r--  1 runner runner 384876 Oct 21 14:15 butyrate-fibre-biological-age-story.jpg
--rw-r--r--  1 runner runner 268385 Oct 21 14:15 butyrate-fibre-biological-age.jpg
--rw-r--r--  1 runner runner 728852 Oct 21 14:15 creatine-brain-phosphate-buffer-1440.jpg
--rw-r--r--  1 runner runner 449186 Oct 21 14:15 creatine-brain-phosphate-buffer-story.jpg
--rw-r--r--  1 runner runner 323370 Oct 21 14:15 creatine-brain-phosphate-buffer.jpg
--rw-r--r--  1 runner runner 429774 Oct 21 14:15 how-to-read-biological-age-results-1440.jpg
--rw-r--r--  1 runner runner 325391 Oct 21 14:15 how-to-read-biological-age-results-story.jpg
--rw-r--r--  1 runner runner 180642 Oct 21 14:15 how-to-read-biological-age-results.jpg
--rw-r--r--  1 runner runner 796297 Oct 21 14:15 sodium-to-potassium-ratio-healthspan-1440.jpg
--rw-r--r--  1 runner runner 504827 Oct 21 14:15 sodium-to-potassium-ratio-healthspan-story.jpg
--rw-r--r--  1 runner runner 360882 Oct 21 14:15 sodium-to-potassium-ratio-healthspan.jpg
+story OK (1080, 1920) bytes 388807 sha256 9c36442b5683d0b05b677fe9abee62b95feb24417353f9934a4daa150c16696b
