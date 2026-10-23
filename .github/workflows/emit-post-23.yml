@@ -1,0 +1,43 @@
+name: Emit feed and master social files 23 Oct
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/emit-post-23.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  emit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - name: Build 1080x1350 feed file and 1440x1800 master
+        run: |
+          python3 - <<'PY'
+          from PIL import Image
+          slug = 'twenty-minute-dose-nature-cortisol'
+          master = Image.open('social/%s-1440.png' % slug).convert('RGB')
+          assert master.size == (1440, 1800), master.size
+          master.save('social/%s-1440.jpg' % slug, 'JPEG', quality=95, subsampling=0, optimize=True)
+          feed = master.resize((1080, 1350), Image.LANCZOS)
+          feed.save('social/%s.jpg' % slug, 'JPEG', quality=92, subsampling=0, optimize=True)
+          for p in ['social/%s.jpg' % slug, 'social/%s-1440.jpg' % slug]:
+              im = Image.open(p); im.verify()
+              print(p, Image.open(p).size)
+          PY
+      - name: Commit
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add -A social/
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Emit 1080x1350 feed file and 1440x1800 master for the 23 October post [automated]"
+          git push
