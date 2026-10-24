@@ -25,13 +25,13 @@ jobs:
           python3 scripts/build_24.py 2>&1 | tee diag24.txt
       - name: Verify what was written
         run: |
-          ls -l blog/social-connection-dose-response-mortality.html blog/images/social-connection-dose-response-mortality.jpg social/
-          python3 -c "from PIL import Image; [print(p, Image.open(p).size) for p in ['blog/images/social-connection-dose-response-mortality.jpg','social/social-connection-dose-response-mortality.jpg','social/social-connection-dose-response-mortality-story.jpg']]"
+          ls -l blog/muscle-full-effect-protein-one-big-meal.html blog.html sitemap.xml blog/images/muscle-full-effect-protein-one-big-meal.jpg social/
+          python3 -c "from PIL import Image; [print(p, Image.open(p).size) for p in ['blog/images/muscle-full-effect-protein-one-big-meal.jpg','social/muscle-full-effect-protein-one-big-meal.jpg','social/muscle-full-effect-protein-one-big-meal-1080.jpg','social/muscle-full-effect-protein-one-big-meal-story.jpg']]"
       - name: Commit
         run: |
           set -e
           git config user.name "Penny (Blog Writer)"
           git config user.email "penny@agingfthat.com"
           git add -A blog/ blog.html sitemap.xml social/ diag24.txt
-          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Publish the 24 October social connection article with images [automated]"
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Publish the 24 October muscle-full effect article with images [automated]"
           git push
