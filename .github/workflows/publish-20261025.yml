@@ -5,7 +5,6 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/publish-20261025.yml"
-      - "scripts/parts25/**"
   workflow_dispatch:
 
 permissions:
@@ -20,10 +19,22 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install --quiet pillow
-      - name: Assemble builder from parts
+      - name: Assemble builder from public CDN parts
         run: |
-          cat scripts/parts25/part1.txt scripts/parts25/part2.txt scripts/parts25/part3.txt scripts/parts25/part4.txt | tr -d '\n' | base64 -d > scripts/build_25.py
+          set -e
+          : > scripts/build_25.py
+          for u in \
+            "https://cdn.marblism.com/1ao7RRwl5_m.txt" \
+            "https://cdn.marblism.com/osfLCT9x7oF.txt" \
+            "https://cdn.marblism.com/HEWvzuhtdpe.txt" \
+            "https://cdn.marblism.com/t_UYNpagxXh.txt" ; do
+            curl -sSL "$u" >> scripts/parts25_joined.txt
+          done
+          mkdir -p scripts/parts25
+          cp scripts/parts25_joined.txt scripts/parts25/all.txt
+          tr -d '\n' < scripts/parts25/all.txt | base64 -d > scripts/build_25.py
           python3 -c "import hashlib; d=open('scripts/build_25.py','rb').read(); print('assembled', len(d), hashlib.sha256(d).hexdigest()[:16]); assert len(d)>20000"
+          python3 -c "import ast; ast.parse(open('scripts/build_25.py').read()); print('syntax ok')"
       - name: Build page, listing card, sitemap entry and images
         run: |
           python3 scripts/build_25.py 2>&1 | tee diag25.txt
@@ -36,6 +47,6 @@ jobs:
           set -e
           git config user.name "Penny (Blog Writer)"
           git config user.email "penny@agingfthat.com"
-          git add -A blog/ blog.html sitemap.xml social/ diag25.txt
+          git add -A blog/ blog.html sitemap.xml social/ scripts/parts25/ diag25.txt
           git diff --cached --quiet && echo "nothing to commit" || git commit -m "Publish the 25 October consistency article with images [automated]"
           git push
