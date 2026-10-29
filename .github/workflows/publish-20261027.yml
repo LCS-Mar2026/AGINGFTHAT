@@ -1,0 +1,57 @@
+name: Publish 27 October mirror-test article
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-20261027.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - name: Assemble builder from public CDN parts
+        run: |
+          set -e
+          : > scripts/parts27_joined.txt
+          for u in \
+            "https://cdn.marblism.com/jHaQOp5yLTZ.txt" \
+            "https://cdn.marblism.com/Ldsv-EJtQw4.txt" \
+            "https://cdn.marblism.com/BmWPjE3cGm-.txt" \
+            "https://cdn.marblism.com/WrV2XO3k9qP.txt" \
+            "https://cdn.marblism.com/edOHnsnCvDl.txt" \
+            "https://cdn.marblism.com/9oRtB9F4NPY.txt" \
+            "https://cdn.marblism.com/s8WWaRQdT96.txt" \
+            "https://cdn.marblism.com/yhwsyRy9bpw.txt" \
+            "https://cdn.marblism.com/PB6oYiVJ9q_.txt" ; do
+            curl -sSL "$u" >> scripts/parts27_joined.txt
+          done
+          mkdir -p scripts/parts27
+          cp scripts/parts27_joined.txt scripts/parts27/all.txt
+          tr -d '\n' < scripts/parts27/all.txt | base64 -d > scripts/build_27.py
+          python3 -c "import hashlib; d=open('scripts/build_27.py','rb').read(); print('assembled', len(d), hashlib.sha256(d).hexdigest()[:16]); assert len(d)>20000"
+          python3 -c "import ast; ast.parse(open('scripts/build_27.py').read()); print('syntax ok')"
+      - name: Build page, listing card, sitemap entry and images
+        run: |
+          python3 scripts/build_27.py 2>&1 | tee diag27.txt
+      - name: Verify what was written
+        run: |
+          ls -l blog/face-reads-biomarker-perceived-age.html blog.html sitemap.xml blog/images/face-reads-biomarker-perceived-age.jpg social/
+          python3 -c "from PIL import Image; [print(p, Image.open(p).size) for p in ['blog/images/face-reads-biomarker-perceived-age.jpg','social/face-reads-biomarker-perceived-age.jpg','social/face-reads-biomarker-perceived-age-1080.jpg','social/face-reads-biomarker-perceived-age-story.jpg']]"
+      - name: Commit
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add -A blog/ blog.html sitemap.xml social/ scripts/parts27/ diag27.txt
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Publish the 27 October mirror-test article with images [automated]"
+          git push
