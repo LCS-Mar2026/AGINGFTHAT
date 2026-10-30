@@ -1,6 +1,6 @@
 article words 1619 bytes 21086
-listing card added
-sitemap entry added
+listing card already present
+sitemap entry already present
 thumb 186316
 post fits True
 post 632487
