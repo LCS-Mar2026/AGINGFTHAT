@@ -1,0 +1,21 @@
+name: kwfix restore
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/kwfix-restore.yml"
+      - "scripts/kwfix_restore.sh"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore full glymphatic article with corrected keywords
+        run: |
+          bash scripts/kwfix_restore.sh
