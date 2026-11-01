@@ -1,10 +1,9 @@
-article words 1796 bytes 21912
-listing card added
-sitemap entry added
-thumb 152225
-post fits True
-post 578478
-post1080 376422
-story fits True
-story 388207
 DONE
+thumb 152225 bytes
+post fits True
+post 581990 bytes
+post1080 380677 bytes
+story fits True
+story 388207 bytes
+DONE
+Redeploy trigger 2026-11-01 06:07 UTC: Pages deploy for 28f700c raced an in-progress deployment for da8ef9a and failed; this commit re-triggers the Pages build with identical content.
