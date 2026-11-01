@@ -1,0 +1,55 @@
+name: Publish 31 October grip-strength article
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-20261031.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - name: Assemble builder from public CDN parts
+        run: |
+          set -e
+          : > scripts/parts31_joined.txt
+          for u in \
+            "https://cdn.marblism.com/CB0eUtZCs4r.txt" \
+            "https://cdn.marblism.com/r7CxVY9n07x.txt" \
+            "https://cdn.marblism.com/lEOTeBq7Am5.txt" \
+            "https://cdn.marblism.com/zYMnHhR_4mx.txt" \
+            "https://cdn.marblism.com/fq3eTEkT5UA.txt" \
+            "https://cdn.marblism.com/8Xru1MBOz4O.txt" ; do
+            curl -sSL "$u" >> scripts/parts31_joined.txt
+          done
+          mkdir -p scripts/parts31
+          cp scripts/parts31_joined.txt scripts/parts31/all.txt
+          tr -d '\n' < scripts/parts31/all.txt | base64 -d > scripts/build_31.py
+          python3 -c "import hashlib; d=open('scripts/build_31.py','rb').read(); print('assembled', len(d), hashlib.sha256(d).hexdigest()[:16]); assert len(d)>20000"
+          python3 -c "import ast; ast.parse(open('scripts/build_31.py').read()); print('syntax ok')"
+      - name: Build page, listing card, sitemap entry and images
+        run: |
+          python3 scripts/build_31.py 2>&1 | tee diag31.txt
+      - name: Verify what was written
+        run: |
+          ls -l blog/grip-strength-biomarker-motor-system.html blog.html sitemap.xml blog/images/grip-strength-biomarker-motor-system.jpg social/
+          python3 -c "from PIL import Image; [print(p, Image.open(p).size) for p in ['blog/images/grip-strength-biomarker-motor-system.jpg','social/grip-strength-biomarker-motor-system.jpg','social/grip-strength-biomarker-motor-system-1080.jpg','social/grip-strength-biomarker-motor-system-story.jpg']]"
+      - name: Commit
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add -A blog/ blog.html sitemap.xml social/ scripts/parts31/ diag31.txt
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Publish the 31 October grip-strength article with images [automated]"
+          git pull --rebase --autostash origin main
+          git push
