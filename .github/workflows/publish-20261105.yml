@@ -1,0 +1,58 @@
+name: Publish 5 November connective tissue article
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-20261105.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - name: Assemble builder from public CDN parts
+        run: |
+          set -e
+          : > scripts/parts05_joined.txt
+          for u in \
+            "https://cdn.marblism.com/5MUWJOBMHYh.txt" \
+            "https://cdn.marblism.com/LzdlQJJAnxu.txt" \
+            "https://cdn.marblism.com/ob2Gncp66Er.txt" \
+            "https://cdn.marblism.com/2HKbHSg1UcC.txt" \
+            "https://cdn.marblism.com/eiyyy_MZwuY.txt" \
+            "https://cdn.marblism.com/ZRnjxQTTpkA.txt" \
+            "https://cdn.marblism.com/2M725DcziKL.txt" \
+            "https://cdn.marblism.com/mxflsP7YhEJ.txt" \
+            "https://cdn.marblism.com/BPbAttbMk44.txt" ; do
+            curl -sSL "$u" >> scripts/parts05_joined.txt
+          done
+          mkdir -p scripts/parts05
+          cp scripts/parts05_joined.txt scripts/parts05/all.txt
+          tr -d '\n' < scripts/parts05/all.txt | base64 -d > scripts/build_05.py
+          python3 -c "import hashlib; d=open('scripts/build_05.py','rb').read(); print('assembled', len(d), hashlib.sha256(d).hexdigest()[:16]); assert len(d)>20000"
+          python3 -c "import ast; ast.parse(open('scripts/build_05.py').read()); print('syntax ok')"
+      - name: Build page, listing card, sitemap entry and images
+        run: |
+          python3 scripts/build_05.py 2>&1 | tee diag05.txt
+      - name: Verify what was written
+        run: |
+          ls -l blog/anabolic-resistance-connective-tissue-tendon.html blog.html sitemap.xml blog/images/anabolic-resistance-connective-tissue-tendon.jpg social/
+          python3 -c "from PIL import Image; [print(p, Image.open(p).size) for p in ['blog/images/anabolic-resistance-connective-tissue-tendon.jpg','social/anabolic-resistance-connective-tissue-tendon.jpg','social/anabolic-resistance-connective-tissue-tendon-1080.jpg','social/anabolic-resistance-connective-tissue-tendon-story.jpg']]"
+      - name: Commit
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add -A blog/ blog.html sitemap.xml social/ scripts/parts05/ diag05.txt
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Publish the 5 November connective tissue article with images [automated]"
+          git pull --rebase --autostash origin main
+          git push
