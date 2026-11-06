@@ -1,10 +1,10 @@
-article words 1324 bytes 18743
+article words 1419 bytes 19996
 listing card added
 sitemap entry added
-thumb 247142
+thumb 221255
 post fits True
-post 689094
-post1080 440864
+post 635290
+post1080 418342
 story fits True
-story 439829
+story 416287
 DONE
