@@ -24,16 +24,16 @@ jobs:
           set -e
           : > scripts/parts07_joined.txt
           for u in \
-            "https://cdn.marblism.com/QblAH-IhXX-.octet-stream" \
-            "https://cdn.marblism.com/wBln_Ol96La.octet-stream" \
-            "https://cdn.marblism.com/-ik0LXNizQG.octet-stream" \
-            "https://cdn.marblism.com/MCYfLsVk0r6.octet-stream" \
-            "https://cdn.marblism.com/4wslJcNfLrj.octet-stream" \
-            "https://cdn.marblism.com/rRcdRfuVmbQ.octet-stream" \
-            "https://cdn.marblism.com/br7aTyZFEtT.octet-stream" \
-            "https://cdn.marblism.com/cjgVNot3nKQ.octet-stream" \
-            "https://cdn.marblism.com/L3x81qMi634.octet-stream" \
-            "https://cdn.marblism.com/ORl0300cClo.octet-stream" ; do
+            "https://cdn.marblism.com/LC40ZTyDAmI.octet-stream" \
+            "https://cdn.marblism.com/lvlQVMWNHZq.octet-stream" \
+            "https://cdn.marblism.com/dCE2SL8PZAF.octet-stream" \
+            "https://cdn.marblism.com/MOgwMdJGO7A.octet-stream" \
+            "https://cdn.marblism.com/dm3adviTRxn.octet-stream" \
+            "https://cdn.marblism.com/_Cpy0nyHdY0.octet-stream" \
+            "https://cdn.marblism.com/wZs604TVKFe.octet-stream" \
+            "https://cdn.marblism.com/Rh98Rf0NE6c.octet-stream" \
+            "https://cdn.marblism.com/pb3qnOLDdUD.octet-stream" \
+            "https://cdn.marblism.com/qRlcKkzNapn.octet-stream" ; do
             curl -sSL "$u" >> scripts/parts07_joined.txt
           done
           mkdir -p scripts/parts07
