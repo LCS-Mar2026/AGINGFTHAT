@@ -1,10 +1,10 @@
-article words 1825 bytes 23038
-listing card added
-sitemap entry added
+article words 1825 bytes 23037
+listing card already present
+sitemap entry already present
 thumb 268734
 post fits True
-post 754992
-post1080 504690
+post 778624
+post1080 520374
 story fits True
-story 490715
+story 470929
 DONE
