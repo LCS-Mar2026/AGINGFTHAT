@@ -1,0 +1,58 @@
+name: Publish 10 November mirror multiplier article
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-20261110.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - name: Assemble builder from public CDN parts
+        run: |
+          set -e
+          : > scripts/parts10_joined.txt
+          for u in \
+            "https://cdn.marblism.com/hMeZSYLX863.octet-stream" \
+            "https://cdn.marblism.com/kU9xESOTDbo.octet-stream" \
+            "https://cdn.marblism.com/h_PJ3anhnDM.octet-stream" \
+            "https://cdn.marblism.com/8xNCt2ig8Ka.octet-stream" \
+            "https://cdn.marblism.com/IsrJM5GFdfi.octet-stream" \
+            "https://cdn.marblism.com/gzsRnOnGh8P.octet-stream" \
+            "https://cdn.marblism.com/FME0QAzrH8r.octet-stream" \
+            "https://cdn.marblism.com/GaYfmgYW7FC.octet-stream" \
+            "https://cdn.marblism.com/bCNKuV3_688.octet-stream" ; do
+            curl -sSL "$u" >> scripts/parts10_joined.txt
+          done
+          mkdir -p scripts/parts10
+          cp scripts/parts10_joined.txt scripts/parts10/all.txt
+          tr -d '\n' < scripts/parts10/all.txt | base64 -d > scripts/build_10.py
+          python3 -c "import hashlib; d=open('scripts/build_10.py','rb').read(); print('assembled', len(d), hashlib.sha256(d).hexdigest()[:16]); assert len(d)>20000"
+          python3 -c "import ast; ast.parse(open('scripts/build_10.py').read()); print('syntax ok')"
+      - name: Build page, listing card, sitemap entry and images
+        run: |
+          python3 scripts/build_10.py 2>&1 | tee diag10.txt
+      - name: Verify what was written
+        run: |
+          ls -l blog/mirror-multiplier-look-younger-feel-younger.html blog.html sitemap.xml blog/images/mirror-multiplier-look-younger-feel-younger.jpg social/
+          python3 -c "from PIL import Image; [print(p, Image.open(p).size) for p in ['blog/images/mirror-multiplier-look-younger-feel-younger.jpg','social/mirror-multiplier-look-younger-feel-younger.jpg','social/mirror-multiplier-look-younger-feel-younger-1080.jpg','social/mirror-multiplier-look-younger-feel-younger-story.jpg']]"
+      - name: Commit
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add -A blog/ blog.html sitemap.xml social/ scripts/parts10/ diag10.txt
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Publish the 10 November mirror multiplier article with images [automated]"
+          git pull --rebase --autostash origin main
+          git push
