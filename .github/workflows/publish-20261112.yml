@@ -1,0 +1,59 @@
+name: Publish 12 November plant melatonin article
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/publish-20261112.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet pillow
+      - name: Assemble builder from public CDN parts
+        run: |
+          set -e
+          : > scripts/parts12_joined.txt
+          for u in \
+            "https://cdn.marblism.com/D2IJh3GFekh.octet-stream" \
+            "https://cdn.marblism.com/f9PenwKDyaV.octet-stream" \
+            "https://cdn.marblism.com/JiuUYWxZhQo.octet-stream" \
+            "https://cdn.marblism.com/WcvOWI78WP_.octet-stream" \
+            "https://cdn.marblism.com/x-OUfxC6mrO.octet-stream" \
+            "https://cdn.marblism.com/YcO9s_Oh7ny.octet-stream" \
+            "https://cdn.marblism.com/0S8g8H9vMqY.octet-stream" \
+            "https://cdn.marblism.com/le2YbhzOPG0.octet-stream" \
+            "https://cdn.marblism.com/9M4tiRUbMCF.octet-stream" \
+            "https://cdn.marblism.com/mueg1abPif5.octet-stream" ; do
+            curl -sSL "$u" >> scripts/parts12_joined.txt
+          done
+          mkdir -p scripts/parts12
+          cp scripts/parts12_joined.txt scripts/parts12/all.txt
+          tr -d '\n' < scripts/parts12/all.txt | base64 -d > scripts/build_12.py
+          python3 -c "import hashlib; d=open('scripts/build_12.py','rb').read(); print('assembled', len(d), hashlib.sha256(d).hexdigest()[:16]); assert len(d)>20000"
+          python3 -c "import ast; ast.parse(open('scripts/build_12.py').read()); print('syntax ok')"
+      - name: Build page, listing card, sitemap entry and images
+        run: |
+          python3 scripts/build_12.py 2>&1 | tee diag12.txt
+      - name: Verify what was written
+        run: |
+          ls -l blog/plant-melatonin-pistachio-chrononutrition.html blog.html sitemap.xml blog/images/plant-melatonin-pistachio-chrononutrition.jpg social/
+          python3 -c "from PIL import Image; [print(p, Image.open(p).size) for p in ['blog/images/plant-melatonin-pistachio-chrononutrition.jpg','social/plant-melatonin-pistachio-chrononutrition.jpg','social/plant-melatonin-pistachio-chrononutrition-1080.jpg','social/plant-melatonin-pistachio-chrononutrition-story.jpg']]"
+      - name: Commit
+        run: |
+          set -e
+          git config user.name "Penny (Blog Writer)"
+          git config user.email "penny@agingfthat.com"
+          git add -A blog/ blog.html sitemap.xml social/ scripts/parts12/ diag12.txt
+          git diff --cached --quiet && echo "nothing to commit" || git commit -m "Publish the 12 November plant melatonin article with images [automated]"
+          git pull --rebase --autostash origin main
+          git push
